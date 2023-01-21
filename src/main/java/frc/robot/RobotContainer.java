@@ -30,14 +30,14 @@ public class RobotContainer {
   public static final IngestorLift ingestorLiftObj = new IngestorLift();
   //public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER);
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  private final CommandXboxController driverController =
+  public static final CommandXboxController driverControllerObj =
       new CommandXboxController(Constants.DRIVER_CONTROLLER);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
-    m_drivetrain.setDefaultCommand(new DriveArcade());
+    drivetrainObj.setDefaultCommand(new DriveArcade());
   }
 
   /**
@@ -58,7 +58,7 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    driverController.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
+    driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
   }
 
   /**

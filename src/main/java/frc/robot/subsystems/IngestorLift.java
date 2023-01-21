@@ -16,7 +16,7 @@ public class IngestorLift extends SubsystemBase {
   // TODO: Add sensor
 
   public IngestorLift() {
-    ingestorLift = new Talon(Constants.IngestorMotor);
+    ingestorLift = new Talon(Constants.INGESTOR_MOTOR);
     //TODO: Confirm Constant Name
   }
 
