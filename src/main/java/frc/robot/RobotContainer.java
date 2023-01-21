@@ -10,6 +10,9 @@ import frc.robot.commands.StopIngestor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IngestorLift;
+import frc.robot.commands.DriveArcade;
+import frc.robot.commands.ExampleCommand;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -25,15 +28,16 @@ public class RobotContainer {
   public static final Drivetrain drivetrainObj = new Drivetrain();
   private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
   public static final IngestorLift ingestorLiftObj = new IngestorLift();
-
+  //public static XboxController driverController = new XboxController(Constants.DRIVER_CONTROLLER);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController driverController =
-      new CommandXboxController(OperatorConstants.kDriverControllerPort);
+      new CommandXboxController(Constants.DRIVER_CONTROLLER);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    m_drivetrain.setDefaultCommand(new DriveArcade());
   }
 
   /**
