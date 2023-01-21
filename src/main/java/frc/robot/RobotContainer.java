@@ -38,6 +38,7 @@ public class RobotContainer {
     // Configure the trigger bindings
     configureBindings();
     drivetrainObj.setDefaultCommand(new DriveArcade());
+    ingestorLiftObj.setDefaultCommand(new StopIngestor());
   }
 
   /**
@@ -52,12 +53,13 @@ public class RobotContainer {
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
     new Trigger(ingestorLiftObj::isAtTop)
-        .onTrue(new StopIngestor(ingestorLiftObj));
+        .onTrue(new StopIngestor());
     new Trigger(ingestorLiftObj::isAtBottom)
-        .onTrue(new StopIngestor(ingestorLiftObj));
+        .onTrue(new StopIngestor());
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
+    // TODO: Change driverControllerObj to operatorControllerObj
     driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
   }
 

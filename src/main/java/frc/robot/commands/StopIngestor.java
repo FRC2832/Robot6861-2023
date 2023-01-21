@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.subsystems.IngestorLift;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
@@ -17,8 +18,8 @@ public class StopIngestor extends CommandBase {
    *
    * @param ingestorLiftObj The subsystem used by this command.
    */
-  public StopIngestor(IngestorLift ingestorLiftObj) {
-    this.ingestorLiftObj = ingestorLiftObj;
+  public StopIngestor() {
+    ingestorLiftObj = RobotContainer.ingestorLiftObj;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(ingestorLiftObj);
   }
