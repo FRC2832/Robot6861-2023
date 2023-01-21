@@ -12,11 +12,11 @@ import frc.robot.Constants;
 public class IngestorLift extends SubsystemBase {
   /** Creates a new IngestorLift. */
 
-  Talon ingestorLift = null;
+  Talon ingestorLiftMotor = null;
   // TODO: Add sensor
 
   public IngestorLift() {
-    ingestorLift = new Talon(Constants.INGESTOR_MOTOR);
+    ingestorLiftMotor = new Talon(Constants.INGESTOR_MOTOR);
     //TODO: Confirm Constant Name
   }
 
