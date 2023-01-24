@@ -10,68 +10,68 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorLift extends SubsystemBase {
-  /** Creates a new IngestorLift. */
+    /** Creates a new IngestorLift. */
 
-  Talon ingestorLiftMotor = null;
-  // TODO: Add sensor
+    private Talon ingestorLiftMotor;
+    // TODO: Add sensor
 
-  public IngestorLift() {
-    ingestorLiftMotor = new Talon(Constants.INGESTOR_MOTOR);
-    //TODO: Confirm Constant Name
-  }
+    public IngestorLift() {
+        ingestorLiftMotor = new Talon(Constants.INGESTOR_MOTOR);
+        // TODO: Confirm Constant Name
+    }
 
-  public void operatorController() {
+    public void operatorController() {
 
-  }
+    }
 
-  public void raiseLift() {
+    public void raiseLift() {
 
-  }
+    }
 
-  public void lowerLift() {
+    public void lowerLift() {
 
-  }
+    }
 
-  public void stopLift() {
+    public void stopLift() {
 
-  }
+    }
 
-  public boolean isAtBottom() {
-    return false;
-  }
+    public boolean isAtBottom() {
+        return false;
+    }
 
-  public boolean isAtTop() {
-    return false;
-  }
+    public boolean isAtTop() {
+        return false;
+    }
 
-  public CommandBase raiseIngestorLift() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          if (isAtTop()) {
-            // TODO: Send 0 to the ingestorLift motors
-          } else {
-            // TODO: Raise the ingestorLift
-          }
-        });
-  }
+    public CommandBase raiseIngestorLift() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return runOnce(
+                () -> {
+                    if (isAtTop()) {
+                        // TODO: Send 0 to the ingestorLift motors
+                    } else {
+                        // TODO: Raise the ingestorLift
+                    }
+                });
+    }
 
-  public CommandBase lowerIngestorLift() {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
-    return runOnce(
-        () -> {
-          if (isAtBottom()) {
-            // TODO: Send 0 to the ingestorLift motors
-          } else {
-            // TODO: Lower the ingestorLift
-          }
-        });
-  }
+    public CommandBase lowerIngestorLift() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return runOnce(
+                () -> {
+                    if (isAtBottom()) {
+                        // TODO: Send 0 to the ingestorLift motors
+                    } else {
+                        // TODO: Lower the ingestorLift
+                    }
+                });
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }
