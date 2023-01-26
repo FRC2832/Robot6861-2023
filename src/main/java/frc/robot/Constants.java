@@ -25,4 +25,6 @@ public static final int DRIVER_CONTROLLER = 0;
 public static final int OPERATOR_CONTROLLER = 1;
 public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0;
 public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
+public static final int INGESTOR_INTAKE_TOP_TALON = 0;
+public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
 }
