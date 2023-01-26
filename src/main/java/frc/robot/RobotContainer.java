@@ -4,16 +4,15 @@
 
 package frc.robot;
 
-//import frc.robot.Constants.OperatorConstants;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
+import frc.robot.commands.DriveCartesian;
 import frc.robot.commands.StopIngestor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
-import frc.robot.commands.DriveArcade;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -27,7 +26,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
     private final Drivetrain drivetrainObj = new Drivetrain();
-    //private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
+    // private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
@@ -45,7 +44,9 @@ public class RobotContainer {
     public RobotContainer() {
         // Configure the trigger bindings
         configureBindings();
-        drivetrainObj.setDefaultCommand(new DriveArcade(drivetrainObj, joystickSubsystemObj));
+        // drivetrainObj.setDefaultCommand(new DriveArcade(drivetrainObj,
+        // joystickSubsystemObj));
+        drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
         ingestorLiftObj.setDefaultCommand(new StopIngestor(ingestorLiftObj)); // TODO: Add Ingestor Intake
     }
 
@@ -65,16 +66,13 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        new Trigger(ingestorLiftObj::isAtTop)
-                .onTrue(new StopIngestor(ingestorLiftObj));
-        new Trigger(ingestorLiftObj::isAtBottom)
-                .onTrue(new StopIngestor(ingestorLiftObj));
+        new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestor(ingestorLiftObj));
+        new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestor(ingestorLiftObj));
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
         // TODO: Change driverControllerObj to operatorControllerObj
         driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
-
     }
 
     /**
