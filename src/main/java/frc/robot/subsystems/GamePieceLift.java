@@ -14,8 +14,16 @@ public class GamePieceLift extends SubsystemBase {
   private CANSparkMax GamePieceLiftMotor;
     // TODO: Confirm the types of motors to be used
   public GamePieceLift() {
-    GamePieceLiftMotor = new CANSparkMax(Constants.GamePieceLiftMotor, Constants.GamePieceLiftMotorType);
+    GamePieceLiftMotor = new CANSparkMax(Constants.GAME_PIECE_MOTOR, Constants.GAME_PIECE_LIFT_MOTOR_TYPE);
     // TODO: Figure out motor type and CAN ID
+  }
+
+  public void operatorController() {
+
+  }
+
+  public void liftArm() {
+    
   }
 
     @Override
