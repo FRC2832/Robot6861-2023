@@ -9,12 +9,12 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.JoystickSubsystem;
 
 // TODO: Change to DriveCartesian. Maybe add DrivePolar as well.
-public class DriveArcade extends CommandBase {
+public class DriveCartesian extends CommandBase {
     /** Creates a new DriveArcade. */
     private Drivetrain drivetrainObj;
     private JoystickSubsystem joystickSubsystemObj;
 
-    public DriveArcade(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
+    public DriveCartesian(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
         this.drivetrainObj = drivetrainObj;
         this.joystickSubsystemObj = joystickSubsystemObj;
         addRequirements(drivetrainObj); // TODO: May need to add joystickSubsystemObj to requirements.
@@ -33,13 +33,13 @@ public class DriveArcade extends CommandBase {
         // TODO: Do this without referencing the controllers from here.
         // double rotateSpeed =
         // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
-        drivetrainObj.arcadeDrive(joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
+        drivetrainObj.mecanumDriveCartesian(joystickSubsystemObj.getDriverLeftX(), joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        drivetrainObj.arcadeDrive(0, 0);
+        drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
     }
 
     // Returns true when the command should end.
