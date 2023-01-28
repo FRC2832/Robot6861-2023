@@ -37,11 +37,11 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtBottom() {
-        return false;
+        return false; // TODO: Define sensor behavior here
     }
 
     public boolean isAtTop() {
-        return false;
+        return false; // TODO: Define sensor behavior here
     }
 
     public CommandBase raiseIngestorLift() {
