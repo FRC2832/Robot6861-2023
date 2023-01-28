@@ -5,36 +5,46 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.RobotContainer;
+import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.JoystickSubsystem;
 
+// TODO: Change to DriveCartesian. Maybe add DrivePolar as well.
 public class DriveArcade extends CommandBase {
-  /** Creates a new DriveArcade. */
-  public DriveArcade() {
-    addRequirements(RobotContainer.m_drivetrain);
-  }
+    /** Creates a new DriveArcade. */
+    private Drivetrain drivetrainObj;
+    private JoystickSubsystem joystickSubsystemObj;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    public DriveArcade(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
+        this.drivetrainObj = drivetrainObj;
+        this.joystickSubsystemObj = joystickSubsystemObj;
+        addRequirements(drivetrainObj); // TODO: May need to add joystickSubsystemObj to requirements.
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    double moveSpeed = -RobotContainer.driverController.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
-    double rotateSpeed = RobotContainer.driverController.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
-    RobotContainer.m_drivetrain.arcadeDrive(moveSpeed, rotateSpeed);
-  }
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    RobotContainer.m_drivetrain.arcadeDrive(0, 0);
-  }
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
+        // double moveSpeed =
+        // -RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
+        // TODO: Do this without referencing the controllers from here.
+        // double rotateSpeed =
+        // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
+        drivetrainObj.arcadeDrive(joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
+    }
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        drivetrainObj.arcadeDrive(0, 0);
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }
