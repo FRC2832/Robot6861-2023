@@ -34,5 +34,7 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
     public static final int INGESTOR_INTAKE_TOP_TALON = 0;
     public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
+    // TODO: set this to something else than 0
+    public static final int LED_PWM_ID = 0;
 
 }
