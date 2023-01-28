@@ -8,6 +8,9 @@ package frc.robot;
 import frc.robot.commands.Autos;
 import frc.robot.commands.StopIngestor;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IngestorIntake;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.commands.DriveArcade;
@@ -26,8 +29,9 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
     // The robot's subsystems and commands are defined here...
+    private final IngestorIntake ingestorIntakeObj = new IngestorIntake();
     private final Drivetrain drivetrainObj = new Drivetrain();
-    //private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
+    // private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
