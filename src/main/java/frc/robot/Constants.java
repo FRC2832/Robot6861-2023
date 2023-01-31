@@ -40,5 +40,7 @@ public final class Constants {
     public static final MotorType UPRIGHT_MOTOR_TYPE = null;
     // TODO: set this to something else than 0
     public static final int LED_PWM_ID = 0;
+    public static final int GAME_PIECE_SCOOP_SERVO_2 = 0;
+    public static final int GAME_PIECE_SCOOP_SERVO_1 = 0;
 
 }
