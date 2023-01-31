@@ -16,6 +16,11 @@ public class ConeUprighter extends SubsystemBase {
         coneUprightMotor = new CANSparkMax(Constants.CONE_UPRIGHTER_CANSPARKMAX, Constants.UPRIGHT_MOTOR_TYPE);
         // TODO: Figure out motor type, code movement of motor, code buttons
     }
+    public void UprightSpeed() {
+        // TODO: Confirm motor controller type
+        // TODO: find speed needed for the motor
+        // TODO: Code the motor speed of the cone uprighter
+    }
 
     @Override
     public void periodic() {
