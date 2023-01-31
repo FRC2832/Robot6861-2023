@@ -18,6 +18,7 @@ public class IngestorIntake extends SubsystemBase {
   public IngestorIntake() {
       ingestorIntakeTop = new Talon(Constants.INGESTOR_INTAKE_TOP_TALON);
       ingestorIntakeBottom = new Talon(Constants.INGESTOR_INTAKE_BOTTOM_TALON);
+      // Create a motorcontroller group?
   }
 
   public void operatorController() {

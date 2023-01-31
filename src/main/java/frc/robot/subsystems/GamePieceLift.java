@@ -11,20 +11,21 @@ import frc.robot.Constants;
 public class GamePieceLift extends SubsystemBase {
     /** Creates a new GamePieceLift. */
 
-  private CANSparkMax GamePieceLiftMotor;
+    private CANSparkMax gamePieceLiftMotor;
+
     // TODO: Confirm the types of motors to be used
-  public GamePieceLift() {
-    GamePieceLiftMotor = new CANSparkMax(Constants.GAME_PIECE_MOTOR, Constants.GAME_PIECE_LIFT_MOTOR_TYPE);
-    // TODO: Figure out motor type and CAN ID
-  }
+    public GamePieceLift() {
+        gamePieceLiftMotor = new CANSparkMax(Constants.GAME_PIECE_MOTOR, Constants.GAME_PIECE_LIFT_MOTOR_TYPE);
+        // TODO: Figure out motor type and CAN ID
+    }
 
-  public void operatorController() {
+    public void liftArm() {
 
-  }
+    }
 
-  public void liftArm() {
-    
-  }
+    public void lowerArm() {
+        
+    }
 
     @Override
     public void periodic() {
