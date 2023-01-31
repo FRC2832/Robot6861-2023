@@ -12,22 +12,10 @@ public class ConeUprighter extends SubsystemBase {
     /** Creates a new ConeUprighter. */
     private CANSparkMax coneUprightMotor;
 
-    /*
-     * 
-     */
     public ConeUprighter() {
         coneUprightMotor = new CANSparkMax(Constants.CONE_UPRIGHTER_CANSPARKMAX, Constants.UPRIGHT_MOTOR_TYPE);
         // TODO: Figure out motor type, code movement of motor, code buttons
     }
-
-    public void operatorController() {
-
-    }
-
-    public void rotateFull() {
-
-    }
-
 
     @Override
     public void periodic() {
