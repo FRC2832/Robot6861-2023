@@ -10,6 +10,7 @@ import frc.robot.Constants;
 
 public class ConeUprighter extends SubsystemBase {
     /** Creates a new ConeUprighter. */
+    // TODO: Add encoder after confirming motor controller type
     private CANSparkMax coneUprightMotor;
 
     public ConeUprighter() {
