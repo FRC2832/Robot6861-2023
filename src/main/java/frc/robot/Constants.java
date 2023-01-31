@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -34,6 +36,8 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
     public static final int INGESTOR_INTAKE_TOP_TALON = 0;
     public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
+    public static final int CONE_UPRIGHTER_CANSPARKMAX = 0;
+    public static final MotorType UPRIGHT_MOTOR_TYPE = null;
     // TODO: set this to something else than 0
     public static final int LED_PWM_ID = 0;
 
