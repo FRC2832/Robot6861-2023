@@ -22,11 +22,11 @@ public class GamePieceScoop extends SubsystemBase {
         gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
         }
 
-    public void liftServo() {
+    public void servoOn() {
 
     }
 
-    public void lowerServo() {
+    public void servoOff() {
 
     }
 
