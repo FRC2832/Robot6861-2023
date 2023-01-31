@@ -12,14 +12,14 @@ import frc.robot.Constants;
 public class GamePieceScoop extends SubsystemBase {
     /** Creates a new GamePieceLift. */
 
-    private Servo gamePieceLiftMotor1;
-    private Servo gamePieceLiftMotor2;
+    private Servo gamePieceScoopServo1;
+    private Servo gamePieceScoopServo2;
     private MotorControllerGroup gamePieceLiftMotorGroup;
     // TODO: Figure out names for the motors
     // TODO: Confirm the types of motors to be used
     public GamePieceScoop() {
-        gamePieceLiftMotor1 = new Servo(Constants.GAME_PIECE_LIFT_MOTOR_1);
-        gamePieceLiftMotor2 = new Servo(Constants.GAME_PIECE_LIFT_MOTOR_2);
+        gamePieceScoopServo1 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_1);
+        gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
         }
 
     public void liftServo() {
