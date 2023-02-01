@@ -17,6 +17,7 @@ public class Vision extends SubsystemBase {
   // TODO: set cameraName (cameraName can be found in the PhotonVision UI)
   // TODO: find out if there's more functionality to add to the subsystem 
   // TODO: maybe name these better?
+  // TODO: MUST calibrate cameras per PhotonVision docs
   PhotonCamera camera;
   PhotonCamera camera2;
   /** Creates a new Vision. */
