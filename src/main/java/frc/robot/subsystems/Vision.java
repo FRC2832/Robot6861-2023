@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.photonvision.PhotonCamera;
@@ -18,8 +19,8 @@ public class Vision extends SubsystemBase {
   // TODO: find out if there's more functionality to add to the subsystem 
   // TODO: maybe name these better?
   // TODO: MUST calibrate cameras per PhotonVision docs
-  PhotonCamera camera;
-  PhotonCamera camera2;
+  private PhotonCamera camera;
+  private PhotonCamera camera2;
   /** Creates a new Vision. */
   public Vision() {
     camera = new PhotonCamera(Constants.CAMERANAME);
@@ -37,12 +38,12 @@ public class Vision extends SubsystemBase {
     cam.setPipelineIndex(idx);
   }
 
-  public List<PhotonTrackedTarget> getTargets(PhotonCamera cam){
+  public ArrayList<PhotonTrackedTarget> getTargets(PhotonCamera cam){
     PhotonPipelineResult res = getLatestResult(cam);
     if (res.hasTargets()){
-      return res.getTargets();
+      return (ArrayList)res.getTargets();
     }
-    return null; // be careful when using this function, check if the return is null to make sure there are no issues
+    return new ArrayList<PhotonTrackedTarget>(); // be careful when using this function, check if the return is null to make sure there are no issues
   }
   
   public void setCamera(PhotonCamera cam){
