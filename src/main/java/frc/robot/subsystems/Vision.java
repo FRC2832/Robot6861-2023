@@ -41,7 +41,7 @@ public class Vision extends SubsystemBase {
   public ArrayList<PhotonTrackedTarget> getTargets(PhotonCamera cam){
     PhotonPipelineResult res = getLatestResult(cam);
     if (res.hasTargets()){
-      return (ArrayList)res.getTargets();
+      return (ArrayList<PhotonTrackedTarget>)res.getTargets();
     }
     return new ArrayList<PhotonTrackedTarget>(); // be careful when using this function, check if the return is null to make sure there are no issues
   }
