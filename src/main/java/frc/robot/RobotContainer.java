@@ -12,6 +12,7 @@ import frc.robot.commands.DriveCartesian;
 import frc.robot.commands.StopIngestor;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.IngestorLift;
@@ -32,6 +33,7 @@ public class RobotContainer {
     private final Drivetrain drivetrainObj = new Drivetrain();
     // private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
+    private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
     // Replace with CommandPS4Controller or CommandJoystick if needed
