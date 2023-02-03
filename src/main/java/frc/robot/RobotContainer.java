@@ -17,6 +17,7 @@ import frc.robot.subsystems.IngestorIntake;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
+import frc.robot.subsystems.Vision;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -34,6 +35,7 @@ public class RobotContainer {
     // private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
+    private final Vision visionObj = new Vision();
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
     // Replace with CommandPS4Controller or CommandJoystick if needed
