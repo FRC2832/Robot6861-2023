@@ -24,24 +24,34 @@ public final class Constants {
      * public static final int kDriverControllerPort = 0;
      * }
      */
-    // make sure to set the ports when electrical gives us the info
-    public static final int INGESTOR_MOTOR = 0;
+
+    
+    // Drivetrain motor IDs
     public static final int DRIVETRAIN_LEFT_FRONT_TALON = 0;
     public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 0;
     public static final int DRIVETRAIN_LEFT_BACK_TALON = 0;
     public static final int DRIVETRAIN_RIGHT_BACK_TALON = 0;
+
+    // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
     public static final int OPERATOR_CONTROLLER = 1;
     public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0;
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
+    
+    // Subsystem Motor IDs
+    // TODO change motor IDs when get DT from electrical
     public static final int INGESTOR_INTAKE_TOP_TALON = 0;
     public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
-    public static final int CONE_UPRIGHTER_CANSPARKMAX = 0;
-    public static final MotorType UPRIGHT_MOTOR_TYPE = null;
+    public static final int INGESTOR_MOTOR = 0;
+    public static final int CONE_FLIPPER_CANSPARKMAX = 0;
+    public static final MotorType FLIPPER_MOTOR_TYPE = null;
+    
+
     // TODO: set this to something else than 0
     public static final int LED_PWM_ID = 0;
     public static final int GAME_PIECE_SCOOP_SERVO_2 = 0;
     public static final int GAME_PIECE_SCOOP_SERVO_1 = 0;
+    
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";

@@ -8,19 +8,19 @@ import com.revrobotics.CANSparkMax;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class ConeUprighter extends SubsystemBase {
-    /** Creates a new ConeUprighter. */
+public class ConeFlipper extends SubsystemBase {
+    /** Creates a new ConeFlipper. */
     // TODO: Add encoder after confirming motor controller type
-    private CANSparkMax coneUprightMotor;
+    private CANSparkMax coneFlipperMotor;
 
-    public ConeUprighter() {
-        coneUprightMotor = new CANSparkMax(Constants.CONE_UPRIGHTER_CANSPARKMAX, Constants.UPRIGHT_MOTOR_TYPE);
+    public ConeFlipper() {
+        coneFlipperMotor = new CANSparkMax(Constants.CONE_FLIPPER_CANSPARKMAX, Constants.FLIPPER_MOTOR_TYPE);
         // TODO: Figure out motor type, code movement of motor, code buttons
     }
-    public void setUprightSpeed() {
+    public void setFlipperSpeed() {
         // TODO: Confirm motor controller type
         // TODO: find speed needed for the motor
-        // TODO: Code the motor speed of the cone uprighter
+        // TODO: Code the motor speed of the cone flipper
     }
 
     @Override

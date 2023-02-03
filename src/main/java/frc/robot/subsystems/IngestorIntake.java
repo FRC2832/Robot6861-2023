@@ -9,37 +9,37 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorIntake extends SubsystemBase {
-  /** Creates a new IngestorIntake. */
+    /** Creates a new IngestorIntake. */
 
-  private Talon ingestorIntakeTop;
-  private Talon ingestorIntakeBottom;
-  // TODO: Confirm the motor controller type
+    private Talon ingestorIntakeTop;
+    private Talon ingestorIntakeBottom;
+    // TODO: Confirm the motor controller type
 
-  public IngestorIntake() {
-      ingestorIntakeTop = new Talon(Constants.INGESTOR_INTAKE_TOP_TALON);
-      ingestorIntakeBottom = new Talon(Constants.INGESTOR_INTAKE_BOTTOM_TALON);
-      // Create a motorcontroller group?
-  }
+    public IngestorIntake() {
+        ingestorIntakeTop = new Talon(Constants.INGESTOR_INTAKE_TOP_TALON);
+        ingestorIntakeBottom = new Talon(Constants.INGESTOR_INTAKE_BOTTOM_TALON);
+        // Create a motorcontroller group?
+    }
 
-  public void operatorController() {
+    public void operatorController() {
 
-  }
+    }
 
-  public void ingest() {
+    public void ingest() {
 
-  }
+    }
 
-  public void expel() {
+    public void expel() {
 
-  }
+    }
 
-  public boolean isInArm() {
-    return false;
-    // TODO: Confirm sensor location and type
-  }
+    public boolean isInArm() {
+        return false;
+        // TODO: Confirm sensor location and type
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }

@@ -13,12 +13,13 @@ public class GamePieceScoop extends SubsystemBase {
 
     private Servo gamePieceScoopServo1;
     private Servo gamePieceScoopServo2;
-    // TODO: Figure out whether to change the number naming as is or to change to something else
+    // TODO: Figure out whether to change the number naming as is or to change to
+    // something else
 
     public GamePieceScoop() {
         gamePieceScoopServo1 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_1);
         gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
-        }
+    }
 
     public void servoOn() {
 
