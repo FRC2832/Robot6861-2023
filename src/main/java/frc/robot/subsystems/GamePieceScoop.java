@@ -22,15 +22,15 @@ public class GamePieceScoop extends SubsystemBase {
         gamePieceScoopServo2.setBounds(2, 1.8, 1.5, 1.2, 1);
     }
 
-    public void servoOn(double speed) {
-        gamePieceScoopServo1.setSpeed(speed);
-        gamePieceScoopServo1.setSpeed(speed);
+    public void servoOut() {
+        gamePieceScoopServo1.setSpeed(1.0);
+        gamePieceScoopServo2.setSpeed(1.0);
         // Set to constant?
     }
 
-    public void servoOff(double speed) {
-        gamePieceScoopServo1.setSpeed(speed);
-        gamePieceScoopServo2.setSpeed(speed);
+    public void servoIn() {
+        gamePieceScoopServo1.setSpeed(-1.0);
+        gamePieceScoopServo2.setSpeed(-1.0);
         // Make into a constant?
     }
 
