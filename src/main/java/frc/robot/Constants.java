@@ -42,8 +42,6 @@ public final class Constants {
     public static final int LED_PWM_ID = 0;
     public static final int GAME_PIECE_SCOOP_SERVO_2 = 0;
     public static final int GAME_PIECE_SCOOP_SERVO_1 = 0;
-    public static final double GAME_PIECE_SCOOP_SPEED_1 = 0;
-    public static final double GAME_PIECE_SCOOP_SPEED_2 = 0;
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";
