@@ -53,6 +53,7 @@ public class BalancePIDCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return Math.abs(angle) < 1;
+        // ends when the angle of the robot is within 1 of being level
     }
 }
