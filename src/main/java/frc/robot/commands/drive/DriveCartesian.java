@@ -2,7 +2,7 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
@@ -17,7 +17,7 @@ public class DriveCartesian extends CommandBase {
     public DriveCartesian(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
         this.drivetrainObj = drivetrainObj;
         this.joystickSubsystemObj = joystickSubsystemObj;
-        addRequirements(drivetrainObj); // TODO: May need to add joystickSubsystemObj to requirements.
+        addRequirements(drivetrainObj);
     }
 
     // Called when the command is initially scheduled.

@@ -15,51 +15,101 @@ public final class Autos {
     }
 
     // RED ALLIANCE
-    // cableCross auton
-    // __assuming servo is in down position at start up 
-    // Score Cube
-    // __Get the ingestorintake wheels turning backwards, warming up
-    // __raise servo once wheels are up to TBD speed
-    // Back up
-    // __use encoders to determine when to stop (after robot has crossed community line)
-    
-    // cableDock
-    // __servo is at down position
-    // Score cube
-    // __Rev up the ingestorintake motors backwards
-    // __raise servo once wheels are up to TBD speed
-    // Back up 
-    // __Use encoder to determine when to stop
-    // __Navigate it to the dock (Strafe Left)
-    // Go up the dock (make this Balance Command?)
-    // __Use pigeon to determine when it is balanced 
+        // default
+        // Drive Back
+        // __Use encoders o determine when to stop (once robot has crossed the community line)
 
-    //coopCross
-    // __servo is at down position
-    // Score cube
-    // __Rev up the ingestorintake motors backwards
-    // __raise servo once wheels are up to TBD speed
-    // Back up 
-    // __Use encoder to determine when to stop
-    // __Navigate it to the dock (Strafe Left)
-    // Go up the dock (make this Balance Command?)
-    // __Use pigeon to determine when it is balanced 
-    // Back up
-    // __use encoders to determine when to stop (after robot has crossed community line)
-    
-    // coopPick
-    // __servo is at down position
-    // Score cube
-    // __Rev up the ingestorintake motors backwards
-    // __raise servo once wheels are up to TBD speed
-    // Back up 
-    // __Use encoder to determine when to stop
-    // __Navigate it to the dock (Strafe Left)
-    // Go up the dock (make this Balance Command?)
-    // __Use pigeon to determine when it is balanced 
-    // Back up
-    // __Use pigeon to determine when to stop ()
-    // 
+
+        
+        // cableCross
+        // __assuming servo is in out position at start up 
+        // Score Cube
+        // __Get the ingestorintake wheels turning backwards, warming up
+        // __raise servo once wheels are up to TBD speed
+        // Drive Back
+        // __use encoders to determine when to stop (after robot has crossed community line)
+        
+        // cableDock
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __raise servo once wheels are up to TBD speed
+        // Drive Back 
+        // __Use encoder to determine when to stop
+        // Strafe Left
+        // __Navigate it to the dock (Strafe Left)
+        // Go up the dock (make this Balance Command?)
+        // __Use pigeon to determine when it is balanced 
+
+        //coopCross
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __raise servo once wheels are up to TBD speed
+        // Drive Back
+        // __Use encoder to determine when to stop
+        // Strafe Left
+        // __Navigate it to the dock (Strafe Left)
+        // Go up the dock (make this Balance Command?)
+        // __Use pigeon to determine when it is balanced 
+        // Balance - needs to be changed
+        // __use encoders to determine when to stop (after robot has crossed community line)
+        
+        // coopPick
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __raise servo once wheels are up to TBD speed
+        // Drive Back 
+        // __Use encoder to determine when to stop
+        // Strafe Left
+        // __Navigate it to the dock (Strafe Left)
+        // Dock
+        // __Use pigeon to determine if we have gotten onto the other side
+        // Drive Back
+        // __ Use encoder to determine when to stop
+        // ??
+        // Ingest Gampiece
+        // __Rev up the ingestorintake motors forwards
+        // __Ingestor lowers to the ingesting level
+        // __Ingestor raises (servo at out position)
+
+
+        // coopEngage
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __servo in once wheels are up to TBD speed
+        // Drive Back 
+        // __Use encoder to determine when to stop (goes over the charging station)
+        // Drive Forward
+        // __Use encoder to determine when to stop
+        // Balance
+        // __Use pigeon to determine when to stop
+
+        // substationDock
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __raise servo once wheels are up to TBD speed
+        // Drive back
+        // __Use encoder to determine when to stop
+        // Strafe Left
+        // __Navigate it to the dock (Strafe Left)
+        // Go up the dock (make this Balance Command?)
+        // __Use pigeon to determine when it is balanced 
+        // Balance
+        // __Use pigeon to determine when to stop ()
+
+        // substationTelePrep
+        // __servo is at out position
+        // Score cube
+        // __Rev up the ingestorintake motors backwards
+        // __raise servo once wheels are up to TBD speed
+        // Drive back
+        // __Use encoder to determine when to stop
+        // 
+
     
     private Autos() {
         throw new UnsupportedOperationException("This is a utility class!");

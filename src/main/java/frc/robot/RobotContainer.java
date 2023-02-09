@@ -9,12 +9,15 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
-import frc.robot.commands.DriveCartesian;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.StopIngestor;
+import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
@@ -35,7 +38,11 @@ public class RobotContainer {
     private final Drivetrain drivetrainObj = new Drivetrain();
     private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
+    private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
+    // TODO: we're missing a subsystem in the list above.  Who will be the first to put it in??
+
+
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
     // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -47,11 +54,15 @@ public class RobotContainer {
             operatorControllerObj);
     private final SendableChooser<CommandBase> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
+    // TODO: may need differnt terms than left, center, right for auton chooser
+
+    
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
      */
     public RobotContainer() {
+        
         // Configure the trigger bindings
         configureBindings();
         // drivetrainObj.setDefaultCommand(new DriveArcade(drivetrainObj,
@@ -60,6 +71,10 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(new StopIngestor(ingestorLiftObj)); // TODO: Add Ingestor Intake
         autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
         autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
+        // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj, ingestorLiftObj);
+        // TODO: choose button on XbOX controller to run this command along with "whileActiveOnce?" or something similar and then test it
+        
+
 
         // choose location of robot relative to grid for auton
         leftCenterRight.addOption("Left", 0);

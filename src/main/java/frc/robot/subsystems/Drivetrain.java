@@ -1,3 +1,14 @@
+
+
+
+
+
+
+
+
+
+
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -22,8 +33,8 @@ public class Drivetrain extends SubsystemBase {
     private Talon leftBackTalon;
     private Talon rightFrontTalon;
     private Talon rightBackTalon;
-    private MotorControllerGroup leftMotors;
-    private MotorControllerGroup rightMotors;
+    //private MotorControllerGroup leftMotors;
+    //private MotorControllerGroup rightMotors;
     //private DifferentialDrive differentialDriveObj; 
     private MecanumDrive mecanumDriveObj;
     
@@ -34,9 +45,7 @@ public class Drivetrain extends SubsystemBase {
         rightFrontTalon = new Talon(Constants.DRIVETRAIN_RIGHT_FRONT_TALON);
         leftBackTalon = new Talon(Constants.DRIVETRAIN_LEFT_BACK_TALON);
         rightBackTalon = new Talon(Constants.DRIVETRAIN_RIGHT_BACK_TALON);
-        leftMotors = new MotorControllerGroup(leftFrontTalon, leftBackTalon);
-        rightMotors = new MotorControllerGroup(rightFrontTalon, rightBackTalon);
-        //differentialDriveObj = new DifferentialDrive(leftMotors, rightMotors);
+        // TODO: zero the wheel encoders
         mecanumDriveObj = new MecanumDrive(leftFrontTalon, leftBackTalon, rightFrontTalon, rightBackTalon);
     }
 

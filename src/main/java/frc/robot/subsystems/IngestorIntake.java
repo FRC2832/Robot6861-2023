@@ -25,11 +25,15 @@ public class IngestorIntake extends SubsystemBase {
 
     }
 
-    public void ingest() {
+    public void revIn() {
 
     }
 
-    public void expel() {
+    public void revOut() {
+
+    }
+
+    public void stop() {
 
     }
 

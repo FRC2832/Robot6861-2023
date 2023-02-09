@@ -24,11 +24,11 @@ public class IngestorLift extends SubsystemBase {
 
     }
 
-    public void raiseLift() {
+    public void raiseLift(double angle) {
 
     }
 
-    public void lowerLift() {
+    public void lowerLift(double angle) {
 
     }
 
