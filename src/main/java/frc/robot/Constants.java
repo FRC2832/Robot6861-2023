@@ -27,10 +27,10 @@ public final class Constants {
 
     
     // Drivetrain motor IDs
-    public static final int DRIVETRAIN_LEFT_FRONT_TALON = 0;
-    public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 0;
-    public static final int DRIVETRAIN_LEFT_BACK_TALON = 0;
-    public static final int DRIVETRAIN_RIGHT_BACK_TALON = 0;
+    public static final int DRIVETRAIN_LEFT_FRONT_SPARK = 12;
+    public static final int DRIVETRAIN_RIGHT_FRONT_SPARK = 10;
+    public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
+    public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
     // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
@@ -40,10 +40,10 @@ public final class Constants {
     
     // Subsystem Motor IDs
     // TODO change motor IDs when get DT from electrical
-    public static final int INGESTOR_INTAKE_TOP_TALON = 0;
-    public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
-    public static final int INGESTOR_MOTOR = 0;
-    public static final int CONE_FLIPPER_CANSPARKMAX = 0;
+    public static final int INGESTOR_INTAKE_UPPER_TALON = 13;
+    public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
+    public static final int INGESTOR_MOTOR = 11;
+    public static final int CONE_FLIPPER_CANSPARKMAX = 9;
     public static final MotorType FLIPPER_MOTOR_TYPE = null;
     
 

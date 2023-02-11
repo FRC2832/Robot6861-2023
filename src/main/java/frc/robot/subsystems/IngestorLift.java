@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,11 +14,11 @@ import frc.robot.Constants;
 public class IngestorLift extends SubsystemBase {
     /** Creates a new IngestorLift. */
 
-    private Talon ingestorLiftMotor;
+    private CANSparkMax ingestorLiftMotor;
     // TODO: Add sensor
 
     public IngestorLift() {
-        ingestorLiftMotor = new Talon(Constants.INGESTOR_MOTOR);
+        ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMax.MotorType.kBrushless);
         // TODO: Confirm Constant Name
     }
 

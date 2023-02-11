@@ -16,6 +16,9 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
+
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
@@ -29,24 +32,26 @@ public class Drivetrain extends SubsystemBase {
     // Xbox controller port
     // Add operator controller
     // Make sure to ask electrical for this necessary information
-    private Talon leftFrontTalon;
-    private Talon leftBackTalon;
-    private Talon rightFrontTalon;
-    private Talon rightBackTalon;
+    private CANSparkMax leftFrontSpark;
+    private CANSparkMax leftBackSpark;
+    private CANSparkMax rightFrontSpark;
+    private CANSparkMax rightBackSpark;
     //private MotorControllerGroup leftMotors;
     //private MotorControllerGroup rightMotors;
     //private DifferentialDrive differentialDriveObj; 
     private MecanumDrive mecanumDriveObj;
     
+    //private CANSparkMax leftFrontMotorSparkMax;
 
     public Drivetrain() {
         // initialize stuff here
-        leftFrontTalon = new Talon(Constants.DRIVETRAIN_LEFT_FRONT_TALON);
-        rightFrontTalon = new Talon(Constants.DRIVETRAIN_RIGHT_FRONT_TALON);
-        leftBackTalon = new Talon(Constants.DRIVETRAIN_LEFT_BACK_TALON);
-        rightBackTalon = new Talon(Constants.DRIVETRAIN_RIGHT_BACK_TALON);
+        // CANSparkMax leftFrontMotorSparkMax = new CANSparkMax(1, CANSparkMax.MotorType.kBrushless);
+        leftFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless); // TODO : correct motor type
+        rightFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless);
+        leftBackSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
+        rightBackSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
         // TODO: zero the wheel encoders
-        mecanumDriveObj = new MecanumDrive(leftFrontTalon, leftBackTalon, rightFrontTalon, rightBackTalon);
+        mecanumDriveObj = new MecanumDrive(leftFrontSpark, leftBackSpark, rightFrontSpark, rightBackSpark);
     }
 
     /*public void arcadeDrive(double moveSpeed, double rotateSpeed) {

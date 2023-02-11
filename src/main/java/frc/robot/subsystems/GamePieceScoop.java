@@ -19,14 +19,18 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServo1 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_1);
         gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
+        gamePieceScoopServo1.setBounds(2, 1.8, 1.5, 1.2, 1);
+        gamePieceScoopServo2.setBounds(2, 1.8, 1.5, 1.2, 1);
     }
 
     public void servoOn() {
-
+        gamePieceScoopServo1.setSpeed(1.0);
+        gamePieceScoopServo2.setSpeed(1.0);
     }
 
     public void servoOff() {
-
+        gamePieceScoopServo1.setSpeed(-1.0);
+        gamePieceScoopServo2.setSpeed(-1.0);
     }
 
     @Override

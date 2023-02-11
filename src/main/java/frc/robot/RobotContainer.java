@@ -4,8 +4,17 @@
 
 package frc.robot;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.pathplanner.lib.PathPlanner;
+import com.pathplanner.lib.PathPlannerTrajectory;
+import com.pathplanner.lib.commands.FollowPathWithEvents;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
@@ -42,6 +51,7 @@ public class RobotContainer {
     private final Vision visionObj = new Vision();
     // TODO: we're missing a subsystem in the list above.  Who will be the first to put it in??
 
+    private final Map<String, Command> autoEventMap = new HashMap<>();
 
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
@@ -120,6 +130,26 @@ public class RobotContainer {
         // cancelling on release.
         // TODO: Change driverControllerObj to operatorControllerObj
         driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
+    }
+
+    private void configureAutoCommands() {
+        autoEventMap.put("event1", Commands.print("Passed marker 1"));
+        autoEventMap.put("event2", Commands.print("passed marker 2"));
+        
+        
+        List<PathPlannerTrajectory> auto1Paths =
+        PathPlanner.loadPathGroup(
+            "Default Auton", 4, 3);
+        
+        Command autoTest = 
+            Commands.sequence(
+                new FollowPathWithEvents(
+                    new FollowPath(auto1Paths.get(0),
+                    auto1Paths.get(0).getMarkers(0),
+                    autoEventMap),
+
+                    )
+                );
     }
 
     /**

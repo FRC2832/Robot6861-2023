@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -11,13 +13,13 @@ import frc.robot.Constants;
 public class IngestorIntake extends SubsystemBase {
     /** Creates a new IngestorIntake. */
 
-    private Talon ingestorIntakeTop;
-    private Talon ingestorIntakeBottom;
+    private TalonFX ingestorIntakeTop;
+    private TalonFX ingestorIntakeBottom;
     // TODO: Confirm the motor controller type
 
     public IngestorIntake() {
-        ingestorIntakeTop = new Talon(Constants.INGESTOR_INTAKE_TOP_TALON);
-        ingestorIntakeBottom = new Talon(Constants.INGESTOR_INTAKE_BOTTOM_TALON);
+        ingestorIntakeTop = new TalonFX(Constants.INGESTOR_INTAKE_UPPER_TALON);
+        ingestorIntakeBottom = new TalonFX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         // Create a motorcontroller group?
     }
 
