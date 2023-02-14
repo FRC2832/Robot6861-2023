@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -25,7 +26,6 @@ public final class Constants {
      * }
      */
 
-    
     // Drivetrain motor IDs
     public static final int DRIVETRAIN_LEFT_FRONT_SPARK = 12;
     public static final int DRIVETRAIN_RIGHT_FRONT_SPARK = 10;
@@ -37,7 +37,7 @@ public final class Constants {
     public static final int OPERATOR_CONTROLLER = 1;
     public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0;
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
-    
+
     // Subsystem Motor IDs
     // TODO change motor IDs when get DT from electrical
     public static final int INGESTOR_INTAKE_UPPER_TALON = 13;
@@ -45,15 +45,27 @@ public final class Constants {
     public static final int INGESTOR_MOTOR = 11;
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
     public static final MotorType FLIPPER_MOTOR_TYPE = null;
-    
 
     // TODO: set this to something else than 0
     public static final int LED_PWM_ID = 0;
-    public static final int GAME_PIECE_SCOOP_SERVO_2 = 0;
-    public static final int GAME_PIECE_SCOOP_SERVO_1 = 0;
-    
+    public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
+    public static final int GAME_PIECE_SCOOP_SERVO_L = 2;
+
+    // Pupil/Eyelid Servo IDs
+    public static final int LEFT_EYELID_SERVO = 3;
+    public static final int LEFT_PUPIL_SERVO = 4;
+    public static final int RIGHT_EYELID_SERVO = 5;
+    public static final int RIGHT_PUPIL_SERVO = 6;
+
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";
 
+    // Encoder IDs
+	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = null;
+	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = null;
+	public static final Type RIGHT_FRONT_SPARK_ENCODER = null;
+	public static final Type RIGHT_BACK_SPARK_ENCODER = null;
+
+    public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
 }

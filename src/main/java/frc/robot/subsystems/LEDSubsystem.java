@@ -7,8 +7,10 @@ import frc.robot.Constants;
 
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+// TODO: We could merge LED Subsystem and the Eyeball subsystem
 
 public class LEDSubsystem extends SubsystemBase {
+    
 
     private Spark ledPWMController; // The REV Blinkin module acts like a Spark motor controller (it can be
                                     // controlled over PWM)

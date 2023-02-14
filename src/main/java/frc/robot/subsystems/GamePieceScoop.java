@@ -11,26 +11,26 @@ import frc.robot.Constants;
 public class GamePieceScoop extends SubsystemBase {
     /** Creates a new GamePieceScoop. */
 
-    private Servo gamePieceScoopServo1;
-    private Servo gamePieceScoopServo2;
+    private Servo gamePieceScoopServoL;
+    private Servo gamePieceScoopServoR;
     // TODO: Figure out whether to change the number naming as is or to change to
     // something else
 
     public GamePieceScoop() {
-        gamePieceScoopServo1 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_1);
-        gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
-        gamePieceScoopServo1.setBounds(2, 1.8, 1.5, 1.2, 1);
-        gamePieceScoopServo2.setBounds(2, 1.8, 1.5, 1.2, 1);
+        gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
+        gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
+        gamePieceScoopServoL.setBounds(2, 1.8, 1.5, 1.2, 1);
+        gamePieceScoopServoR.setBounds(2, 1.8, 1.5, 1.2, 1);
     }
 
     public void servoOn() {
-        gamePieceScoopServo1.setSpeed(1.0);
-        gamePieceScoopServo2.setSpeed(1.0);
+        gamePieceScoopServoL.setSpeed(1.0);
+        gamePieceScoopServoR.setSpeed(1.0);
     }
 
     public void servoOff() {
-        gamePieceScoopServo1.setSpeed(-1.0);
-        gamePieceScoopServo2.setSpeed(-1.0);
+        gamePieceScoopServoL.setSpeed(-1.0);
+        gamePieceScoopServoR.setSpeed(-1.0);
     }
 
     @Override

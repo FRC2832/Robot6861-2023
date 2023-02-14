@@ -4,22 +4,23 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorIntake extends SubsystemBase {
     /** Creates a new IngestorIntake. */
 
-    private TalonFX ingestorIntakeTop;
-    private TalonFX ingestorIntakeBottom;
+    private TalonSRX ingestorIntakeTopTalon;
+    private TalonSRX ingestorIntakeBottomTalon;
+
     // TODO: Confirm the motor controller type
 
-    public IngestorIntake() {
-        ingestorIntakeTop = new TalonFX(Constants.INGESTOR_INTAKE_UPPER_TALON);
-        ingestorIntakeBottom = new TalonFX(Constants.INGESTOR_INTAKE_LOWER_TALON);
+    public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
+        this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
+        ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         // Create a motorcontroller group?
     }
 
@@ -36,7 +37,8 @@ public class IngestorIntake extends SubsystemBase {
     }
 
     public void stop() {
-
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, 0.0);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, 0.0);
     }
 
     public boolean isInArm() {
