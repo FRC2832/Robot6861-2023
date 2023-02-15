@@ -55,6 +55,8 @@ public class Drivetrain extends SubsystemBase {
         mecanumDriveObj = new MecanumDrive(leftFrontSpark, leftBackSpark, rightFrontSpark, rightBackSpark);
 
         // Encoder for the spark max
+        // TODO: change to relative encoder.  RElative encoder is the one that counts the number of rotations
+        //          and measures distance, speed and position. Absolute measures angular position 
         leftFrontEncoderObj = leftFrontSpark.getAbsoluteEncoder(Constants.LEFT_FRONT_SPARK_ENCODER_TYPE);
         leftBackEncoderObj =  leftBackSpark.getAbsoluteEncoder(Constants.LEFT_BACK_SPARK_ENCODER_TYPE);
         rightFrontEncoderObj = rightFrontSpark.getAbsoluteEncoder(Constants.RIGHT_FRONT_SPARK_ENCODER);
