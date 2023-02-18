@@ -43,7 +43,7 @@ public class IngestorIntake extends SubsystemBase {
     public CommandBase revOutIngestorIntake() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
-        return runOnce(
+        return run(
                 () -> {
                     revOut();
                 });

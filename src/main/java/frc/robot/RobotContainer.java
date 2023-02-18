@@ -87,6 +87,7 @@ public class RobotContainer {
         drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
         ingestorLiftObj.setDefaultCommand(new StopIngestorLift(ingestorLiftObj)); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
+        gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
         autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
         // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj,

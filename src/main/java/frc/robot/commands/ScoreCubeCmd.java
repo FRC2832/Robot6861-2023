@@ -37,7 +37,7 @@ public class ScoreCubeCmd extends CommandBase {
     @Override
     public void execute() {
         ingestorIntakeObj.revOut();
-        if (timer.get() >= 1.0) { // TODO: Figure out time it takes for motors to get up to speed
+        if (timer.get() >= 1.5) { // TODO: Figure out time it takes for motors to get up to speed
             gamePieceScoopObj.servoOff(); // should shoot cube
         }
     }

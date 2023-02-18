@@ -49,9 +49,9 @@ public final class Constants {
     //public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
     // TODO: set this to something else than 0
-    public static final int LED_PWM_ID = 0;
+    public static final int LED_PWM_ID = 2; // confirm this number and whether we need this
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
-    public static final int GAME_PIECE_SCOOP_SERVO_L = 2;
+    public static final int GAME_PIECE_SCOOP_SERVO_L = 0;
 
     // Pupil/Eyelid Servo IDs
     public static final int LEFT_EYELID_SERVO = 3;
@@ -73,6 +73,6 @@ public final class Constants {
     public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
 
     // IngestorIntake Subsystem Roller Motor Speeds
-    public static final double INGESTOR_EXPEL_SPEED = -0.35;
-    public static final double INGESTOR_INTAKE_SPEED = 0.35;
+    public static final double INGESTOR_EXPEL_SPEED = -0.75;
+    public static final double INGESTOR_INTAKE_SPEED = 0.75;
 }
