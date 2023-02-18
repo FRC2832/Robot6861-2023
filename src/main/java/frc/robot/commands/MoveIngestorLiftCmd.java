@@ -26,7 +26,7 @@ public class MoveIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.lowerLift(0);
+        ingestorLiftObj.lowerLift();
         // TODO: Figure out how to make the ingestorLift move up and down
     }
 
