@@ -70,6 +70,19 @@ public class IngestorLift extends SubsystemBase {
                     }
                 });
     }
+    
+    public CommandBase stopIngestorLift() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return runOnce(
+                () -> {
+                    if (isAtBottom()) {
+                        // TODO: Send 0 to the ingestorLift motors
+                    } else {
+                        // TODO: Lower the ingestorLift
+                    }
+                });
+    }
 
     @Override
     public void periodic() {

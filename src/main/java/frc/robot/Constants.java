@@ -44,7 +44,9 @@ public final class Constants {
     public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
     public static final int INGESTOR_MOTOR = 11;
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
-    public static final MotorType FLIPPER_MOTOR_TYPE = null;
+    
+    //TODO: must have a value other than null
+    //public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
     // TODO: set this to something else than 0
     public static final int LED_PWM_ID = 0;
@@ -62,10 +64,15 @@ public final class Constants {
     public static final String CAMERA2NAME = "photonvision";
 
     // Encoder IDs
-	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = null;
-	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = null;
-	public static final Type RIGHT_FRONT_SPARK_ENCODER = null;
-	public static final Type RIGHT_BACK_SPARK_ENCODER = null;
+    //TODO: set these to the actual encoder IDs!!!!! Fix names. Must do this on Saturday
+	// public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = null;
+	// public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = null;
+	// public static final Type RIGHT_FRONT_SPARK_ENCODER = null;
+	// public static final Type RIGHT_BACK_SPARK_ENCODER = null;
 
     public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
+
+    // IngestorIntake Subsystem Roller Motor Speeds
+    public static final double INGESTOR_EXPEL_SPEED = -0.35;
+    public static final double INGESTOR_INTAKE_SPEED = 0.35;
 }

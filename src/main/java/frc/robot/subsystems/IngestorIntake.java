@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -20,6 +21,7 @@ public class IngestorIntake extends SubsystemBase {
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
+        ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         // Create a motorcontroller group?
     }
@@ -29,11 +31,22 @@ public class IngestorIntake extends SubsystemBase {
     }
 
     public void revIn() {
-
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
     }
 
     public void revOut() {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
+    }
 
+    public CommandBase revOutIngestorIntake() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return runOnce(
+                () -> {
+                    revOut();
+                });
     }
 
     public void stop() {
@@ -41,7 +54,7 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, 0.0);
     }
 
-    public boolean isInArm() {
+    public boolean isInScoop() {
         return false;
         // TODO: Confirm sensor location and type
     }

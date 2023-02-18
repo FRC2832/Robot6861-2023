@@ -55,6 +55,7 @@ public class ScoreCubeCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         // TODO: Use beam break sensors to determine if we shot or not
+        
         return false;
     }
 }

@@ -4,15 +4,30 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.CANifier;
+import com.ctre.phoenix.CANifier.LEDChannel;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-//import com.mindsensors.CANLight;
 
 //public class 
 
 public class EyeballSubsystem extends SubsystemBase {
+    private CANifier canifier;
+
+
     /** Creates a new EyeballSubsystem. */
     public EyeballSubsystem() {
         // Make the eyeball start as white
+        
+    }
+
+    public void setLEDs(double r, double g, double b){
+		//A: tbd
+		//B: tbd
+        //C: tbd
+		canifier.setLEDOutput(r, LEDChannel.LEDChannelA);
+		canifier.setLEDOutput(g, LEDChannel.LEDChannelB);
+		canifier.setLEDOutput(b, LEDChannel.LEDChannelC);
     }
 
     @Override

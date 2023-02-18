@@ -8,7 +8,7 @@ import frc.robot.subsystems.IngestorLift;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class StopIngestor extends CommandBase {
+public class StopIngestorLift extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final IngestorLift ingestorLiftObj;
 
@@ -17,7 +17,7 @@ public class StopIngestor extends CommandBase {
      *
      * @param ingestorLiftObj The subsystem used by this command.
      */
-    public StopIngestor(IngestorLift ingestorLiftObj) {
+    public StopIngestorLift(IngestorLift ingestorLiftObj) {
         this.ingestorLiftObj = ingestorLiftObj;
         // Use addRequirements() here to declare subsystem dependencies.
         addRequirements(ingestorLiftObj);

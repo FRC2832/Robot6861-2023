@@ -14,7 +14,7 @@ public class ConeFlipper extends SubsystemBase {
     private CANSparkMax coneFlipperMotor;
 
     public ConeFlipper() {
-        coneFlipperMotor = new CANSparkMax(Constants.CONE_FLIPPER_CANSPARKMAX, Constants.FLIPPER_MOTOR_TYPE);
+        // coneFlipperMotor = new CANSparkMax(Constants.CONE_FLIPPER_CANSPARKMAX, Constants.FLIPPER_MOTOR_TYPE);
         // TODO: Figure out motor type, code movement of motor, code buttons
     }
     public void setFlipperSpeed() {

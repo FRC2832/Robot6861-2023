@@ -31,10 +31,14 @@ public class Drivetrain extends SubsystemBase {
     private CANSparkMax rightBackSpark;
     private MecanumDrive mecanumDriveObj;
     private MecanumDrivePoseEstimator poseEstimator;
+    
+    // TODO: we need to use Relative Encoder. Relative measures distance, position and speed.
+    //       Absolute measures anglular only.
     private SparkMaxAbsoluteEncoder leftFrontEncoderObj;
     private SparkMaxAbsoluteEncoder leftBackEncoderObj;
     private SparkMaxAbsoluteEncoder rightFrontEncoderObj;
     private SparkMaxAbsoluteEncoder rightBackEncoderObj;
+
     private WPI_PigeonIMU pigeon;
     
 
@@ -57,14 +61,14 @@ public class Drivetrain extends SubsystemBase {
         // Encoder for the spark max
         // TODO: change to relative encoder.  RElative encoder is the one that counts the number of rotations
         //          and measures distance, speed and position. Absolute measures angular position 
-        leftFrontEncoderObj = leftFrontSpark.getAbsoluteEncoder(Constants.LEFT_FRONT_SPARK_ENCODER_TYPE);
-        leftBackEncoderObj =  leftBackSpark.getAbsoluteEncoder(Constants.LEFT_BACK_SPARK_ENCODER_TYPE);
-        rightFrontEncoderObj = rightFrontSpark.getAbsoluteEncoder(Constants.RIGHT_FRONT_SPARK_ENCODER);
-        rightBackEncoderObj = rightBackSpark.getAbsoluteEncoder(Constants.RIGHT_BACK_SPARK_ENCODER);
+        // leftFrontEncoderObj = leftFrontSpark.getAbsoluteEncoder(Constants.LEFT_FRONT_SPARK_ENCODER_TYPE);
+        // leftBackEncoderObj =  leftBackSpark.getAbsoluteEncoder(Constants.LEFT_BACK_SPARK_ENCODER_TYPE);
+        // rightFrontEncoderObj = rightFrontSpark.getAbsoluteEncoder(Constants.RIGHT_FRONT_SPARK_ENCODER);
+        // rightBackEncoderObj = rightBackSpark.getAbsoluteEncoder(Constants.RIGHT_BACK_SPARK_ENCODER);
         this.pigeon = pigeon;
 
         // Pose/Orientation
-        poseEstimator = null;
+        // poseEstimator = null;
     }
 
 
@@ -103,5 +107,6 @@ public class Drivetrain extends SubsystemBase {
      */
     public Pose2d getPose() {
         return poseEstimator.getEstimatedPosition();
+
     }
 }

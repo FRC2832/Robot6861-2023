@@ -13,11 +13,13 @@ import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.StopIngestor;
+import frc.robot.commands.StopIngestorIntake;
+import frc.robot.commands.StopIngestorLift;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
@@ -79,10 +81,12 @@ public class RobotContainer {
 
         // Configure the trigger bindings
         configureBindings();
+        
         // drivetrainObj.setDefaultCommand(new DriveArcade(drivetrainObj,
         // joystickSubsystemObj));
         drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
-        ingestorLiftObj.setDefaultCommand(new StopIngestor(ingestorLiftObj)); // TODO: Add Ingestor Intake
+        ingestorLiftObj.setDefaultCommand(new StopIngestorLift(ingestorLiftObj)); // TODO: Add Ingestor Intake
+        ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
         autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
         // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj,
@@ -127,13 +131,16 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestor(ingestorLiftObj));
-        new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestor(ingestorLiftObj));
+        new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestorLift(ingestorLiftObj));
+        new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestorLift(ingestorLiftObj));
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
         // TODO: Change driverControllerObj to operatorControllerObj
         driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
+        ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+        operatorControllerObj.a().whileTrue(shootCubeParallelCommandGroup);
     }
     /*
     private void configureAutoCommands() {
