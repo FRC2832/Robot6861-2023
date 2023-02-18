@@ -5,7 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import com.revrobotics.SparkMaxAbsoluteEncoder.Type;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -65,10 +65,10 @@ public final class Constants {
 
     // Encoder IDs
     //TODO: set these to the actual encoder IDs!!!!! Fix names. Must do this on Saturday
-	// public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = null;
-	// public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = null;
-	// public static final Type RIGHT_FRONT_SPARK_ENCODER = null;
-	// public static final Type RIGHT_BACK_SPARK_ENCODER = null;
+	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
+	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
+	public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
+	public static final Type RIGHT_BACK_SPARK_ENCODER = Type.kHallSensor;
 
     public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
 
