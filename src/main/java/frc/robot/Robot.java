@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import com.ctre.phoenix.CANifier;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -21,7 +22,8 @@ public class Robot extends TimedRobot {
     private Command selectedAutonCommand;
 
     private RobotContainer robotContainerObj;
-
+    private CANifier clights;
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -33,6 +35,14 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         robotContainerObj = new RobotContainer();
+
+        clights = new CANifier(4); //CAN id
+        //ChannelA is Green
+        //ChannelB is Red
+        //ChannelC is Blue
+        clights.setLEDOutput(255, CANifier.LEDChannel.LEDChannelA); //Green
+        clights.setLEDOutput(0, CANifier.LEDChannel.LEDChannelB); //Red
+        clights.setLEDOutput(0, CANifier.LEDChannel.LEDChannelC); //Blue
     }
 
     /**
