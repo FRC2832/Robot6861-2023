@@ -17,47 +17,48 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase {
-    // TODO: Identify motor controller ports
+    // TODO: Identify motor controller ports.  DOne?
 
     // Xbox controller port
     // Add operator controller
     // Make sure to ask electrical for this necessary information
+
+    //Motor controllers:
     private CANSparkMax leftFrontSpark;
     private CANSparkMax leftBackSpark;
     private CANSparkMax rightFrontSpark;
     private CANSparkMax rightBackSpark;
+
+
     private MecanumDrive mecanumDriveObj;
     private MecanumDrivePoseEstimator poseEstimator;
 
-    // TODO: we need to use Relative Encoder. Relative measures distance, position
-    // and speed.
-    // Absolute measures anglular only.
+
+    // Drive Motor Encoders:
     private RelativeEncoder leftFrontEncoderObj;
     private RelativeEncoder leftBackEncoderObj;
     private RelativeEncoder rightFrontEncoderObj;
     private RelativeEncoder rightBackEncoderObj;
 
+    // Pigeon IMU also used for gyro:
     private WPI_PigeonIMU pigeon;
 
-    // private CANSparkMax leftFrontMotorSparkMax;
+    //TODO: Add odomtery class for tracking robot pose
+
 
     public Drivetrain(WPI_PigeonIMU pigeon) {
         // initialize stuff here
-        // CANSparkMax leftFrontMotorSparkMax = new CANSparkMax(1,
-        // CANSparkMax.MotorType.kBrushless);
 
         // Spark max
         leftFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless);
         rightFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless);
         leftBackSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
         rightBackSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
-        // TODO: zero the wheel encoders
+        
         mecanumDriveObj = new MecanumDrive(leftFrontSpark, leftBackSpark, rightFrontSpark, rightBackSpark);
 
         // Encoder for the spark max
-        // TODO: change to relative encoder. RElative encoder is the one that counts the
-        // number of rotations
-        // and measures distance, speed and position. Absolute measures angular position
+        // TODO: zero the wheel encoders
         leftFrontEncoderObj = leftFrontSpark.getEncoder(); // TODO: Correct countsPerRev
         leftBackEncoderObj = leftBackSpark.getEncoder();
         rightFrontEncoderObj = rightFrontSpark.getEncoder();
@@ -75,6 +76,7 @@ public class Drivetrain extends SubsystemBase {
     /** Creates a new DriveSubsystem. **/
     public void DriveSubsystem() {
         // TODO: Add encoder information if required
+        // TODO: I don't think we need this DriveSubsytem method?
 
         // We need to invert one side of the drivetrain so that positive voltages
         // result in both sides moving forward. Depending on how your robot's
