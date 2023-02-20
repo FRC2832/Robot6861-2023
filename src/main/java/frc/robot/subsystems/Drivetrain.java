@@ -45,7 +45,7 @@ public class Drivetrain extends SubsystemBase {
 
     //TODO: Add odomtery class for tracking robot pose
 
-
+    //Creates a new Drivetrain
     public Drivetrain(WPI_PigeonIMU pigeon) {
         // initialize stuff here
 
