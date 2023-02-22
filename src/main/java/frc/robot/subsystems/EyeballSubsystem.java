@@ -18,7 +18,7 @@ public class EyeballSubsystem extends SubsystemBase {
     /** Creates a new EyeballSubsystem. */
     public EyeballSubsystem() {
         // Make the eyeball start as white
-        
+        setLEDs(255,255,255);
     }
 
     public void setLEDs(double r, double g, double b){
