@@ -39,7 +39,6 @@ public final class Constants {
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
 
     // Subsystem Motor IDs
-    // TODO change motor IDs when get DT from electrical
     public static final int INGESTOR_INTAKE_UPPER_TALON = 13;
     public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
     public static final int INGESTOR_MOTOR = 11;
@@ -48,23 +47,24 @@ public final class Constants {
     //TODO: must have a value other than null
     //public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
-    // TODO: set this to something else than 0
-    public static final int LED_PWM_ID = 2; // confirm this number and whether we need this
+   // TODO: need 2 canifier constants and CANids
+    public static final int LED_PWM_ID = 2; 
+   
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_L = 0;
 
     // Pupil/Eyelid Servo IDs
-    public static final int LEFT_EYELID_SERVO = 3;
-    public static final int LEFT_PUPIL_SERVO = 4;
-    public static final int RIGHT_EYELID_SERVO = 5;
-    public static final int RIGHT_PUPIL_SERVO = 6;
+    //TODO: confirm port with actual number on robot
+    public static final int LEFT_EYELID_SERVO = 2;
+    public static final int LEFT_PUPIL_SERVO = 3;
+    public static final int RIGHT_EYELID_SERVO = 4;
+    public static final int RIGHT_PUPIL_SERVO = 5;
 
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";
 
     // Encoder IDs
-    //TODO: set these to the actual encoder IDs!!!!! Fix names. Must do this on Saturday
 	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
 	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
 	public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;

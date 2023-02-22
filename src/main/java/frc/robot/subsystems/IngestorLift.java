@@ -21,19 +21,19 @@ public class IngestorLift extends SubsystemBase {
     private SparkMaxPIDController liftPIDController;
     private RelativeEncoder liftEncoder; 
     private double goalPosition;
-    private final double topPosition = 0.0; // TODO: determine the top in the rev client
-    private final double bottomPosition = 0.0; // TODO: determine the bottom in the rev client
-    // TODO: Add sensor
+    private final double topPosition = 0.0; 
+    private final double bottomPosition = -143;
+    private final double shootingPosition = -20;
+    // TODO: Add sensor?? limit switch?? Need more info on the switch?
 
     public IngestorLift() {
         ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMax.MotorType.kBrushless);
-        // TODO: Confirm Constant Name
         liftEncoder = ingestorLiftMotor.getEncoder();
         liftPIDController = ingestorLiftMotor.getPIDController();
         liftPIDController.setFeedbackDevice(liftEncoder);
 
         // set PID coefficients
-        liftPIDController.setP(1.0); // TODO: test values
+        liftPIDController.setP(1.0); // TODO: test value in Teleop
         liftPIDController.setI(0.0);
         liftPIDController.setD(0.0);
         liftPIDController.setIZone(0.0);
@@ -93,6 +93,7 @@ public class IngestorLift extends SubsystemBase {
     public CommandBase raiseIngestorLift() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
+        // runOnce is truly run 1 processing loop.  Might need run here.  See ServoOn & ServoOff in GamePieceSCoop
         return runOnce(
                 () -> {
                     if (isAtTop()) {

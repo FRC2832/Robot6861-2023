@@ -27,7 +27,7 @@ public class MoveIngestorLiftCmd extends CommandBase {
     @Override
     public void execute() {
         ingestorLiftObj.lowerLift();
-        // TODO: Figure out how to make the ingestorLift move up and down
+    
     }
 
     // Called once the command ends or is interrupted.
