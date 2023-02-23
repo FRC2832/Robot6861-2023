@@ -10,12 +10,12 @@ import com.ctre.phoenix.CANifier.LEDChannel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 //public class 
-
+/*
 public class EyeballSubsystem extends SubsystemBase {
     private CANifier canifier;
 
 
-    /** Creates a new EyeballSubsystem. */
+     Creates a new EyeballSubsystem. 
     public EyeballSubsystem() {
         // Make the eyeball start as white
         setLEDs(255,255,255);
@@ -49,4 +49,5 @@ public class EyeballSubsystem extends SubsystemBase {
         // __assuming robot is balanced
         // Do nothing with pupil
     }
-}
+    
+}*/

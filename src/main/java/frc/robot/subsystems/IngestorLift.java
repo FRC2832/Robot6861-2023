@@ -48,9 +48,20 @@ public class IngestorLift extends SubsystemBase {
     public void raiseLift() {
         goalPosition = topPosition; 
         liftPIDController.setReference(goalPosition, ControlType.kPosition);
+        
+        /* TODO: check if limit switch pressed, then stop raising
+         if limitSwitchPressed {
+            ingestorLiftMotor.set(0.0);
+            // reset encoders
+        }
+       */
     }
 
     public void lowerLift() {
+        // Need some if statement to check if the limit switch is pressed
+        // then zero the encoder and
+        // set the goal position to the shooting position
+        
         goalPosition = bottomPosition;
         double position = liftEncoder.getPosition();
         // follow the pid until the ingestor is 98% of the way there then let it drop

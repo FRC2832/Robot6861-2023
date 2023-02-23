@@ -8,6 +8,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
@@ -15,6 +16,7 @@ import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+
 
 public class Drivetrain extends SubsystemBase {
     // TODO: Identify motor controller ports.  DOne?
@@ -65,6 +67,14 @@ public class Drivetrain extends SubsystemBase {
         rightBackEncoderObj = rightBackSpark.getEncoder();
         this.pigeon = pigeon;
 
+        leftFrontSpark.setInverted(true);
+        rightFrontSpark.setInverted(true);
+
+        leftFrontSpark.setIdleMode(IdleMode.kBrake);
+        rightFrontSpark.setIdleMode(IdleMode.kBrake);
+        leftBackSpark.setIdleMode(IdleMode.kBrake);
+        rightBackSpark.setIdleMode(IdleMode.kBrake);
+
         // Pose/Orientation
         // poseEstimator = null;
     }
@@ -73,24 +83,33 @@ public class Drivetrain extends SubsystemBase {
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
     }
 
-    /** Creates a new DriveSubsystem. **/
-    public void DriveSubsystem() {
-        // TODO: Add encoder information if required
-        // TODO: I don't think we need this DriveSubsytem method?
-
-        // We need to invert one side of the drivetrain so that positive voltages
-        // result in both sides moving forward. Depending on how your robot's
-        // gearbox is constructed, you might have to invert the left side instead.
-
-        // rightFrontSpark.setInverted(true);
-        // rightBackSpark.setInverted(true);
-        // TODO: Figure out which spark max to invert
-    }
-
+    
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
     }
+
+    // scales the max speed of the drivetrain. default = 1
+    // use <1 to slow down the drivetrain all the time
+    public void setMaxOutput(double maxOutput) {
+        mecanumDriveObj.setMaxOutput(maxOutput);
+      }
+
+
+    public double getAvgEncoderRotations() {
+        double rotationSum = leftFrontEncoderObj.getPosition() + leftBackEncoderObj.getPosition()
+                + rightFrontEncoderObj.getPosition() + rightBackEncoderObj.getPosition();
+        return rotationSum / 4;
+    }
+
+    /*  TODO: CO-pilot suggested this method to be added.
+     Do we want to keep it?  Might be useful for autonomous?
+    public double getAvgEncoderDistance() {
+        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI;
+    }
+    */
+    
+
 
     /**
      * Returns the pose of the robot (e.g., x and y position of the robot on the

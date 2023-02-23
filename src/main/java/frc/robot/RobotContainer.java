@@ -13,8 +13,10 @@ import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
@@ -24,7 +26,7 @@ import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.EyeballSubsystem;
+//import frc.robot.subsystems.EyeballSubsystem;
 import frc.robot.subsystems.EyelidSubsystem;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
@@ -55,7 +57,7 @@ public class RobotContainer {
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final LEDSubsystem ledObj = new LEDSubsystem();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
-    private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
+   // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
     private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
     
 
@@ -82,8 +84,6 @@ public class RobotContainer {
         // Configure the trigger bindings
         configureBindings();
         
-        // drivetrainObj.setDefaultCommand(new DriveArcade(drivetrainObj,
-        // joystickSubsystemObj));
         drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
         ingestorLiftObj.setDefaultCommand(new StopIngestorLift(ingestorLiftObj)); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
@@ -137,14 +137,23 @@ public class RobotContainer {
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
-        // TODO: Change driverControllerObj to operatorControllerObj
+        // TODO: Change driverControllerObj to operatorControllerObj button A and lowerIngestorLift
         driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
         ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.a().whileTrue(shootCubeParallelCommandGroup);
+
+        // Ms. Patty found this code in the mecanumcontrollercommand example code from wpilib
+        /* Drive at half speed when the right bumper is held
+    new JoystickButton(m_driverController, Button.kRightBumper.value)
+    .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+    .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
     }
-    /*
-    private void configureAutoCommands() {
+    we need to modify for our objects
+    */ 
+
+
+    /*private void configureAutoCommands() {
         autoEventMap.put("event1", Commands.print("Passed marker 1"));
         autoEventMap.put("event2", Commands.print("passed marker 2"));
         
