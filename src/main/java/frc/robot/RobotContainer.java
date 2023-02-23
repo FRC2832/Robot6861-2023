@@ -142,13 +142,14 @@ public class RobotContainer {
         ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.a().whileTrue(shootCubeParallelCommandGroup);
+    }
 
         // Ms. Patty found this code in the mecanumcontrollercommand example code from wpilib
         /* Drive at half speed when the right bumper is held
     new JoystickButton(m_driverController, Button.kRightBumper.value)
     .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
     .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-    }
+    
     we need to modify for our objects
     */ 
 
@@ -185,10 +186,12 @@ public class RobotContainer {
      *
      * @return the command to run in autonomous
      */
+
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         CommandBase selectedCommand = autonChooser.getSelected();
         return selectedCommand;
 
     }
+
 }
