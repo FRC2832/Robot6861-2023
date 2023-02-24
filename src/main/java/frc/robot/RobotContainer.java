@@ -137,11 +137,11 @@ public class RobotContainer {
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
-        // TODO: Change driverControllerObj to operatorControllerObj button A and lowerIngestorLift
-        driverControllerObj.b().whileTrue(ingestorLiftObj.raiseIngestorLift());
+        operatorControllerObj.y().whileTrue(ingestorLiftObj.lowerIngestorLift());
+        operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
         ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        operatorControllerObj.a().whileTrue(shootCubeParallelCommandGroup);
+        operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup);
     }
 
         // Ms. Patty found this code in the mecanumcontrollercommand example code from wpilib

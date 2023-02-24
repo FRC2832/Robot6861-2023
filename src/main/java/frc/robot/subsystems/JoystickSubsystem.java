@@ -10,6 +10,8 @@ public class JoystickSubsystem extends SubsystemBase {
     private double driverLeftY;
     private double driverRightX;
     private double driverRightY;
+    private double driverRightTrigger;
+    private double driverLeftTrigger;
     private double operatorLeftX;
     private double operatorLeftY;
     private double operatorRightX;
@@ -28,6 +30,8 @@ public class JoystickSubsystem extends SubsystemBase {
         driverLeftY = driverController.getLeftY();
         driverRightX = driverController.getRightX();
         driverRightY = driverController.getRightY();
+        driverRightTrigger = driverController.getRightTriggerAxis();
+        driverLeftTrigger = driverController.getLeftTriggerAxis();
         operatorLeftX = operatorController.getLeftX();
         operatorLeftY = operatorController.getLeftY();
         operatorRightX = operatorController.getRightX();
@@ -51,6 +55,14 @@ public class JoystickSubsystem extends SubsystemBase {
 
     public double getDriverRightY() {
         return driverRightY;
+    }
+
+    public double getDriverRightTrigger() {
+        return driverRightTrigger;
+    }
+
+    public double getDriverLeftTrigger() {
+        return driverLeftTrigger;
     }
 
     public double getOperatorLeftX() {

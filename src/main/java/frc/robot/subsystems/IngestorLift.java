@@ -10,6 +10,7 @@ import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -22,39 +23,42 @@ public class IngestorLift extends SubsystemBase {
     private RelativeEncoder liftEncoder; 
     private double goalPosition;
     private final double topPosition = 0.0; 
-    private final double bottomPosition = -143;
+    private final double bottomPosition = -65;
     private final double shootingPosition = -20;
-    // TODO: Add sensor?? limit switch?? Need more info on the switch?
+    private DigitalInput ingestorLimitInput;
+    
 
     public IngestorLift() {
         ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMax.MotorType.kBrushless);
         liftEncoder = ingestorLiftMotor.getEncoder();
         liftPIDController = ingestorLiftMotor.getPIDController();
         liftPIDController.setFeedbackDevice(liftEncoder);
+        ingestorLimitInput = new DigitalInput(1);
 
         // set PID coefficients
         liftPIDController.setP(1.0); // TODO: test value in Teleop
-        liftPIDController.setI(0.0);
-        liftPIDController.setD(0.0);
+        liftPIDController.setI(0.00001);
+        liftPIDController.setD(0.00001);
         liftPIDController.setIZone(0.0);
         liftPIDController.setFF(0.0);
-        liftPIDController.setOutputRange(-1.0, 1.0);
+        liftPIDController.setOutputRange(-1, 1);
+        // have to burn flash to use this PID controller??  investigate another type of PID controller?
     }
 
     public void operatorController() {
 
     }
 
+    public boolean ingestorLiftLimit() {
+        return ingestorLimitInput.get();
+    }
+
     public void raiseLift() {
         goalPosition = topPosition; 
         liftPIDController.setReference(goalPosition, ControlType.kPosition);
-        
-        /* TODO: check if limit switch pressed, then stop raising
-         if limitSwitchPressed {
-            ingestorLiftMotor.set(0.0);
-            // reset encoders
-        }
-       */
+        ingestorLiftMotor.set(1);
+
+
     }
 
     public void lowerLift() {
@@ -69,6 +73,7 @@ public class IngestorLift extends SubsystemBase {
         // TODO: check that the if statement is accurate for this encoder
         if (position > goalPosition + (Math.abs(goalPosition) * 0.02)) {
             liftPIDController.setReference(goalPosition, ControlType.kPosition);
+            ingestorLiftMotor.set(-0.5);
         } else {
             ingestorLiftMotor.set(0.0); 
         }
@@ -76,6 +81,7 @@ public class IngestorLift extends SubsystemBase {
     }
 
     // takes in a value between 0 and 1 where 0 is the bottom and 1 is the top
+    // sets a softer stop for raising and lowering the lift
     public void setLift(double percent) {
         if (percent <= 0.02) {
             lowerLift();
@@ -98,19 +104,25 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        return false; // TODO: Define sensor behavior here
+        if (ingestorLiftLimit()) {
+            return true;
+        } else{
+            return false;
+        }
     }
 
     public CommandBase raiseIngestorLift() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         // runOnce is truly run 1 processing loop.  Might need run here.  See ServoOn & ServoOff in GamePieceSCoop
-        return runOnce(
+        return run(
                 () -> {
                     if (isAtTop()) {
-                        // TODO: Send 0 to the ingestorLift motors
+                        ingestorLiftMotor.set(0.0);
+                        liftEncoder.setPosition(0.0);
+
                     } else {
-                        // TODO: Raise the ingestorLift
+                        raiseLift();
                     }
                 });
     }
@@ -118,12 +130,14 @@ public class IngestorLift extends SubsystemBase {
     public CommandBase lowerIngestorLift() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
-        return runOnce(
+        return run(
                 () -> {
                     if (isAtBottom()) {
-                        // TODO: Send 0 to the ingestorLift motors
+                        ingestorLiftMotor.set(0.0); 
+
                     } else {
-                        // TODO: Lower the ingestorLift
+                        lowerLift();
+                        // Lower the ingestorLift
                     }
                 });
     }
@@ -131,10 +145,11 @@ public class IngestorLift extends SubsystemBase {
     public CommandBase stopIngestorLift() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
-        return runOnce(
+        return run(
                 () -> {
                     if (isAtBottom()) {
-                        // TODO: Send 0 to the ingestorLift motors
+                        // TODO: change to isAtShootingPosition, 
+                        // Set brake on ingestorLift motors
                     } else {
                         // TODO: Lower the ingestorLift
                     }

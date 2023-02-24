@@ -4,31 +4,41 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.Servo;
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.CANifier.LEDChannel;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-//public class 
-/*
+
 public class EyeballSubsystem extends SubsystemBase {
-    private CANifier canifier;
+    private Servo eyePupilServo1;
+    private Servo eyePupilServo2;
+    private Servo eyeLidServo1;
+    private Servo eyeLidServo2;
 
-
-     Creates a new EyeballSubsystem. 
+    // Creates a new EyeballSubsystem. 
     public EyeballSubsystem() {
-        // Make the eyeball start as white
-        setLEDs(255,255,255);
+        eyePupilServo1 = new Servo(4);         // eyePupilServo1 connected to roboRIO PWM 4
+        eyePupilServo2 = new Servo(5);         // eyePupilServo2 connected to roboRIO PWM 5
+        eyeLidServo1 = new Servo(1);         // eyeLidServo1 connected to roboRIO PWM 1
+        eyeLidServo2 = new Servo(2);         // eyeLidServo2 connected to roboRIO PWM 2
+        
     }
 
-    public void setLEDs(double r, double g, double b){
+
+
+    public void setServo(double r, double g, double b){
 		//A: tbd
 		//B: tbd
         //C: tbd
-		canifier.setLEDOutput(r, LEDChannel.LEDChannelA);
-		canifier.setLEDOutput(g, LEDChannel.LEDChannelB);
-		canifier.setLEDOutput(b, LEDChannel.LEDChannelC);
+		eyePupilServo1.set(1.0);
+		eyePupilServo2.set(1.0);
+		eyeLidServo1.set(0.);
+        eyeLidServo2.set(1);
     }
+
+
 
     @Override
     public void periodic() {
@@ -50,4 +60,4 @@ public class EyeballSubsystem extends SubsystemBase {
         // Do nothing with pupil
     }
     
-}*/
+}

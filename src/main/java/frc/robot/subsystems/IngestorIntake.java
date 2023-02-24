@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -16,6 +17,7 @@ public class IngestorIntake extends SubsystemBase {
 
     private TalonSRX ingestorIntakeTopTalon;
     private TalonSRX ingestorIntakeBottomTalon;
+    private DigitalInput ingestorBeamBreak;
 
     // TODO: Confirm the motor controller type
 
