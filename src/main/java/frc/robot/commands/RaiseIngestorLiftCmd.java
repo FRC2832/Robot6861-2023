@@ -11,6 +11,9 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
+    private boolean isHomed;
+    private boolean isAtShootingPosition;
+
 
     public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -26,7 +29,23 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.raiseLift();
+        if (isHomed) {
+            if (ingestorLiftObj.isAtScoring()) {
+                ingestorLiftObj.stopLift();
+                // Move the lift to the home position
+            } else {
+                ingestorLiftObj.lowerLiftToScore();
+
+                // Move the lift to the shooting position
+            }
+            // Move the lift to the shooting position
+        } else {
+            ingestorLiftObj.raiseLift();
+            if (ingestorLiftObj.isAtTop()) {
+                isHomed = true;
+            }
+            // Move the lift to the home position
+        }
     
     }
 
@@ -40,7 +59,6 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // Determine when the arm has fully moved
-        return false;
+        return false; // DO NOT CHANGE THIS. This is a default command and should never end.
     }
 }

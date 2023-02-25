@@ -89,7 +89,7 @@ public class RobotContainer {
         configureBindings();
         
         drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
-        ingestorLiftObj.setDefaultCommand(new StopIngestorLift(ingestorLiftObj)); // TODO: Add Ingestor Intake
+        ingestorLiftObj.setDefaultCommand(new RaiseIngestorLiftCmd(ingestorLiftObj)); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         //autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
@@ -136,20 +136,24 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestorLift(ingestorLiftObj));
-        new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestorLift(ingestorLiftObj));
+        //new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestorLift(ingestorLiftObj));
+        //new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestorLift(ingestorLiftObj));
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
 
-        ParallelCommandGroup ingestParallelCommandGroup = new ParallelCommandGroup(
+        ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
             new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj)
         );
-        SequentialCommandGroup intakeSequentialCommandGroup = new SequentialCommandGroup(
-            ingestParallelCommandGroup, new RaiseIngestorLiftCmd(ingestorLiftObj)
-        );
+        //TODO: replace null with stop and raise commands StopIngestor, RaiseIngestorLiftCmd
+        /*ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
+            new StopIngestorIntake(ingestorIntakeObj), new RaiseIngestorLiftCmd(ingestorLiftObj)
+        );*/
 
-        operatorControllerObj.y().whileTrue(intakeSequentialCommandGroup);
+        /*SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
+            lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)*/
+
+        operatorControllerObj.y().whileTrue(lowerAndIngest);
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
 

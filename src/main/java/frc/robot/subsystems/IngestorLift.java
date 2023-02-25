@@ -27,6 +27,7 @@ public class IngestorLift extends SubsystemBase {
     private final double shootingPosition = -20;
     private DigitalInput ingestorLimitInput;
     private double ingestorMotorSpeed = 0.6;
+    private boolean isAtScoring;
     
 
     public IngestorLift() {
@@ -46,15 +47,9 @@ public class IngestorLift extends SubsystemBase {
         // have to burn flash to use this PID controller??  investigate another type of PID controller?
     }
 
-    public void operatorController() {
-
-    }
-
-    public boolean ingestorLiftLimit() {
-        return ingestorLimitInput.get();
-    }
-
     public void raiseLift() {
+        //TODO: Change to shooting position
+        isAtScoring = false;
         goalPosition = topPosition; 
         //liftPIDController.setReference(goalPosition, ControlType.kPosition);
         ingestorLiftMotor.set(ingestorMotorSpeed);
@@ -62,11 +57,11 @@ public class IngestorLift extends SubsystemBase {
 
     }
 
-    public void lowerLift() {
+    public void lowerLiftToIngest() {
         // Need some if statement to check if the limit switch is pressed
         // then zero the encoder and
         // set the goal position to the shooting position
-        
+        isAtScoring = false;
         goalPosition = bottomPosition;
         double position = liftEncoder.getPosition();
         // follow the pid until the ingestor is 98% of the way there then let it drop
@@ -80,11 +75,32 @@ public class IngestorLift extends SubsystemBase {
         ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
     }
 
+    
+    public void lowerLiftToScore() {
+        // Need some if statement to check if the limit switch is pressed
+        // then zero the encoder and
+        // set the goal position to the shooting position
+        
+        goalPosition = shootingPosition;
+        double position = liftEncoder.getPosition();
+        // follow the pid until the ingestor is 98% of the way there then let it drop
+        // this if statement is set up for the case where the bottom position is a lower number than the top position and the bottom position is not zero
+        // TODO: check that the if statement is accurate for this encoder
+        if (position > goalPosition + (Math.abs(goalPosition) * 0.02)) {
+            ingestorLiftMotor.set(-0.15);
+            isAtScoring = false;
+        } else {
+            ingestorLiftMotor.set(0.0); 
+            isAtScoring = true;
+        }
+        ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
+    }
+
     // takes in a value between 0 and 1 where 0 is the bottom and 1 is the top
     // sets a softer stop for raising and lowering the lift
     public void setLift(double percent) {
         if (percent <= 0.02) {
-            lowerLift();
+            lowerLiftToIngest();
         } else if (percent >= 0.98) {
             raiseLift();
         } else {
@@ -96,7 +112,7 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public void stopLift() {
-
+        ingestorLiftMotor.set(0.0);
     }
 
     public boolean isAtBottom() {
@@ -104,11 +120,11 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        if (ingestorLiftLimit()) {
-            return true;
-        } else{
-            return false;
-        }
+        return ingestorLimitInput.get();
+    }
+
+    public boolean isAtScoring() {
+        return isAtScoring;
     }
 
     public CommandBase raiseIngestorLift() {
@@ -136,7 +152,7 @@ public class IngestorLift extends SubsystemBase {
                         ingestorLiftMotor.set(0.0); 
 
                     } else {
-                        lowerLift();
+                        lowerLiftToIngest();
                         // Lower the ingestorLift
                     }
                 });
