@@ -82,6 +82,10 @@ public class Drivetrain extends SubsystemBase {
         rightBackSpark.setIdleMode(IdleMode.kBrake);
         // Pose/Orientation
         // poseEstimator = null;
+        leftFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
+        leftBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
+        rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
+        rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         mecanumDriveObj.setMaxOutput(0.75);
         // mecanumDriveObj.setSafetyEnabled(false);
     }

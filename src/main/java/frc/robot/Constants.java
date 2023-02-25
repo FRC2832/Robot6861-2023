@@ -76,4 +76,5 @@ public final class Constants {
     // IngestorIntake Subsystem Roller Motor Speeds
     public static final double INGESTOR_EXPEL_SPEED = -0.75;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
+    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 }
