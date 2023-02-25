@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
 
-public class MoveIngestorLiftCmd extends CommandBase {
+public class LowerIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
 
-    public MoveIngestorLiftCmd(IngestorLift ingestorLift) {
+    public LowerIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);
     }

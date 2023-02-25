@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
 
-public class MoveIngestorLiftCmd extends CommandBase {
+public class RaiseIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
 
-    public MoveIngestorLiftCmd(IngestorLift ingestorLift) {
+    public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);
     }
@@ -26,7 +26,7 @@ public class MoveIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.lowerLift();
+        ingestorLiftObj.raiseLift();
     
     }
 
