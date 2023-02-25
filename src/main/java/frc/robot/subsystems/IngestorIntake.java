@@ -21,10 +21,15 @@ public class IngestorIntake extends SubsystemBase {
 
     // TODO: Confirm the motor controller type
 
+    public DigitalInput getIngestorBeamBreak() {
+        return ingestorBeamBreak;
+    }
+
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
+        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM );
         // Create a motorcontroller group?
     }
 
