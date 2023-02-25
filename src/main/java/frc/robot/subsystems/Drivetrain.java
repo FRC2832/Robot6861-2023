@@ -82,6 +82,8 @@ public class Drivetrain extends SubsystemBase {
         rightBackSpark.setIdleMode(IdleMode.kBrake);
         // Pose/Orientation
         // poseEstimator = null;
+        mecanumDriveObj.setMaxOutput(0.75);
+        // mecanumDriveObj.setSafetyEnabled(false);
     }
 
     public void setRightBackMotorInversion(boolean isInverted) {
