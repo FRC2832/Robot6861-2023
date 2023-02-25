@@ -26,6 +26,7 @@ public class IngestorLift extends SubsystemBase {
     private final double bottomPosition = -65;
     private final double shootingPosition = -20;
     private DigitalInput ingestorLimitInput;
+    private double ingestorMotorSpeed = 0.6;
     
 
     public IngestorLift() {
@@ -55,8 +56,8 @@ public class IngestorLift extends SubsystemBase {
 
     public void raiseLift() {
         goalPosition = topPosition; 
-        liftPIDController.setReference(goalPosition, ControlType.kPosition);
-        ingestorLiftMotor.set(1);
+        //liftPIDController.setReference(goalPosition, ControlType.kPosition);
+        ingestorLiftMotor.set(ingestorMotorSpeed);
 
 
     }
@@ -72,7 +73,6 @@ public class IngestorLift extends SubsystemBase {
         // this if statement is set up for the case where the bottom position is a lower number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position > goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            liftPIDController.setReference(goalPosition, ControlType.kPosition);
             ingestorLiftMotor.set(-0.5);
         } else {
             ingestorLiftMotor.set(0.0); 
