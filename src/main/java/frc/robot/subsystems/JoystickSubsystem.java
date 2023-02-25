@@ -10,15 +10,22 @@ public class JoystickSubsystem extends SubsystemBase {
     private double driverLeftY;
     private double driverRightX;
     private double driverRightY;
+    private double driverRightTrigger;
+    private double driverLeftTrigger;
     private double operatorLeftX;
     private double operatorLeftY;
     private double operatorRightX;
     private double operatorRightY;
 
+
     /** Creates a new JoystickSubsystem. */
     public JoystickSubsystem(CommandXboxController driverController, CommandXboxController operatorController) {
         this.driverController = driverController;
         this.operatorController = operatorController;
+        setDeadband(1);
+    }
+
+    private void setDeadband(double d) {
     }
 
     @Override
@@ -28,11 +35,16 @@ public class JoystickSubsystem extends SubsystemBase {
         driverLeftY = driverController.getLeftY();
         driverRightX = driverController.getRightX();
         driverRightY = driverController.getRightY();
+        driverRightTrigger = driverController.getRightTriggerAxis();
+        driverLeftTrigger = driverController.getLeftTriggerAxis();
         operatorLeftX = operatorController.getLeftX();
         operatorLeftY = operatorController.getLeftY();
         operatorRightX = operatorController.getRightX();
         operatorRightY = operatorController.getRightY();
     }
+
+    // TODO: add slew rate limiter for the driver joystick controls here?
+    // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/filters/slew-rate-limiter.html
 
     public double getDriverLeftX() {
         return driverLeftX;
@@ -48,6 +60,14 @@ public class JoystickSubsystem extends SubsystemBase {
 
     public double getDriverRightY() {
         return driverRightY;
+    }
+
+    public double getDriverRightTrigger() {
+        return driverRightTrigger;
+    }
+
+    public double getDriverLeftTrigger() {
+        return driverLeftTrigger;
     }
 
     public double getOperatorLeftX() {

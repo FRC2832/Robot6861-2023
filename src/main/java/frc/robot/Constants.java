@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -24,26 +25,55 @@ public final class Constants {
      * public static final int kDriverControllerPort = 0;
      * }
      */
-    // make sure to set the ports when electrical gives us the info
-    public static final int INGESTOR_MOTOR = 0;
-    public static final int DRIVETRAIN_LEFT_FRONT_TALON = 0;
-    public static final int DRIVETRAIN_RIGHT_FRONT_TALON = 0;
-    public static final int DRIVETRAIN_LEFT_BACK_TALON = 0;
-    public static final int DRIVETRAIN_RIGHT_BACK_TALON = 0;
+
+    // Drivetrain motor IDs
+    public static final int DRIVETRAIN_LEFT_FRONT_SPARK = 12;
+    public static final int DRIVETRAIN_RIGHT_FRONT_SPARK = 10;
+    public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
+    public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
+
+    // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
     public static final int OPERATOR_CONTROLLER = 1;
     public static final int DRIVER_CONTROLLER_MOVE_AXIS = 0;
     public static final int DRIVER_CONTROLLER_ROTATE_AXIS = 0;
-    public static final int INGESTOR_INTAKE_TOP_TALON = 0;
-    public static final int INGESTOR_INTAKE_BOTTOM_TALON = 0;
-    public static final int CONE_UPRIGHTER_CANSPARKMAX = 0;
-    public static final MotorType UPRIGHT_MOTOR_TYPE = null;
-    // TODO: set this to something else than 0
-    public static final int LED_PWM_ID = 0;
-    public static final int GAME_PIECE_SCOOP_SERVO_2 = 0;
-    public static final int GAME_PIECE_SCOOP_SERVO_1 = 0;
+
+    // Subsystem Motor IDs
+    public static final int INGESTOR_INTAKE_UPPER_TALON = 13;
+    public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
+    public static final int INGESTOR_MOTOR = 11;
+    public static final int CONE_FLIPPER_CANSPARKMAX = 9;
+    public static final int DIGITAL_INPUT_BEAM = 0;
+    
+    //TODO: must have a value other than null
+    //public static final MotorType FLIPPER_MOTOR_TYPE = null;
+
+   // TODO: need 2 canifier constants and CANids
+    public static final int LED_PWM_ID = 2; 
+   
+    public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
+    public static final int GAME_PIECE_SCOOP_SERVO_L = 0;
+
+    // Pupil/Eyelid Servo IDs
+    //TODO: confirm port with actual number on robot
+    public static final int LEFT_EYELID_SERVO = 2;
+    public static final int LEFT_PUPIL_SERVO = 3;
+    public static final int RIGHT_EYELID_SERVO = 4;
+    public static final int RIGHT_PUPIL_SERVO = 5;
+
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";
 
+    // Encoder IDs
+	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
+	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
+	public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
+	public static final Type RIGHT_BACK_SPARK_ENCODER = Type.kHallSensor;
+
+    public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
+
+    // IngestorIntake Subsystem Roller Motor Speeds
+    public static final double INGESTOR_EXPEL_SPEED = -0.75;
+    public static final double INGESTOR_INTAKE_SPEED = 0.75;
 }

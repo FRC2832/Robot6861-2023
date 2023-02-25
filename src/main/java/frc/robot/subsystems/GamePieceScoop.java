@@ -5,31 +5,55 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GamePieceScoop extends SubsystemBase {
     /** Creates a new GamePieceScoop. */
 
-    private Servo gamePieceScoopServo1;
-    private Servo gamePieceScoopServo2;
-    // TODO: Figure out whether to change the number naming as is or to change to something else
+    private Servo gamePieceScoopServoL;
+    private Servo gamePieceScoopServoR;
+    // TODO: Figure out whether to change the number naming as is or to change to
+    // something else
 
     public GamePieceScoop() {
-        gamePieceScoopServo1 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_1);
-        gamePieceScoopServo2 = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_2);
-        }
+        gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
+        gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
+        gamePieceScoopServoL.setBounds(1.8, 1.7, 1.5, 1.2, 1);
+        gamePieceScoopServoR.setBounds(1.8, 1.7, 1.5, 1.2, 1);
+    }
 
     public void servoOn() {
-
+        gamePieceScoopServoL.setSpeed(1.0);
+        gamePieceScoopServoR.setSpeed(1.0);
     }
 
     public void servoOff() {
-
+        gamePieceScoopServoL.setSpeed(-1.0);
+        gamePieceScoopServoR.setSpeed(-1.0);
     }
 
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+    }
+
+    public CommandBase servoOffCmd() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    servoOff();
+                });
+    }
+
+    public CommandBase servoOnCmd() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    servoOn();
+                });
     }
 }

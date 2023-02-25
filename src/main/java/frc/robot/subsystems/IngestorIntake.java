@@ -4,42 +4,80 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.motorcontrol.Talon;
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorIntake extends SubsystemBase {
-  /** Creates a new IngestorIntake. */
+    /** Creates a new IngestorIntake. */
 
-  private Talon ingestorIntakeTop;
-  private Talon ingestorIntakeBottom;
-  // TODO: Confirm the motor controller type
+    private TalonSRX ingestorIntakeTopTalon;
+    private TalonSRX ingestorIntakeBottomTalon;
+    private DigitalInput ingestorBeamBreak;
 
-  public IngestorIntake() {
-      ingestorIntakeTop = new Talon(Constants.INGESTOR_INTAKE_TOP_TALON);
-      ingestorIntakeBottom = new Talon(Constants.INGESTOR_INTAKE_BOTTOM_TALON);
-      // Create a motorcontroller group?
-  }
+    // TODO: Confirm the motor controller type
 
-  public void operatorController() {
+    public DigitalInput getIngestorBeamBreak() {
+        return ingestorBeamBreak;
+    }
 
-  }
+    public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
+        this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
+        ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
+        ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
+        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM );
+        // Create a motorcontroller group?
+    }
 
-  public void ingest() {
+    public void operatorController() {
 
-  }
+    }
 
-  public void expel() {
+    public void revIn() {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
+    }
 
-  }
+    public void revOut() {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
+    }
 
-  public boolean isInArm() {
-    return false;
-    // TODO: Confirm sensor location and type
-  }
+    public CommandBase revOutIngestorIntake() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    revOut();
+                });
+    }
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+
+    public CommandBase revInIngestorIntake() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    revIn();
+                });
+    }
+
+    public void stop() {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, 0.0);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, 0.0);
+    }
+
+    public boolean isInScoop() {
+        return false;
+        // TODO: Confirm sensor location and type
+    }
+
+    @Override
+    public void periodic() {
+        // This method will be called once per scheduler run
+    }
 }
