@@ -56,6 +56,16 @@ public class IngestorIntake extends SubsystemBase {
                 });
     }
 
+
+    public CommandBase revInIngestorIntake() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    revIn();
+                });
+    }
+
     public void stop() {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, 0.0);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, 0.0);

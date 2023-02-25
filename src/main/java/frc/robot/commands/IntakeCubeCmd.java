@@ -11,7 +11,6 @@ import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
-
 public class IntakeCubeCmd extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
     private IngestorIntake ingestorIntakeObj;
@@ -35,7 +34,7 @@ public class IntakeCubeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if(ingestorIntakeObj.getIngestorBeamBreak().get()) {
+        if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
             ingestorIntakeObj.revIn();
         } else {
             ingestorIntakeObj.stop();
@@ -54,7 +53,7 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         // TODO: Use beam break sensors to determine if we shot or not
-        
+
         return false;
     }
 }

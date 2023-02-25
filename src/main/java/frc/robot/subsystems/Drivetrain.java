@@ -5,6 +5,8 @@
 // test change
 
 package frc.robot.subsystems;
+import frc.robot.subsystems.JoystickSubsystem;
+
 
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
@@ -42,6 +44,8 @@ public class Drivetrain extends SubsystemBase {
     private RelativeEncoder rightFrontEncoderObj;
     private RelativeEncoder rightBackEncoderObj;
 
+    //private JoystickSubsystem joystickSubsystemObj;
+
     // Pigeon IMU also used for gyro:
     private WPI_PigeonIMU pigeon;
 
@@ -70,20 +74,29 @@ public class Drivetrain extends SubsystemBase {
         leftFrontSpark.setInverted(true);
         rightFrontSpark.setInverted(true);
 
+        // IIRC, you invert left/right, not front/back.
+
         leftFrontSpark.setIdleMode(IdleMode.kBrake);
         rightFrontSpark.setIdleMode(IdleMode.kBrake);
         leftBackSpark.setIdleMode(IdleMode.kBrake);
         rightBackSpark.setIdleMode(IdleMode.kBrake);
-
         // Pose/Orientation
         // poseEstimator = null;
+    }
+
+    public void setRightBackMotorInversion(boolean isInverted) {
+        rightBackSpark.setInverted(isInverted);
+    }
+
+    public void setLeftFrontMotorInversion(boolean isInverted) {
+        leftFrontSpark.setInverted(isInverted);
     }
 
     public void mecanumDriveCartesian(double xSpeed, double ySpeed, double zRotation) {
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
     }
 
-    
+
     @Override
     public void periodic() {
         // This method will be called once per scheduler run

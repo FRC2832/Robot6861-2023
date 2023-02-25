@@ -15,13 +15,17 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.Autos;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.StopIngestorLift;
+import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
@@ -88,8 +92,8 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(new StopIngestorLift(ingestorLiftObj)); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
-        autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
+        //autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
+        //autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
         // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj,
         // ingestorLiftObj);
         // TODO: choose button on XbOX controller to run this command along with
@@ -137,11 +141,29 @@ public class RobotContainer {
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
-        operatorControllerObj.y().whileTrue(ingestorLiftObj.lowerIngestorLift());
-        operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
+
+        ParallelCommandGroup ingestParallelCommandGroup = new ParallelCommandGroup(
+            new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj)
+        );
+        SequentialCommandGroup intakeSequentialCommandGroup = new SequentialCommandGroup(
+            ingestParallelCommandGroup, new RaiseIngestorLiftCmd(ingestorLiftObj)
+        );
+
+        operatorControllerObj.y().whileTrue(intakeSequentialCommandGroup);
+        // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
+
+
+        
         ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup);
+
+
+        /*  Kettering: tried to get ingestor working.  This comment means I was intererupted and code is not finished
+        ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+        operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup);
+        */
     }
 
         // Ms. Patty found this code in the mecanumcontrollercommand example code from wpilib

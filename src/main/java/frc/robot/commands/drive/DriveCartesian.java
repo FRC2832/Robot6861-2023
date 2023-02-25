@@ -33,14 +33,25 @@ public class DriveCartesian extends CommandBase {
         // TODO: Do this without referencing the controllers from here.
         // double rotateSpeed =
         // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
+        zRotationTrue();
         if (joystickSubsystemObj.getDriverRightTrigger() >= 0.5) {
-            drivetrainObj.mecanumDriveCartesian(joystickSubsystemObj.getDriverLeftX()*0.4, joystickSubsystemObj.getDriverLeftY()*0.4, joystickSubsystemObj.getDriverRightX()*0.4);
+            drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.5,
+                    joystickSubsystemObj.getDriverLeftY() * 0.5, joystickSubsystemObj.getDriverRightX() * 0.5);
+        } else {
+            drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX(),
+                    joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
 
-        } else{
-            drivetrainObj.mecanumDriveCartesian(joystickSubsystemObj.getDriverLeftX(), joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
-   
         }
-        // drivetrainObj.mecanumDriveCartesian(joystickSubsystemObj.getDriverLeftX(), joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
+    }
+
+    public void zRotationTrue() {
+        if (Math.abs(joystickSubsystemObj.getDriverRightX()) >= 0.1) {
+            drivetrainObj.setRightBackMotorInversion(true);
+            drivetrainObj.setLeftFrontMotorInversion(false);
+        } else {
+            drivetrainObj.setRightBackMotorInversion(false);
+            drivetrainObj.setLeftFrontMotorInversion(true);
+        }
     }
 
     // Called once the command ends or is interrupted.
