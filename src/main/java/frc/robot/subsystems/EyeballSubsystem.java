@@ -5,9 +5,6 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.Servo;
-import com.ctre.phoenix.CANifier;
-import com.ctre.phoenix.CANifier.LEDChannel;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 

@@ -5,9 +5,6 @@
 // test change
 
 package frc.robot.subsystems;
-import frc.robot.subsystems.JoystickSubsystem;
-
-
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;

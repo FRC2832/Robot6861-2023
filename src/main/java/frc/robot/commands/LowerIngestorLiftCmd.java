@@ -6,11 +6,13 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class LowerIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
+    CommandXboxController operatorControllerObj;
 
     public LowerIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -26,8 +28,8 @@ public class LowerIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.lowerLift();
-    
+        ingestorLiftObj.lowerLiftToIngest();
+
     }
 
     // Called once the command ends or is interrupted.
@@ -35,6 +37,7 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void end(boolean interrupted) {
         // Bring the ingestorLift back to its default position
         ingestorLiftObj.stopLift();
+        System.out.println("LowerIngestorLiftCmd stopped.");
     }
 
     // Returns true when the command should end.

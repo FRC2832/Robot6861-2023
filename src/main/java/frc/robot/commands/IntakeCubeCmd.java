@@ -5,9 +5,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
-import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
@@ -28,17 +25,20 @@ public class IntakeCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        gamePieceScoopObj.servoOff();
+        System.out.println("IntakeCubeCmd: initialize");
+        gamePieceScoopObj.servoOn();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
+        ingestorIntakeObj.revIn();
+        //Beam break not currently working, only way to determine current ingestion is through a non button press
+       /* if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
             ingestorIntakeObj.revIn();
         } else {
             ingestorIntakeObj.stop();
-        }
+        }*/
     }
     // TODO: Create a new command for ingestorLift
     // TODO: If ingestorLift is at upper limit switch then zero the encoders
@@ -52,8 +52,7 @@ public class IntakeCubeCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // TODO: Use beam break sensors to determine if we shot or not
-
+        // TODO: Use beam break sensors to determine if we ingested or not
         return false;
     }
 }

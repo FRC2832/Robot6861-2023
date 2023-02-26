@@ -31,6 +31,7 @@ public class StopIngestorLift extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        ingestorLiftObj.stopLift();
         // TODO: Set ingestorLiftObj motors to 0
     }
 
@@ -42,6 +43,6 @@ public class StopIngestorLift extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
     }
 }
