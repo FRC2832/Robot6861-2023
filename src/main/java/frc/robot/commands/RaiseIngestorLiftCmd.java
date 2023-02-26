@@ -14,7 +14,6 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     private boolean isHomed;
     private boolean isAtShootingPosition;
 
-
     public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);
@@ -23,6 +22,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        System.out.println("RaiseIngestorLiftCmd started.");
         // Zero the encoders
     }
 
@@ -31,22 +31,26 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     public void execute() {
         if (isHomed) {
             if (ingestorLiftObj.isAtScoring()) {
+                System.out.println("We are at the scoring position!"); // TODO: The robot thinks we're here when we
+                                                                       // release the button
                 ingestorLiftObj.stopLift();
                 // Move the lift to the home position
             } else {
                 ingestorLiftObj.lowerLiftToScore();
-
+                System.out.println("We are moving to the scoring position!");
                 // Move the lift to the shooting position
             }
             // Move the lift to the shooting position
         } else {
+            System.out.println("We moving to the home position!");
             ingestorLiftObj.raiseLift();
             if (ingestorLiftObj.isAtTop()) {
+                System.out.println("We are homed!");
                 isHomed = true;
             }
             // Move the lift to the home position
         }
-    
+
     }
 
     // Called once the command ends or is interrupted.

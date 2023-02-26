@@ -158,9 +158,9 @@ public class RobotContainer {
 
 
         
-        ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
+        ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup);
+        operatorControllerObj.rightTrigger().whileTrue(shootCube);
 
 
         /*  Kettering: tried to get ingestor working.  This comment means I was intererupted and code is not finished

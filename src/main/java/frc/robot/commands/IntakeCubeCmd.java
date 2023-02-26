@@ -25,7 +25,8 @@ public class IntakeCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        gamePieceScoopObj.servoOff();
+        System.out.println("IntakeCubeCmd: initialize");
+        gamePieceScoopObj.servoOn();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
