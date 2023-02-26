@@ -7,12 +7,12 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
 
-public class RaiseIngestorLiftCmd extends CommandBase {
+public class ScoreIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
 
-    public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
+    public ScoreIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);
     }
@@ -20,7 +20,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //System.out.println("RaiseIngestorLiftCmd started.");
+        //System.out.println("ScoreIngestorLiftCmd started.");
         //isHomed = ingestorLiftObj.isAtTop();
         // Zero the encoders
     }
@@ -28,9 +28,13 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.raiseLift();
+        ingestorLiftObj.lowerLiftToScore();
+        // Move the lift to the shooting position
+        
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
-/*         if (ingestorLiftObj.getIsHomed()) {
+
+        //RaiseIngestorLiftCmd execute code
+        /*if (ingestorLiftObj.getIsHomed()) {
             if (ingestorLiftObj.getIsAtScoring()) {
                 //System.out.println("We are at the scoring position!"); // TODO: The robot thinks we're here when we
                                                                        // release the button
@@ -51,7 +55,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
                 ingestorLiftObj.setIsHomed(true);
             }
             // Move the lift to the home position
-        } */
+        }*/
 
     }
 
@@ -65,6 +69,6 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return ingestorLiftObj.isAtTop(); 
+        return false; // DO NOT CHANGE THIS. This is a default command and should never end.
     }
 }

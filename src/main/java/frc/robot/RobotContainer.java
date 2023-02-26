@@ -13,19 +13,15 @@ import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
+import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
-import frc.robot.commands.StopIngestorLift;
-import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
@@ -61,9 +57,8 @@ public class RobotContainer {
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final LEDSubsystem ledObj = new LEDSubsystem();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
-   // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
+    // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
     private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
-    
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
 
@@ -87,13 +82,17 @@ public class RobotContainer {
 
         // Configure the trigger bindings
         configureBindings();
-        
+        SequentialCommandGroup defaultIngestorLiftSequence = new SequentialCommandGroup(
+                new RaiseIngestorLiftCmd(ingestorLiftObj), new ScoreIngestorLiftCmd(ingestorLiftObj));
+
         drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
-        ingestorLiftObj.setDefaultCommand(new RaiseIngestorLiftCmd(ingestorLiftObj)); // TODO: Add Ingestor Intake
+        ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        //autonChooser.addOption("Example Auton Command", Autos.exampleAuto(ingestorLiftObj));
-        //autonChooser.addOption("Another Example Command", new ExampleCommand(exampleSubsystemObj));
+        // autonChooser.addOption("Example Auton Command",
+        // Autos.exampleAuto(ingestorLiftObj));
+        // autonChooser.addOption("Another Example Command", new
+        // ExampleCommand(exampleSubsystemObj));
         // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj,
         // ingestorLiftObj);
         // TODO: choose button on XbOX controller to run this command along with
@@ -136,76 +135,86 @@ public class RobotContainer {
      */
     private void configureBindings() {
         // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-        //new Trigger(ingestorLiftObj::isAtTop).onTrue(new StopIngestorLift(ingestorLiftObj));
-        //new Trigger(ingestorLiftObj::isAtBottom).onTrue(new StopIngestorLift(ingestorLiftObj));
+        // new Trigger(ingestorLiftObj::isAtTop).onTrue(new
+        // StopIngestorLift(ingestorLiftObj));
+        // new Trigger(ingestorLiftObj::isAtBottom).onTrue(new
+        // StopIngestorLift(ingestorLiftObj));
         // Schedule `exampleMethodCommand` when the Xbox controller's B button is
         // pressed,
         // cancelling on release.
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
-            new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj)
-        );
-        //TODO: replace null with stop and raise commands StopIngestor, RaiseIngestorLiftCmd
-        /*ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
-            new StopIngestorIntake(ingestorIntakeObj), new RaiseIngestorLiftCmd(ingestorLiftObj)
-        );*/
+                new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+        // TODO: replace null with stop and raise commands StopIngestor,
+        // RaiseIngestorLiftCmd
+        /*
+         * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
+         * new StopIngestorIntake(ingestorIntakeObj), new
+         * RaiseIngestorLiftCmd(ingestorLiftObj)
+         * );
+         */
 
-        /*SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
-            lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)*/
+        /*
+         * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
+         * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
+         */
 
         operatorControllerObj.y().whileTrue(lowerAndIngest);
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-
-        
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.rightTrigger().whileTrue(shootCube);
 
-
-        /*  Kettering: tried to get ingestor working.  This comment means I was intererupted and code is not finished
-        ParallelCommandGroup shootCubeParallelCommandGroup = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup);
-        */
+        /*
+         * Kettering: tried to get ingestor working. This comment means I was
+         * intererupted and code is not finished
+         * ParallelCommandGroup shootCubeParallelCommandGroup = new
+         * ParallelCommandGroup(
+         * ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+         * operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup)
+         * ;
+         */
     }
 
-        // Ms. Patty found this code in the mecanumcontrollercommand example code from wpilib
-        /* Drive at half speed when the right bumper is held
-    new JoystickButton(m_driverController, Button.kRightBumper.value)
-    .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-    .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-    
-    we need to modify for our objects
-    */ 
+    // Ms. Patty found this code in the mecanumcontrollercommand example code from
+    // wpilib
+    /*
+     * Drive at half speed when the right bumper is held
+     * new JoystickButton(m_driverController, Button.kRightBumper.value)
+     * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+     * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+     * 
+     * we need to modify for our objects
+     */
 
-
-    /*private void configureAutoCommands() {
-        autoEventMap.put("event1", Commands.print("Passed marker 1"));
-        autoEventMap.put("event2", Commands.print("passed marker 2"));
-        
-        
-        List<PathPlannerTrajectory> auto1Paths =
-        PathPlanner.loadPathGroup(
-            "Default Auton", 4, 3);
-        
-        Command autoTest = 
-            Commands.sequence(
-                new FollowPathWithEvents(
-                    new FollowPathCmd(auto1Paths.get(0), drivetrainObj, true)
-                    auto1Paths.get(0).getMarkers(0),
-                    autoEventMap),
-                // Commands.runOnce(drivetrainObj, drivetrainObj),
-                // Commands.waitSeconds(5.0),
-                // Commands.runOnce(drivetrainObj::disableXstance, drivetrainObj),
-                new FollowPathWithEvents(
-                    new FollowPathCmd(auto1Paths.get(1), drivetrainObj, false)
-                    auto1Paths.get(0).getMarkers(0),
-                    autoEventMap)
-                    );
-                
-    } 
-    */
+    /*
+     * private void configureAutoCommands() {
+     * autoEventMap.put("event1", Commands.print("Passed marker 1"));
+     * autoEventMap.put("event2", Commands.print("passed marker 2"));
+     * 
+     * 
+     * List<PathPlannerTrajectory> auto1Paths =
+     * PathPlanner.loadPathGroup(
+     * "Default Auton", 4, 3);
+     * 
+     * Command autoTest =
+     * Commands.sequence(
+     * new FollowPathWithEvents(
+     * new FollowPathCmd(auto1Paths.get(0), drivetrainObj, true)
+     * auto1Paths.get(0).getMarkers(0),
+     * autoEventMap),
+     * // Commands.runOnce(drivetrainObj, drivetrainObj),
+     * // Commands.waitSeconds(5.0),
+     * // Commands.runOnce(drivetrainObj::disableXstance, drivetrainObj),
+     * new FollowPathWithEvents(
+     * new FollowPathCmd(auto1Paths.get(1), drivetrainObj, false)
+     * auto1Paths.get(0).getMarkers(0),
+     * autoEventMap)
+     * );
+     * 
+     * }
+     */
 
     /**
      * Use this to pass the autonomous command to the main {@link Robot} class.
