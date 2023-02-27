@@ -28,6 +28,7 @@ public class DriveBackCmd extends CommandBase {
     @Override
     public void initialize() {
         startEncoderPos = drivetrainObj.getAvgEncoderDistance();
+        System.out.println("startEncoderPos: " + startEncoderPos);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -47,6 +48,7 @@ public class DriveBackCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        System.out.println((drivetrainObj.getAvgEncoderDistance() - startEncoderPos) / 12);
         return (drivetrainObj.getAvgEncoderDistance() - startEncoderPos) / 12 >= driveDistanceFeet;
     }
 }
