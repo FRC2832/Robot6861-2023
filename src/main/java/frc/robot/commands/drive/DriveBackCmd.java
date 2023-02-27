@@ -12,11 +12,14 @@ public class DriveBackCmd extends CommandBase {
 
     private Drivetrain drivetrainObj;
     private double driveSpeed;
+    private double driveDistanceFeet;
+    private double startEncoderPos;
 
 
 
-    public DriveBackCmd(Drivetrain drivetrainObj, double driveSpeed) {
+    public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
+        this.driveDistanceFeet = driveDistanceFeet; 
         this.driveSpeed = Math.abs(driveSpeed);
         addRequirements(drivetrainObj);
     }
@@ -24,13 +27,15 @@ public class DriveBackCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        
+        startEncoderPos = drivetrainObj.getAvgEncoderDistance();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrainObj.mecanumDriveCartesian(0,-driveSpeed,0); 
+        drivetrainObj.mecanumDriveCartesian(0,driveSpeed,0);
+        // drive back drives forward in Auton only. So inverting driveSpeed 
+        // to positive as temporary fix.  
     }
 
     // Called once the command ends or is interrupted.
@@ -42,8 +47,6 @@ public class DriveBackCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
-        // TODO: code it to stop when it has traveled the correct distance using the encoders
-        // TODO: multiply rotations by distance per rotation in order to see if we have traveled the correct distance
+        return (drivetrainObj.getAvgEncoderDistance() - startEncoderPos) / 12 >= driveDistanceFeet;
     }
 }

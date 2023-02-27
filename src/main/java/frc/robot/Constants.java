@@ -32,6 +32,10 @@ public final class Constants {
     public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
     public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
+    // Drive distance factors
+    public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
+    public static final double DRIVETRAIN_STRAFE_RATIO = 13;
+
     // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
     public static final int OPERATOR_CONTROLLER = 1;
@@ -51,6 +55,7 @@ public final class Constants {
    // TODO: need 2 canifier constants and CANids
     public static final int LED_PWM_ID = 2; 
    
+    //Game Piece Scoop Servo IDs
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_L = 0;
 
@@ -77,4 +82,9 @@ public final class Constants {
     public static final double INGESTOR_EXPEL_SPEED = -0.75;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
+
+    // Auton speed and drive distances (in feet)
+    public static final double AUTON_SPEED = 0.3;
+    public static final double DEFAULT_AUTON_DRIVE_BACK = 8;
+    public static final double DEFAULT_AUTON_STRAFE = 4;
 }

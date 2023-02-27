@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
@@ -22,6 +23,7 @@ import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
+import frc.robot.commands.autons.DefaultAuton;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
@@ -71,7 +73,10 @@ public class RobotContainer {
             Constants.OPERATOR_CONTROLLER);
     private final JoystickSubsystem joystickSubsystemObj = new JoystickSubsystem(driverControllerObj,
             operatorControllerObj);
-    private final SendableChooser<CommandBase> autonChooser = new SendableChooser<>();
+
+    private final Command defaultAuto = new DefaultAuton(drivetrainObj);
+            
+    private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
     // TODO: may need differnt terms than left, center, right for auton chooser
 
@@ -89,6 +94,9 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
+        
+        autonChooser.setDefaultOption("Default Auton", defaultAuto);
+        SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
         // autonChooser.addOption("Another Example Command", new
@@ -144,7 +152,8 @@ public class RobotContainer {
         // cancelling on release.
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
-                new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+                new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));                
+         
         // TODO: replace null with stop and raise commands StopIngestor,
         // RaiseIngestorLiftCmd
         /*
@@ -159,34 +168,17 @@ public class RobotContainer {
          * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
          */
 
-        operatorControllerObj.y().whileTrue(lowerAndIngest);
+        //Lower ingestor to intake cube using operator Y button
+         operatorControllerObj.y().whileTrue(lowerAndIngest);
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
+        // Shoot cube using operator right trigger
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.rightTrigger().whileTrue(shootCube);
 
-        /*
-         * Kettering: tried to get ingestor working. This comment means I was
-         * intererupted and code is not finished
-         * ParallelCommandGroup shootCubeParallelCommandGroup = new
-         * ParallelCommandGroup(
-         * ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-         * operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup)
-         * ;
-         */
     }
 
-    // Ms. Patty found this code in the mecanumcontrollercommand example code from
-    // wpilib
-    /*
-     * Drive at half speed when the right bumper is held
-     * new JoystickButton(m_driverController, Button.kRightBumper.value)
-     * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-     * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-     * 
-     * we need to modify for our objects
-     */
 
     /*
      * private void configureAutoCommands() {
@@ -224,7 +216,7 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
-        CommandBase selectedCommand = autonChooser.getSelected();
+        Command selectedCommand = autonChooser.getSelected();
         return selectedCommand;
 
     }

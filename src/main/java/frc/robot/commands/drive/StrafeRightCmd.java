@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.Constants;
 
-public class StrafeLeftCmd extends CommandBase {
+public class StrafeRightCmd extends CommandBase {
     /** Creates a new StrafeLeftCmd. */
 
     private Drivetrain drivetrainObj;
@@ -16,7 +16,7 @@ public class StrafeLeftCmd extends CommandBase {
     private double driveDistanceFeet;
     private double startEncoderPos;
 
-    public StrafeLeftCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
+    public StrafeRightCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
         this.driveDistanceFeet = driveDistanceFeet;
         this.driveSpeed = Math.abs(driveSpeed);
@@ -32,9 +32,8 @@ public class StrafeLeftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrainObj.mecanumDriveCartesian(driveSpeed, 0, 0);
-        // Strafe Left drives right in Auton only. So inverting driveSpeed 
-        // to positive as temporary fix.
+        drivetrainObj.mecanumDriveCartesian(-driveSpeed, 0, 0);
+        // Negative drivespeed is due to motor inversion.  Do NOT change.
     }
 
     // Called once the command ends or is interrupted.
