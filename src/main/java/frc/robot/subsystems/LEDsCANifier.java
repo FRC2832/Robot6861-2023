@@ -1,6 +1,8 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.CANifier;
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 // TODO: We could merge LED Subsystem and the Eyeball subsystem
 
@@ -8,7 +10,7 @@ public class LEDsCANifier extends SubsystemBase {
     
     private CANifier clights;
 
-    private LEDsCANifier() {
+    public LEDsCANifier() {
         clights = new CANifier(4);
     }
 
@@ -28,6 +30,16 @@ public class LEDsCANifier extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
+    }
+
+    public CommandBase resetColor() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return runOnce(
+                () -> {
+                    /* one-time action goes here */
+                    setLEDColor(0, 0,0);
+                });
     }
 
 }

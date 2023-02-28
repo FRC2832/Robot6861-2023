@@ -17,22 +17,20 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.IntakeCubeCmd;
-import frc.robot.commands.LowerIngestorLiftCmd;
-import frc.robot.commands.RaiseIngestorLiftCmd;
-import frc.robot.commands.ScoreIngestorLiftCmd;
+import frc.robot.commands.Autos;
+import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-//import frc.robot.subsystems.EyeballSubsystem;
-import frc.robot.subsystems.EyelidSubsystem;
+import frc.robot.subsystems.EyeSubsystem;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.LEDsCANifier;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -55,10 +53,10 @@ public class RobotContainer {
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
-    private final LEDSubsystem ledObj = new LEDSubsystem();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
-    // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
-    private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
+    private final EyeSubsystem eyeballObj = new EyeSubsystem();
+    private final LEDsCANifier eyeCanifier = new LEDsCANifier();
+    
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
 
@@ -89,10 +87,13 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
+        eyeballObj.setDefaultCommand(eyeballObj.resetEyes());
+        eyeCanifier.setDefaultCommand(eyeCanifier.resetColor());
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
         // autonChooser.addOption("Another Example Command", new
         // ExampleCommand(exampleSubsystemObj));
+        
         // ScoreCubeCmd cmd = new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj,
         // ingestorLiftObj);
         // TODO: choose button on XbOX controller to run this command along with
@@ -225,6 +226,7 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         CommandBase selectedCommand = autonChooser.getSelected();
+        new LitEyeCanifier(eyeCanifier.setLEDColor(0, 0, 0));
         return selectedCommand;
 
     }
