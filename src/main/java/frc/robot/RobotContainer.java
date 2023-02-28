@@ -17,8 +17,14 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.Autos;
-import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.EyeColor;
+import frc.robot.commands.EyeMovement;
+import frc.robot.commands.IntakeCubeCmd;
+import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.OpenEye;
+import frc.robot.commands.RaiseIngestorLiftCmd;
+import frc.robot.commands.ScoreIngestorLiftCmd;
+import frc.robot.commands.LitEyeCanifier;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.ConeFlipper;
@@ -48,7 +54,6 @@ public class RobotContainer {
     private final IngestorIntake ingestorIntakeObj = new IngestorIntake(ingestorIntakeUpperTalon);
     private final WPI_PigeonIMU pigeon = new WPI_PigeonIMU(ingestorIntakeUpperTalon);
     private final Drivetrain drivetrainObj = new Drivetrain(pigeon);
-    private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
@@ -226,7 +231,8 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         CommandBase selectedCommand = autonChooser.getSelected();
-        new LitEyeCanifier(eyeCanifier.setLEDColor(0, 0, 0));
+        new LitEyeCanifier(eyeCanifier).setEyeColor(new EyeColor(0, 0, 0));
+        new OpenEye(eyeballObj).setEyemovement(new EyeMovement(1, 0));;
         return selectedCommand;
 
     }
