@@ -44,6 +44,7 @@ public final class Constants {
     public static final int INGESTOR_MOTOR = 11;
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
     public static final int DIGITAL_INPUT_BEAM = 0;
+    public static final int DIGITAL_INPUT_FLIPPER = 1;
     
     //TODO: must have a value other than null
     //public static final MotorType FLIPPER_MOTOR_TYPE = null;
