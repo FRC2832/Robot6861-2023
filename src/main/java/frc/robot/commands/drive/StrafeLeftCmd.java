@@ -48,7 +48,7 @@ public class StrafeLeftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        System.out.println("strafeLeft: " + ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) * Constants.DRIVETRAIN_STRAFE_RATIO) / 12);
-        return ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) * Constants.DRIVETRAIN_STRAFE_RATIO) / 12 >= driveDistanceInches;
+        System.out.println("strafeLeft: " + ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12);
+        return ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12 >= driveDistanceInches;
     }
 }

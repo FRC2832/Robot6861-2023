@@ -34,7 +34,7 @@ public final class Constants {
 
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
-    public static final double DRIVETRAIN_STRAFE_RATIO = .82;
+    public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
         // using ratio because encoders aren't accurate when going sideways
         // ratio obtained becuase it went 3.75" when commanded to go 48"
 
@@ -49,6 +49,8 @@ public final class Constants {
     public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
     public static final int INGESTOR_MOTOR = 11;
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
+    
+    //Beam break sensor Digital I/O port
     public static final int DIGITAL_INPUT_BEAM = 0;
     
     //TODO: must have a value other than null
