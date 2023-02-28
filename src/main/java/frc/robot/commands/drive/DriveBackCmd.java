@@ -12,23 +12,25 @@ public class DriveBackCmd extends CommandBase {
 
     private Drivetrain drivetrainObj;
     private double driveSpeed;
-    private double driveDistanceFeet;
+    private double driveDistanceInches;
     private double startEncoderPos;
+    private boolean isRedAlliance;
 
 
 
-    public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
+    public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceFeet = driveDistanceFeet; 
+        this.driveDistanceInches = driveDistanceInches; 
         this.driveSpeed = Math.abs(driveSpeed);
+        // this.isRedAlliance = isRedAlliance;
         addRequirements(drivetrainObj);
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        startEncoderPos = drivetrainObj.getAvgEncoderDistance();
-        System.out.println("startEncoderPos: " + startEncoderPos);
+        drivetrainObj.resetEncoders();
+        startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -48,7 +50,7 @@ public class DriveBackCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        System.out.println((drivetrainObj.getAvgEncoderDistance() - startEncoderPos) / 12);
-        return (drivetrainObj.getAvgEncoderDistance() - startEncoderPos) / 12 >= driveDistanceFeet;
+        System.out.println("driveBack" + (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
+        return (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches;
     }
 }

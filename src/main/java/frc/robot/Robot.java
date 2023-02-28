@@ -23,7 +23,7 @@ public class Robot extends TimedRobot {
     private Command selectedAutonCommand;
 
     private RobotContainer robotContainerObj;
-    // private LEDsCANifier clights;
+    private LEDsCANifier clights;
     
     /**
      * This function is run when the robot is first started up and should be used
@@ -36,9 +36,10 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         robotContainerObj = new RobotContainer();
+        clights = new LEDsCANifier();
 
         //Set the eye color as white
-        // clights.setLEDColor(255, 255, 255); //Green, Red, Blue
+        clights.setLEDColor(255, 255, 255); //Green, Red, Blue
 
     }
 

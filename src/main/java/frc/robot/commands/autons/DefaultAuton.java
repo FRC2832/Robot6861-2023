@@ -13,7 +13,6 @@ import frc.robot.subsystems.Drivetrain;
 public class DefaultAuton extends SequentialCommandGroup {
 
   public DefaultAuton(Drivetrain drivetrainObj) {
-    // TODO: driveBack is driving forwards... MUST FIX
     addCommands(new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED));
     addCommands(new StrafeLeftCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED));
   }

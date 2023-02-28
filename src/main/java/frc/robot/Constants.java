@@ -34,7 +34,9 @@ public final class Constants {
 
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
-    public static final double DRIVETRAIN_STRAFE_RATIO = 13;
+    public static final double DRIVETRAIN_STRAFE_RATIO = .82;
+        // using ratio because encoders aren't accurate when going sideways
+        // ratio obtained becuase it went 3.75" when commanded to go 48"
 
     // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
@@ -76,7 +78,7 @@ public final class Constants {
 	public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
 	public static final Type RIGHT_BACK_SPARK_ENCODER = Type.kHallSensor;
 
-    public static final int PIGEON_TALON = 0; // TODO: Assign a Pigeon ID
+    public static final int PIGEON_TALON = 13; 
 
     // IngestorIntake Subsystem Roller Motor Speeds
     public static final double INGESTOR_EXPEL_SPEED = -0.75;
@@ -85,6 +87,6 @@ public final class Constants {
 
     // Auton speed and drive distances (in feet)
     public static final double AUTON_SPEED = 0.3;
-    public static final double DEFAULT_AUTON_DRIVE_BACK = 8;
-    public static final double DEFAULT_AUTON_STRAFE = 4;
+    public static final double DEFAULT_AUTON_DRIVE_BACK = 96;
+    public static final double DEFAULT_AUTON_STRAFE = 48;
 }

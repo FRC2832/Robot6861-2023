@@ -124,11 +124,20 @@ public class Drivetrain extends SubsystemBase {
 
     // returns distance in inches
     public double getAvgEncoderDistance() {
-        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI;
+        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        //added 0.634 offset because robot is consistently off when commanding a distance
     }
 
     public double getEncoderDistance() {
-        return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI;
+        return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        //added 0.634 offset because robot is consistently off when commanding a distance
+    }
+
+    public void resetEncoders() {
+        leftFrontEncoderObj.setPosition(0);
+        rightFrontEncoderObj.setPosition(0);
+        leftBackEncoderObj.setPosition(0);
+        rightBackEncoderObj.setPosition(0);
     }
 
     /**
