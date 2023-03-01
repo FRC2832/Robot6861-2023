@@ -13,7 +13,6 @@ import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -23,13 +22,12 @@ import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
-import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.autons.CableCrossAuton;
 import frc.robot.commands.autons.DefaultCableAuton;
 import frc.robot.commands.autons.DefaultSubstationAuton;
 import frc.robot.commands.autons.SubstationCrossAuton;
+import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveCartesian;
-import frc.robot.commands.drive.DriveDockCmd;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GamePieceScoop;
@@ -99,11 +97,12 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        eyeballObj.setDefaultCommand(eyeballObj.setEyes(new EyeMovement(1, 1), new EyeColor(255, 255, 255)));
+        eyeballObj.setDefaultCommand(eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
 
-        EyeMovement movement = new EyeMovement(0, 0);
+        EyeMovement movementLeft = new EyeMovement(0, 0);
+        EyeMovement movementRight = new EyeMovement(1, 1);
         EyeColor color = new EyeColor(0, 0, 0);
-        ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(eyeballObj.setEyes(movement, color),
+        ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(eyeballObj.setEyes(movementLeft, movementRight, color),
                         defaultSubstationAutoCmd);
 
         autonChooser.setDefaultOption("Default Substation Auton", defaultSubstationAuton);
@@ -200,7 +199,7 @@ public class RobotContainer {
 
         //Lower ingestor to intake cube using operator Y button
          operatorControllerObj.y().whileTrue(lowerAndIngest);
-        // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
+        
 
         // Shoot cube using operator right trigger
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
@@ -209,6 +208,10 @@ public class RobotContainer {
 
         // for testing servo:
         // operatorControllerObj.leftTrigger().whileTrue(gamePieceScoopObj.servoOffCmd());
+
+
+        // for testing BalancePIDCmd
+        driverControllerObj.b().whileTrue(new BalancePIDCmd(drivetrainObj));
 
     }
 

@@ -21,20 +21,16 @@ public class IngestorIntake extends SubsystemBase {
 
     // TODO: Confirm the motor controller type
 
-    public DigitalInput getIngestorBeamBreak() {
-        return ingestorBeamBreak;
+    public boolean getIngestorBeamBreakValue() {
+        return ingestorBeamBreak.get();
     }
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
-        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM );
+        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
         // Create a motorcontroller group?
-    }
-
-    public void operatorController() {
-
     }
 
     public void revIn() {
@@ -55,7 +51,6 @@ public class IngestorIntake extends SubsystemBase {
                     revOut();
                 });
     }
-
 
     public CommandBase revInIngestorIntake() {
         // Inline construction of command goes here.

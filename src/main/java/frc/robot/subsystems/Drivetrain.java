@@ -18,7 +18,6 @@ import frc.robot.Constants;
 
 
 public class Drivetrain extends SubsystemBase {
-    // TODO: Identify motor controller ports.  DOne?
 
     // Xbox controller port
     // Add operator controller
@@ -45,6 +44,7 @@ public class Drivetrain extends SubsystemBase {
 
     // Pigeon IMU also used for gyro:
     private WPI_PigeonIMU pigeon;
+    
 
     //TODO: Add odomtery class for tracking robot pose
 
@@ -102,6 +102,12 @@ public class Drivetrain extends SubsystemBase {
 
     public void mecanumDriveCartesian(double xSpeed, double ySpeed, double zRotation) {
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
+    }
+
+    public double getPitch() {
+        double ypr[] = new double[3];
+        pigeon.getYawPitchRoll(ypr);
+        return ypr[1];
     }
 
 

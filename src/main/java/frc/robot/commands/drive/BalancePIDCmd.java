@@ -14,10 +14,7 @@ public class BalancePIDCmd extends CommandBase {
     private double drivePower;
     private Drivetrain drivetrainObj;
 
-    public BalancePIDCmd(double kp, double angle, double drivePower, Drivetrain drivetrainObj) {
-        this.kp = kp;   
-        this.angle = angle;
-        this.drivePower = drivePower;
+    public BalancePIDCmd(Drivetrain drivetrainObj) {
         this.drivetrainObj = drivetrainObj;
         addRequirements(drivetrainObj);
 
@@ -34,6 +31,7 @@ public class BalancePIDCmd extends CommandBase {
         // TODO: get current angle from pigeon and put it in angle
         // pids work by multiplying the error from the desired position 
         // by the proportional factor, in this case kp.
+        angle = drivetrainObj.getPitch();
         drivePower = kp * angle;
         // if we go above 0.4 power we’ll be too fast
         if (Math.abs(drivePower) > 0.4) {

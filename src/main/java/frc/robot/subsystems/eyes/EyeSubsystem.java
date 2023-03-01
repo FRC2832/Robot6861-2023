@@ -9,39 +9,38 @@ import com.ctre.phoenix.CANifier;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class EyeSubsystem extends SubsystemBase {
-    private Servo eyePupilServo1;
-    private Servo eyePupilServo2;
-    private Servo eyeLidServo1;
-    private Servo eyeLidServo2;
+    private Servo eyePupilServoRight;
+    private Servo eyePupilServoLeft;
+    private Servo eyeLidServoRight;
+    private Servo eyeLidServoLeft;
     private CANifier clights;
 
-    
     public EyeSubsystem() {
-        eyePupilServo1 = new Servo(4);         // eyePupilServo1 connected to roboRIO PWM 4
-        eyePupilServo2 = new Servo(5);         // eyePupilServo2 connected to roboRIO PWM 5
-        eyeLidServo1 = new Servo(3);         // eyeLidServo1 connected to roboRIO PWM 1
-        eyeLidServo2 = new Servo(2);         // eyeLidServo2 connected to roboRIO PWM 2
-        clights = new CANifier(4);
+        eyePupilServoRight = new Servo(Constants.RIGHT_PUPIL_SERVO); // eyePupilServo1 connected to roboRIO PWM 4
+        eyePupilServoLeft = new Servo(Constants.LEFT_PUPIL_SERVO); // eyePupilServo2 connected to roboRIO PWM 5
+        eyeLidServoRight = new Servo(Constants.RIGHT_EYELID_SERVO); // eyeLidServo1 connected to roboRIO PWM 1
+        eyeLidServoLeft = new Servo(Constants.LEFT_EYELID_SERVO); // eyeLidServo2 connected to roboRIO PWM 2
+        clights = new CANifier(Constants.EYE_CANIFIER_ID);
     }
 
     private synchronized void setLEDColor(EyeColor color) {
-        //ChannelA is Green
-        //ChannelB is Red
-        //ChannelC is Blue
-        clights.setLEDOutput(color.getRed(), CANifier.LEDChannel.LEDChannelB); //Red
-        clights.setLEDOutput(color.getGreen(), CANifier.LEDChannel.LEDChannelA); //Green
-        clights.setLEDOutput(color.getBlue(), CANifier.LEDChannel.LEDChannelC); //Blue
-        //mOutputsChanged = true;
+        // ChannelA is Green
+        // ChannelB is Red
+        // ChannelC is Blue
+        clights.setLEDOutput(color.getRed(), CANifier.LEDChannel.LEDChannelB); // Red
+        clights.setLEDOutput(color.getGreen(), CANifier.LEDChannel.LEDChannelA); // Green
+        clights.setLEDOutput(color.getBlue(), CANifier.LEDChannel.LEDChannelC); // Blue
+        // mOutputsChanged = true;
     }
 
-    private void setEyePosition(EyeMovement movement){
-        
-		eyePupilServo1.set(movement.getEyePupil());
-		eyePupilServo2.set(movement.getEyePupil());
-		eyeLidServo1.set(movement.getEyeLid());
-        eyeLidServo2.set(movement.getEyeLid());     
+    private void setEyePositions(EyeMovement movementLeft, EyeMovement movementRight) {
+        eyePupilServoRight.set(movementLeft.getEyePupil());
+        eyePupilServoLeft.set(movementRight.getEyePupil());
+        eyeLidServoRight.set(movementLeft.getEyeLid());
+        eyeLidServoLeft.set(movementRight.getEyeLid());
     }
 
     /**
@@ -50,11 +49,11 @@ public class EyeSubsystem extends SubsystemBase {
      * @return a command
      */
 
-    public CommandBase setEyes(EyeMovement movement, EyeColor color) {
-                return runOnce(
+    public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
+        return runOnce(
                 () -> {
                     /* one-time action goes here */
-                    setEyePosition(movement);
+                    setEyePositions(movementLeft, movementRight);
                     setLEDColor(color);
                 });
     }
