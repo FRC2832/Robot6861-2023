@@ -8,7 +8,7 @@ public class LEDsCANifier extends SubsystemBase {
     
     private CANifier clights;
 
-    private LEDsCANifier() {
+    public LEDsCANifier() {
         clights = new CANifier(4);
     }
 
