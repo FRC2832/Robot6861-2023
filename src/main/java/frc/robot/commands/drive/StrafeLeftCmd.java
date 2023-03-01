@@ -15,6 +15,7 @@ public class StrafeLeftCmd extends CommandBase {
     private double driveSpeed;
     private double driveDistanceInches;
     private double startEncoderPos;
+    private double start;
 
     public StrafeLeftCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
@@ -26,8 +27,12 @@ public class StrafeLeftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        System.out.println("StrafeLeftCmd initialize");
         drivetrainObj.resetEncoders();
         startEncoderPos = drivetrainObj.getEncoderDistance();
+        System.out.println("start encoder pos: " + startEncoderPos);
+        start = startEncoderPos / Constants.DRIVETRAIN_STRAFE_RATIO / 12;
+        System.out.println("start: " + start);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -47,6 +52,8 @@ public class StrafeLeftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12 >= driveDistanceInches;
+        System.out.println(((Math.abs(drivetrainObj.getEncoderDistance()) - Math.abs(startEncoderPos)) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12);
+        System.out.println((((Math.abs(drivetrainObj.getEncoderDistance()) - Math.abs(startEncoderPos)) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12) - start);
+        return (((Math.abs(drivetrainObj.getEncoderDistance()) - Math.abs(startEncoderPos)) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12) - start >= driveDistanceInches;
     }
 }

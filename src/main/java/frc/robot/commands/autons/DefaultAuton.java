@@ -19,13 +19,17 @@ public class DefaultAuton extends SequentialCommandGroup {
         Alliance alliance = DriverStation.getAlliance();
 
         if (alliance == Alliance.Red) {
-            addCommands(new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED));
-            addCommands(new StrafeLeftCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED));
+            addCommands(
+                new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
+                new StrafeLeftCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED)
+            );
         } 
 
         else if (alliance == Alliance.Blue) {
-            addCommands(new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED));
-            addCommands(new StrafeRightCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED));
+            addCommands(
+                new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
+                new StrafeRightCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED)
+            );
         }
     }
 

@@ -21,7 +21,7 @@ public class EyeSubsystem extends SubsystemBase {
     public EyeSubsystem() {
         eyePupilServo1 = new Servo(4);         // eyePupilServo1 connected to roboRIO PWM 4
         eyePupilServo2 = new Servo(5);         // eyePupilServo2 connected to roboRIO PWM 5
-        eyeLidServo1 = new Servo(1);         // eyeLidServo1 connected to roboRIO PWM 1
+        eyeLidServo1 = new Servo(3);         // eyeLidServo1 connected to roboRIO PWM 1
         eyeLidServo2 = new Servo(2);         // eyeLidServo2 connected to roboRIO PWM 2
         clights = new CANifier(4);
     }
