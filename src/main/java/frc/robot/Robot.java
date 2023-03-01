@@ -38,8 +38,8 @@ public class Robot extends TimedRobot {
         robotContainerObj = new RobotContainer();
         clights = new LEDsCANifier();
 
-        //Set the eye color as white
-        clights.setLEDColor(255, 255, 255); //Green, Red, Blue
+        //Set the eye color as white (but red for now)
+        clights.setLEDColor(255, 0, 0); //Green, Red, Blue
 
     }
 
