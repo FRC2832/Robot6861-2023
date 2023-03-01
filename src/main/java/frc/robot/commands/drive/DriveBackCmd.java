@@ -50,7 +50,6 @@ public class DriveBackCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        System.out.println("driveBack" + (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
         return (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches;
     }
 }
