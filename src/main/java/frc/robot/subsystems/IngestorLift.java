@@ -24,7 +24,7 @@ public class IngestorLift extends SubsystemBase {
     private double goalPosition;
     private final double topPosition = 0.0;
     private final double bottomPosition = 65;
-    private final double shootingPosition = 15;
+    private final double shootingPosition = 5;
     private DigitalInput ingestorLimitInput;
     private double ingestorMotorSpeed = 0.6;
     private boolean isAtScoring;
