@@ -2,15 +2,13 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.subsystems;
+package frc.robot.subsystems.eyes;
 
 import com.ctre.phoenix.CANifier;
 
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.commands.EyeColor;
-import frc.robot.commands.EyeMovement;
 
 public class EyeSubsystem extends SubsystemBase {
     private Servo eyePupilServo1;

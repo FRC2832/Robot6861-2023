@@ -1,4 +1,4 @@
-package frc.robot.commands;
+package frc.robot.subsystems.eyes;
 
 public class EyeMovement {
     private int eyeLid;
