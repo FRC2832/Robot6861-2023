@@ -7,7 +7,6 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.subsystems.LEDsCANifier;
 
 
 /**
@@ -23,7 +22,7 @@ public class Robot extends TimedRobot {
     private Command selectedAutonCommand;
 
     private RobotContainer robotContainerObj;
-    private LEDsCANifier clights;
+    //private LEDsCANifier clights;
     
     /**
      * This function is run when the robot is first started up and should be used
@@ -36,10 +35,10 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         robotContainerObj = new RobotContainer();
-        clights = new LEDsCANifier();
+        //clights = new LEDsCANifier();
 
         //Set the eye color as white (but red for now)
-        clights.setLEDColor(255, 0, 0); //Green, Red, Blue
+        //clights.setLEDColor(255, 0, 0); //Green, Red, Blue
 
     }
 

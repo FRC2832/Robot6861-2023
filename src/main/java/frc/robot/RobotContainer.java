@@ -23,19 +23,20 @@ import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
+import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.autons.DefaultAuton;
 import frc.robot.commands.drive.DriveCartesian;
+import frc.robot.commands.drive.DriveDockCmd;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-//import frc.robot.subsystems.EyeballSubsystem;
-import frc.robot.subsystems.EyelidSubsystem;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.Vision;
+import frc.robot.subsystems.eyes.EyeColor;
+import frc.robot.subsystems.eyes.EyeMovement;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -52,15 +53,13 @@ public class RobotContainer {
     private final IngestorIntake ingestorIntakeObj = new IngestorIntake(ingestorIntakeUpperTalon);
     private final WPI_PigeonIMU pigeon = new WPI_PigeonIMU(ingestorIntakeUpperTalon);
     private final Drivetrain drivetrainObj = new Drivetrain(pigeon);
-    private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
-    private final LEDSubsystem ledObj = new LEDSubsystem();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
     // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
-    private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
+    private final EyeSubsystem eyeballObj = new EyeSubsystem();
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
 
@@ -94,8 +93,14 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        
-        autonChooser.setDefaultOption("Default Auton", defaultAuto);
+        eyeballObj.setDefaultCommand(eyeballObj.setEyes(new EyeMovement(1, 1), new EyeColor(255, 255, 255)));
+
+        EyeMovement movement = new EyeMovement(0, 0);
+        EyeColor color = new EyeColor(0, 0, 0);
+        ParallelCommandGroup defaultAuton = new ParallelCommandGroup(eyeballObj.setEyes(movement, color),
+                        defaultAuto);
+
+        autonChooser.setDefaultOption("Default Auton", defaultAuton);
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
@@ -111,18 +116,12 @@ public class RobotContainer {
         leftCenterRight.addOption("Center", 1);
         leftCenterRight.addOption("Right", 2);
         /*
-         * String station = leftCenterRight.getSelected();
-         * CommandBase defaultAutonCommand = null;
-         * if (station == 0) {
-         * // TODO: defaultAutonCommand = leftDriveBackward;
-         * }
-         * else if (station == 1) {
-         * // TODO: defaultAutonCommand = centerDriveBackward;
-         * }
-         * else if (station == 2) {
-         * // TODO: defaultAutonCommand = rightDriveBackward;
-         * }
-         * autonChooser.setDefaultOption("Drive Backward", defaultAutonCommand);
+         * Drive at half speed when the right bumper is held
+         * new JoystickButton(m_driverController, Button.kRightBumper.value)
+         * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+         * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+         * 
+         * we need to modify for our objects
          */
 
     }
@@ -157,15 +156,37 @@ public class RobotContainer {
         // TODO: replace null with stop and raise commands StopIngestor,
         // RaiseIngestorLiftCmd
         /*
-         * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
-         * new StopIngestorIntake(ingestorIntakeObj), new
-         * RaiseIngestorLiftCmd(ingestorLiftObj)
+         * private void configureAutoCommands() {
+         * autoEventMap.put("event1", Commands.print("Passed marker 1"));
+         * autoEventMap.put("event2", Commands.print("passed marker 2"));
+         * 
+         * 
+         * List<PathPlannerTrajectory> auto1Paths =
+         * PathPlanner.loadPathGroup(
+         * "Default Auton", 4, 3);
+         * 
+         * Command autoTest =
+         * Commands.sequence(
+         * new FollowPathWithEvents(
+         * new FollowPathCmd(auto1Paths.get(0), drivetrainObj, true)
+         * auto1Paths.get(0).getMarkers(0),
+         * autoEventMap),
+         * // Commands.runOnce(drivetrainObj, drivetrainObj),
+         * // Commands.waitSeconds(5.0),
+         * // Commands.runOnce(drivetrainObj::disableXstance, drivetrainObj),
+         * new FollowPathWithEvents(
+         * new FollowPathCmd(auto1Paths.get(1), drivetrainObj, false)
+         * auto1Paths.get(0).getMarkers(0),
+         * autoEventMap)
          * );
+         * 
+         * }
          */
 
-        /*
-         * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
-         * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
+        /**
+         * Use this to pass the autonomous command to the main {@link Robot} class.
+         *
+         * @return the command to run in autonomous
          */
 
         //Lower ingestor to intake cube using operator Y button
