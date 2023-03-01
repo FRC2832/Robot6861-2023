@@ -26,7 +26,9 @@ import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.LitEyeCanifier;
 import frc.robot.commands.StopIngestorIntake;
+import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.drive.DriveCartesian;
+import frc.robot.commands.drive.DriveDockCmd;
 import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
@@ -35,8 +37,6 @@ import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
-import frc.robot.subsystems.LEDsCANifier;
 import frc.robot.subsystems.Vision;
 
 /**
@@ -60,7 +60,7 @@ public class RobotContainer {
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
     private final EyeSubsystem eyeballObj = new EyeSubsystem();
-    private final LEDsCANifier eyeCanifier = new LEDsCANifier();
+    //private final LEDsCANifier eyeCanifier = new LEDsCANifier();
     
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
@@ -92,8 +92,8 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        eyeballObj.setDefaultCommand(eyeballObj.resetEyes());
-        eyeCanifier.setDefaultCommand(eyeCanifier.resetColor());
+        eyeballObj.setDefaultCommand(eyeballObj.setEyes(new EyeMovement(0, 0), new EyeColor(0, 0, 0)));
+        
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
         // autonChooser.addOption("Another Example Command", new
@@ -108,6 +108,10 @@ public class RobotContainer {
         leftCenterRight.addOption("Left", 0);
         leftCenterRight.addOption("Center", 1);
         leftCenterRight.addOption("Right", 2);
+        SequentialCommandGroup defaultAutonSteps = new SequentialCommandGroup(new DriveDockCmd(), new DriveBackCmd(drivetrainObj, 0.5))
+        ParallelCommandGroup defaultAuton = new ParallelCommandGroup(new OpenEye(eyeballObj), defaultAutonSteps);
+
+        autonChooser.addOption("Default Auton", defaultAuton);
         /*
          * String station = leftCenterRight.getSelected();
          * CommandBase defaultAutonCommand = null;
@@ -231,8 +235,6 @@ public class RobotContainer {
     public Command getAutonomousCommand() {
         // An example command will be run in autonomous
         CommandBase selectedCommand = autonChooser.getSelected();
-        new LitEyeCanifier(eyeCanifier).setEyeColor(new EyeColor(0, 0, 0));
-        new OpenEye(eyeballObj).setEyemovement(new EyeMovement(1, 0));;
         return selectedCommand;
 
     }

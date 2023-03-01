@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 public class OpenEye extends CommandBase {
     private final EyeSubsystem eyeSubsystemObj;
     private EyeMovement eyemovement;
+    private EyeColor eyeColor;
+
+    public void setEyeColor(EyeColor eyeColor) {
+        this.eyeColor = eyeColor;
+    }
 
     public void setEyemovement(EyeMovement eyemovement) {
         this.eyemovement = eyemovement;
@@ -35,7 +40,7 @@ public class OpenEye extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        eyeSubsystemObj.eyePosition(eyemovement.getEyePupil(), eyemovement.getEyeLid());
+        eyeSubsystemObj.setEyes(eyemovement,eyeColor);
     }
 
     // Called once the command ends or is interrupted.

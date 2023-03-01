@@ -14,9 +14,8 @@ public class LitEyeCanifier extends CommandBase {
     private EyeColor eyeColor;
 
 
-    public EyeColor setEyeColor(EyeColor color) {
+    public void setEyeColor(EyeColor color) {
         this.eyeColor=color;
-        return this.eyeColor;
     }
 
     /**

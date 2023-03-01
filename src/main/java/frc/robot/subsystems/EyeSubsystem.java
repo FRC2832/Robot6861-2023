@@ -4,15 +4,20 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.CANifier;
+
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.commands.EyeColor;
+import frc.robot.commands.EyeMovement;
 
 public class EyeSubsystem extends SubsystemBase {
     private Servo eyePupilServo1;
     private Servo eyePupilServo2;
     private Servo eyeLidServo1;
     private Servo eyeLidServo2;
+    private CANifier clights;
 
     
     public EyeSubsystem() {
@@ -20,13 +25,25 @@ public class EyeSubsystem extends SubsystemBase {
         eyePupilServo2 = new Servo(5);         // eyePupilServo2 connected to roboRIO PWM 5
         eyeLidServo1 = new Servo(1);         // eyeLidServo1 connected to roboRIO PWM 1
         eyeLidServo2 = new Servo(2);         // eyeLidServo2 connected to roboRIO PWM 2
+        clights = new CANifier(4);
     }
 
-    public void eyePosition(double eyePupil, double eyeLid){
-		eyePupilServo1.set(eyePupil);
-		eyePupilServo2.set(eyePupil);
-		eyeLidServo1.set(eyeLid);
-        eyeLidServo2.set(eyeLid);     
+    private synchronized void setLEDColor(EyeColor color) {
+        //ChannelA is Green
+        //ChannelB is Red
+        //ChannelC is Blue
+        clights.setLEDOutput(color.getRed(), CANifier.LEDChannel.LEDChannelB); //Red
+        clights.setLEDOutput(color.getGreen(), CANifier.LEDChannel.LEDChannelA); //Green
+        clights.setLEDOutput(color.getBlue(), CANifier.LEDChannel.LEDChannelC); //Blue
+        //mOutputsChanged = true;
+    }
+
+    private void setEyePosition(EyeMovement movement){
+        
+		eyePupilServo1.set(movement.getEyePupil());
+		eyePupilServo2.set(movement.getEyePupil());
+		eyeLidServo1.set(movement.getEyeLid());
+        eyeLidServo2.set(movement.getEyeLid());     
     }
 
     /**
@@ -34,13 +51,13 @@ public class EyeSubsystem extends SubsystemBase {
      *
      * @return a command
      */
-    public CommandBase resetEyes() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
-        return runOnce(
+
+    public CommandBase setEyes(EyeMovement movement, EyeColor color) {
+                return runOnce(
                 () -> {
                     /* one-time action goes here */
-                    eyePosition(0, 0);
+                    setEyePosition(movement);
+                    setLEDColor(color);
                 });
     }
 
