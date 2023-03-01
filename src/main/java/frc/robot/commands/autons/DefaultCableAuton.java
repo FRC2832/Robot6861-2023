@@ -9,28 +9,23 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.drive.DriveBackCmd;
-import frc.robot.commands.drive.StrafeLeftCmd;
-import frc.robot.commands.drive.StrafeRightCmd;
 import frc.robot.subsystems.Drivetrain;
 
-public class DefaultAuton extends SequentialCommandGroup {
+public class DefaultCableAuton extends SequentialCommandGroup {
 
-    public DefaultAuton(Drivetrain drivetrainObj) {
+    public DefaultCableAuton(Drivetrain drivetrainObj) {
         Alliance alliance = DriverStation.getAlliance();
 
         if (alliance == Alliance.Red) {
             addCommands(
-                new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-                new StrafeLeftCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED)
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
             );
         } 
 
         else if (alliance == Alliance.Blue) {
             addCommands(
-                new DriveBackCmd(drivetrainObj, Constants.DEFAULT_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-                new StrafeRightCmd(drivetrainObj, Constants.DEFAULT_AUTON_STRAFE, Constants.AUTON_SPEED)
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
             );
         }
     }
-
 }

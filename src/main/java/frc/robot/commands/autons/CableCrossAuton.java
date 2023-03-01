@@ -10,30 +10,26 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.drive.DriveBackCmd;
-import frc.robot.commands.drive.StrafeLeftCmd;
-import frc.robot.commands.drive.StrafeRightCmd;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
-public class SubstationCrossAuton extends SequentialCommandGroup {
+public class CableCrossAuton extends SequentialCommandGroup {
 
-    public SubstationCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
+    public CableCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         Alliance alliance = DriverStation.getAlliance();
 
         if (alliance == Alliance.Red) {
             addCommands(
                 new ScoreCubeCmd(ingestorIntake, gamePieceScoop), 
-                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-                new StrafeLeftCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
             );
         }
 
         else if (alliance == Alliance.Blue) {
             addCommands(
                 new ScoreCubeCmd(ingestorIntake, gamePieceScoop), 
-                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-                new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
             );
         }
     }

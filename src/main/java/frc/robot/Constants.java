@@ -87,8 +87,9 @@ public final class Constants {
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 
-    // Auton speed and drive distances (in feet)
+    // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
-    public static final double DEFAULT_AUTON_DRIVE_BACK = 96;
-    public static final double DEFAULT_AUTON_STRAFE = 48;
+    public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
+    public static final double SUBSTATION_AUTON_STRAFE = 48;
+    public static final double CABLE_AUTON_DRIVE_BACK = 144;
 }
