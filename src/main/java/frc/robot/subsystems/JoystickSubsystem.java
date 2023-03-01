@@ -22,7 +22,7 @@ public class JoystickSubsystem extends SubsystemBase {
     public JoystickSubsystem(CommandXboxController driverController, CommandXboxController operatorController) {
         this.driverController = driverController;
         this.operatorController = operatorController;
-        setDeadband(1);
+        setDeadband(1.0);
     }
 
     private void setDeadband(double d) {

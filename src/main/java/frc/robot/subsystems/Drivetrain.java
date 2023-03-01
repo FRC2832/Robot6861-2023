@@ -71,19 +71,24 @@ public class Drivetrain extends SubsystemBase {
         leftFrontSpark.setInverted(true);
         rightFrontSpark.setInverted(true);
 
-        // IIRC, you invert left/right, not front/back.
 
         leftFrontSpark.setIdleMode(IdleMode.kBrake);
         rightFrontSpark.setIdleMode(IdleMode.kBrake);
         leftBackSpark.setIdleMode(IdleMode.kBrake);
         rightBackSpark.setIdleMode(IdleMode.kBrake);
+        
         // Pose/Orientation
         // poseEstimator = null;
+
+        // need to limit current for mecanum to keep battery from dropping so low we can't drive
         leftFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         leftBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         mecanumDriveObj.setMaxOutput(0.75);
+        /*  maxOutput must be less than 1 to avoid overloading the battery and 
+             not being able to drive. */ 
+             
         // mecanumDriveObj.setSafetyEnabled(false);
     }
 
@@ -109,8 +114,7 @@ public class Drivetrain extends SubsystemBase {
     // use <1 to slow down the drivetrain all the time
     public void setMaxOutput(double maxOutput) {
         mecanumDriveObj.setMaxOutput(maxOutput);
-      }
-
+    }
 
     public double getAvgEncoderRotations() {
         double rotationSum = leftFrontEncoderObj.getPosition() + leftBackEncoderObj.getPosition()
@@ -118,14 +122,23 @@ public class Drivetrain extends SubsystemBase {
         return rotationSum / 4;
     }
 
-    /*  TODO: CO-pilot suggested this method to be added.
-     Do we want to keep it?  Might be useful for autonomous?
+    // returns distance in inches
     public double getAvgEncoderDistance() {
-        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI;
+        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        //added 0.634 offset because robot is consistently off when commanding a distance
     }
-    */
-    
 
+    public double getEncoderDistance() {
+        return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        //added 0.634 offset because robot is consistently off when commanding a distance
+    }
+
+    public void resetEncoders() {
+        leftFrontEncoderObj.setPosition(0);
+        rightFrontEncoderObj.setPosition(0);
+        leftBackEncoderObj.setPosition(0);
+        rightBackEncoderObj.setPosition(0);
+    }
 
     /**
      * Returns the pose of the robot (e.g., x and y position of the robot on the

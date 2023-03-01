@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.JoystickSubsystem;
 
-// TODO: Change to DriveCartesian. Maybe add DrivePolar as well.
+// TODO:  Maybe add DrivePolar as well.
 public class DriveCartesian extends CommandBase {
     /** Creates a new DriveArcade. */
     private Drivetrain drivetrainObj;

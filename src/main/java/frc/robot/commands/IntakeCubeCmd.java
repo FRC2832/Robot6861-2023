@@ -40,8 +40,7 @@ public class IntakeCubeCmd extends CommandBase {
             ingestorIntakeObj.stop();
         }*/
     }
-    // TODO: Create a new command for ingestorLift
-    // TODO: If ingestorLift is at upper limit switch then zero the encoders
+   
 
     // Called once the command ends or is interrupted.
     @Override

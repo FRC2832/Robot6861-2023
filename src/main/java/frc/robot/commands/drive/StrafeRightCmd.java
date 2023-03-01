@@ -2,27 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.drive;
+package frc.robot.commands.drive; 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.Constants;
 
-public class DriveBackCmd extends CommandBase {
-    /** Creates a new DriveBackCmd. */
+public class StrafeRightCmd extends CommandBase {
+    /** Creates a new StrafeLeftCmd. */
 
     private Drivetrain drivetrainObj;
     private double driveSpeed;
-    private double driveDistanceInches;
+    private double driveDistanceFeet;
     private double startEncoderPos;
-    private boolean isRedAlliance;
 
-
-
-    public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
+    public StrafeRightCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceInches = driveDistanceInches; 
+        this.driveDistanceFeet = driveDistanceFeet;
         this.driveSpeed = Math.abs(driveSpeed);
-        // this.isRedAlliance = isRedAlliance;
         addRequirements(drivetrainObj);
     }
 
@@ -30,26 +27,25 @@ public class DriveBackCmd extends CommandBase {
     @Override
     public void initialize() {
         drivetrainObj.resetEncoders();
-        startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
+        startEncoderPos = drivetrainObj.getEncoderDistance();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrainObj.mecanumDriveCartesian(0,driveSpeed,0);
-        // drive back drives forward in Auton only. So inverting driveSpeed 
-        // to positive as temporary fix.  
+        drivetrainObj.mecanumDriveCartesian(-driveSpeed, 0, 0);
+        // Negative drivespeed is due to motor inversion.  Do NOT change.
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        drivetrainObj.mecanumDriveCartesian(0,0,0);
+        drivetrainObj.mecanumDriveCartesian(0, 0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches;
+        return ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12 >= driveDistanceFeet;
     }
 }

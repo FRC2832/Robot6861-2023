@@ -22,7 +22,7 @@ public class Robot extends TimedRobot {
     private Command selectedAutonCommand;
 
     private RobotContainer robotContainerObj;
-    // private LEDsCANifier clights;
+    //private LEDsCANifier clights;
     
     /**
      * This function is run when the robot is first started up and should be used
@@ -35,9 +35,10 @@ public class Robot extends TimedRobot {
         // and put our
         // autonomous chooser on the dashboard.
         robotContainerObj = new RobotContainer();
+        //clights = new LEDsCANifier();
 
-        //Set the eye color as white
-        // clights.setLEDColor(255, 255, 255); //Green, Red, Blue
+        //Set the eye color as white (but red for now)
+        //clights.setLEDColor(255, 0, 0); //Green, Red, Blue
 
     }
 
@@ -60,6 +61,7 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods. This must be called from the
         // robot's periodic
         // block in order for anything in the Command-based framework to work.
+       
         CommandScheduler.getInstance().run();
     }
 
