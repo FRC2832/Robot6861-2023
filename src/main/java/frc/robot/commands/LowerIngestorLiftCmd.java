@@ -6,13 +6,11 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
-import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 public class LowerIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
-    CommandXboxController operatorControllerObj;
 
     public LowerIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;

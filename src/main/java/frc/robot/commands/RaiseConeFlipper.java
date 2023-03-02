@@ -6,8 +6,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ConeFlipper;
 
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */

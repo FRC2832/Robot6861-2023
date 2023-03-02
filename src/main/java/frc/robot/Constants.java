@@ -69,7 +69,7 @@ public final class Constants {
     // Pupil/Eyelid Servo IDs
     // TODO: confirm port with actual number on robot
     public static final int LEFT_EYELID_SERVO = 2; // 2 = pupil
-    public static final int LEFT_PUPIL_SERVO = 3; // 3 = pupil
+    public static final int LEFT_PUPIL_SERVO = 3; // 3 = right eyelid
     public static final int RIGHT_EYELID_SERVO = 4; // 4 = lid
     public static final int RIGHT_PUPIL_SERVO = 5; // 5 = lid
 
@@ -95,4 +95,7 @@ public final class Constants {
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
     public static final double SUBSTATION_AUTON_STRAFE = 48;
     public static final double CABLE_AUTON_DRIVE_BACK = 144;
+
+    public static final double INGESTOR_BOTTOM_POSITION = 65.0;
+    public static final double INGESTOR_EXPEL_POSITION = 55.0;
 }

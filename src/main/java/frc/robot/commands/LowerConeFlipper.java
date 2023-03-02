@@ -6,8 +6,6 @@ package frc.robot.commands;
 
 import frc.robot.subsystems.ConeFlipper;
 
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
@@ -35,7 +33,7 @@ public class LowerConeFlipper extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (coneFlipperObj.getRotationCount() < 102.0) {
+        if (coneFlipperObj.getRotationCount() < targetRotationCounts) {
             coneFlipperObj.setFlipperSpeed(-0.5); // TODO: Need to verify that negative = downwards
         } else {
             coneFlipperObj.setFlipperSpeed(0.0);
