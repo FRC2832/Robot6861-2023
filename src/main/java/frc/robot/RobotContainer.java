@@ -190,23 +190,23 @@ public class RobotContainer {
          * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
          * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
          */
-        Trigger aTrigger = operatorControllerObj.a();
-        Trigger bTrigger = operatorControllerObj.b();
-        Trigger xTrigger = operatorControllerObj.x();
-        Trigger yTrigger = operatorControllerObj.y();
-        Trigger rightOpTrigger = operatorControllerObj.rightTrigger();
+        Trigger opATrigger = operatorControllerObj.a();
+        Trigger driverBTrigger = driverControllerObj.b();
+        Trigger opXTrigger = operatorControllerObj.x();
+        Trigger opYTrigger = operatorControllerObj.y();
+        Trigger opRightTriggerTrigger = operatorControllerObj.rightTrigger();
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        rightOpTrigger.whileTrue(shootCube);
+        opRightTriggerTrigger.whileTrue(shootCube);
 
-        aTrigger.whileTrue(lowerAndExpel);
-        bTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
-        xTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
-        yTrigger.whileTrue(lowerAndIngest);
+        opATrigger.whileTrue(lowerAndExpel);
+        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
+        opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        opYTrigger.whileTrue(lowerAndIngest);
         /*
          * Kettering: tried to get ingestor working. This comment means I was
          * intererupted and code is not finished

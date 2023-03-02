@@ -33,7 +33,7 @@ public class LowerConeFlipper extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (coneFlipperObj.getRotationCount() < 102.0) {
+        if (coneFlipperObj.getRotationCount() < targetRotationCounts) {
             coneFlipperObj.setFlipperSpeed(-0.5); // TODO: Need to verify that negative = downwards
         } else {
             coneFlipperObj.setFlipperSpeed(0.0);
