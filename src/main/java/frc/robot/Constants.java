@@ -86,7 +86,8 @@ public final class Constants {
     public static final int PIGEON_TALON = 13;
 
     // IngestorIntake Subsystem Roller Motor Speeds
-    public static final double INGESTOR_EXPEL_SPEED = -0.95;
+    public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
+    public static final double INGESTOR_EXPEL_SPEED_LOW = -0.75;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 
@@ -94,7 +95,8 @@ public final class Constants {
     public static final double AUTON_SPEED = 0.3;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
     public static final double SUBSTATION_AUTON_STRAFE = 48;
-    public static final double CABLE_AUTON_DRIVE_BACK = 144;
+    public static final double CABLE_AUTON_DRIVE_BACK = 156;
+    public static final double COOP_AUTON_DRIVE_BACK = 44;
 
     public static final double INGESTOR_BOTTOM_POSITION = 65.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;

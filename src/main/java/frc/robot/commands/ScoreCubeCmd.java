@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
@@ -36,7 +37,7 @@ public class ScoreCubeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorIntakeObj.revOut();
+        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_HIGH);
         if (timer.get() >= 1.5) { // TODO: Figure out time it takes for motors to get up to speed
             gamePieceScoopObj.servoOff(); // should shoot cube
         }

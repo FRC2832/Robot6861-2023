@@ -9,7 +9,7 @@ import frc.robot.subsystems.Drivetrain;
 
 public class BalancePIDCmd extends CommandBase {
     /** Creates a new BalancePIDCmd. */
-    private double kp = 0.01; // we need to tune this
+    private double kp;
     private double angle;
     private double drivePower;
     private Drivetrain drivetrainObj;
@@ -28,17 +28,21 @@ public class BalancePIDCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // TODO: get current angle from pigeon and put it in angle
         // pids work by multiplying the error from the desired position 
         // by the proportional factor, in this case kp.
+        kp = 0.014;
         angle = drivetrainObj.getPitch();
+        if (Math.abs(angle) < 5) kp = 0.007;
         drivePower = kp * angle;
         // if we go above 0.4 power we’ll be too fast
         if (Math.abs(drivePower) > 0.4) {
             drivePower = Math.copySign(0.4, drivePower);
         }
-        // drive forward at drivePower
-        drivetrainObj.mecanumDriveCartesian(0, drivePower, 0);
+        if (Math.abs(drivePower) < 0.02) {
+            drivePower = 0;
+        }
+        // drive forward at drivePower (the negative is becuase of inversions)
+        drivetrainObj.mecanumDriveCartesian(0, -drivePower, 0);
 
 
     }
@@ -46,12 +50,13 @@ public class BalancePIDCmd extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        drivetrainObj.mecanumDriveCartesian(0, 0, 0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return Math.abs(angle) < 1;
-        // ends when the angle of the robot is within 1 of being level
+        // it will always be interrupted
+        return false;
     }
 }

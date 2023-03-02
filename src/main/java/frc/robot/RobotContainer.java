@@ -28,6 +28,7 @@ import frc.robot.commands.autons.BlueCableCrossAuton;
 import frc.robot.commands.autons.BlueDefaultCableAuton;
 import frc.robot.commands.autons.BlueDefaultSubstationAuton;
 import frc.robot.commands.autons.BlueSubstationCrossAuton;
+import frc.robot.commands.autons.CoopBalanceAuton;
 import frc.robot.commands.autons.RedCableCrossAuton;
 import frc.robot.commands.autons.RedDefaultCableAuton;
 import frc.robot.commands.autons.RedDefaultSubstationAuton;
@@ -90,6 +91,7 @@ public class RobotContainer {
             gamePieceScoopObj);
     private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
     private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj, drivetrainObj);
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
@@ -121,13 +123,14 @@ public class RobotContainer {
                 redDefaultSubstationAutoCmd);
 
         autonChooser.setDefaultOption("RED Default Substation Auton", defaultSubstationAuton);
-        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultCableAutoCmd);
+        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
         autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
         autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
         autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
         autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
         autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
         autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+        autonChooser.addOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
@@ -213,13 +216,13 @@ public class RobotContainer {
 
         // triggers and commands for shooting cube to high spot and middle spot
         ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-                    ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
 
-        opRightTriggerTrigger.whileTrue(shootCubeUpper);
-        opRightBumperTrigger.whileTrue(shootCubeLower);
+        opRightTriggerTrigger.whileTrue(shootCubeLower);
+        opRightBumperTrigger.whileTrue(shootCubeUpper);
 
         opATrigger.whileTrue(lowerAndExpel);
         driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
