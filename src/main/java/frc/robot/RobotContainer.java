@@ -24,10 +24,14 @@ import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
-import frc.robot.commands.autons.CableCrossAuton;
-import frc.robot.commands.autons.DefaultCableAuton;
-import frc.robot.commands.autons.DefaultSubstationAuton;
-import frc.robot.commands.autons.SubstationCrossAuton;
+import frc.robot.commands.autons.BlueCableCrossAuton;
+import frc.robot.commands.autons.BlueDefaultCableAuton;
+import frc.robot.commands.autons.BlueDefaultSubstationAuton;
+import frc.robot.commands.autons.BlueSubstationCrossAuton;
+import frc.robot.commands.autons.RedCableCrossAuton;
+import frc.robot.commands.autons.RedDefaultCableAuton;
+import frc.robot.commands.autons.RedDefaultSubstationAuton;
+import frc.robot.commands.autons.RedSubstationCrossAuton;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.Drivetrain;
@@ -76,11 +80,16 @@ public class RobotContainer {
     private final JoystickSubsystem joystickSubsystemObj = new JoystickSubsystem(driverControllerObj,
             operatorControllerObj);
 
-    private final Command defaultSubstationAutoCmd = new DefaultSubstationAuton(drivetrainObj);
-    private final Command substationCrossAutoCmd = new SubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
+    private final Command redDefaultSubstationAutoCmd = new RedDefaultSubstationAuton(drivetrainObj);
+    private final Command redSubstationCrossAutoCmd = new RedSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
-    private final Command defaultCableAutoCmd = new DefaultCableAuton(drivetrainObj);
-    private final Command cableCrossAutoCmd = new CableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command redDefaultCableAutoCmd = new RedDefaultCableAuton(drivetrainObj);
+    private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
+    private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
+    private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
+    private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
@@ -109,12 +118,16 @@ public class RobotContainer {
         EyeColor color = new EyeColor(0, 0, 0);
         ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
                 eyeballObj.setEyes(movementLeft, movementRight, color),
-                defaultSubstationAutoCmd);
+                redDefaultSubstationAutoCmd);
 
-        autonChooser.setDefaultOption("Default Substation Auton", defaultSubstationAuton);
-        autonChooser.addOption("Substation Cross Auton", substationCrossAutoCmd);
-        autonChooser.addOption("Default Cable Auton", defaultCableAutoCmd);
-        autonChooser.addOption("Cable Cross Auton", cableCrossAutoCmd);
+        autonChooser.setDefaultOption("RED Default Substation Auton", defaultSubstationAuton);
+        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultCableAutoCmd);
+        autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+        autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+        autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+        autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+        autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+        autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
