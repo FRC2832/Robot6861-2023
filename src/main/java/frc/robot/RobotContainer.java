@@ -56,15 +56,14 @@ public class RobotContainer {
     private final IngestorIntake ingestorIntakeObj = new IngestorIntake(ingestorIntakeUpperTalon);
     private final WPI_PigeonIMU pigeon = new WPI_PigeonIMU(ingestorIntakeUpperTalon);
     private final Drivetrain drivetrainObj = new Drivetrain(pigeon);
-    private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
-    private final LEDSubsystem ledObj = new LEDSubsystem();
+    private final EyeSubsystem eyeballObj = new EyeSubsystem();
+    
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
     // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
-    private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
 
