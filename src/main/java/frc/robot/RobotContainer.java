@@ -17,11 +17,13 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.LowerConeFlipper;
-import frc.robot.commands.RaiseConeFlipper;
 import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.RaiseConeFlipper;
 import frc.robot.commands.RaiseIngestorLiftCmd;
+import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.autons.CableCrossAuton;
@@ -61,7 +63,7 @@ public class RobotContainer {
     private final Vision visionObj = new Vision();
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final EyeSubsystem eyeballObj = new EyeSubsystem();
-    
+
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
     // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
 
@@ -174,6 +176,7 @@ public class RobotContainer {
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
                 new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+        ParallelCommandGroup lowerAndExpel = new ParallelCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj), new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
         // TODO: replace null with stop and raise commands StopIngestor,
         // RaiseIngestorLiftCmd
         /*
@@ -187,18 +190,23 @@ public class RobotContainer {
          * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
          * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
          */
+        Trigger aTrigger = operatorControllerObj.a();
+        Trigger bTrigger = operatorControllerObj.b();
         Trigger xTrigger = operatorControllerObj.x();
         Trigger yTrigger = operatorControllerObj.y();
-        xTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
-        yTrigger.whileTrue(lowerAndIngest);
+        Trigger rightOpTrigger = operatorControllerObj.rightTrigger();
+
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        operatorControllerObj.rightTrigger().whileTrue(shootCube);
-        driverControllerObj.b().whileTrue(new BalancePIDCmd(drivetrainObj));
+        rightOpTrigger.whileTrue(shootCube);
 
+        aTrigger.whileTrue(lowerAndExpel);
+        bTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
+        xTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        yTrigger.whileTrue(lowerAndIngest);
         /*
          * Kettering: tried to get ingestor working. This comment means I was
          * intererupted and code is not finished
