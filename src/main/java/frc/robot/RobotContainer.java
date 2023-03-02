@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCubeCmd;
+import frc.robot.commands.LowerConeFlipper;
+import frc.robot.commands.RaiseConeFlipper;
 import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
@@ -54,13 +56,15 @@ public class RobotContainer {
     private final IngestorIntake ingestorIntakeObj = new IngestorIntake(ingestorIntakeUpperTalon);
     private final WPI_PigeonIMU pigeon = new WPI_PigeonIMU(ingestorIntakeUpperTalon);
     private final Drivetrain drivetrainObj = new Drivetrain(pigeon);
+    private final ExampleSubsystem exampleSubsystemObj = new ExampleSubsystem();
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
     private final ConeFlipper coneFlipperObj = new ConeFlipper();
+    private final LEDSubsystem ledObj = new LEDSubsystem();
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
     // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
-    private final EyeSubsystem eyeballObj = new EyeSubsystem();
+    private final EyelidSubsystem eyelidObj = new EyelidSubsystem();
 
     private final Map<String, Command> autoEventMap = new HashMap<>();
 
@@ -75,10 +79,11 @@ public class RobotContainer {
             operatorControllerObj);
 
     private final Command defaultSubstationAutoCmd = new DefaultSubstationAuton(drivetrainObj);
-    private final Command substationCrossAutoCmd = new SubstationCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command substationCrossAutoCmd = new SubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
     private final Command defaultCableAutoCmd = new DefaultCableAuton(drivetrainObj);
     private final Command cableCrossAutoCmd = new CableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
-            
+
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
     // TODO: may need differnt terms than left, center, right for auton chooser
@@ -97,13 +102,16 @@ public class RobotContainer {
         ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-        eyeballObj.setDefaultCommand(eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
+        eyeballObj.setDefaultCommand(
+                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
+        coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
         EyeMovement movementLeft = new EyeMovement(0, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
         EyeColor color = new EyeColor(0, 0, 0);
-        ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(eyeballObj.setEyes(movementLeft, movementRight, color),
-                        defaultSubstationAutoCmd);
+        ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
+                eyeballObj.setEyes(movementLeft, movementRight, color),
+                defaultSubstationAutoCmd);
 
         autonChooser.setDefaultOption("Default Substation Auton", defaultSubstationAuton);
         autonChooser.addOption("Substation Cross Auton", substationCrossAutoCmd);
@@ -124,12 +132,18 @@ public class RobotContainer {
         leftCenterRight.addOption("Center", 1);
         leftCenterRight.addOption("Right", 2);
         /*
-         * Drive at half speed when the right bumper is held
-         * new JoystickButton(m_driverController, Button.kRightBumper.value)
-         * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-         * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-         * 
-         * we need to modify for our objects
+         * String station = leftCenterRight.getSelected();
+         * CommandBase defaultAutonCommand = null;
+         * if (station == 0) {
+         * // TODO: defaultAutonCommand = leftDriveBackward;
+         * }
+         * else if (station == 1) {
+         * // TODO: defaultAutonCommand = centerDriveBackward;
+         * }
+         * else if (station == 2) {
+         * // TODO: defaultAutonCommand = rightDriveBackward;
+         * }
+         * autonChooser.setDefaultOption("Drive Backward", defaultAutonCommand);
          */
 
     }
@@ -159,62 +173,54 @@ public class RobotContainer {
         // cancelling on release.
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
-                new LowerIngestorLiftCmd(ingestorLiftObj), new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));                
-         
+                new LowerIngestorLiftCmd(ingestorLiftObj),
+                new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
         // TODO: replace null with stop and raise commands StopIngestor,
         // RaiseIngestorLiftCmd
         /*
-         * private void configureAutoCommands() {
-         * autoEventMap.put("event1", Commands.print("Passed marker 1"));
-         * autoEventMap.put("event2", Commands.print("passed marker 2"));
-         * 
-         * 
-         * List<PathPlannerTrajectory> auto1Paths =
-         * PathPlanner.loadPathGroup(
-         * "Default Auton", 4, 3);
-         * 
-         * Command autoTest =
-         * Commands.sequence(
-         * new FollowPathWithEvents(
-         * new FollowPathCmd(auto1Paths.get(0), drivetrainObj, true)
-         * auto1Paths.get(0).getMarkers(0),
-         * autoEventMap),
-         * // Commands.runOnce(drivetrainObj, drivetrainObj),
-         * // Commands.waitSeconds(5.0),
-         * // Commands.runOnce(drivetrainObj::disableXstance, drivetrainObj),
-         * new FollowPathWithEvents(
-         * new FollowPathCmd(auto1Paths.get(1), drivetrainObj, false)
-         * auto1Paths.get(0).getMarkers(0),
-         * autoEventMap)
+         * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
+         * new StopIngestorIntake(ingestorIntakeObj), new
+         * RaiseIngestorLiftCmd(ingestorLiftObj)
          * );
-         * 
-         * }
          */
 
-        /**
-         * Use this to pass the autonomous command to the main {@link Robot} class.
-         *
-         * @return the command to run in autonomous
+        /*
+         * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
+         * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
          */
+        Trigger xTrigger = operatorControllerObj.x();
+        Trigger yTrigger = operatorControllerObj.y();
+        xTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        yTrigger.whileTrue(lowerAndIngest);
+        // TODO: The above might allow us to interrupt the command with the X button.
+        // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-        //Lower ingestor to intake cube using operator Y button
-         operatorControllerObj.y().whileTrue(lowerAndIngest);
-        
-
-        // Shoot cube using operator right trigger
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
         operatorControllerObj.rightTrigger().whileTrue(shootCube);
-
-        // for testing servo:
-        // operatorControllerObj.leftTrigger().whileTrue(gamePieceScoopObj.servoOffCmd());
-
-
-        // for testing BalancePIDCmd
         driverControllerObj.b().whileTrue(new BalancePIDCmd(drivetrainObj));
 
+        /*
+         * Kettering: tried to get ingestor working. This comment means I was
+         * intererupted and code is not finished
+         * ParallelCommandGroup shootCubeParallelCommandGroup = new
+         * ParallelCommandGroup(
+         * ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+         * operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup)
+         * ;
+         */
     }
 
+    // Ms. Patty found this code in the mecanumcontrollercommand example code from
+    // wpilib
+    /*
+     * Drive at half speed when the right bumper is held
+     * new JoystickButton(m_driverController, Button.kRightBumper.value)
+     * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
+     * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
+     * 
+     * we need to modify for our objects
+     */
 
     /*
      * private void configureAutoCommands() {
@@ -256,5 +262,4 @@ public class RobotContainer {
         return selectedCommand;
 
     }
-
 }
