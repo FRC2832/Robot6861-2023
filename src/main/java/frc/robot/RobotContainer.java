@@ -19,9 +19,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
-import frc.robot.commands.LowerConeFlipper;
 import frc.robot.commands.LowerIngestorLiftCmd;
-import frc.robot.commands.RaiseConeFlipper;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
@@ -32,7 +30,6 @@ import frc.robot.commands.autons.DefaultSubstationAuton;
 import frc.robot.commands.autons.SubstationCrossAuton;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveCartesian;
-import frc.robot.subsystems.ConeFlipper;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
@@ -61,7 +58,7 @@ public class RobotContainer {
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
-    private final ConeFlipper coneFlipperObj = new ConeFlipper();
+    //private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final EyeSubsystem eyeballObj = new EyeSubsystem();
 
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
@@ -105,7 +102,7 @@ public class RobotContainer {
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         eyeballObj.setDefaultCommand(
                 eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
-        coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
+        //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
         EyeMovement movementLeft = new EyeMovement(0, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
@@ -206,7 +203,7 @@ public class RobotContainer {
 
         opATrigger.whileTrue(lowerAndExpel);
         driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
-        opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        //opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
         opYTrigger.whileTrue(lowerAndIngest);
         /*
          * Kettering: tried to get ingestor working. This comment means I was

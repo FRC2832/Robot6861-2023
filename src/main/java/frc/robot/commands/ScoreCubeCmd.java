@@ -59,6 +59,6 @@ public class ScoreCubeCmd extends CommandBase {
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 5 || !ingestorIntakeObj.getIngestorBeamBreakValue();
+        return timer.get() >= 5;
     }
 }
