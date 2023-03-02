@@ -196,7 +196,9 @@ public class RobotContainer {
 
         ParallelCommandGroup shootCube = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+                
         operatorControllerObj.rightTrigger().whileTrue(shootCube);
+
         driverControllerObj.b().whileTrue(new BalancePIDCmd(drivetrainObj));
 
         /*
