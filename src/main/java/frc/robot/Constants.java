@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 /**
@@ -35,8 +34,8 @@ public final class Constants {
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
     public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
-        // using ratio because encoders aren't accurate when going sideways
-        // ratio obtained becuase it went 3.75" when commanded to go 48"
+    // using ratio because encoders aren't accurate when going sideways
+    // ratio obtained becuase it went 3.75" when commanded to go 48"
 
     // Controller USB IDs
     public static final int DRIVER_CONTROLLER = 0;
@@ -49,46 +48,56 @@ public final class Constants {
     public static final int INGESTOR_INTAKE_LOWER_TALON = 14;
     public static final int INGESTOR_MOTOR = 11;
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
-    
-    //Beam break sensor Digital I/O port
     public static final int DIGITAL_INPUT_BEAM = 0;
+    public static final int DIGITAL_INPUT_FLIPPER = 6;
     
     //TODO: must have a value other than null
     //public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
-   // TODO: need 2 canifier constants and CANids
-    public static final int LED_PWM_ID = 2; 
-   
-    //Game Piece Scoop Servo IDs
+    // Beam break sensor Digital I/O port
+
+    // TODO: must have a value other than null
+    // public static final MotorType FLIPPER_MOTOR_TYPE = null;
+
+    // TODO: need 2 canifier constants and CANids
+    public static final int EYE_CANIFIER_ID = 4;
+
+    // Game Piece Scoop Servo IDs
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
-    public static final int GAME_PIECE_SCOOP_SERVO_L = 0;
+    public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
 
     // Pupil/Eyelid Servo IDs
-    //TODO: confirm port with actual number on robot
-    public static final int LEFT_EYELID_SERVO = 2;
-    public static final int LEFT_PUPIL_SERVO = 3;
-    public static final int RIGHT_EYELID_SERVO = 4;
-    public static final int RIGHT_PUPIL_SERVO = 5;
+    // TODO: confirm port with actual number on robot
+    public static final int LEFT_EYELID_SERVO = 2; // 2 = pupil
+    public static final int LEFT_PUPIL_SERVO = 3; // 3 = right eyelid
+    public static final int RIGHT_EYELID_SERVO = 4; // 4 = lid
+    public static final int RIGHT_PUPIL_SERVO = 5; // 5 = lid
 
     // TODO: set this to the actual camera name
     public static final String CAMERANAME = "photonvision";
     public static final String CAMERA2NAME = "photonvision";
 
     // Encoder IDs
-	public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
-	public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
-	public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
-	public static final Type RIGHT_BACK_SPARK_ENCODER = Type.kHallSensor;
+    public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
+    public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
+    public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
+    public static final Type RIGHT_BACK_SPARK_ENCODER = Type.kHallSensor;
 
-    public static final int PIGEON_TALON = 13; 
+    public static final int PIGEON_TALON = 13;
 
     // IngestorIntake Subsystem Roller Motor Speeds
-    public static final double INGESTOR_EXPEL_SPEED = -0.75;
+    public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
+    public static final double INGESTOR_EXPEL_SPEED_LOW = -0.75;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 
-    // Auton speed and drive distances (in feet)
+    // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
-    public static final double DEFAULT_AUTON_DRIVE_BACK = 96;
-    public static final double DEFAULT_AUTON_STRAFE = 48;
+    public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
+    public static final double SUBSTATION_AUTON_STRAFE = 48;
+    public static final double CABLE_AUTON_DRIVE_BACK = 156;
+    public static final double COOP_AUTON_DRIVE_BACK = 44;
+
+    public static final double INGESTOR_BOTTOM_POSITION = 65.0;
+    public static final double INGESTOR_EXPEL_POSITION = 55.0;
 }

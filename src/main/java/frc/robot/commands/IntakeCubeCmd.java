@@ -12,6 +12,7 @@ public class IntakeCubeCmd extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
     private IngestorIntake ingestorIntakeObj;
     private GamePieceScoop gamePieceScoopObj;
+    //private static final Timer intakeTimer = new Timer();
 
     public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         this.ingestorIntakeObj = ingestorIntake;
@@ -33,6 +34,17 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public void execute() {
         ingestorIntakeObj.revIn();
+        /*if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
+            if (intakeTimer.get() > 0.0) {
+                // Do nothing
+            } else {
+                intakeTimer.reset();
+                intakeTimer.start();
+            }
+        } else {
+            intakeTimer.stop();
+            intakeTimer.reset();
+        }*/
         //Beam break not currently working, only way to determine current ingestion is through a non button press
        /* if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
             ingestorIntakeObj.revIn();
@@ -46,12 +58,14 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
+        //intakeTimer.stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         // TODO: Use beam break sensors to determine if we ingested or not
+        //return ingestorIntakeObj.getIngestorBeamBreakValue() && intakeTimer.get() > 2.0;
         return false;
     }
 }

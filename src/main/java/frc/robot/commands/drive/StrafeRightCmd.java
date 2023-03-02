@@ -13,12 +13,13 @@ public class StrafeRightCmd extends CommandBase {
 
     private Drivetrain drivetrainObj;
     private double driveSpeed;
-    private double driveDistanceFeet;
+    private double driveDistanceInches;
     private double startEncoderPos;
+    private double start;
 
-    public StrafeRightCmd(Drivetrain drivetrainObj, double driveDistanceFeet, double driveSpeed) {
+    public StrafeRightCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceFeet = driveDistanceFeet;
+        this.driveDistanceInches = driveDistanceInches;
         this.driveSpeed = Math.abs(driveSpeed);
         addRequirements(drivetrainObj);
     }
@@ -28,6 +29,7 @@ public class StrafeRightCmd extends CommandBase {
     public void initialize() {
         drivetrainObj.resetEncoders();
         startEncoderPos = drivetrainObj.getEncoderDistance();
+        start = startEncoderPos / Constants.DRIVETRAIN_STRAFE_RATIO / 12;
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -46,6 +48,6 @@ public class StrafeRightCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return ((Math.abs(drivetrainObj.getEncoderDistance()) - startEncoderPos) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12 >= driveDistanceFeet;
+        return (((Math.abs(drivetrainObj.getEncoderDistance()) - Math.abs(startEncoderPos)) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12) - start >= driveDistanceInches;
     }
 }

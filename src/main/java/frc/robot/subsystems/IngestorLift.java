@@ -23,13 +23,11 @@ public class IngestorLift extends SubsystemBase {
     private RelativeEncoder liftEncoder;
     private double goalPosition;
     private final double topPosition = 0.0;
-    private final double bottomPosition = 65;
-    private final double shootingPosition = 15;
+    private final double shootingPosition = 5;
     private DigitalInput ingestorLimitInput;
     private double ingestorMotorSpeed = 0.6;
     private boolean isAtScoring;
     private boolean isHomed;
-    private boolean isAtBottom;
 
     public IngestorLift() {
         ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMax.MotorType.kBrushless);
@@ -62,7 +60,7 @@ public class IngestorLift extends SubsystemBase {
         // Need some if statement to check if the limit switch is pressed
         // then zero the encoder and
         // set the goal position to the shooting position
-        goalPosition = bottomPosition;
+        goalPosition = Constants.INGESTOR_BOTTOM_POSITION;
         double position = Math.abs(liftEncoder.getPosition());
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
@@ -70,17 +68,41 @@ public class IngestorLift extends SubsystemBase {
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
             ingestorLiftMotor.set(-0.25);
-            //isHomed = false;
+            // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
-            isAtBottom = true;
-            //System.out.println("Lowering to ingest. Current position is " + position);
+            // System.out.println("Lowering to ingest. Current position is " + position);
         }
         ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
         isHomed = false;
         isAtScoring = false;
-        //System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
-        //System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
+        // System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
+        // System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
+
+    }
+
+    public void lowerLiftToExpel() {
+        // Need some if statement to check if the limit switch is pressed
+        // then zero the encoder and
+        // set the goal position to the shooting position
+        goalPosition = Constants.INGESTOR_EXPEL_POSITION;
+        double position = Math.abs(liftEncoder.getPosition());
+        // follow the pid until the ingestor is 98% of the way there then let it drop
+        // this if statement is set up for the case where the bottom position is a lower
+        // number than the top position and the bottom position is not zero
+        // TODO: check that the if statement is accurate for this encoder
+        if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
+            ingestorLiftMotor.set(-0.25);
+            // isHomed = false;
+        } else {
+            ingestorLiftMotor.set(0.0);
+            // System.out.println("Lowering to ingest. Current position is " + position);
+        }
+        ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
+        isHomed = false;
+        isAtScoring = false;
+        // System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
+        // System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
 
     }
 
@@ -95,22 +117,23 @@ public class IngestorLift extends SubsystemBase {
         // this if statement is set up for the case where the bottom position is a lower
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
-        //if (position > goalPosition + (Math.abs(goalPosition) * 0.02)
-               // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
-        if (position < goalPosition){
+        // if (position > goalPosition + (Math.abs(goalPosition) * 0.02)
+        // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
+        if (position < goalPosition) {
             ingestorLiftMotor.set(-0.1);
-            //System.out.println(position);
+            // System.out.println(position);
             isAtScoring = false;
         } else if (position > 30.0) {
             ingestorLiftMotor.set(0.4);
-            //System.out.println("We are moving to the scoring position. Position: " + position);
+            // System.out.println("We are moving to the scoring position. Position: " +
+            // position);
         } else {
             ingestorLiftMotor.set(0.0);
-            //System.out.println("" + position);
+            // System.out.println("" + position);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
             isAtScoring = true;
         }
-        //ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
+        // ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
     }
 
     // takes in a value between 0 and 1 where 0 is the bottom and 1 is the top
@@ -121,7 +144,7 @@ public class IngestorLift extends SubsystemBase {
         } else if (percent >= 0.98) {
             raiseLift();
         } else {
-            goalPosition = percent * (topPosition - bottomPosition) + bottomPosition;
+            goalPosition = percent * (topPosition - Constants.INGESTOR_BOTTOM_POSITION) + Constants.INGESTOR_BOTTOM_POSITION;
             // TODO: check not going past limits? aka check 0 ≤ percent ≤ 1
             liftPIDController.setReference(goalPosition, ControlType.kPosition);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
@@ -175,7 +198,7 @@ public class IngestorLift extends SubsystemBase {
 
     public CommandBase lowerIngestorLift() {
         // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        // Subsystem::Run implicitly requires `this` subsystem.
         return run(
                 () -> {
                     if (isAtBottom()) {
@@ -190,7 +213,7 @@ public class IngestorLift extends SubsystemBase {
 
     public CommandBase stopIngestorLift() {
         // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        // Subsystem::Run implicitly requires `this` subsystem.
         return run(
                 () -> {
                     if (isAtBottom()) {

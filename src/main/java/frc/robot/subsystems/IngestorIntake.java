@@ -21,20 +21,16 @@ public class IngestorIntake extends SubsystemBase {
 
     // TODO: Confirm the motor controller type
 
-    public DigitalInput getIngestorBeamBreak() {
-        return ingestorBeamBreak;
+    public boolean getIngestorBeamBreakValue() {
+        return ingestorBeamBreak.get();
     }
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
-        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM );
+        ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
         // Create a motorcontroller group?
-    }
-
-    public void operatorController() {
-
     }
 
     public void revIn() {
@@ -42,20 +38,19 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
     }
 
-    public void revOut() {
-        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
-        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_EXPEL_SPEED);
+    public void revOut(double speed) {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speed);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speed);
     }
 
-    public CommandBase revOutIngestorIntake() {
+    public CommandBase revOutIngestorIntake(double speed) {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    revOut();
+                    revOut(speed);
                 });
     }
-
 
     public CommandBase revInIngestorIntake() {
         // Inline construction of command goes here.

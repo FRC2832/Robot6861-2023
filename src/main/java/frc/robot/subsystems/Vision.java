@@ -9,6 +9,7 @@ import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -19,11 +20,19 @@ public class Vision extends SubsystemBase {
     // TODO: MUST calibrate cameras per PhotonVision docs
     private PhotonCamera camera;
     private PhotonCamera camera2;
+    private double yaw;
+    private double pitch;
+    private double area; 
+    private double skew;
+    private double[] corners = {0,0,0,0};
+    private Transform2d pose;
 
     /** Creates a new Vision. */
     public Vision() {
         camera = new PhotonCamera(Constants.CAMERANAME);
-        camera2 = new PhotonCamera(Constants.CAMERA2NAME);
+        // camera2 = new PhotonCamera(Constants.CAMERA2NAME);
+        pose = new Transform2d();
+        camera.setDriverMode(true);
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera cam) {
@@ -58,9 +67,26 @@ public class Vision extends SubsystemBase {
         return camera;
     }
 
-    public PhotonCamera getCamera2() {
-        return camera2;
+    // public PhotonCamera getCamera2() {
+    //     return camera2;
+    // }
+
+    public PhotonTrackedTarget bestTarget(PhotonCamera targets) {
+        return targets.getLatestResult().getBestTarget();
     }
+
+    public void targetData(PhotonCamera camera) {
+        // Get information from target.
+        var result = camera.getLatestResult();
+        PhotonTrackedTarget target = result.getBestTarget();
+        yaw = target.getYaw();
+        pitch = target.getPitch();
+        area = target.getArea();
+        skew = target.getSkew();
+        //pose = target.getCameraToTarget();
+        //corners = target.getCorners();
+    }
+
 
     @Override
     public void periodic() {

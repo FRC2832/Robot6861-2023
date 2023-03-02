@@ -20,8 +20,8 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
         gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
-        gamePieceScoopServoL.setBounds(1.8, 1.7, 1.5, 1.2, 1);
-        gamePieceScoopServoR.setBounds(1.8, 1.7, 1.5, 1.2, 1);
+        gamePieceScoopServoL.setBounds(2, 1.8, 1.5, 1.2, 1);
+        gamePieceScoopServoR.setBounds(2, 1.8, 1.5, 1.2, 1);
     }
 
     public void servoOn() {
