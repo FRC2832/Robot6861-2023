@@ -193,13 +193,20 @@ public class RobotContainer {
         Trigger opXTrigger = operatorControllerObj.x();
         Trigger opYTrigger = operatorControllerObj.y();
         Trigger opRightTriggerTrigger = operatorControllerObj.rightTrigger();
+        Trigger opRightBumperTrigger = operatorControllerObj.rightBumper();
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-        ParallelCommandGroup shootCube = new ParallelCommandGroup(
+        // triggers and commands for shooting cube to high spot and middle spot
+        ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-        opRightTriggerTrigger.whileTrue(shootCube);
+
+        ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
+                    ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
+
+        opRightTriggerTrigger.whileTrue(shootCubeUpper);
+        opRightBumperTrigger.whileTrue(shootCubeLower);
 
         opATrigger.whileTrue(lowerAndExpel);
         driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));

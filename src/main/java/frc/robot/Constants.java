@@ -60,7 +60,7 @@ public final class Constants {
     // public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
     // TODO: need 2 canifier constants and CANids
-    public static final int EYE_CANIFIER_ID = 2;
+    public static final int EYE_CANIFIER_ID = 4;
 
     // Game Piece Scoop Servo IDs
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
@@ -86,7 +86,7 @@ public final class Constants {
     public static final int PIGEON_TALON = 13;
 
     // IngestorIntake Subsystem Roller Motor Speeds
-    public static final double INGESTOR_EXPEL_SPEED = -0.75;
+    public static final double INGESTOR_EXPEL_SPEED = -0.95;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 
