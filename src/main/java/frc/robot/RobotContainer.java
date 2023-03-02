@@ -176,7 +176,8 @@ public class RobotContainer {
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
                 new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
-        ParallelCommandGroup lowerAndExpel = new ParallelCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj), new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+        ParallelCommandGroup lowerAndExpel = new ParallelCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
+                new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
         // TODO: replace null with stop and raise commands StopIngestor,
         // RaiseIngestorLiftCmd
         /*

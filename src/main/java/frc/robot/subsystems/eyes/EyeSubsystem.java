@@ -37,10 +37,10 @@ public class EyeSubsystem extends SubsystemBase {
     }
 
     private void setEyePositions(EyeMovement movementLeft, EyeMovement movementRight) {
-        eyePupilServoRight.set(movementLeft.getEyePupil());
-        eyePupilServoLeft.set(movementRight.getEyePupil());
-        eyeLidServoRight.set(movementLeft.getEyeLid());
-        eyeLidServoLeft.set(movementRight.getEyeLid());
+        eyePupilServoRight.set(movementRight.getEyePupil());
+        eyePupilServoLeft.set(movementLeft.getEyePupil());
+        eyeLidServoRight.set(movementRight.getEyeLid());
+        eyeLidServoLeft.set(movementLeft.getEyeLid());
     }
 
     /**
