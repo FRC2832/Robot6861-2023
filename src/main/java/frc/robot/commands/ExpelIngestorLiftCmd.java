@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
 
@@ -11,6 +12,7 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
+    private static Timer timer = new Timer();
 
     public ExpelIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -20,6 +22,8 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        timer.reset();
+        timer.start();
         //System.out.println("ScoreIngestorLiftCmd started.");
         //isHomed = ingestorLiftObj.isAtTop();
         // Zero the encoders
@@ -69,6 +73,9 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
+        if (timer.get() >= 2) {
+            return true;
+        }
         return false; // DO NOT CHANGE THIS. This is a default command and should never end.
     }
 }

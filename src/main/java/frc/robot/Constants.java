@@ -50,16 +50,8 @@ public final class Constants {
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
     public static final int DIGITAL_INPUT_BEAM = 0;
     public static final int DIGITAL_INPUT_FLIPPER = 6;
-    
-    //TODO: must have a value other than null
-    //public static final MotorType FLIPPER_MOTOR_TYPE = null;
 
-    // Beam break sensor Digital I/O port
-
-    // TODO: must have a value other than null
-    // public static final MotorType FLIPPER_MOTOR_TYPE = null;
-
-    // TODO: need 2 canifier constants and CANids
+    // For running LED lights
     public static final int EYE_CANIFIER_ID = 4;
 
     // Game Piece Scoop Servo IDs
@@ -96,7 +88,7 @@ public final class Constants {
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
     public static final double SUBSTATION_AUTON_STRAFE = 48;
     public static final double CABLE_AUTON_DRIVE_BACK = 156;
-    public static final double COOP_AUTON_DRIVE_BACK = 44;
+    public static final double COOP_AUTON_DRIVE_BACK = 72;
 
     public static final double INGESTOR_BOTTOM_POSITION = 65.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;

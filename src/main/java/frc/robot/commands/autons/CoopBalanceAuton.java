@@ -19,7 +19,7 @@ public class CoopBalanceAuton extends SequentialCommandGroup {
     public CoopBalanceAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj) {
         addCommands(
             new ScoreCubeCmd(ingestorIntake, gamePieceScoop),
-            new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
+            new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED + 0.1), 
             new BalancePIDCmd(drivetrainObj)
         );
     }

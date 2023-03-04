@@ -30,9 +30,9 @@ public class BalancePIDCmd extends CommandBase {
     public void execute() {
         // pids work by multiplying the error from the desired position 
         // by the proportional factor, in this case kp.
-        kp = 0.014;
+        kp = 0.011;
         angle = drivetrainObj.getPitch();
-        if (Math.abs(angle) < 5) kp = 0.007;
+        if (Math.abs(angle) < 5) kp = 0.0055;
         drivePower = kp * angle;
         // if we go above 0.4 power we’ll be too fast
         if (Math.abs(drivePower) > 0.4) {
