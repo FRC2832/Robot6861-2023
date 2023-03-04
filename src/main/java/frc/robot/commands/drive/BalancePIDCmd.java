@@ -13,11 +13,12 @@ public class BalancePIDCmd extends CommandBase {
     private double angle;
     private double drivePower;
     private Drivetrain drivetrainObj;
+    private boolean driverControlled;
 
-    public BalancePIDCmd(Drivetrain drivetrainObj) {
+    public BalancePIDCmd(Drivetrain drivetrainObj, boolean driverControlled) {
         this.drivetrainObj = drivetrainObj;
         addRequirements(drivetrainObj);
-
+        this.driverControlled = driverControlled;
     }
 
     // Called when the command is initially scheduled.
@@ -30,11 +31,18 @@ public class BalancePIDCmd extends CommandBase {
     public void execute() {
         // pids work by multiplying the error from the desired position 
         // by the proportional factor, in this case kp.
-        kp = 0.011;
         angle = drivetrainObj.getPitch();
-        if (Math.abs(angle) < 5) kp = 0.0055;
+        if (Math.abs(angle) < 7) {
+            driverControlled = false;
+        }
+        if (driverControlled) {
+            kp = 0.022;
+        } else if (Math.abs(angle) < 5) {
+            kp = 0.0055;
+        } else {
+            kp = 0.011;
+        }
         drivePower = kp * angle;
-        // if we go above 0.4 power we’ll be too fast
         if (Math.abs(drivePower) > 0.4) {
             drivePower = Math.copySign(0.4, drivePower);
         }
@@ -43,8 +51,6 @@ public class BalancePIDCmd extends CommandBase {
         }
         // drive forward at drivePower (the negative is becuase of inversions)
         drivetrainObj.mecanumDriveCartesian(0, -drivePower, 0);
-
-
     }
 
     // Called once the command ends or is interrupted.

@@ -13,6 +13,7 @@ public class ExpelIngestorLiftCmd extends CommandBase {
 
     private IngestorLift ingestorLiftObj;
     private static Timer timer = new Timer();
+    private boolean done;
 
     public ExpelIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -32,7 +33,7 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.lowerLiftToExpel();
+        done = ingestorLiftObj.lowerLiftToExpel();
         // Move the lift to the shooting position
         
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
@@ -73,9 +74,6 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        if (timer.get() >= 2) {
-            return true;
-        }
-        return false; // DO NOT CHANGE THIS. This is a default command and should never end.
+        return done || timer.get() >= 3;
     }
 }

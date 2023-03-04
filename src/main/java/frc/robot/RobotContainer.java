@@ -186,13 +186,24 @@ public class RobotContainer {
         // pressed,
         // cancelling on release.
 
+        // triggers and commands for shooting cube to high spot and middle spot
+        ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
+
+        ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
+                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID), gamePieceScoopObj.servoOffCmd());
+
+        ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
+
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
                 new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+
         SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
-                new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
-        // TODO: replace null with stop and raise commands StopIngestor,
-        // RaiseIngestorLiftCmd
+                shootCubeLower);
+
+     
         /*
          * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
          * new StopIngestorIntake(ingestorIntakeObj), new
@@ -213,41 +224,24 @@ public class RobotContainer {
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
-
-        // triggers and commands for shooting cube to high spot and middle spot
-        ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
-
-        ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
-
-        opRightTriggerTrigger.whileTrue(shootCubeLower);
+                    
+                    
+        opRightTriggerTrigger.whileTrue(shootCubeMid);
         opRightBumperTrigger.whileTrue(shootCubeUpper);
 
         opATrigger.whileTrue(lowerAndExpel);
-        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
+        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj, true));
         //opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
         opYTrigger.whileTrue(lowerAndIngest);
-        /*
-         * Kettering: tried to get ingestor working. This comment means I was
-         * intererupted and code is not finished
-         * ParallelCommandGroup shootCubeParallelCommandGroup = new
-         * ParallelCommandGroup(
-         * ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-         * operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup)
-         * ;
-         */
+       
     }
 
-    // Ms. Patty found this code in the mecanumcontrollercommand example code from
-    // wpilib
-    /*
+    /* Example turtle mode
      * Drive at half speed when the right bumper is held
      * new JoystickButton(m_driverController, Button.kRightBumper.value)
      * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
      * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-     * 
-     * we need to modify for our objects
+     
      */
 
     /*
