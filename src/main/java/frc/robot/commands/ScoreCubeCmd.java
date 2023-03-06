@@ -37,7 +37,9 @@ public class ScoreCubeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_HIGH);
+        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID);
+        // changed to mid speed to help score cube in Auton 
+        // cube was going too high and bouncing off the wall
         if (timer.get() >= 1.5) { 
             gamePieceScoopObj.servoOff(); 
         }

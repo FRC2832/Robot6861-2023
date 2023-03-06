@@ -112,17 +112,19 @@ public class RobotContainer {
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         eyeballObj.setDefaultCommand(
-                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
-        //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
+                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new EyeColor(255, 0, 0)));
+                                    // 2nd eyemovement above is robot right
+         //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
-        EyeMovement movementLeft = new EyeMovement(0, 0);
+        EyeMovement movementLeft = new EyeMovement(1, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
         EyeColor color = new EyeColor(0, 0, 0);
         ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
                 eyeballObj.setEyes(movementLeft, movementRight, color),
                 redDefaultSubstationAutoCmd);
 
-        autonChooser.setDefaultOption("RED Default Substation Auton", defaultSubstationAuton);
+        autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
+        autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
         autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
         autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
         autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
@@ -130,7 +132,6 @@ public class RobotContainer {
         autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
         autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
         autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
-        autonChooser.addOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));

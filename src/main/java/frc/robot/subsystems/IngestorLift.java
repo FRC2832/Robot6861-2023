@@ -163,7 +163,8 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        return ingestorLimitInput.get();
+        return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 1;
+        // during Jackson comp, limit switch broke so we aded this OR for added robustness
     }
 
     public boolean getIsAtScoring() {

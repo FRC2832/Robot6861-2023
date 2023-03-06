@@ -34,9 +34,14 @@ public class DriveCartesian extends CommandBase {
         // double rotateSpeed =
         // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
         zRotationTrue();
+        
+        // added snail mode along with existing turtle mode
         if (joystickSubsystemObj.getDriverRightTrigger() >= 0.5) {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.5,
                     joystickSubsystemObj.getDriverLeftY() * 0.5, joystickSubsystemObj.getDriverRightX() * 0.5);
+        } else if (joystickSubsystemObj.getDriverLeftTrigger() >= 0.5) {
+            drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.25,
+                    joystickSubsystemObj.getDriverLeftY() * 0.25, joystickSubsystemObj.getDriverRightX() * 0.25);
         } else {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX(),
                     joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
