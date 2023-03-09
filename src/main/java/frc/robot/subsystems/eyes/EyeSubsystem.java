@@ -50,7 +50,7 @@ public class EyeSubsystem extends SubsystemBase {
      */
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
-        return runOnce(
+        return runOnce(  // change to run?, runOnce is just a 20 ms loop
                 () -> {
                     /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);

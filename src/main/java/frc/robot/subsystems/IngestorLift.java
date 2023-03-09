@@ -81,21 +81,24 @@ public class IngestorLift extends SubsystemBase {
 
     }
 
-    public void lowerLiftToExpel() {
+    public boolean lowerLiftToExpel() {
         // Need some if statement to check if the limit switch is pressed
         // then zero the encoder and
         // set the goal position to the shooting position
         goalPosition = Constants.INGESTOR_EXPEL_POSITION;
         double position = Math.abs(liftEncoder.getPosition());
+        boolean flag;
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
             ingestorLiftMotor.set(-0.25);
+            flag = false;
             // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
+            flag = true;
             // System.out.println("Lowering to ingest. Current position is " + position);
         }
         ingestorLiftMotor.setIdleMode(IdleMode.kCoast);
@@ -103,7 +106,7 @@ public class IngestorLift extends SubsystemBase {
         isAtScoring = false;
         // System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
         // System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
-
+        return flag;
     }
 
     public void lowerLiftToScore() {
@@ -160,7 +163,8 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        return ingestorLimitInput.get();
+        return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 1;
+        // during Jackson comp, limit switch broke so we aded this OR for added robustness
     }
 
     public boolean getIsAtScoring() {

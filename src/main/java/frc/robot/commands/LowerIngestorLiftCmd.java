@@ -35,7 +35,7 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void end(boolean interrupted) {
         // Bring the ingestorLift back to its default position
         ingestorLiftObj.stopLift();
-        System.out.println("LowerIngestorLiftCmd stopped.");
+        // System.out.println("LowerIngestorLiftCmd stopped.");
     }
 
     // Returns true when the command should end.

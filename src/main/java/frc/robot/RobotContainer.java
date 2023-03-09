@@ -112,17 +112,19 @@ public class RobotContainer {
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         eyeballObj.setDefaultCommand(
-                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(0, 0), new EyeColor(255, 255, 255)));
-        //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
+                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new EyeColor(255, 0, 0)));
+                                    // 2nd eyemovement above is robot right
+         //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
-        EyeMovement movementLeft = new EyeMovement(0, 0);
+        EyeMovement movementLeft = new EyeMovement(1, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
         EyeColor color = new EyeColor(0, 0, 0);
         ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
                 eyeballObj.setEyes(movementLeft, movementRight, color),
                 redDefaultSubstationAutoCmd);
 
-        autonChooser.setDefaultOption("RED Default Substation Auton", defaultSubstationAuton);
+        autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
+        autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
         autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
         autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
         autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
@@ -130,7 +132,6 @@ public class RobotContainer {
         autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
         autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
         autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
-        autonChooser.addOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
@@ -186,13 +187,24 @@ public class RobotContainer {
         // pressed,
         // cancelling on release.
 
+        // triggers and commands for shooting cube to high spot and middle spot
+        ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
+
+        ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
+                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID), gamePieceScoopObj.servoOffCmd());
+
+        ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
+
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
                 new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
-        ParallelCommandGroup lowerAndExpel = new ParallelCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
-                new ScoreCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
-        // TODO: replace null with stop and raise commands StopIngestor,
-        // RaiseIngestorLiftCmd
+
+        SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
+                shootCubeLower);
+
+     
         /*
          * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
          * new StopIngestorIntake(ingestorIntakeObj), new
@@ -213,41 +225,24 @@ public class RobotContainer {
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
-
-        // triggers and commands for shooting cube to high spot and middle spot
-        ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
-
-        ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
-
-        opRightTriggerTrigger.whileTrue(shootCubeLower);
+                    
+                    
+        opRightTriggerTrigger.whileTrue(shootCubeMid);
         opRightBumperTrigger.whileTrue(shootCubeUpper);
 
         opATrigger.whileTrue(lowerAndExpel);
-        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj));
+        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj, true));
         //opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
         opYTrigger.whileTrue(lowerAndIngest);
-        /*
-         * Kettering: tried to get ingestor working. This comment means I was
-         * intererupted and code is not finished
-         * ParallelCommandGroup shootCubeParallelCommandGroup = new
-         * ParallelCommandGroup(
-         * ingestorIntakeObj.revOutIngestorIntake(), gamePieceScoopObj.servoOffCmd());
-         * operatorControllerObj.rightTrigger().whileTrue(shootCubeParallelCommandGroup)
-         * ;
-         */
+       
     }
 
-    // Ms. Patty found this code in the mecanumcontrollercommand example code from
-    // wpilib
-    /*
+    /* Example turtle mode
      * Drive at half speed when the right bumper is held
      * new JoystickButton(m_driverController, Button.kRightBumper.value)
      * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
      * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-     * 
-     * we need to modify for our objects
+     
      */
 
     /*
