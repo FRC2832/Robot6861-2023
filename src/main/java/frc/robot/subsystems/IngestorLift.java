@@ -25,7 +25,7 @@ public class IngestorLift extends SubsystemBase {
     private final double topPosition = 0.0;
     private final double shootingPosition = 5;
     private DigitalInput ingestorLimitInput;
-    private double ingestorMotorSpeed = 0.6;
+    private double ingestorMotorSpeed = 0.75;
     private boolean isAtScoring;
     private boolean isHomed;
 
@@ -67,7 +67,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.25);
+            ingestorLiftMotor.set(-0.5);
             // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
@@ -93,7 +93,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.25);
+            ingestorLiftMotor.set(-0.5);
             flag = false;
             // isHomed = false;
         } else {

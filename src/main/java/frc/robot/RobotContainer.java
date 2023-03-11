@@ -95,7 +95,7 @@ public class RobotContainer {
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
-    // TODO: may need differnt terms than left, center, right for auton chooser
+    // TODO: may need different terms than left, center, right for auton chooser
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.

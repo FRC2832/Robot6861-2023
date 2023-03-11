@@ -36,11 +36,11 @@ public class BalancePIDCmd extends CommandBase {
             driverControlled = false;
         }
         if (driverControlled) {
-            kp = 0.022;
+            kp = 0.028; // competition charge station value = 0.022
         } else if (Math.abs(angle) < 5) {
-            kp = 0.0055;
+            kp = 0.007; // competition charge station value = 0.0055
         } else {
-            kp = 0.011;
+            kp = 0.014; // competition charge station value = 0.011
         }
         drivePower = kp * angle;
         if (Math.abs(drivePower) > 0.4) {
