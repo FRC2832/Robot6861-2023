@@ -40,7 +40,7 @@ public class ScoreCubeAuton extends CommandBase {
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID);
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
-        if (timer.get() >= 1.5) { 
+        if (timer.get() >= 1.5) {   // allow time for rollers to get up to speed
             gamePieceScoopObj.servoOff();
         }
     }
@@ -62,6 +62,6 @@ public class ScoreCubeAuton extends CommandBase {
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 5;
+        return timer.get() >= 5.0;
     }
 }

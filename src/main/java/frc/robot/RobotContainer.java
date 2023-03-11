@@ -23,15 +23,15 @@ import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
-import frc.robot.commands.autons.BlueCableCrossAuton;
-import frc.robot.commands.autons.BlueDefaultCableAuton;
-import frc.robot.commands.autons.BlueDefaultSubstationAuton;
-import frc.robot.commands.autons.BlueSubstationCrossAuton;
 import frc.robot.commands.autons.CoopBalanceAuton;
-import frc.robot.commands.autons.RedCableCrossAuton;
-import frc.robot.commands.autons.RedDefaultCableAuton;
-import frc.robot.commands.autons.RedDefaultSubstationAuton;
-import frc.robot.commands.autons.RedSubstationCrossAuton;
+import frc.robot.commands.autons.blue.BlueCableCrossAuton;
+import frc.robot.commands.autons.blue.BlueDefaultCableAuton;
+import frc.robot.commands.autons.blue.BlueDefaultSubstationAuton;
+import frc.robot.commands.autons.blue.BlueSubstationCrossAuton;
+import frc.robot.commands.autons.red.RedCableCrossAuton;
+import frc.robot.commands.autons.red.RedDefaultCableAuton;
+import frc.robot.commands.autons.red.RedDefaultSubstationAuton;
+import frc.robot.commands.autons.red.RedSubstationCrossAuton;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.subsystems.Drivetrain;
@@ -73,12 +73,7 @@ public class RobotContainer {
     // public static XboxController driverController = new
     // XboxController(Constants.DRIVER_CONTROLLER);
     // Replace with CommandPS4Controller or CommandJoystick if needed
-    private final CommandXboxController driverControllerObj = new CommandXboxController(
-            Constants.DRIVER_CONTROLLER);
-    private final CommandXboxController operatorControllerObj = new CommandXboxController(
-            Constants.OPERATOR_CONTROLLER);
-    private final JoystickSubsystem joystickSubsystemObj = new JoystickSubsystem(driverControllerObj,
-            operatorControllerObj);
+    private final JoystickSubsystem joystickSubsystemObj = new JoystickSubsystem();
 
     private final Command redDefaultSubstationAutoCmd = new RedDefaultSubstationAuton(drivetrainObj);
     private final Command redSubstationCrossAutoCmd = new RedSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
@@ -97,7 +92,7 @@ public class RobotContainer {
             drivetrainObj);
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
-    private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
+    //private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
     // TODO: may need differnt terms than left, center, right for auton chooser
 
     /**
@@ -147,9 +142,9 @@ public class RobotContainer {
         // "whileActiveOnce?" or something similar and then test it
 
         // choose location of robot relative to grid for auton
-        leftCenterRight.addOption("Left", 0);
-        leftCenterRight.addOption("Center", 1);
-        leftCenterRight.addOption("Right", 2);
+        //leftCenterRight.addOption("Left", 0);
+        //leftCenterRight.addOption("Center", 1);
+        //leftCenterRight.addOption("Right", 2);
         /*
          * String station = leftCenterRight.getSelected();
          * CommandBase defaultAutonCommand = null;
@@ -223,24 +218,45 @@ public class RobotContainer {
          * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
          * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
          */
-        Trigger opATrigger = operatorControllerObj.a();
-        Trigger driverBTrigger = driverControllerObj.b();
-        Trigger opXTrigger = operatorControllerObj.x();
-        Trigger opYTrigger = operatorControllerObj.y();
-        Trigger opRightTriggerTrigger = operatorControllerObj.rightTrigger();
-        Trigger opRightBumperTrigger = operatorControllerObj.rightBumper();
-        // Trigger driver
+        Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
+        Trigger driverB = joystickSubsystemObj.getDriverBBtn();
+        Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
+        Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
+        Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
+        Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
+
+        // Temporary mapping of eye controls to controller
+        /*Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
+        Trigger driverRightBumper = joystickSubsystemObj.getDriverRightBumper();
+        Trigger driverLeftTrigger = joystickSubsystemObj.getDriverLeftTrigger();
+        Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();*/
+
+        /*
+        eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0),
+                        new EyeColor(255, 0, 0)));
+        setEyePupil pupilMovementLeft = new setEyePupil (1);
+        setEyePupil pupilMovementRight = new setEyePupil (1);
+        setEyeLid lidMovementLeft = new setEyeLid (1);
+        setEyeLid lidMovementRight = new setEyeLid (1);
+        eyeballObj.setEyePupilRight(pupilMovementRight);
+        eyeballObj.setEyePupilLeft(pupilMovementLeft);
+        eyeballObj.setEyeLidRight(lidMovementRight);
+        eyeballObj.setEyeLidLeft(lidMovementLeft);
+        driverRightTrigger.onTrue(setEyePupilRight)
+        driverRightBumper.onTrue(setEyeLidRight)
+        driverRightTrigger.onTrue(setEyePupilRight)
+        */
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-        opRightTriggerTrigger.whileTrue(shootCubeMid);
-        opRightBumperTrigger.whileTrue(shootCubeUpper);
+        operatorRightTrigger.whileTrue(shootCubeMid);
+        operatorRightBumper.whileTrue(shootCubeUpper);
 
-        opATrigger.whileTrue(lowerAndExpel);
-        driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj, true));
+        operatorA.whileTrue(lowerAndExpel);
+        driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
         // opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
-        opYTrigger.whileTrue(lowerAndIngest);
+        operatorY.whileTrue(lowerAndIngest);
 
     }
 
@@ -291,6 +307,5 @@ public class RobotContainer {
         // An example command will be run in autonomous
         Command selectedCommand = autonChooser.getSelected();
         return selectedCommand;
-
     }
 }

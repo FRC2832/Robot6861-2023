@@ -20,18 +20,18 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
         gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
-        gamePieceScoopServoL.setBounds(1.2, 1, 0.8, 0.6, 0.4);
-        gamePieceScoopServoR.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
+        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
     }
 
     public void setServoBoundsAuton() {
-        gamePieceScoopServoL.setBounds(1.2, 1, 0.8, 0.6, 0.4);
-        gamePieceScoopServoR.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
+        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
     }
 
     public void setServoBoundsTeleop() {
-        gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1);
-        gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1);
+        gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
+        gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
     }
 
     public void servoOnTeleop() {

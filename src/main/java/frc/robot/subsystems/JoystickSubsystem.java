@@ -2,6 +2,8 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.Constants;
 
 public class JoystickSubsystem extends SubsystemBase {
     private CommandXboxController driverController;
@@ -18,9 +20,9 @@ public class JoystickSubsystem extends SubsystemBase {
     private double operatorRightY;
 
     /** Creates a new JoystickSubsystem. */
-    public JoystickSubsystem(CommandXboxController driverController, CommandXboxController operatorController) {
-        this.driverController = driverController;
-        this.operatorController = operatorController;
+    public JoystickSubsystem() {
+        driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER);
+        operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER);
         setDeadband(1.0);
     }
 
@@ -83,5 +85,29 @@ public class JoystickSubsystem extends SubsystemBase {
 
     public double getOperatorRightY() {
         return operatorRightY;
+    }
+
+    public Trigger getOperatorABtn() {
+        return operatorController.a();
+    }
+
+    public Trigger getOperatorXBtn() {
+        return operatorController.x();
+    }
+
+    public Trigger getOperatorYBtn() {
+        return operatorController.y();
+    }
+
+    public Trigger getOperatorRightTrigger() {
+        return operatorController.rightTrigger();
+    }
+
+    public Trigger getOperatorRightBumper() {
+        return operatorController.rightBumper();
+    }
+
+    public Trigger getDriverBBtn() {
+        return driverController.b();
     }
 }

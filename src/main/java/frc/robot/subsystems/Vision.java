@@ -22,9 +22,9 @@ public class Vision extends SubsystemBase {
     private PhotonCamera camera2;
     private double yaw;
     private double pitch;
-    private double area; 
+    private double area;
     private double skew;
-    private double[] corners = {0,0,0,0};
+    private double[] corners = { 0.0, 0.0, 0.0, 0.0 };
     private Transform2d pose;
 
     /** Creates a new Vision. */
@@ -68,7 +68,7 @@ public class Vision extends SubsystemBase {
     }
 
     // public PhotonCamera getCamera2() {
-    //     return camera2;
+    // return camera2;
     // }
 
     public PhotonTrackedTarget bestTarget(PhotonCamera targets) {
@@ -83,10 +83,9 @@ public class Vision extends SubsystemBase {
         pitch = target.getPitch();
         area = target.getArea();
         skew = target.getSkew();
-        //pose = target.getCameraToTarget();
-        //corners = target.getCorners();
+        // pose = target.getCameraToTarget();
+        // corners = target.getCorners();
     }
-
 
     @Override
     public void periodic() {

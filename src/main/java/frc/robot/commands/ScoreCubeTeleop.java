@@ -62,6 +62,6 @@ public class ScoreCubeTeleop extends CommandBase {
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 5;
+        return timer.get() >= 5.0;
     }
 }
