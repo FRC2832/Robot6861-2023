@@ -20,11 +20,22 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
         gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
+        gamePieceScoopServoL.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+        gamePieceScoopServoR.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+    }
+
+    public void setServoBoundsAuton() {
+        gamePieceScoopServoL.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+        gamePieceScoopServoR.setBounds(1.2, 1, 0.8, 0.6, 0.4);
+    }
+
+    public void setServoBoundsTeleop() {
         gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1);
         gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1);
     }
 
-    public void servoOn() {
+    public void servoOnTeleop() {
+        setServoBoundsTeleop();
         gamePieceScoopServoL.setSpeed(1.0);
         gamePieceScoopServoR.setSpeed(1.0);
     }
@@ -32,6 +43,11 @@ public class GamePieceScoop extends SubsystemBase {
     public void servoOff() {
         gamePieceScoopServoL.setSpeed(-1.0);
         gamePieceScoopServoR.setSpeed(-1.0);
+    }
+    public void servoOnAuton() {
+        setServoBoundsAuton();
+        gamePieceScoopServoL.setSpeed(1.0);
+        gamePieceScoopServoR.setSpeed(1.0);
     }
 
     @Override
@@ -53,7 +69,7 @@ public class GamePieceScoop extends SubsystemBase {
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    servoOn();
+                    servoOnTeleop();
                 });
     }
 }

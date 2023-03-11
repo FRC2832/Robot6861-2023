@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
         if (selectedAutonCommand != null) {
             selectedAutonCommand.schedule();
         }
+        //robotContainerObj.setAutonConfigs();
     }
 
     /** This function is called periodically during autonomous. */
@@ -102,6 +103,7 @@ public class Robot extends TimedRobot {
         if (selectedAutonCommand != null) {
             selectedAutonCommand.cancel();
         }
+        //robotContainerObj.setTeleopConfigs();
         //CommandScheduler.getInstance().schedule(new DriveArcade(robotContainerObj.getDrivetrain()));
     }
 

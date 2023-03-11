@@ -6,7 +6,7 @@ package frc.robot.commands.autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.ScoreCubeCmd;
+import frc.robot.commands.ScoreCubeAuton;
 import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.drive.StrafeRightCmd;
 import frc.robot.subsystems.Drivetrain;
@@ -17,7 +17,7 @@ public class BlueSubstationCrossAuton extends SequentialCommandGroup {
 
     public BlueSubstationCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         addCommands(
-            new ScoreCubeCmd(ingestorIntake, gamePieceScoop), 
+            new ScoreCubeAuton(ingestorIntake, gamePieceScoop), 
             new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
             new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
         );

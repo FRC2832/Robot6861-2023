@@ -11,13 +11,13 @@ import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
 
-public class ScoreCubeCmd extends CommandBase {
+public class ScoreCubeTeleop extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
     private IngestorIntake ingestorIntakeObj;
     private GamePieceScoop gamePieceScoopObj;
     private static Timer timer = new Timer(); // Static because we only need one timer. It's shared btwn all instances.
 
-    public ScoreCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
+    public ScoreCubeTeleop(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         this.ingestorIntakeObj = ingestorIntake;
         this.gamePieceScoopObj = gamePieceScoop;
         addRequirements(ingestorIntake, gamePieceScoop);
@@ -29,7 +29,7 @@ public class ScoreCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        gamePieceScoopObj.servoOn();
+        gamePieceScoopObj.servoOnTeleop();
         timer.reset();
         timer.start();
     }
@@ -41,7 +41,7 @@ public class ScoreCubeCmd extends CommandBase {
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
         if (timer.get() >= 1.5) { 
-            gamePieceScoopObj.servoOff(); 
+            gamePieceScoopObj.servoOff();
         }
     }
     // TODO: Create a new command for ingestorLift

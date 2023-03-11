@@ -21,7 +21,6 @@ import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
-import frc.robot.commands.ScoreCubeCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.autons.BlueCableCrossAuton;
@@ -63,7 +62,7 @@ public class RobotContainer {
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
-    //private final ConeFlipper coneFlipperObj = new ConeFlipper();
+    // private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final EyeSubsystem eyeballObj = new EyeSubsystem();
 
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
@@ -85,17 +84,21 @@ public class RobotContainer {
     private final Command redSubstationCrossAutoCmd = new RedSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command redDefaultCableAutoCmd = new RedDefaultCableAuton(drivetrainObj);
-    private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
     private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
-    private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
+    private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj,
+            ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
-    private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
-    private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj, drivetrainObj);
+    private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
+    private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
+            drivetrainObj);
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
-    // TODO: may need different terms than left, center, right for auton chooser
+    // TODO: may need differnt terms than left, center, right for auton chooser
 
     /**
      * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -112,9 +115,10 @@ public class RobotContainer {
         ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         eyeballObj.setDefaultCommand(
-                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new EyeColor(255, 0, 0)));
-                                    // 2nd eyemovement above is robot right
-         //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
+                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0),
+                        new EyeColor(255, 0, 0)));
+        // 2nd eyemovement above is robot right
+        // coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
         EyeMovement movementLeft = new EyeMovement(1, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
@@ -189,22 +193,25 @@ public class RobotContainer {
 
         // triggers and commands for shooting cube to high spot and middle spot
         ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
-                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
                 new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
 
-        SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
+        SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
+                new ExpelIngestorLiftCmd(ingestorLiftObj),
                 shootCubeLower);
 
-     
         /*
          * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
          * new StopIngestorIntake(ingestorIntakeObj), new
@@ -222,27 +229,28 @@ public class RobotContainer {
         Trigger opYTrigger = operatorControllerObj.y();
         Trigger opRightTriggerTrigger = operatorControllerObj.rightTrigger();
         Trigger opRightBumperTrigger = operatorControllerObj.rightBumper();
+        // Trigger driver
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
-                    
-                    
+
         opRightTriggerTrigger.whileTrue(shootCubeMid);
         opRightBumperTrigger.whileTrue(shootCubeUpper);
 
         opATrigger.whileTrue(lowerAndExpel);
         driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-        //opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        // opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
         opYTrigger.whileTrue(lowerAndIngest);
-       
+
     }
 
-    /* Example turtle mode
+    /*
+     * Example turtle mode
      * Drive at half speed when the right bumper is held
      * new JoystickButton(m_driverController, Button.kRightBumper.value)
      * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
      * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-     
+     * 
      */
 
     /*
