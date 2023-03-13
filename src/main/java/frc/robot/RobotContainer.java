@@ -10,6 +10,8 @@ import java.util.Map;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -63,7 +65,7 @@ public class RobotContainer {
     private final IngestorLift ingestorLiftObj = new IngestorLift();
     private final GamePieceScoop gamePieceScoopObj = new GamePieceScoop();
     private final Vision visionObj = new Vision();
-    //private final ConeFlipper coneFlipperObj = new ConeFlipper();
+    // private final ConeFlipper coneFlipperObj = new ConeFlipper();
     private final EyeSubsystem eyeballObj = new EyeSubsystem();
 
     // TODO: We could merge LED Subsystem and the Eyeball subsystem
@@ -85,13 +87,16 @@ public class RobotContainer {
     private final Command redSubstationCrossAutoCmd = new RedSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command redDefaultCableAutoCmd = new RedDefaultCableAuton(drivetrainObj);
-    private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
+    private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
     private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
     private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
-    private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj, gamePieceScoopObj);
-    private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj, drivetrainObj);
+    private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
+            gamePieceScoopObj);
+    private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
+            drivetrainObj);
 
     private final SendableChooser<Command> autonChooser = new SendableChooser<>();
     private final SendableChooser<Integer> leftCenterRight = new SendableChooser<>();
@@ -113,8 +118,8 @@ public class RobotContainer {
         gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
         eyeballObj.setDefaultCommand(
                 eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new EyeColor(255, 0, 0)));
-                                    // 2nd eyemovement above is robot right
-         //coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
+        // 2nd eyemovement above is robot right
+        // coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
         EyeMovement movementLeft = new EyeMovement(1, 0);
         EyeMovement movementRight = new EyeMovement(1, 1);
@@ -124,14 +129,27 @@ public class RobotContainer {
                 redDefaultSubstationAutoCmd);
 
         autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
-        autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-        autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
-        autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
-        autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-        autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-        autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
-        autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+        if (DriverStation.getAlliance().equals(Alliance.Red)) {
+            autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
+            autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+            autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+            autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+        } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
+            autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+            autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+            autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+            autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+        } else {
+            autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
+            autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+            autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+            autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+            autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+            autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+            autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+            autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+        }
+
         SmartDashboard.putData("Auton Chooser", autonChooser);
         // autonChooser.addOption("Example Auton Command",
         // Autos.exampleAuto(ingestorLiftObj));
@@ -189,13 +207,16 @@ public class RobotContainer {
 
         // triggers and commands for shooting cube to high spot and middle spot
         ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
-                    ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW), gamePieceScoopObj.servoOffCmd());
+                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
+                gamePieceScoopObj.servoOffCmd());
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new LowerIngestorLiftCmd(ingestorLiftObj),
@@ -204,7 +225,6 @@ public class RobotContainer {
         SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(new ExpelIngestorLiftCmd(ingestorLiftObj),
                 shootCubeLower);
 
-     
         /*
          * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
          * new StopIngestorIntake(ingestorIntakeObj), new
@@ -225,24 +245,24 @@ public class RobotContainer {
 
         // TODO: The above might allow us to interrupt the command with the X button.
         // operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
-                    
-                    
+
         opRightTriggerTrigger.whileTrue(shootCubeMid);
         opRightBumperTrigger.whileTrue(shootCubeUpper);
 
         opATrigger.whileTrue(lowerAndExpel);
         driverBTrigger.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-        //opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+        // opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
         opYTrigger.whileTrue(lowerAndIngest);
-       
+
     }
 
-    /* Example turtle mode
+    /*
+     * Example turtle mode
      * Drive at half speed when the right bumper is held
      * new JoystickButton(m_driverController, Button.kRightBumper.value)
      * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
      * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-     
+     * 
      */
 
     /*
