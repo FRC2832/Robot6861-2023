@@ -128,6 +128,7 @@ public class RobotContainer {
                 eyeballObj.setEyes(movementLeft, movementRight, color),
                 redDefaultSubstationAutoCmd);
 
+        System.out.println("The current alliance is:" + DriverStation.getAlliance());
         autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
         if (DriverStation.getAlliance().equals(Alliance.Red)) {
             autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
