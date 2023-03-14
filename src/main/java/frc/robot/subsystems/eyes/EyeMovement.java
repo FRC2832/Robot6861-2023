@@ -1,26 +1,26 @@
 package frc.robot.subsystems.eyes;
 
 public class EyeMovement {
-    private int eyeLid;
-    private int eyePupil;
+    private double eyeLid;
+    private double eyePupil;
 
-    public int getEyeLid() {
+    public double getEyeLid() {
         return eyeLid;
     }
 
-    public void setEyeLid(int eyelid) {
+    public void setEyeLid(double eyelid) {
         this.eyeLid = eyelid;
     }
 
-    public int getEyePupil() {
+    public double getEyePupil() {
         return eyePupil;
     }
 
-    public void setEyePupil(int eyeball) {
+    public void setEyePupil(double eyeball) {
         this.eyePupil = eyeball;
     }
 
-    public EyeMovement(int lid, int pupil){
+    public EyeMovement(double lid, double pupil){
         this.eyeLid =lid;
         this.eyePupil = pupil;
     }
