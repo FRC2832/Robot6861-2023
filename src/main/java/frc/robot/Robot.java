@@ -5,6 +5,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
@@ -34,7 +35,8 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer. This will perform all our button bindings,
         // and put our
         // autonomous chooser on the dashboard.
-        robotContainerObj = new RobotContainer();
+        SmartDashboard.putNumber("Ingestor Status", 0); // 0 means that the ingestor is working
+        robotContainerObj = new RobotContainer(); //  1 means that there is an issue
         //clights = new LEDsCANifier();
 
         //Set the eye color as white (but red for now)

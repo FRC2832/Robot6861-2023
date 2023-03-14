@@ -128,27 +128,45 @@ public class RobotContainer {
                 eyeballObj.setEyes(movementLeft, movementRight, color),
                 redDefaultSubstationAutoCmd);
 
-        System.out.println("The current alliance is:" + DriverStation.getAlliance());
-        autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
-        if (DriverStation.getAlliance().equals(Alliance.Red)) {
-            autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-            autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
-            autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-            autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
-        } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
-            autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-            autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
-            autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-            autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+        System.out.printf("The current alliance is: %s", DriverStation.getAlliance());
+        System.out.printf("The ingestor is: %d" , SmartDashboard.getNumber("IngestorStatus", 0));
+
+        if (SmartDashboard.getNumber("Ingestor Status", 0) == 0) {
+            autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
+            if (DriverStation.getAlliance().equals(Alliance.Red)) {
+                autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
+                autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+                autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+                autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+            } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
+                autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+                autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+                autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+                autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+            } else {
+                autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
+                autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+                autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+                autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+                autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+                autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+                autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+                autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+            }
         } else {
-            autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-            autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
-            autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-            autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
-            autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-            autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
-            autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-            autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+            if (DriverStation.getAlliance().equals(Alliance.Red)) {
+                autonChooser.setDefaultOption("Red Default Auton", defaultSubstationAuton);
+                autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+            } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
+                autonChooser.setDefaultOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+                autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+            } else {
+                autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
+                autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+                autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+                autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+            }
+
         }
 
         SmartDashboard.putData("Auton Chooser", autonChooser);
