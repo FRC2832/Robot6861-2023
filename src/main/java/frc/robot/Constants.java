@@ -31,6 +31,14 @@ public final class Constants {
     public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
     public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
+    //Drivetrain current limit
+    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
+
+    // Drivetrain controls slew rates
+    //public static final double FORWARD_BACK_SLEW_RATE = .2;
+    //public static final double LEFT_RIGHT_SLEW_RATE = .2;
+
+
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
     public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
@@ -82,7 +90,7 @@ public final class Constants {
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
-    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
+    
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
@@ -93,6 +101,6 @@ public final class Constants {
     public static final double AUTON_BALANCING_STRAFE = 58.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
 
-    public static final double INGESTOR_BOTTOM_POSITION = 65.0;
+    public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;
 }

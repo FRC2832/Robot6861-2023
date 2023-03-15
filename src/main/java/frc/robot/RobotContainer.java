@@ -259,7 +259,7 @@ public class RobotContainer {
 				new EyeMovement(1, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 
 		// Command groups that are mapped to the triggers and bumpers
-		SequentialCommandGroup setLeftPupil = new SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
+		/*SequentialCommandGroup setLeftPupil = new SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
 				setLeftEyePupil1);
 		driverLeftTrigger.onTrue(setLeftPupil);
 
@@ -274,6 +274,7 @@ public class RobotContainer {
 		SequentialCommandGroup setRightEyeLid = new SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
 				setRightEyeLid1);
 		driverRightBumper.onTrue(setRightEyeLid);
+        */
 
 		/*
 		 * setEyePupil pupilMovementLeft = new setEyePupil (1);

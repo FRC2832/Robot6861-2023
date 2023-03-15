@@ -90,6 +90,7 @@ public class EyeSubsystem extends SubsystemBase {
      *
      * @return value of some boolean subsystem state, such as a digital sensor.
      */
+    // TODO: this method is from ingestorlift subsystem, it probably should be deleted...
     public boolean isAtTop() {
         // Query some boolean state, such as a digital sensor.
         return false;
