@@ -36,6 +36,8 @@ public class IngestorLift extends SubsystemBase {
         liftPIDController.setFeedbackDevice(liftEncoder);
         ingestorLimitInput = new DigitalInput(1);
 
+        ingestorLiftMotor.setSmartCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+
         // set PID coefficients
         liftPIDController.setP(1.0); // TODO: test value in Teleop
         liftPIDController.setI(0.00001);

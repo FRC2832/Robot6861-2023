@@ -30,7 +30,14 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
-        // Create a motorcontroller group?
+        /* Code for Talon SRX for intake current limiting
+        ingestorIntakeTopTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
+        ingestorIntakeBottomTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
+        ingestorIntakeTopTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+        ingestorIntakeBottomTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+        ingestorIntakeTopTalon.enableCurrentLimit(true);
+        ingestorIntakeBottomTalon.enableCurrentLimit(true);
+        */
     }
 
     public void revIn() {

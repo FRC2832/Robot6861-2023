@@ -32,7 +32,8 @@ public final class Constants {
     public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
     //Drivetrain current limit
-    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
+    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
+    public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // Drivetrain controls slew rates
     //public static final double FORWARD_BACK_SLEW_RATE = .2;
