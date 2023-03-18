@@ -18,8 +18,8 @@ public class Vision extends SubsystemBase {
     // TODO: find out if there's more functionality to add to the subsystem
     // TODO: maybe name these better?
     // TODO: MUST calibrate cameras per PhotonVision docs
-    private PhotonCamera camera;
-    private PhotonCamera camera2;
+    private PhotonCamera driverCamera;
+    private PhotonCamera armCamera;
     private double yaw;
     private double pitch;
     private double area;
@@ -29,10 +29,10 @@ public class Vision extends SubsystemBase {
 
     /** Creates a new Vision. */
     public Vision() {
-        camera = new PhotonCamera(Constants.CAMERANAME);
-        // camera2 = new PhotonCamera(Constants.CAMERA2NAME);
+        driverCamera = new PhotonCamera(Constants.DRIVER_CAM_NAME);
+        armCamera = new PhotonCamera(Constants.ARM_CAM_NAME);
         pose = new Transform2d();
-        camera.setDriverMode(true);
+        driverCamera.setDriverMode(true);
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera cam) {
@@ -55,20 +55,20 @@ public class Vision extends SubsystemBase {
         return new ArrayList<PhotonTrackedTarget>();
     }
 
-    public void setCamera(PhotonCamera cam) {
-        camera = cam;
+    public void setDriverCamera(PhotonCamera cam) {
+        driverCamera = cam;
     }
 
-    public void setCamera2(PhotonCamera cam) {
-        camera2 = cam;
+    public void setArmCamera(PhotonCamera cam) {
+        armCamera = cam;
     }
 
-    public PhotonCamera getCamera() {
-        return camera;
+    public PhotonCamera getDriverCamera() {
+        return driverCamera;
     }
 
-    // public PhotonCamera getCamera2() {
-    // return camera2;
+    // public PhotonCamera getArmCamera() {
+    // return armCamera;
     // }
 
     public PhotonTrackedTarget bestTarget(PhotonCamera targets) {
@@ -78,11 +78,13 @@ public class Vision extends SubsystemBase {
     public void targetData(PhotonCamera camera) {
         // Get information from target.
         var result = camera.getLatestResult();
-        PhotonTrackedTarget target = result.getBestTarget();
-        yaw = target.getYaw();
-        pitch = target.getPitch();
-        area = target.getArea();
-        skew = target.getSkew();
+        if (result.hasTargets()){
+            PhotonTrackedTarget target = result.getBestTarget();
+            yaw = target.getYaw();
+            pitch = target.getPitch();
+            area = target.getArea();
+            skew = target.getSkew();
+        }
         // pose = target.getCameraToTarget();
         // corners = target.getCorners();
     }

@@ -75,8 +75,8 @@ public final class Constants {
     public static final int RIGHT_PUPIL_SERVO = 5; // 5 = lid
 
     // TODO: set this to the actual camera name
-    public static final String CAMERANAME = "photonvision";
-    public static final String CAMERA2NAME = "photonvision";
+    public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
+    public static final String ARM_CAM_NAME = "Microsoft_LifeCam_HD-3000";
 
     // Encoder IDs
     public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
