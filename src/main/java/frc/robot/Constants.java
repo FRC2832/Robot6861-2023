@@ -87,6 +87,8 @@ public final class Constants {
     public static final int PIGEON_TALON = 13;
 
     // IngestorIntake Subsystem Roller Motor Speeds
+    public static final double TOP_ROLLER_EXPEL_SPEED_HIGH = -0.95;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.85;
     public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;

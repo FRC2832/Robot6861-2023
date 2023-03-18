@@ -27,10 +27,12 @@ import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.autons.CoopBalanceAuton;
 import frc.robot.commands.autons.blue.BlueCableCrossAuton;
+import frc.robot.commands.autons.blue.BlueCableEngageAuton;
 import frc.robot.commands.autons.blue.BlueDefaultCableAuton;
 import frc.robot.commands.autons.blue.BlueDefaultSubstationAuton;
 import frc.robot.commands.autons.blue.BlueSubstationCrossAuton;
 import frc.robot.commands.autons.red.RedCableCrossAuton;
+import frc.robot.commands.autons.red.RedCableEngageAuton;
 import frc.robot.commands.autons.red.RedDefaultCableAuton;
 import frc.robot.commands.autons.red.RedDefaultSubstationAuton;
 import frc.robot.commands.autons.red.RedSubstationCrossAuton;
@@ -83,6 +85,8 @@ public class RobotContainer {
 	private final Command redDefaultCableAutoCmd = new RedDefaultCableAuton(drivetrainObj);
 	private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
+	private final Command redCableEngageAutoCmd = new RedCableEngageAuton(drivetrainObj, ingestorIntakeObj,
+			gamePieceScoopObj);
 	private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
 	private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj,
 			ingestorIntakeObj,
@@ -90,6 +94,8 @@ public class RobotContainer {
 	private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
 	private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
+	private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
+			gamePieceScoopObj);		
 	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
 			drivetrainObj);
 
@@ -134,6 +140,8 @@ public class RobotContainer {
 		autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
 		autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
 		autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+		autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
+		autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
 		SmartDashboard.putData("Auton Chooser", autonChooser);
 		// autonChooser.addOption("Example Auton Command",
 		// Autos.exampleAuto(ingestorLiftObj));
@@ -190,8 +198,13 @@ public class RobotContainer {
 		// cancelling on release.
 
 		// triggers and commands for shooting cube to high spot and middle spot
+		/* OLD SHOOTING CODE
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
+				gamePieceScoopObj.servoOffCmd());
+			*/
+		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH, Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
 				gamePieceScoopObj.servoOffCmd());
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
@@ -209,6 +222,7 @@ public class RobotContainer {
 		SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
 				new ExpelIngestorLiftCmd(ingestorLiftObj),
 				shootCubeLower);
+				
 
 		/*
 		 * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(

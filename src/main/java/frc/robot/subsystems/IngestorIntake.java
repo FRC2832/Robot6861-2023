@@ -44,21 +44,34 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
     }
-
+/*
     public void revOut(double speed) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speed);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speed);
     }
-
+*/
+    public void revOut(double speedTop, double speedBottom) {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
+    }
+    
     public CommandBase revOutIngestorIntake(double speed) {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    revOut(speed);
+                    revOut(speed, speed);
                 });
     }
 
+    public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
+    // Inline construction of command goes here.
+    // Subsystem::RunOnce implicitly requires `this` subsystem.
+    return run(
+            () -> {
+                revOut(speedTop, speedBottom);
+            });
+    }
     public CommandBase revInIngestorIntake() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
