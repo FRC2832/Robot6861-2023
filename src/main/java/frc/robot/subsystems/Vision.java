@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
 
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -71,8 +72,20 @@ public class Vision extends SubsystemBase {
     // return armCamera;
     // }
 
-    public PhotonTrackedTarget bestTarget(PhotonCamera targets) {
-        return targets.getLatestResult().getBestTarget();
+    public PhotonTrackedTarget bestTarget(PhotonCamera cam) {
+        return cam.getLatestResult().getBestTarget();
+    }
+
+    public int[] getBestConeCenter() {
+        int[] center = new int[2];
+        PhotonTrackedTarget target = bestTarget(armCamera);
+        for (TargetCorner corner : target.getMinAreaRectCorners()) {
+            center[0] += corner.x;
+            center[1] += corner.y;
+        }
+        center[0] /= 4;
+        center[1] /= 4;
+        return center;
     }
 
     public void targetData(PhotonCamera camera) {
