@@ -116,7 +116,8 @@ public class RobotContainer {
 
 		drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
 		ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
-		ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
+		//ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
+		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
 		eyeballObj.setDefaultCommand(
 				eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0),
@@ -315,7 +316,6 @@ public class RobotContainer {
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
-
 	}
 
 	/*

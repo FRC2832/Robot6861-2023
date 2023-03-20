@@ -21,10 +21,6 @@ public class IngestorIntake extends SubsystemBase {
 
     // TODO: Confirm the motor controller type
 
-    public boolean getIngestorBeamBreakValue() {
-        return ingestorBeamBreak.get();
-    }
-
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
@@ -78,6 +74,20 @@ public class IngestorIntake extends SubsystemBase {
         return run(
                 () -> {
                     revIn();
+                });
+    }
+
+    public boolean getIngestorBeamBreakValue() {
+        System.out.println(ingestorBeamBreak.get());
+        return ingestorBeamBreak.get();
+    }
+
+    public CommandBase ingestorBeamBreakCmd() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    getIngestorBeamBreakValue();
                 });
     }
 

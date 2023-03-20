@@ -64,6 +64,8 @@ public final class Constants {
     public static final int EYE_CANIFIER_ID = 4;
 
     // Game Piece Scoop Servo IDs
+    public static final int GAME_PIECE_SCOOP_SERVO_MOTOR = 6;
+    public static final int GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
 
@@ -106,4 +108,5 @@ public final class Constants {
 
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;
+    
 }

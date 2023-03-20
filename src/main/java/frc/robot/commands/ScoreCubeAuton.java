@@ -29,7 +29,7 @@ public class ScoreCubeAuton extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        gamePieceScoopObj.servoOnAuton();
+        //gamePieceScoopObj.servoOnAuton();
         timer.reset();
         timer.start();
     }
@@ -44,8 +44,7 @@ public class ScoreCubeAuton extends CommandBase {
             gamePieceScoopObj.servoOff();
         }
     }
-    // TODO: Create a new command for ingestorLift
-    // TODO: If ingestorLift is at upper limit switch then zero the encoders
+  
 
     // Called once the command ends or is interrupted.
     @Override
@@ -62,6 +61,6 @@ public class ScoreCubeAuton extends CommandBase {
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 3.5;
+        return /* !ingestorIntakeObj.getIngestorBeamBreakValue() */ timer.get() >= 3.5;
     }
 }
