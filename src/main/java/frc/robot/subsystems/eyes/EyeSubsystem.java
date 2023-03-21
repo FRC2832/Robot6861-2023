@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.JoystickSubsystem;
 
 public class EyeSubsystem extends SubsystemBase {
     private Servo eyePupilServoRight;
@@ -43,6 +44,27 @@ public class EyeSubsystem extends SubsystemBase {
         eyeLidServoLeft.set(movementLeft.getEyeLid());
     }
 
+    public EyeMovement getLeftEyeMovement() {
+        return new EyeMovement(eyePupilServoLeft.get(), eyeLidServoLeft.get());
+    }
+
+    public EyeMovement getRightEyeMovement() {
+        return new EyeMovement(eyePupilServoRight.get(), eyeLidServoRight.get());
+    }
+
+    public double getLeftEyeLid() {
+        return eyeLidServoLeft.get();
+    }
+    public double getLeftEyePupil() {
+        return eyePupilServoLeft.get();
+    }
+    public double getRightEyeLid() {
+        return eyeLidServoRight.get();
+    }
+    public double getRightEyePupil() {
+        return eyePupilServoRight.get();
+    }
+
     /**
      * Example command factory method.
      *
@@ -58,12 +80,17 @@ public class EyeSubsystem extends SubsystemBase {
                 });
     }
 
+    public void setLeftEyelid(double position) {
+        eyeLidServoLeft.set(position);
+    }
+
     /**
      * An example method querying a boolean state of the subsystem (for example, a
      * digital sensor).
      *
      * @return value of some boolean subsystem state, such as a digital sensor.
      */
+    // TODO: this method is from ingestorlift subsystem, it probably should be deleted...
     public boolean isAtTop() {
         // Query some boolean state, such as a digital sensor.
         return false;
@@ -77,7 +104,6 @@ public class EyeSubsystem extends SubsystemBase {
         // For teleop: White if nothing in ingestor, purple if cube in ingestor, yellow
         // if cone in ingestor, red or blue depending on alliance for last few seconds
         // Also, white during auton
-
         // Pupil
         // __assuming robot is moving forward
         // Move Pupil Forward

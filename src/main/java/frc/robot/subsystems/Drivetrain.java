@@ -11,6 +11,7 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.RelativeEncoder;
 
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -87,7 +88,7 @@ public class Drivetrain extends SubsystemBase {
         leftBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
-        mecanumDriveObj.setMaxOutput(0.75);
+        mecanumDriveObj.setMaxOutput(0.85);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
              not being able to drive. */ 
              
@@ -103,7 +104,11 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void mecanumDriveCartesian(double xSpeed, double ySpeed, double zRotation) {
+        // Creates a SlewRateLimiter that limits the rate of change of the signal 
+        //SlewRateLimiter filterFwdBack = new SlewRateLimiter(Constants.FORWARD_BACK_SLEW_RATE);
+        //SlewRateLimiter filterLeftRight = new SlewRateLimiter(Constants.LEFT_RIGHT_SLEW_RATE);
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
+        //mecanumDriveObj.driveCartesian(filterLeftRight.calculate(xSpeed), filterFwdBack.calculate(ySpeed), zRotation);
     }
 
     public double getPitch() {

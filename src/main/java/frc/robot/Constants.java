@@ -31,6 +31,14 @@ public final class Constants {
     public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
     public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
+    // Drivetrain current limit
+    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
+    public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
+
+    // Drivetrain controls slew rates
+    // public static final double FORWARD_BACK_SLEW_RATE = .2;
+    // public static final double LEFT_RIGHT_SLEW_RATE = .2;
+
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
     public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
@@ -51,10 +59,33 @@ public final class Constants {
     public static final int DIGITAL_INPUT_BEAM = 0;
     public static final int DIGITAL_INPUT_FLIPPER = 6;
 
+    // Arm, Claw, and Brake CAN IDs
+    public static final int ARM_MOTOR_ID = 17;
+    public static final int CLAW_MOTOR_ID = 16;
+    public static final int LOWER_BRAKE_MOTOR_ID = 18;
+
+    public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
+    public static final double CLAW_CLOSE_SPEED = -0.2;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.4;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.4;
+
+    // Arm Motor Current Limit
+    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
+
+    // Arm Motor Speeds
+    public static final double ARM_MOTOR_SPEED = 0;
+
+    // Arm Motor Positions
+    public static final double ARM_MOTOR_POSITION_PICKUP = 0;
+    public static final double ARM_MOTOR_POSITION_STOW = 0;
+    public static final double ARM_MOTOR_POSITION_SCORE = 0;
+
     // For running LED lights
     public static final int EYE_CANIFIER_ID = 4;
 
     // Game Piece Scoop Servo IDs
+    public static final int GAME_PIECE_SCOOP_SERVO_MOTOR = 6;
+    public static final int GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
     public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
 
@@ -66,8 +97,8 @@ public final class Constants {
     public static final int RIGHT_PUPIL_SERVO = 5; // 5 = lid
 
     // TODO: set this to the actual camera name
-    public static final String CAMERANAME = "photonvision";
-    public static final String CAMERA2NAME = "photonvision";
+    public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
+    public static final String ARM_CAM_NAME = "Microsoft_LifeCam_HD-3000";
 
     // Encoder IDs
     public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
@@ -78,20 +109,23 @@ public final class Constants {
     public static final int PIGEON_TALON = 13;
 
     // IngestorIntake Subsystem Roller Motor Speeds
+    public static final double TOP_ROLLER_EXPEL_SPEED_HIGH = -0.95;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.85;
     public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
-    public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 60;
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
-    public static final double SUBSTATION_AUTON_DRIVE_BACK = 96;
-    public static final double SUBSTATION_AUTON_STRAFE = 48;
-    public static final double CABLE_AUTON_DRIVE_BACK = 156;
-    public static final double COOP_AUTON_DRIVE_BACK = 72;
+    public static final double SUBSTATION_AUTON_DRIVE_BACK = 96.0;
+    public static final double SUBSTATION_AUTON_STRAFE = 48.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 156.0;
+    public static final double COOP_AUTON_DRIVE_BACK = 72.0;
+    public static final double AUTON_BALANCING_STRAFE = 58.0;
+    public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
 
-    public static final double INGESTOR_BOTTOM_POSITION = 65.0;
+    public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;
     public static final boolean INGESTOR_FAIL_STATUS = false;
 }

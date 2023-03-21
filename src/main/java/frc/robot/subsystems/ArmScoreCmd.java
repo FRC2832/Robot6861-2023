@@ -2,19 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.drive;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class DriveDockCmd extends CommandBase {
-    /** Creates a new DriveDockCmd. */
-    public DriveDockCmd() {
+public class ArmScoreCmd extends CommandBase {
+    /** Creates a new ArmScoreCmd. */
+    private ArmSubsystem armSubsystemObj;
+    public boolean isAtScore;
+
+    public ArmScoreCmd(ArmSubsystem armSubsystemObj) {
+        this.armSubsystemObj = armSubsystemObj;
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.

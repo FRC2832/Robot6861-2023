@@ -5,10 +5,10 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.SparkMaxPIDController;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxPIDController;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
@@ -22,10 +22,10 @@ public class IngestorLift extends SubsystemBase {
     private SparkMaxPIDController liftPIDController;
     private RelativeEncoder liftEncoder;
     private double goalPosition;
-    private final double topPosition = 0.0;
-    private final double shootingPosition = 5;
+    private static final double topPosition = 0.0;
+    private static final double shootingPosition = 5.0;
     private DigitalInput ingestorLimitInput;
-    private double ingestorMotorSpeed = 0.6;
+    private static double ingestorMotorSpeed = 0.9;
     private boolean isAtScoring;
     private boolean isHomed;
 
@@ -36,13 +36,15 @@ public class IngestorLift extends SubsystemBase {
         liftPIDController.setFeedbackDevice(liftEncoder);
         ingestorLimitInput = new DigitalInput(1);
 
+        ingestorLiftMotor.setSmartCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+
         // set PID coefficients
         liftPIDController.setP(1.0); // TODO: test value in Teleop
         liftPIDController.setI(0.00001);
         liftPIDController.setD(0.00001);
         liftPIDController.setIZone(0.0);
         liftPIDController.setFF(0.0);
-        liftPIDController.setOutputRange(-1, 1);
+        liftPIDController.setOutputRange(-1.0, 1.0);
         // have to burn flash to use this PID controller?? investigate another type of
         // PID controller?
     }
@@ -67,7 +69,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.25);
+            ingestorLiftMotor.set(-0.9);
             // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
@@ -93,7 +95,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.25);
+            ingestorLiftMotor.set(-0.9);
             flag = false;
             // isHomed = false;
         } else {
@@ -126,8 +128,8 @@ public class IngestorLift extends SubsystemBase {
             ingestorLiftMotor.set(-0.1);
             // System.out.println(position);
             isAtScoring = false;
-        } else if (position > 30.0) {
-            ingestorLiftMotor.set(0.4);
+        } else if (position > 20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
+            ingestorLiftMotor.set(0.7); //increase speed to raise lift for faster operation
             // System.out.println("We are moving to the scoring position. Position: " +
             // position);
         } else {
@@ -147,7 +149,8 @@ public class IngestorLift extends SubsystemBase {
         } else if (percent >= 0.98) {
             raiseLift();
         } else {
-            goalPosition = percent * (topPosition - Constants.INGESTOR_BOTTOM_POSITION) + Constants.INGESTOR_BOTTOM_POSITION;
+            goalPosition = percent * (topPosition - Constants.INGESTOR_BOTTOM_POSITION)
+                    + Constants.INGESTOR_BOTTOM_POSITION;
             // TODO: check not going past limits? aka check 0 ≤ percent ≤ 1
             liftPIDController.setReference(goalPosition, ControlType.kPosition);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
@@ -163,8 +166,10 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 1;
-        // during Jackson comp, limit switch broke so we aded this OR for added robustness
+        //System.out.println("isAtTop - " + ingestorLimitInput.get());
+        return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 3.0;
+        // during Jackson comp, limit switch broke so we aded this OR for added
+        // robustness
     }
 
     public boolean getIsAtScoring() {

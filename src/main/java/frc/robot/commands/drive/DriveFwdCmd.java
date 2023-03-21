@@ -2,25 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.drive; 
+package frc.robot.commands.drive;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
-public class StrafeRightCmd extends CommandBase {
-    /** Creates a new StrafeLeftCmd. */
+public class DriveFwdCmd extends CommandBase {
+    /** Creates a new DriveBackCmd. */
 
     private Drivetrain drivetrainObj;
     private double driveSpeed;
     private double driveDistanceInches;
     private double startEncoderPos;
-    private double start;
+    private boolean isRedAlliance;
 
-    public StrafeRightCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
+
+
+    public DriveFwdCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceInches = driveDistanceInches;
+        this.driveDistanceInches = driveDistanceInches; 
         this.driveSpeed = Math.abs(driveSpeed);
+        // this.isRedAlliance = isRedAlliance;
         addRequirements(drivetrainObj);
     }
 
@@ -28,15 +30,13 @@ public class StrafeRightCmd extends CommandBase {
     @Override
     public void initialize() {
         drivetrainObj.resetEncoders();
-        startEncoderPos = drivetrainObj.getEncoderDistance();
-        start = startEncoderPos / Constants.DRIVETRAIN_STRAFE_RATIO / 12;
+        startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrainObj.mecanumDriveCartesian(-driveSpeed, 0.0, 0.0);
-        // Negative drivespeed is due to motor inversion.  Do NOT change.
+        drivetrainObj.mecanumDriveCartesian(0.0, -driveSpeed, 0.0);
     }
 
     // Called once the command ends or is interrupted.
@@ -48,6 +48,6 @@ public class StrafeRightCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return (((Math.abs(drivetrainObj.getEncoderDistance()) - Math.abs(startEncoderPos)) / Constants.DRIVETRAIN_STRAFE_RATIO) / 12) - start >= driveDistanceInches;
+        return ((Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches);
     }
 }

@@ -11,13 +11,13 @@ import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
 
-public class ScoreCubeCmd extends CommandBase {
+public class ScoreCubeAuton extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
     private IngestorIntake ingestorIntakeObj;
     private GamePieceScoop gamePieceScoopObj;
     private static Timer timer = new Timer(); // Static because we only need one timer. It's shared btwn all instances.
 
-    public ScoreCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
+    public ScoreCubeAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         this.ingestorIntakeObj = ingestorIntake;
         this.gamePieceScoopObj = gamePieceScoop;
         addRequirements(ingestorIntake, gamePieceScoop);
@@ -29,7 +29,7 @@ public class ScoreCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        gamePieceScoopObj.servoOn();
+        //gamePieceScoopObj.servoOnAuton();
         timer.reset();
         timer.start();
     }
@@ -37,15 +37,14 @@ public class ScoreCubeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID);
+        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
-        if (timer.get() >= 1.5) { 
-            gamePieceScoopObj.servoOff(); 
+        if (timer.get() >= 1.5) {   // allow time for rollers to get up to speed
+            gamePieceScoopObj.servoOff();
         }
     }
-    // TODO: Create a new command for ingestorLift
-    // TODO: If ingestorLift is at upper limit switch then zero the encoders
+  
 
     // Called once the command ends or is interrupted.
     @Override
@@ -62,6 +61,6 @@ public class ScoreCubeCmd extends CommandBase {
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 5;
+        return /* !ingestorIntakeObj.getIngestorBeamBreakValue() */ timer.get() >= 3.5;
     }
 }

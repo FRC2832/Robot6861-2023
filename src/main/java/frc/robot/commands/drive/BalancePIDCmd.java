@@ -13,12 +13,12 @@ public class BalancePIDCmd extends CommandBase {
     private double angle;
     private double drivePower;
     private Drivetrain drivetrainObj;
-    private boolean driverControlled;
+    private boolean isDriverControlled;
 
-    public BalancePIDCmd(Drivetrain drivetrainObj, boolean driverControlled) {
+    public BalancePIDCmd(Drivetrain drivetrainObj, boolean isDriverControlled) {
         this.drivetrainObj = drivetrainObj;
         addRequirements(drivetrainObj);
-        this.driverControlled = driverControlled;
+        this.isDriverControlled = isDriverControlled;
     }
 
     // Called when the command is initially scheduled.
@@ -32,31 +32,31 @@ public class BalancePIDCmd extends CommandBase {
         // pids work by multiplying the error from the desired position 
         // by the proportional factor, in this case kp.
         angle = drivetrainObj.getPitch();
-        if (Math.abs(angle) < 7) {
-            driverControlled = false;
+        if (Math.abs(angle) < 7.0) {
+            isDriverControlled = false;
         }
-        if (driverControlled) {
-            kp = 0.022;
-        } else if (Math.abs(angle) < 5) {
-            kp = 0.0055;
+        if (isDriverControlled) {
+            kp = 0.028; // competition charge station value = 0.022
+        } else if (Math.abs(angle) < 5.0) {
+            kp = 0.007; // competition charge station value = 0.0055
         } else {
-            kp = 0.011;
+            kp = 0.014; // competition charge station value = 0.011
         }
         drivePower = kp * angle;
         if (Math.abs(drivePower) > 0.4) {
             drivePower = Math.copySign(0.4, drivePower);
         }
         if (Math.abs(drivePower) < 0.02) {
-            drivePower = 0;
+            drivePower = 0.0;
         }
         // drive forward at drivePower (the negative is becuase of inversions)
-        drivetrainObj.mecanumDriveCartesian(0, -drivePower, 0);
+        drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        drivetrainObj.mecanumDriveCartesian(0, 0, 0);
+        drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
     }
 
     // Returns true when the command should end.

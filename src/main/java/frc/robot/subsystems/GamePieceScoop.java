@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax;
+
 import edu.wpi.first.wpilibj.Servo;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -14,25 +17,51 @@ public class GamePieceScoop extends SubsystemBase {
 
     private Servo gamePieceScoopServoL;
     private Servo gamePieceScoopServoR;
+    private static Timer timer = new Timer();
+    private CANSparkMax gamePieceScoopServoLR;
     // TODO: Figure out whether to change the number naming as is or to change to
     // something else
 
     public GamePieceScoop() {
-        gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
+        gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMax.MotorType.kBrushed);
+        gamePieceScoopServoLR.setSmartCurrentLimit(Constants.GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS);
+        /*gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
         gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
-        gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1);
-        gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1);
+        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
+        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);*/
     }
 
-    public void servoOn() {
-        gamePieceScoopServoL.setSpeed(1.0);
-        gamePieceScoopServoR.setSpeed(1.0);
+    /*public void setServoBoundsAuton() {
+        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
+        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
+    }
+
+    public void setServoBoundsTeleop() {
+        gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
+        gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
+    }*/
+
+
+    public void servoOnTeleop() {
+        //setServoBoundsTeleop();
+        gamePieceScoopServoLR.setVoltage(2);
+
+        //gamePieceScoopServoL.setSpeed(1.0);
+        //gamePieceScoopServoR.setSpeed(1.0);
     }
 
     public void servoOff() {
-        gamePieceScoopServoL.setSpeed(-1.0);
-        gamePieceScoopServoR.setSpeed(-1.0);
+        gamePieceScoopServoLR.setVoltage(-2);
+
+        //gamePieceScoopServoL.setSpeed(-1.0);
+        //gamePieceScoopServoR.setSpeed(-1.0);
     }
+    /*public void servoOnAuton() {
+        setServoBoundsAuton();
+        gamePieceScoopServoL.setSpeed(1.0);
+        gamePieceScoopServoR.setSpeed(1.0);
+    }
+    */
 
     @Override
     public void periodic() {
@@ -53,7 +82,17 @@ public class GamePieceScoop extends SubsystemBase {
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    servoOn();
+                    timer.start();
+                    if (timer.get() < 6.0) {
+                        servoOnTeleop();
+                    }
+                    else {
+                        timer.stop();
+                        timer.reset();
+                        gamePieceScoopServoLR.setVoltage(0);
+
+                    }
+
                 });
     }
 }
