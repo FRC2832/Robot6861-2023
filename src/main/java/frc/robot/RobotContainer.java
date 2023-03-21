@@ -16,7 +16,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ExpelIngestorLiftCmd;
@@ -24,7 +23,6 @@ import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
-import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.autons.CoopBalanceAuton;
 import frc.robot.commands.autons.blue.BlueCableCrossAuton;
 import frc.robot.commands.autons.blue.BlueCableEngageAuton;
@@ -95,7 +93,7 @@ public class RobotContainer {
 	private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
 	private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
-			gamePieceScoopObj);		
+			gamePieceScoopObj);
 	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
 			drivetrainObj);
 
@@ -116,7 +114,8 @@ public class RobotContainer {
 
 		drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
 		ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
-		//ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
+		// ingestorIntakeObj.setDefaultCommand(new
+		// StopIngestorIntake(ingestorIntakeObj));
 		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
 		eyeballObj.setDefaultCommand(
@@ -199,13 +198,15 @@ public class RobotContainer {
 		// cancelling on release.
 
 		// triggers and commands for shooting cube to high spot and middle spot
-		/* OLD SHOOTING CODE
+		/*
+		 * OLD SHOOTING CODE
+		 * ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+		 * ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
+		 * gamePieceScoopObj.servoOffCmd());
+		 */
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
-				gamePieceScoopObj.servoOffCmd());
-			*/
-		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH, Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
+				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
+						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
 				gamePieceScoopObj.servoOffCmd());
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
@@ -223,7 +224,6 @@ public class RobotContainer {
 		SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
 				new ExpelIngestorLiftCmd(ingestorLiftObj),
 				shootCubeLower);
-				
 
 		/*
 		 * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
@@ -274,22 +274,27 @@ public class RobotContainer {
 				new EyeMovement(1, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 
 		// Command groups that are mapped to the triggers and bumpers
-		/*SequentialCommandGroup setLeftPupil = new SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
-				setLeftEyePupil1);
-		driverLeftTrigger.onTrue(setLeftPupil);
-
-		SequentialCommandGroup setLeftEyeLid = new SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
-				setLeftEyeLid1);
-		driverLeftBumper.onTrue(setLeftEyeLid);
-
-		SequentialCommandGroup setRightPupil = new SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
-				setRightEyePupil1);
-		driverRightTrigger.onTrue(setRightPupil);
-
-		SequentialCommandGroup setRightEyeLid = new SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
-				setRightEyeLid1);
-		driverRightBumper.onTrue(setRightEyeLid);
-        */
+		/*
+		 * SequentialCommandGroup setLeftPupil = new
+		 * SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
+		 * setLeftEyePupil1);
+		 * driverLeftTrigger.onTrue(setLeftPupil);
+		 * 
+		 * SequentialCommandGroup setLeftEyeLid = new
+		 * SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
+		 * setLeftEyeLid1);
+		 * driverLeftBumper.onTrue(setLeftEyeLid);
+		 * 
+		 * SequentialCommandGroup setRightPupil = new
+		 * SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
+		 * setRightEyePupil1);
+		 * driverRightTrigger.onTrue(setRightPupil);
+		 * 
+		 * SequentialCommandGroup setRightEyeLid = new
+		 * SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
+		 * setRightEyeLid1);
+		 * driverRightBumper.onTrue(setRightEyeLid);
+		 */
 
 		/*
 		 * setEyePupil pupilMovementLeft = new setEyePupil (1);

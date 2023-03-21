@@ -31,14 +31,13 @@ public final class Constants {
     public static final int DRIVETRAIN_LEFT_BACK_SPARK = 7;
     public static final int DRIVETRAIN_RIGHT_BACK_SPARK = 8;
 
-    //Drivetrain current limit
+    // Drivetrain current limit
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // Drivetrain controls slew rates
-    //public static final double FORWARD_BACK_SLEW_RATE = .2;
-    //public static final double LEFT_RIGHT_SLEW_RATE = .2;
-
+    // public static final double FORWARD_BACK_SLEW_RATE = .2;
+    // public static final double LEFT_RIGHT_SLEW_RATE = .2;
 
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
@@ -59,6 +58,27 @@ public final class Constants {
     public static final int CONE_FLIPPER_CANSPARKMAX = 9;
     public static final int DIGITAL_INPUT_BEAM = 0;
     public static final int DIGITAL_INPUT_FLIPPER = 6;
+
+    // Arm, Claw, and Brake CAN IDs
+    public static final int ARM_MOTOR_ID = 17;
+    public static final int CLAW_MOTOR_ID = 16;
+    public static final int LOWER_BRAKE_MOTOR_ID = 18;
+
+    public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
+    public static final double CLAW_CLOSE_SPEED = -0.2;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.4;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.4;
+
+    // Arm Motor Current Limit
+    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
+
+    // Arm Motor Speeds
+    public static final double ARM_MOTOR_SPEED = 0;
+
+    // Arm Motor Positions
+    public static final double ARM_MOTOR_POSITION_PICKUP = 0;
+    public static final double ARM_MOTOR_POSITION_STOW = 0;
+    public static final double ARM_MOTOR_POSITION_SCORE = 0;
 
     // For running LED lights
     public static final int EYE_CANIFIER_ID = 4;
@@ -95,7 +115,6 @@ public final class Constants {
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.75;
-    
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
@@ -108,5 +127,5 @@ public final class Constants {
 
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;
-    
+
 }
