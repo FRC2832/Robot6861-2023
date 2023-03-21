@@ -35,7 +35,6 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer. This will perform all our button bindings,
         // and put our
         // autonomous chooser on the dashboard.
-        SmartDashboard.putNumber("Ingestor Status", 0); // 0 means that the ingestor is working
         robotContainerObj = new RobotContainer(); //  1 means that there is an issue
         //clights = new LEDsCANifier();
 
