@@ -133,6 +133,7 @@ public final class Constants {
     public static final double AUTON_BALANCING_STRAFE = 58.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
 
-   
-
+    public static final double INGESTOR_BOTTOM_POSITION = 75.0;
+    public static final double INGESTOR_EXPEL_POSITION = 55.0;
+    public static final boolean INGESTOR_FAIL_STATUS = false;
 }
