@@ -73,9 +73,11 @@ public final class Constants {
     public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // Arm Motor Speeds
-    public static final double ARM_MOTOR_SPEED = 0;
+    // TODO: Find actual motor speed 
+    public static final double ARM_MOTOR_SPEED = 0.9;
 
     // Arm Motor Positions
+    // TODO: Find actual motor positions for each of these
     public static final double ARM_MOTOR_POSITION_PICKUP = 0;
     public static final double ARM_MOTOR_POSITION_STOW = 0;
     public static final double ARM_MOTOR_POSITION_SCORE = 0;
