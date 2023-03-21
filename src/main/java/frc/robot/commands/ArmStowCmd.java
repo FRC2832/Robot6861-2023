@@ -5,13 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmStowCmd extends CommandBase {
     /** Creates a new ArmStowCmd. */
-    public ArmSubsystem armSubsystemObj;
-    public boolean isAtStow;
+    private ArmSubsystem armSubsystemObj;
 
     public ArmStowCmd(ArmSubsystem armSubsystemObj) {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -21,25 +19,31 @@ public class ArmStowCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        armSubsystemObj.setIsAtStow(false);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        armSubsystemObj.ArmStowPos();
-        if (armSubsystemObj.getArmEncoder() == Constants.ARM_MOTOR_POSITION_STOW) {
+        /*if (armSubsystemObj.getArmEncoder() == Constants.ARM_MOTOR_POSITION_STOW) {
             isAtStow = true;
-        }
+        }*/
+        armSubsystemObj.armStowPos();
+        //armSubsystemObj.getArmEncoder();
+        System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+
+
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        armSubsystemObj.stopArm();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return isAtStow;
+        return false;
     }
 }

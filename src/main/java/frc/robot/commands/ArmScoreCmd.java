@@ -11,7 +11,6 @@ import frc.robot.subsystems.ArmSubsystem;
 public class ArmScoreCmd extends CommandBase {
     /** Creates a new ArmScoreCmd. */
     private ArmSubsystem armSubsystemObj;
-    public boolean isAtScore;
 
     public ArmScoreCmd(ArmSubsystem armSubsystemObj) {
         this.armSubsystemObj = armSubsystemObj;
@@ -22,27 +21,25 @@ public class ArmScoreCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
+        armSubsystemObj.setIsAtScore(false);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        armSubsystemObj.ArmScorePos();
-        if (armSubsystemObj.getArmEncoder() == Constants.ARM_MOTOR_POSITION_SCORE) {
-            isAtScore = true;
-        }
+        armSubsystemObj.armScorePos();
     }
     
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return isAtScore;
+        return false;
     }
 }

@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ArmPickupCmd;
+import frc.robot.commands.ArmScoreCmd;
 import frc.robot.commands.ArmStowCmd;
 import frc.robot.commands.CloseClawCmd;
 import frc.robot.commands.ExpelIngestorLiftCmd;
@@ -129,6 +131,7 @@ public class RobotContainer {
 		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
 		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
+        armObj.setDefaultCommand(new ArmStowCmd(armObj));
         clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
 		//armObj.setDefaultCommand(new ArmStowCmd(armObj));
 		eyeballObj.setDefaultCommand(
@@ -254,6 +257,7 @@ public class RobotContainer {
         Trigger driverX = joystickSubsystemObj.getDriverXBtn();
 		Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
 		Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
+        Trigger operatorB = joystickSubsystemObj.getOperatorBBtn();
 		Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
 		Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
 
@@ -336,6 +340,8 @@ public class RobotContainer {
         driverX.whileTrue(new LowerBrakeCmd(brakeObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
+        operatorB.whileTrue(new ArmPickupCmd(armObj, true));
+        operatorX.whileTrue(ArmScoreCmd);
 	}
 
 	/*

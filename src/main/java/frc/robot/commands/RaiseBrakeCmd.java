@@ -18,15 +18,15 @@ public class RaiseBrakeCmd extends CommandBase {
   }
 
   // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    @Override
+    public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-      brakeSubsystemObj.raiseBrakes();
-      brakeSubsystemObj.getBrakeEncoder();
-      //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+    @Override
+    public void execute() {
+        brakeSubsystemObj.raiseBrakes();
+        brakeSubsystemObj.getBrakeEncoder();
+        //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
   }
 
   // Called once the command ends or is interrupted.

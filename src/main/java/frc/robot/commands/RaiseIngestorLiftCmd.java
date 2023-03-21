@@ -29,6 +29,9 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     @Override
     public void execute() {
         ingestorLiftObj.raiseLift();
+        ingestorLiftObj.getEncoderCount();
+        System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getEncoderCount());
+        
         //System.out.println("We are moving to the home position!");
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
 /*         if (ingestorLiftObj.getIsHomed()) {

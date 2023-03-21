@@ -99,6 +99,10 @@ public class JoystickSubsystem extends SubsystemBase {
         return operatorController.a();
     }
 
+    public Trigger getOperatorBBtn() {
+        return operatorController.b();
+    }
+
     public Trigger getOperatorXBtn() {
         return operatorController.x();
     }
