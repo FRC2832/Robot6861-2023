@@ -20,9 +20,6 @@ public class ArmSubsystem extends SubsystemBase {
 	private double stowPosition;
 	private double pickUpPosition;
 	private double scorePosition;
-	private boolean isAtStow;
-	private boolean isAtPickup;
-	private boolean isAtScore;
 
 	public ArmSubsystem() {
 		armMotor = new CANSparkMax(Constants.ARM_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
@@ -41,11 +38,10 @@ public class ArmSubsystem extends SubsystemBase {
 	public void armStowPos() {
 		double position = armEncoder.getPosition();
 		// TODO: find out actual positions and change signs as necessary
-		if (position > stowPosition + (Math.abs(stowPosition) * 0.02) && !isAtStow) { // might need to be larger than 2%
+		if (position > stowPosition + (Math.abs(stowPosition) * 0.02)) { // might need to be larger than 2%
 			armMotor.set(-Constants.ARM_MOTOR_SPEED);
 		} else { // TODO: Change to comparing difference between position and stowPosition.
 			armMotor.set(0.00);
-			isAtStow = true;
 		}
 		armMotor.setIdleMode(IdleMode.kBrake);
 	}
@@ -53,13 +49,12 @@ public class ArmSubsystem extends SubsystemBase {
 	public void armPickUpPos() {
 		double position = armEncoder.getPosition();
 		// TODO: find out actual positions and change signs as necessary
-		if (position > pickUpPosition + (Math.abs(pickUpPosition) * 0.02) && !isAtPickup) {
+		if (position > pickUpPosition + (Math.abs(pickUpPosition) * 0.02)) {
 			armMotor.set(-Constants.ARM_MOTOR_SPEED);
-		} else if (position < pickUpPosition - (Math.abs(pickUpPosition) * 0.02) && !isAtPickup) {
+		} else if (position < pickUpPosition - (Math.abs(pickUpPosition) * 0.02)) {
             armMotor.set(Constants.ARM_MOTOR_SPEED);
 		} else {
 			armMotor.set(0.05);
-			isAtPickup = true;
 		}
 		armMotor.setIdleMode(IdleMode.kCoast);
 
@@ -74,7 +69,6 @@ public class ArmSubsystem extends SubsystemBase {
 			armMotor.set(Constants.ARM_MOTOR_SPEED);
 		} else {
 			armMotor.set(0.05);
-			isAtScore = true;
 		}
 		armMotor.setIdleMode(IdleMode.kCoast);
 	}
@@ -82,7 +76,7 @@ public class ArmSubsystem extends SubsystemBase {
 	public double getArmEncoder() {
 		return armEncoder.getPosition();
 	}
-
+/* 
 	public void setIsAtStow(boolean isAtStow) {
 		this.isAtStow = isAtStow;
 	}
@@ -105,7 +99,7 @@ public class ArmSubsystem extends SubsystemBase {
 	
 	public boolean getIsAtScore() {
 		return isAtScore;
-	}
+	} */
 
 	public void stopArm() {
 		armMotor.set(0.0);

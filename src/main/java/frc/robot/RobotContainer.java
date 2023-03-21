@@ -340,8 +340,8 @@ public class RobotContainer {
         driverX.whileTrue(new LowerBrakeCmd(brakeObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
-        operatorB.whileTrue(new ArmPickupCmd(armObj, true));
-        operatorX.whileTrue(ArmScoreCmd);
+        operatorB.whileTrue(new ArmPickupCmd(armObj));
+        operatorX.whileTrue(new ArmScoreCmd (armObj));
 	}
 
 	/*
