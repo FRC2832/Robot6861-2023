@@ -66,8 +66,8 @@ public final class Constants {
 
     public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
     public static final double CLAW_CLOSE_SPEED = -0.2;
-    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.4;
-    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.4;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.2;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.2;
 
     // Arm Motor Current Limit
     public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
@@ -102,7 +102,7 @@ public final class Constants {
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
     public static final String ARM_CAM_NAME = "Microsoft_LifeCam_HD-3000";
 
-    // Encoder IDs
+    // Drivetrain Encoder IDs
     public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
     public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
     public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;

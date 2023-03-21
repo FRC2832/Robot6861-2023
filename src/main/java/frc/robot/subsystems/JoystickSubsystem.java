@@ -125,4 +125,9 @@ public class JoystickSubsystem extends SubsystemBase {
     public Trigger getDriverBBtn() {
         return driverController.b();
     }
+
+    public Trigger getDriverXBtn() {
+            return driverController.x();
+
+    }
 }

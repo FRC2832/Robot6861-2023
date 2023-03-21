@@ -4,8 +4,6 @@
 
 package frc.robot.subsystems;
 
-import javax.management.relation.RelationException;
-
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
@@ -20,6 +18,7 @@ public class BrakeSubsystem extends SubsystemBase {
     public BrakeSubsystem() {
         brakeWheelMotor = new CANSparkMax(Constants.LOWER_BRAKE_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
         brakeWheelMotorEncoder = brakeWheelMotor.getEncoder();
+        brakeWheelMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
 
     public void lowerBrakes() {

@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.BrakeSubsystem;
 
-public class DropBrakeCmd extends CommandBase {
+public class LowerBrakeCmd extends CommandBase {
     private BrakeSubsystem brakeSubsystemObj;
-    private static final Timer TIMER = new Timer();
+    //private static final Timer TIMER = new Timer();
 
-    public DropBrakeCmd(BrakeSubsystem brakeSubsystemObj) {
+    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj) {
         this.brakeSubsystemObj = brakeSubsystemObj;
         addRequirements(brakeSubsystemObj);
     }
@@ -20,29 +20,33 @@ public class DropBrakeCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        TIMER.restart();
+        //TIMER.restart();
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (TIMER.get() >= 1.5 || brakeSubsystemObj.getBrakeEncoder() >= 10.0) {
+        /*if (brakeSubsystemObj.getBrakeEncoder() >= 10.0) {
             brakeSubsystemObj.stopBrakes();
-        } else {
+        } else {*/
+            
             brakeSubsystemObj.lowerBrakes();
-        }
+            brakeSubsystemObj.getBrakeEncoder();
+            System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+        //}
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        TIMER.stop();
-        TIMER.reset();
+        //TIMER.stop();
+        //TIMER.reset();
+        brakeSubsystemObj.stopBrakes();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return TIMER.get() >= 1.5;
+        return false; //TIMER.get() >= 1.5;
     }
 }

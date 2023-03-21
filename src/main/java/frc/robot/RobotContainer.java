@@ -22,7 +22,9 @@ import frc.robot.commands.ArmStowCmd;
 import frc.robot.commands.CloseClawCmd;
 import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
+import frc.robot.commands.LowerBrakeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.RaiseBrakeCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.autons.CoopBalanceAuton;
@@ -126,7 +128,8 @@ public class RobotContainer {
 		// StopIngestorIntake(ingestorIntakeObj));
 		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
-		clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
+		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
+        clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
 		armObj.setDefaultCommand(new ArmStowCmd(armObj));
 		eyeballObj.setDefaultCommand(
 				eyeballObj.setEyes(new EyeMovement(1.0, 1.0), new EyeMovement(1.0, 0.0),
@@ -248,6 +251,7 @@ public class RobotContainer {
 		 */
 		Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
 		Trigger driverB = joystickSubsystemObj.getDriverBBtn();
+        Trigger driverX = joystickSubsystemObj.getDriverXBtn();
 		Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
 		Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
 		Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
@@ -329,6 +333,7 @@ public class RobotContainer {
 
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
+        driverX.whileTrue(new LowerBrakeCmd(brakeObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
 	}
