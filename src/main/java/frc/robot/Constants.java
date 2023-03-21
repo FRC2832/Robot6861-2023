@@ -66,16 +66,20 @@ public final class Constants {
 
     public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
     public static final double CLAW_CLOSE_SPEED = -0.2;
-    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.4;
-    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.4;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.075;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.05;
+    public static final double BRAKE_ON_FLOOR = -28.0;
+    public static final double BRAKE_UP_POSITION = 7.0;
 
     // Arm Motor Current Limit
     public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // Arm Motor Speeds
-    public static final double ARM_MOTOR_SPEED = 0;
+    // TODO: Find actual motor speed 
+    public static final double ARM_MOTOR_SPEED = 0.3;
 
     // Arm Motor Positions
+    // TODO: Find actual motor positions for each of these
     public static final double ARM_MOTOR_POSITION_PICKUP = 0;
     public static final double ARM_MOTOR_POSITION_STOW = 0;
     public static final double ARM_MOTOR_POSITION_SCORE = 0;
@@ -100,7 +104,7 @@ public final class Constants {
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
     public static final String ARM_CAM_NAME = "Microsoft_LifeCam_HD-3000";
 
-    // Encoder IDs
+    // Drivetrain Encoder IDs
     public static final Type LEFT_BACK_SPARK_ENCODER_TYPE = Type.kHallSensor;
     public static final Type LEFT_FRONT_SPARK_ENCODER_TYPE = Type.kHallSensor;
     public static final Type RIGHT_FRONT_SPARK_ENCODER = Type.kHallSensor;
@@ -114,7 +118,11 @@ public final class Constants {
     public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
-    public static final double INGESTOR_INTAKE_SPEED = 0.75;
+    public static final double INGESTOR_INTAKE_SPEED = 0.8;
+
+    // Ingestor Encoder positions
+    public static final double INGESTOR_BOTTOM_POSITION = 75.0;
+    public static final double INGESTOR_EXPEL_POSITION = 55.0;
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;

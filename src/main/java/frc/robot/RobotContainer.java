@@ -20,9 +20,15 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ArmPickupCmd;
+import frc.robot.commands.ArmScoreCmd;
+import frc.robot.commands.ArmStowCmd;
+import frc.robot.commands.CloseClawCmd;
 import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
+import frc.robot.commands.LowerBrakeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.RaiseBrakeCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
 import frc.robot.commands.autons.CoopBalanceAuton;
@@ -38,6 +44,9 @@ import frc.robot.commands.autons.red.RedDefaultSubstationAuton;
 import frc.robot.commands.autons.red.RedSubstationCrossAuton;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveCartesian;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BrakeSubsystem;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
@@ -68,6 +77,9 @@ public class RobotContainer {
 	private final Vision visionObj = new Vision();
 	// private final ConeFlipper coneFlipperObj = new ConeFlipper();
 	private final EyeSubsystem eyeballObj = new EyeSubsystem();
+	private final ArmSubsystem armObj = new ArmSubsystem();
+	private final BrakeSubsystem brakeObj = new BrakeSubsystem();
+	private final ClawSubsystem clawObj = new ClawSubsystem();
 
 	// TODO: We could merge LED Subsystem and the Eyeball subsystem
 	// private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
@@ -120,14 +132,18 @@ public class RobotContainer {
 		// StopIngestorIntake(ingestorIntakeObj));
 		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
+		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
+        armObj.setDefaultCommand(new ArmStowCmd(armObj));
+        clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
+		//armObj.setDefaultCommand(new ArmStowCmd(armObj));
 		eyeballObj.setDefaultCommand(
-				eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0),
+				eyeballObj.setEyes(new EyeMovement(1.0, 1.0), new EyeMovement(1.0, 0.0),
 						new EyeColor(255, 0, 0)));
 		// 2nd eyemovement above is robot right
 		// coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
-		EyeMovement movementLeft = new EyeMovement(1, 0);
-		EyeMovement movementRight = new EyeMovement(1, 1);
+		EyeMovement movementLeft = new EyeMovement(1.0, 0.0);
+		EyeMovement movementRight = new EyeMovement(1.0, 1.0);
 		EyeColor color = new EyeColor(0, 0, 0);
 		ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
 				eyeballObj.setEyes(movementLeft, movementRight, color),
@@ -273,8 +289,10 @@ public class RobotContainer {
 		 */
 		Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
 		Trigger driverB = joystickSubsystemObj.getDriverBBtn();
+        Trigger driverX = joystickSubsystemObj.getDriverXBtn();
 		Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
 		Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
+        Trigger operatorB = joystickSubsystemObj.getOperatorBBtn();
 		Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
 		Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
 
@@ -285,28 +303,28 @@ public class RobotContainer {
 		Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();
 
 		// Sets the individual pupils and eyelids
-		CommandBase setLeftEyePupil0 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 0),
+		CommandBase setLeftEyePupil0 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 0.0),
 				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
-		CommandBase setLeftEyePupil1 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 1),
+		CommandBase setLeftEyePupil1 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 1.0),
 				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
-		CommandBase setLeftEyeLid0 = eyeballObj.setEyes(new EyeMovement(0, eyeballObj.getLeftEyePupil()),
+		CommandBase setLeftEyeLid0 = eyeballObj.setEyes(new EyeMovement(0.0, eyeballObj.getLeftEyePupil()),
 				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
-		CommandBase setLeftEyeLid1 = eyeballObj.setEyes(new EyeMovement(1, eyeballObj.getLeftEyePupil()),
+		CommandBase setLeftEyeLid1 = eyeballObj.setEyes(new EyeMovement(1.0, eyeballObj.getLeftEyePupil()),
 				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 
 		CommandBase setRightEyePupil0 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), 0), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), 0.0), new EyeColor(255, 0, 0));
 		CommandBase setRightEyePupil1 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), 1), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), 1.0), new EyeColor(255, 0, 0));
 
 		CommandBase setRightEyeLid0 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(0.0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 		CommandBase setRightEyeLid1 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(1, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(1.0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 
 		// Command groups that are mapped to the triggers and bumpers
 		/*
@@ -354,8 +372,11 @@ public class RobotContainer {
 
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
+        driverX.whileTrue(new LowerBrakeCmd(brakeObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
+        operatorB.whileTrue(new ArmPickupCmd(armObj));
+        operatorX.whileTrue(new ArmScoreCmd (armObj));
 	}
 
 	/*
