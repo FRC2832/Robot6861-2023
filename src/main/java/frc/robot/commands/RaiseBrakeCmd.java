@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.BrakeSubsystem;
 
 public class RaiseBrakeCmd extends CommandBase {
@@ -25,7 +26,7 @@ public class RaiseBrakeCmd extends CommandBase {
   public void execute() {
       brakeSubsystemObj.raiseBrakes();
       brakeSubsystemObj.getBrakeEncoder();
-      System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+      //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
   }
 
   // Called once the command ends or is interrupted.
@@ -37,6 +38,6 @@ public class RaiseBrakeCmd extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-      return false;
+      return brakeSubsystemObj.getBrakeEncoder() > (Constants.BRAKE_UP_POSITION);
   }
 }

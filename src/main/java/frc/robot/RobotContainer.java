@@ -130,7 +130,7 @@ public class RobotContainer {
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
 		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
         clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
-		armObj.setDefaultCommand(new ArmStowCmd(armObj));
+		//armObj.setDefaultCommand(new ArmStowCmd(armObj));
 		eyeballObj.setDefaultCommand(
 				eyeballObj.setEyes(new EyeMovement(1.0, 1.0), new EyeMovement(1.0, 0.0),
 						new EyeColor(255, 0, 0)));

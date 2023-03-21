@@ -35,6 +35,7 @@ public class BrakeSubsystem extends SubsystemBase {
 
     public double getBrakeEncoder() {
         return brakeWheelMotorEncoder.getPosition();
+        // need a check at enable to check if encoder >7, then lower to 7.  Maybe use a PID on raisebrakecmd?
     }
 
     @Override

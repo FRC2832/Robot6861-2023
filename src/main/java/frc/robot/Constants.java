@@ -66,8 +66,10 @@ public final class Constants {
 
     public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
     public static final double CLAW_CLOSE_SPEED = -0.2;
-    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.2;
-    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.2;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.05;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.05;
+    public static final double BRAKE_ON_FLOOR = -28.0;
+    public static final double BRAKE_UP_POSITION = 7.0;
 
     // Arm Motor Current Limit
     public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;

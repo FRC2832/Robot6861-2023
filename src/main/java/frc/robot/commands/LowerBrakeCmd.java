@@ -6,13 +6,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.BrakeSubsystem;
 
 public class LowerBrakeCmd extends CommandBase {
     private BrakeSubsystem brakeSubsystemObj;
     //private static final Timer TIMER = new Timer();
 
-    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj) {
+    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled) {
         this.brakeSubsystemObj = brakeSubsystemObj;
         addRequirements(brakeSubsystemObj);
     }
@@ -26,14 +27,14 @@ public class LowerBrakeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        /*if (brakeSubsystemObj.getBrakeEncoder() >= 10.0) {
+        if (brakeSubsystemObj.getBrakeEncoder() < (Constants.BRAKE_ON_FLOOR)) {
             brakeSubsystemObj.stopBrakes();
-        } else {*/
+        } else {
             
             brakeSubsystemObj.lowerBrakes();
             brakeSubsystemObj.getBrakeEncoder();
-            System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
-        //}
+           // System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+        }
     }
 
     // Called once the command ends or is interrupted.
@@ -47,6 +48,6 @@ public class LowerBrakeCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false; //TIMER.get() >= 1.5;
+        return false;
     }
 }
