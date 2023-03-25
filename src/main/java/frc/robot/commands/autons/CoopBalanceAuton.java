@@ -19,17 +19,18 @@ import frc.robot.subsystems.eyes.EyeSubsystem;
 
 // Same for red and blue
 public class CoopBalanceAuton extends SequentialCommandGroup {
-   // private EyeSubsystem eyeballObj = new EyeSubsystem();
+    // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
     public CoopBalanceAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj) {
         addCommands(
-            new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
-            new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED + 0.1), 
-            new BalancePIDCmd(drivetrainObj, false)
-            //eyeballObj.setDefaultCommand(
-                //eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new EyeColor(120, 120, 120)));
+                new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
+                new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED + 0.1),
+                new BalancePIDCmd(drivetrainObj, false)
+        // eyeballObj.setDefaultCommand(
+        // eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new
+        // EyeColor(120, 120, 120)));
 
         );
-    
+
     }
 }

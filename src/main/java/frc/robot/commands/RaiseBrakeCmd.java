@@ -24,10 +24,15 @@ public class RaiseBrakeCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        brakeSubsystemObj.raiseBrakes();
-        brakeSubsystemObj.getBrakeEncoder();
-        //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
-  }
+        if (brakeSubsystemObj.getBrakeEncoder() > (Constants.BRAKE_UP_POSITION)) {
+            System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+            brakeSubsystemObj.stopBrakes();
+        } else { 
+            brakeSubsystemObj.raiseBrakes();
+            brakeSubsystemObj.getBrakeEncoder();
+            //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
+        }
+    }
 
   // Called once the command ends or is interrupted.
   @Override
@@ -37,7 +42,7 @@ public class RaiseBrakeCmd extends CommandBase {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-      return brakeSubsystemObj.getBrakeEncoder() > (Constants.BRAKE_UP_POSITION);
+  public boolean isFinished() { 
+      return false;
   }
 }

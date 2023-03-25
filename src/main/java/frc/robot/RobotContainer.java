@@ -16,9 +16,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ArmPickupCmd;
+import frc.robot.commands.ArmRetractCmd;
 import frc.robot.commands.ArmScoreCmd;
 import frc.robot.commands.ArmStowCmd;
 import frc.robot.commands.CloseClawCmd;
@@ -26,6 +28,7 @@ import frc.robot.commands.ExpelIngestorLiftCmd;
 import frc.robot.commands.IntakeCubeCmd;
 import frc.robot.commands.LowerBrakeCmd;
 import frc.robot.commands.LowerIngestorLiftCmd;
+import frc.robot.commands.OpenClawCmd;
 import frc.robot.commands.RaiseBrakeCmd;
 import frc.robot.commands.RaiseIngestorLiftCmd;
 import frc.robot.commands.ScoreIngestorLiftCmd;
@@ -133,10 +136,10 @@ public class RobotContainer {
 		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
         armObj.setDefaultCommand(new ArmStowCmd(armObj));
         clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
-		//armObj.setDefaultCommand(new ArmStowCmd(armObj));
+	
 		eyeballObj.setDefaultCommand(
 				eyeballObj.setEyes(new EyeMovement(1.0, 1.0), new EyeMovement(1.0, 0.0),
-						new EyeColor(255, 0, 0)));
+						new EyeColor(255, 255, 255)));
 		// 2nd eyemovement above is robot right
 		// coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 
@@ -253,13 +256,15 @@ public class RobotContainer {
 		 * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
 		 */
 		Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
+		Trigger driverA = joystickSubsystemObj.getDriverABtn();
 		Trigger driverB = joystickSubsystemObj.getDriverBBtn();
         Trigger driverX = joystickSubsystemObj.getDriverXBtn();
 		Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
 		Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
         Trigger operatorB = joystickSubsystemObj.getOperatorBBtn();
-		Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
-		Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
+        //Trigger operatorLeftTrigger = joystickSubsystemObj.getOperatorLeftTrigger();
+		//Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
+		//Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
 
 		// Temporary mapping of eye controls to controller
 		Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
@@ -292,27 +297,27 @@ public class RobotContainer {
 				new EyeMovement(1.0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
 
 		// Command groups that are mapped to the triggers and bumpers
-		/*
-		 * SequentialCommandGroup setLeftPupil = new
-		 * SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
-		 * setLeftEyePupil1);
-		 * driverLeftTrigger.onTrue(setLeftPupil);
-		 * 
-		 * SequentialCommandGroup setLeftEyeLid = new
-		 * SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
-		 * setLeftEyeLid1);
-		 * driverLeftBumper.onTrue(setLeftEyeLid);
-		 * 
-		 * SequentialCommandGroup setRightPupil = new
-		 * SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
-		 * setRightEyePupil1);
-		 * driverRightTrigger.onTrue(setRightPupil);
-		 * 
-		 * SequentialCommandGroup setRightEyeLid = new
-		 * SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
-		 * setRightEyeLid1);
-		 * driverRightBumper.onTrue(setRightEyeLid);
-		 */
+		
+		 SequentialCommandGroup setLeftPupil = new
+		 SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
+		 setLeftEyePupil1);
+		 driverLeftTrigger.onTrue(setLeftPupil);
+		 
+		 SequentialCommandGroup setLeftEyeLid = new
+		 SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
+		 setLeftEyeLid1);
+		 driverLeftBumper.onTrue(setLeftEyeLid);
+		 
+		 SequentialCommandGroup setRightPupil = new
+		 SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
+		 setRightEyePupil1);
+		 driverRightTrigger.onTrue(setRightPupil);
+		 
+		 SequentialCommandGroup setRightEyeLid = new
+		 SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
+		 setRightEyeLid1);
+		 driverRightBumper.onTrue(setRightEyeLid);
+		
 
 		/*
 		 * setEyePupil pupilMovementLeft = new setEyePupil (1);
@@ -332,16 +337,18 @@ public class RobotContainer {
 		// TODO: The above might allow us to interrupt the command with the X button.
 		// operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-		operatorRightTrigger.whileTrue(shootCubeMid);
-		operatorRightBumper.whileTrue(shootCubeUpper);
+		//operatorRightTrigger.whileTrue(shootCubeMid);
+		//operatorRightBumper.whileTrue(shootCubeUpper);
 
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
         driverX.whileTrue(new LowerBrakeCmd(brakeObj, true));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
-        operatorB.whileTrue(new ArmPickupCmd(armObj));
-        operatorX.whileTrue(new ArmScoreCmd (armObj));
+        operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw
+        operatorX.whileTrue(new ArmScoreCmd (armObj)); // need sequential command group to close claw
+        //[\]operatorLeftTrigger.whileTrue(new OpenClawCmd(clawObj)); // need sequential command group to close claw
+		driverA.whileTrue(new ArmRetractCmd(armObj));
 	}
 
 	/*

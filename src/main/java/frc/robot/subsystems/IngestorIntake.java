@@ -19,13 +19,12 @@ public class IngestorIntake extends SubsystemBase {
     private TalonSRX ingestorIntakeBottomTalon;
     private DigitalInput ingestorBeamBreak;
 
-    // TODO: Confirm the motor controller type
-
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
+
         /* Code for Talon SRX for intake current limiting
         ingestorIntakeTopTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
         ingestorIntakeBottomTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
@@ -66,6 +65,8 @@ public class IngestorIntake extends SubsystemBase {
     return run(
             () -> {
                 revOut(speedTop, speedBottom);
+                System.out.println("***********************  revOut: " + speedTop + " " + speedBottom + "  ***********************");
+
             });
     }
     public CommandBase revInIngestorIntake() {
@@ -74,6 +75,7 @@ public class IngestorIntake extends SubsystemBase {
         return run(
                 () -> {
                     revIn();
+                    System.out.println("***********************  revIn: ");
                 });
     }
 

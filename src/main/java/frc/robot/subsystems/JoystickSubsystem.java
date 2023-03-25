@@ -42,6 +42,7 @@ public class JoystickSubsystem extends SubsystemBase {
         operatorLeftY = operatorController.getLeftY();
         operatorRightX = operatorController.getRightX();
         operatorRightY = operatorController.getRightY();
+
     }
 
     // TODO: add slew rate limiter for the driver joystick controls here?
@@ -71,7 +72,8 @@ public class JoystickSubsystem extends SubsystemBase {
         return driverRightTrigger;
     }
 
-    public Trigger getDriverRightTrigger() {
+    public Trigger 
+    getDriverRightTrigger() {
         return driverController.rightTrigger();
     }
 
@@ -111,6 +113,10 @@ public class JoystickSubsystem extends SubsystemBase {
         return operatorController.y();
     }
 
+    public Trigger getOperatorLeftTrigger() {
+        return operatorController.leftTrigger();
+    }
+
     public Trigger getOperatorRightTrigger() {
         return operatorController.rightTrigger();
     }
@@ -124,6 +130,10 @@ public class JoystickSubsystem extends SubsystemBase {
     }
     public Trigger getDriverLeftBumper() {
         return driverController.leftBumper();
+    }
+
+    public Trigger getDriverABtn() {
+        return driverController.a();
     }
 
     public Trigger getDriverBBtn() {

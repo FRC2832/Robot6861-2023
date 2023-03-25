@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.BrakeSubsystem;
@@ -33,6 +32,8 @@ public class LowerBrakeCmd extends CommandBase {
             
             brakeSubsystemObj.lowerBrakes();
             brakeSubsystemObj.getBrakeEncoder();
+            brakeSubsystemObj.driveBrakeMotor();
+
            // System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
         }
     }

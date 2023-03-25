@@ -10,7 +10,6 @@ import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.subsystems.JoystickSubsystem;
 
 public class EyeSubsystem extends SubsystemBase {
     private Servo eyePupilServoRight;

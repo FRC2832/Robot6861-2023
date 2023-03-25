@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
+
 public class ArmScoreCmd extends CommandBase {
     /** Creates a new ArmScoreCmd. */
     private ArmSubsystem armSubsystemObj;
@@ -26,7 +27,6 @@ public class ArmScoreCmd extends CommandBase {
     public void execute() {
         armSubsystemObj.armScorePos();
     }
-    
 
     // Called once the command ends or is interrupted.
     @Override

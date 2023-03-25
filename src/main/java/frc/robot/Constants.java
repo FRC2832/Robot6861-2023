@@ -33,6 +33,8 @@ public final class Constants {
 
     // Drivetrain current limit
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
+
+    // Ingestor Current limit
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // Drivetrain controls slew rates
@@ -40,7 +42,7 @@ public final class Constants {
     // public static final double LEFT_RIGHT_SLEW_RATE = .2;
 
     // Drive distance factors
-    public static final int DRIVETRAIN_WHEEL_DIAMETER = 6;
+    public static final int DRIVETRAIN_WHEEL_DIAMETER = 6; // TODO: In what units? - MG
     public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
     // using ratio because encoders aren't accurate when going sideways
     // ratio obtained becuase it went 3.75" when commanded to go 48"
@@ -63,35 +65,51 @@ public final class Constants {
     public static final int ARM_MOTOR_ID = 17;
     public static final int CLAW_MOTOR_ID = 16;
     public static final int LOWER_BRAKE_MOTOR_ID = 18;
+    public static final int DRIVE_BRAKE_MOTOR_ID = 15;  
 
-    public static final double CLAW_OPEN_SPEED = 0.2; // TODO: Test and adjust these values
-    public static final double CLAW_CLOSE_SPEED = -0.2;
+    // Claw and Brake Motor Speeds
+    public static final double CLAW_OPEN_SPEED = 0.50; // TODO: Test and adjust these values
+    public static final double CLAW_CLOSE_SPEED = -0.95;
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.075;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.05;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.75;
+
+    // Brake up and down positions 
     public static final double BRAKE_ON_FLOOR = -28.0;
-    public static final double BRAKE_UP_POSITION = 7.0;
+    public static final double BRAKE_UP_POSITION = -1.0;
 
     // Arm Motor Current Limit
-    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 50;
+    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 9;
+
+    //Claw motor current limit
+    public static final int CLAW_MOTOR_CURRENT_LIMIT_AMPS = 6;
+
+    // Drop Wheel motor current limit
+    public static final int BRAKE_WHEEL_MOTOR_CURRENT_LIMIT_AMPS = 50;
+    public static final int DRIVE_BRAKE_MOTOR_CURRENT_LIMIT_AMPS = 50;
+
 
     // Arm Motor Speeds
-    // TODO: Find actual motor speed 
-    public static final double ARM_MOTOR_SPEED = 0.3;
+    // TODO: Find actual motor speed
+    public static final double ARM_MOTOR_SPEED = -0.4;
+    public static final double ARM_STOW_MOTOR_SPEED = -0.6;
+    public static final double ARM_RETRACT_MOTOR_SPEED = -0.1;
 
     // Arm Motor Positions
     // TODO: Find actual motor positions for each of these
-    public static final double ARM_MOTOR_POSITION_PICKUP = 0;
-    public static final double ARM_MOTOR_POSITION_STOW = 0;
-    public static final double ARM_MOTOR_POSITION_SCORE = 0;
+    public static final double ARM_MOTOR_POSITION_PICKUP = 95;
+    public static final double ARM_MOTOR_POSITION_STOW = 10;
+    public static final double ARM_MOTOR_POSITION_SCORE = 170;
+    public static final double ARM_MOTOR_POSITION_RETRACT = -1000;
 
     // For running LED lights
     public static final int EYE_CANIFIER_ID = 4;
 
     // Game Piece Scoop Servo IDs
-    public static final int GAME_PIECE_SCOOP_SERVO_MOTOR = 6;
+    public static final int GAME_PIECE_SCOOP_SERVO_MOTOR = 3;
     public static final int GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS = 1;
-    public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
-    public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
+    //public static final int GAME_PIECE_SCOOP_SERVO_R = 1;
+    //public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
 
     // Pupil/Eyelid Servo IDs
     // TODO: confirm port with actual number on robot
@@ -132,7 +150,8 @@ public final class Constants {
     public static final double COOP_AUTON_DRIVE_BACK = 72.0;
     public static final double AUTON_BALANCING_STRAFE = 58.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
-
-   
+    
+    
+    
 
 }

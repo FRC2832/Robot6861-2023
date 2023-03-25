@@ -69,7 +69,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.9);
+            ingestorLiftMotor.set(-0.3); //change back to 0.9
             // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
@@ -95,7 +95,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.9);
+            ingestorLiftMotor.set(-0.3); //change back to -.9
             flag = false;
             // isHomed = false;
         } else {
@@ -129,7 +129,7 @@ public class IngestorLift extends SubsystemBase {
             // System.out.println(position);
             isAtScoring = false;
         } else if (position > 20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
-            ingestorLiftMotor.set(0.7); //increase speed to raise lift for faster operation
+            ingestorLiftMotor.set(0.3); //change back 0.7,  increase speed to raise lift for faster operation
             // System.out.println("We are moving to the scoring position. Position: " +
             // position);
         } else {
@@ -167,6 +167,7 @@ public class IngestorLift extends SubsystemBase {
 
     public boolean isAtTop() {
         //System.out.println("isAtTop - " + ingestorLimitInput.get());
+        ingestorLiftMotor.set(0.0);
         return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 3.0;
         // during Jackson comp, limit switch broke so we aded this OR for added
         // robustness

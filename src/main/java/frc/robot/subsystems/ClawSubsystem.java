@@ -17,6 +17,7 @@ public class ClawSubsystem extends SubsystemBase {
 
     public ClawSubsystem() {
         clawMotor = new CANSparkMax(Constants.CLAW_MOTOR_ID, CANSparkMax.MotorType.kBrushed);
+        clawMotor.setSmartCurrentLimit(Constants.CLAW_MOTOR_CURRENT_LIMIT_AMPS);
         // clawEncoder = clawMotor.getEncoder();
         // TIMER.reset();
     }
