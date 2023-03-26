@@ -2,25 +2,27 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.flipper;
 
-import frc.robot.subsystems.IngestorLift;
+import frc.robot.subsystems.ConeFlipper;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 /** An example command that uses an example subsystem. */
-public class StopIngestorLift extends CommandBase {
+public class LowerConeFlipper extends CommandBase {
     @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-    private final IngestorLift ingestorLiftObj;
+    private final ConeFlipper coneFlipperObj;
+    private static final double targetRotationCounts = 102.0;
 
     /**
      * Creates a new ExampleCommand.
      *
-     * @param ingestorLiftObj The subsystem used by this command.
+     * @param flipper The subsystem used by this command.
      */
-    public StopIngestorLift(IngestorLift ingestorLiftObj) {
-        this.ingestorLiftObj = ingestorLiftObj;
+    public LowerConeFlipper(ConeFlipper flipper) {
+        coneFlipperObj = flipper;
         // Use addRequirements() here to declare subsystem dependencies.
-        addRequirements(ingestorLiftObj);
+        addRequirements(flipper);
     }
 
     // Called when the command is initially scheduled.
@@ -31,18 +33,23 @@ public class StopIngestorLift extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.stopLift();
-        // TODO: Set ingestorLiftObj motors to 0
+        if (coneFlipperObj.getRotationCount() < targetRotationCounts) {
+            coneFlipperObj.setFlipperSpeed(-0.5); // TODO: Need to verify that negative = downwards
+        } else {
+            coneFlipperObj.setFlipperSpeed(0.0);
+            //coneFlipperObj.setFlipperIdleMode(IdleMode.kBrake);
+        }
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        coneFlipperObj.setFlipperSpeed(0.0);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return true;
+        return false;
     }
 }

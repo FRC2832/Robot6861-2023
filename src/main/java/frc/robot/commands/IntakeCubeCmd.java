@@ -5,8 +5,10 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
@@ -28,6 +30,8 @@ public class IntakeCubeCmd extends CommandBase {
         // elseIf servo is out, start wheels turning backwards
         // System.out.println("IntakeCubeCmd: initialize");
         gamePieceScoopObj.servoOnTeleop();
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -58,14 +62,18 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
+        if (!ingestorIntakeObj.isCubeInIngestor()) {
+            EyeSubsystem.setDefaultColor(Constants.WHITE);
+        }
         //intakeTimer.stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // TODO: Use beam break sensors to determine if we ingested or not
-        //return ingestorIntakeObj.getIngestorBeamBreakValue() && intakeTimer.get() > 2.0;
-        return false;
+        return ingestorIntakeObj.isCubeInIngestor(); 
+        // TRUE when cube in scoop
+        //&& intakeTimer.get() > 2.0;
+
     }
 }

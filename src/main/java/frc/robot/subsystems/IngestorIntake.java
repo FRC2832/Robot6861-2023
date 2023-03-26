@@ -85,6 +85,10 @@ public class IngestorIntake extends SubsystemBase {
         return ingestorBeamBreak.get();
     }
 
+    public boolean isCubeInIngestor() {
+        return !ingestorBeamBreak.get();
+    }
+
     public CommandBase ingestorBeamBreakCmd() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.

@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 
 public class ScoreCubeTeleop extends CommandBase {
@@ -52,6 +53,11 @@ public class ScoreCubeTeleop extends CommandBase {
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
         timer.stop();
+        if (!ingestorIntakeObj.isCubeInIngestor()) {
+            EyeSubsystem.setDefaultColor(Constants.WHITE);
+        } else {
+            EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        }
     }
 
     // Returns true when the command should end.

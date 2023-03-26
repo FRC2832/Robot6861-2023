@@ -30,89 +30,89 @@ public class BalanceMobilityCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-      numLevel = 0;
+        numLevel = 0;
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // pids work by multiplying the error from the desired position 
+        // pids work by multiplying the error from the desired position
         // by the proportional factor, in this case kp.
-        while (numLevel == 0){
-          angle = drivetrainObj.getPitch();
-          if (Math.abs(angle) < 7.0) {
-              isDriverControlled = false;
-          }
-          if (isDriverControlled) {
-              kp = 0.028; // competition charge station value = 0.022
-          } else if (Math.abs(angle) < 5.0) {
-              kp = 0.007; // competition charge station value = 0.0055
-          } else {
-              kp = 0.014; // competition charge station value = 0.011
-          }
-          drivePower = kp * angle;
-          if (Math.abs(drivePower) > 0.4) {
-              drivePower = Math.copySign(0.4, drivePower);
-          }
-          if (Math.abs(drivePower) < 0.02) {
-              drivePower = 0.0;
-              numLevel +=1;
-          }
-          // drive forward at drivePower (the negative is becuase of inversions)
-          drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
+        while (numLevel == 0) {
+            angle = drivetrainObj.getPitch();
+            if (Math.abs(angle) < 7.0) {
+                isDriverControlled = false;
+            }
+            if (isDriverControlled) {
+                kp = 0.028; // competition charge station value = 0.022
+            } else if (Math.abs(angle) < 5.0) {
+                kp = 0.007; // competition charge station value = 0.0055
+            } else {
+                kp = 0.014; // competition charge station value = 0.011
+            }
+            drivePower = kp * angle;
+            if (Math.abs(drivePower) > 0.4) {
+                drivePower = Math.copySign(0.4, drivePower);
+            }
+            if (Math.abs(drivePower) < 0.02) {
+                drivePower = 0.0;
+                numLevel += 1;
+            }
+            // drive forward at drivePower (the negative is becuase of inversions)
+            drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
         }
 
-        while (numLevel == 1){
-          angle = drivetrainObj.getPitch();
-          if (Math.abs(angle) < 7.0) {
-              isDriverControlled = false;
-          }
-          if (isDriverControlled) {
-              kp = 0.028; // competition charge station value = 0.022
-          } else if (Math.abs(angle) < 5.0) {
-              kp = 0.007; // competition charge station value = 0.0055
-          } else {
-              kp = 0.014; // competition charge station value = 0.011
-          }
-          drivePower = kp * angle;
-          if (Math.abs(drivePower) > 0.4) {
-              drivePower = Math.copySign(0.4, drivePower);
-          }
-          if (Math.abs(drivePower) < 0.02) {
-              drivePower = 0.0;
-              numLevel +=1;
-          }
-          // drive forward at drivePower (the negative is becuase of inversions)
-          drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
+        while (numLevel == 1) {
+            angle = drivetrainObj.getPitch();
+            if (Math.abs(angle) < 7.0) {
+                isDriverControlled = false;
+            }
+            if (isDriverControlled) {
+                kp = 0.028; // competition charge station value = 0.022
+            } else if (Math.abs(angle) < 5.0) {
+                kp = 0.007; // competition charge station value = 0.0055
+            } else {
+                kp = 0.014; // competition charge station value = 0.011
+            }
+            drivePower = kp * angle;
+            if (Math.abs(drivePower) > 0.4) {
+                drivePower = Math.copySign(0.4, drivePower);
+            }
+            if (Math.abs(drivePower) < 0.02) {
+                drivePower = 0.0;
+                numLevel += 1;
+            }
+            // drive forward at drivePower (the negative is becuase of inversions)
+            drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
         }
 
-        while (numLevel == 2){
-          angle = drivetrainObj.getPitch();
-          if (Math.abs(angle) < 7.0) {
-              isDriverControlled = false;
-          }
-          if (isDriverControlled) {
-              kp = 0.028; // competition charge station value = 0.022
-          } else if (Math.abs(angle) < 5.0) {
-              kp = 0.007; // competition charge station value = 0.0055
-          } else {
-              kp = 0.014; // competition charge station value = 0.011
-          }
-          drivePower = kp * angle;
-          if (Math.abs(drivePower) > 0.4) {
-              drivePower = Math.copySign(0.4, drivePower);
-          }
-          if (Math.abs(drivePower) < 0.02) {
-              drivePower = 0.0;
-              numLevel +=1;
-          }
-          // drive forward at drivePower (the negative is becuase of inversions)
-          drivetrainObj.mecanumDriveCartesian(0.0, Math.abs(drivePower), 0.0);
+        while (numLevel == 2) {
+            angle = drivetrainObj.getPitch();
+            if (Math.abs(angle) < 7.0) {
+                isDriverControlled = false;
+            }
+            if (isDriverControlled) {
+                kp = 0.028; // competition charge station value = 0.022
+            } else if (Math.abs(angle) < 5.0) {
+                kp = 0.007; // competition charge station value = 0.0055
+            } else {
+                kp = 0.014; // competition charge station value = 0.011
+            }
+            drivePower = kp * angle;
+            if (Math.abs(drivePower) > 0.4) {
+                drivePower = Math.copySign(0.4, drivePower);
+            }
+            if (Math.abs(drivePower) < 0.02) {
+                drivePower = 0.0;
+                numLevel += 1;
+            }
+            // drive forward at drivePower (the negative is becuase of inversions)
+            drivetrainObj.mecanumDriveCartesian(0.0, Math.abs(drivePower), 0.0);
         }
 
-        while (numLevel == 3){
-          drivePower = 0.0;
-          finalBalance = true;
+        while (numLevel == 3) {
+            drivePower = 0.0;
         }
     }
 

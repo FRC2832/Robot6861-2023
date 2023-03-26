@@ -76,6 +76,13 @@ public class Drivetrain extends SubsystemBase {
         rightFrontSpark.setIdleMode(IdleMode.kBrake);
         leftBackSpark.setIdleMode(IdleMode.kBrake);
         rightBackSpark.setIdleMode(IdleMode.kBrake);
+
+        // ramp rate for 0-full acceleration
+        leftFrontSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        rightFrontSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        leftBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        rightBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+
         
         // Pose/Orientation
         // poseEstimator = null;
@@ -87,7 +94,8 @@ public class Drivetrain extends SubsystemBase {
         leftBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
-        mecanumDriveObj.setMaxOutput(0.85);
+
+        mecanumDriveObj.setMaxOutput(0.9);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
              not being able to drive. */ 
              

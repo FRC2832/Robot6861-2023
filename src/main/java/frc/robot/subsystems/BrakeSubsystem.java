@@ -35,6 +35,14 @@ public class BrakeSubsystem extends SubsystemBase {
         brakeDriveMotor.set(ControlMode.PercentOutput, Constants.DRIVE_BRAKE_MOTOR_SPEED);
     }
 
+    public void driveBrakeMotorBack() {
+        brakeDriveMotor.set(ControlMode.PercentOutput, -Constants.DRIVE_BRAKE_MOTOR_SPEED);
+    }
+
+    public void stopDriveBrakeMotor() {
+        brakeDriveMotor.set(ControlMode.PercentOutput, 0.0);
+    }
+
     public void lowerBrakes() {
         brakeWheelMotor.set(Constants.LOWER_BRAKE_WHEEL_SPEED);
     }
@@ -45,7 +53,6 @@ public class BrakeSubsystem extends SubsystemBase {
 
     public void stopBrakes() {
         brakeWheelMotor.set(0.0);
-        brakeDriveMotor.set(ControlMode.PercentOutput, 0.0);
     }
 
     public double getBrakeEncoder() {

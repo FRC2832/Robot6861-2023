@@ -73,8 +73,7 @@ public class ArmSubsystem extends SubsystemBase {
 		double position = armEncoder.getPosition();
         // System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
 
-		// TODO: find out actual positions and change signs as necessary
-		if (position > (retractPosition + (retractPosition * 0.02))) { // might need to be larger than 2%
+		if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
 			armMotor.set(-Constants.ARM_RETRACT_MOTOR_SPEED);
 		} else { // TODO: Change to comparing difference between position and retractPosition.
 			armMotor.set(0.00);

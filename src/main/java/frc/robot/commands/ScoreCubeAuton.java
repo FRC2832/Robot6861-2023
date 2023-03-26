@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 
 public class ScoreCubeAuton extends CommandBase {
@@ -51,16 +52,20 @@ public class ScoreCubeAuton extends CommandBase {
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
         timer.stop();
+        if (ingestorIntakeObj.isCubeInIngestor()) {
+            EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        } else {
+            EyeSubsystem.setDefaultColor(Constants.WHITE);
+        }
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // TODO: Use beam break sensors to determine if we shot or not
-        // use timer for now
+        return !ingestorIntakeObj.isCubeInIngestor() || timer.get() >= 3.5;
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
-        // TODO: Test if beam break is normally on or off.
-        return /* !ingestorIntakeObj.getIngestorBeamBreakValue() */ timer.get() >= 3.5;
+        // True means cube in ingestor
+        
     }
 }

@@ -6,6 +6,7 @@ package frc.robot.subsystems.eyes;
 
 import com.ctre.phoenix.CANifier;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,6 +18,7 @@ public class EyeSubsystem extends SubsystemBase {
     private Servo eyeLidServoRight;
     private Servo eyeLidServoLeft;
     private CANifier clights;
+    private static EyeColor currentDefaultColor = Constants.LED_OFF;
 
     public EyeSubsystem() {
         eyePupilServoRight = new Servo(Constants.RIGHT_PUPIL_SERVO); // eyePupilServo1 connected to roboRIO PWM 4
@@ -64,6 +66,14 @@ public class EyeSubsystem extends SubsystemBase {
         return eyePupilServoRight.get();
     }
 
+    public static EyeColor getDefaultColor() {
+        return currentDefaultColor;
+    }
+    
+    public static void setDefaultColor(EyeColor defaultColor) {
+        currentDefaultColor = defaultColor;
+    }
+
     /**
      * Example command factory method.
      *
@@ -79,9 +89,39 @@ public class EyeSubsystem extends SubsystemBase {
                 });
     }
 
-    public void setLeftEyelid(double position) {
-        eyeLidServoLeft.set(position);
+    public CommandBase setEyesToDefault() {
+        return run(
+            () -> {
+                setLEDColor(currentDefaultColor);
+                // TODO: Add default eye movement behavior
+            });
     }
+
+        /**
+     * Example command factory method.
+     *
+     * @return a command
+     */
+
+    public CommandBase setColor(EyeColor color) {
+        return run(  // change to run?, runOnce is just a 20 ms loop
+                () -> {
+                    /* one-time action goes here */
+                    setLEDColor(color);
+                });
+    }
+
+    public CommandBase setMovement(EyeMovement movementLeft, EyeMovement movementRight) {
+        return runOnce(  // change to run?, runOnce is just a 20 ms loop
+                () -> {
+                    /* one-time action goes here */
+                    setEyePositions(movementLeft, movementRight);
+                });
+    }
+
+   // public static void setLeftEyelid(double position) {
+      //  eyeLidServoLeft.set(position);
+    //}
 
     /**
      * An example method querying a boolean state of the subsystem (for example, a

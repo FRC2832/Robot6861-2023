@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
+import frc.robot.subsystems.eyes.EyeColor;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
  * numerical or boolean
@@ -34,10 +36,13 @@ public final class Constants {
     // Drivetrain current limit
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
+    // SparkMax ramp rate to full acceleration
+    public static final double DRIVETRAIN_MOTOR_RAMP_RATE = 5;
+
     // Ingestor Current limit
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
-    // Drivetrain controls slew rates
+    // Drivetrain controls slew rates - didn't work.  Joysticks didn't move the robot at all
     // public static final double FORWARD_BACK_SLEW_RATE = .2;
     // public static final double LEFT_RIGHT_SLEW_RATE = .2;
 
@@ -71,11 +76,11 @@ public final class Constants {
     public static final double CLAW_OPEN_SPEED = 0.50; // TODO: Test and adjust these values
     public static final double CLAW_CLOSE_SPEED = -0.95;
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.075;
-    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.05;
-    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.75;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.06;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.35;
 
     // Brake up and down positions 
-    public static final double BRAKE_ON_FLOOR = -28.0;
+    public static final double BRAKE_ON_FLOOR = -48.0;
     public static final double BRAKE_UP_POSITION = -1.0;
 
     // Arm Motor Current Limit
@@ -113,10 +118,10 @@ public final class Constants {
 
     // Pupil/Eyelid Servo IDs
     // TODO: confirm port with actual number on robot
-    public static final int LEFT_EYELID_SERVO = 2; // 2 = pupil
+    public static final int LEFT_EYELID_SERVO = 4; // 2 = pupil
     public static final int LEFT_PUPIL_SERVO = 3; // 3 = right eyelid
-    public static final int RIGHT_EYELID_SERVO = 4; // 4 = lid
-    public static final int RIGHT_PUPIL_SERVO = 5; // 5 = lid
+    public static final int RIGHT_EYELID_SERVO = 2; // 4 = lid
+    public static final int RIGHT_PUPIL_SERVO = 1; // 5 = lid
 
     // TODO: set this to the actual camera name
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
@@ -141,6 +146,7 @@ public final class Constants {
     // Ingestor Encoder positions
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 55.0;
+    public static final boolean INGESTOR_FAIL_STATUS = false;
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.3;
@@ -150,8 +156,19 @@ public final class Constants {
     public static final double COOP_AUTON_DRIVE_BACK = 72.0;
     public static final double AUTON_BALANCING_STRAFE = 58.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
+   
     
+    // RGB VALUES FOR LED
+    public static final EyeColor PURPLE = new EyeColor(85, 26, 136);
     
-    
+    public static final EyeColor YELLOW = new EyeColor(255, 255, 0);
 
+    public static final EyeColor WHITE = new EyeColor(255, 255, 255);
+
+    public static final EyeColor RED = new EyeColor(255, 0, 0);
+
+    public static final EyeColor BLUE = new EyeColor(0, 0, 255);
+
+    public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
+    
 }
