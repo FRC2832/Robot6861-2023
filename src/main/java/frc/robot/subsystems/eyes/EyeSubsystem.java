@@ -6,7 +6,6 @@ package frc.robot.subsystems.eyes;
 
 import com.ctre.phoenix.CANifier;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -46,11 +45,11 @@ public class EyeSubsystem extends SubsystemBase {
     }
 
     public EyeMovement getLeftEyeMovement() {
-        return new EyeMovement(eyePupilServoLeft.get(), eyeLidServoLeft.get());
+        return new EyeMovement(eyeLidServoLeft.get(), eyePupilServoLeft.get());
     }
 
     public EyeMovement getRightEyeMovement() {
-        return new EyeMovement(eyePupilServoRight.get(), eyeLidServoRight.get());
+        return new EyeMovement(eyeLidServoRight.get(), eyePupilServoRight.get());
     }
 
     public double getLeftEyeLid() {
@@ -81,11 +80,12 @@ public class EyeSubsystem extends SubsystemBase {
      */
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
-        return runOnce(  // change to run?, runOnce is just a 20 ms loop
+        return run(  // change to run?, runOnce is just a 20 ms loop
                 () -> {
                     /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
                     setLEDColor(color);
+                    //setDefaultColor(color);
                 });
     }
 
@@ -112,12 +112,21 @@ public class EyeSubsystem extends SubsystemBase {
     }
 
     public CommandBase setMovement(EyeMovement movementLeft, EyeMovement movementRight) {
-        return runOnce(  // change to run?, runOnce is just a 20 ms loop
+        return run(  // change to run?, runOnce is just a 20 ms loop
                 () -> {
                     /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
                 });
     }
+
+   // public CommandBase setLeftEyeLidMovement(EyeMovement movementLeft) {
+     //   return run(  // change to run?, runOnce is just a 20 ms loop
+                //() -> {
+                    /* one-time action goes here */
+                    //setEyePositions(movementLeft, movementRight);
+                 // });
+    //}
+    
 
    // public static void setLeftEyelid(double position) {
       //  eyeLidServoLeft.set(position);

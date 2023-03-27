@@ -37,7 +37,7 @@ public final class Constants {
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // SparkMax ramp rate to full acceleration
-    public static final double DRIVETRAIN_MOTOR_RAMP_RATE = 5;
+    public static final double DRIVETRAIN_MOTOR_RAMP_RATE = 0.5;
 
     // Ingestor Current limit
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
@@ -47,7 +47,7 @@ public final class Constants {
     // public static final double LEFT_RIGHT_SLEW_RATE = .2;
 
     // Drive distance factors
-    public static final int DRIVETRAIN_WHEEL_DIAMETER = 6; // TODO: In what units? - MG
+    public static final int DRIVETRAIN_WHEEL_DIAMETER = 6; // units = 6 inches
     public static final double DRIVETRAIN_STRAFE_RATIO = 1.26;
     // using ratio because encoders aren't accurate when going sideways
     // ratio obtained becuase it went 3.75" when commanded to go 48"
@@ -118,10 +118,10 @@ public final class Constants {
 
     // Pupil/Eyelid Servo IDs
     // TODO: confirm port with actual number on robot
-    public static final int LEFT_EYELID_SERVO = 4; // 2 = pupil
-    public static final int LEFT_PUPIL_SERVO = 3; // 3 = right eyelid
-    public static final int RIGHT_EYELID_SERVO = 2; // 4 = lid
-    public static final int RIGHT_PUPIL_SERVO = 1; // 5 = lid
+    public static final int LEFT_EYELID_SERVO = 5; // Was 04
+    public static final int LEFT_PUPIL_SERVO = 4; // Was 3
+    public static final int RIGHT_EYELID_SERVO = 3; 
+    public static final int RIGHT_PUPIL_SERVO = 2; 
 
     // TODO: set this to the actual camera name
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
@@ -145,7 +145,8 @@ public final class Constants {
 
     // Ingestor Encoder positions
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
-    public static final double INGESTOR_EXPEL_POSITION = 55.0;
+    public static final double INGESTOR_EXPEL_POSITION = 75.0;
+    public static final double INGESTOR_TOP_POSITION = -5.0;
     public static final boolean INGESTOR_FAIL_STATUS = false;
 
     // Auton speed and drive distances (in inches)
@@ -161,13 +162,13 @@ public final class Constants {
     // RGB VALUES FOR LED
     public static final EyeColor PURPLE = new EyeColor(85, 26, 136);
     
-    public static final EyeColor YELLOW = new EyeColor(255, 255, 0);
+    public static final EyeColor YELLOW = new EyeColor(255, 155, 0);
 
-    public static final EyeColor WHITE = new EyeColor(255, 255, 255);
+    public static final EyeColor WHITE = new EyeColor(255, 255, 245);
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
-    public static final EyeColor BLUE = new EyeColor(0, 0, 255);
+    public static final EyeColor BLUE = new EyeColor(0, 35, 255);
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
     

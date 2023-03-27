@@ -55,12 +55,13 @@ public class IngestorLift extends SubsystemBase {
         goalPosition = topPosition;
         double positionReal = liftEncoder.getPosition();
         // liftPIDController.setReference(goalPosition, ControlType.kPosition);
-        if (positionReal > 0.9) {
+        if (positionReal > 11 || positionReal < -160) {
             ingestorLiftMotor.set(0.0);
             System.out.println("********** ingestor position is " + positionReal);
             System.out.println("**********  WARNING!!!  Ingestor needs resetting. Power off and reset ingestor lift to top");
         } else {
             ingestorLiftMotor.set(ingestorMotorSpeed);
+            System.out.println("********** ingestor position is raising " + positionReal);
         }
         
 
@@ -78,7 +79,7 @@ public class IngestorLift extends SubsystemBase {
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
             System.out.println("********** ingestor is lowering to " + position);
-            ingestorLiftMotor.set(-0.3); //change back to 0.9
+            ingestorLiftMotor.set(-0.9); //change back to 0.9
             // isHomed = false;
         } else {
             ingestorLiftMotor.set(0.0);
@@ -104,7 +105,8 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            ingestorLiftMotor.set(-0.3); //change back to -.9
+            ingestorLiftMotor.set(-0.9); //change back to -.9
+            System.out.println("********** ingestor is lowering to expel" + position);
             flag = false;
             // isHomed = false;
         } else {
@@ -139,8 +141,7 @@ public class IngestorLift extends SubsystemBase {
             isAtScoring = false;
         } else if (position > 20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
             ingestorLiftMotor.set(0.3); //change back 0.7,  increase speed to raise lift for faster operation
-            // System.out.println("We are moving to the scoring position. Position: " +
-            // position);
+            System.out.println("We are moving to the scoring position. Position: " + position);
         } else {
             ingestorLiftMotor.set(0.0);
             // System.out.println("" + position);
@@ -175,7 +176,7 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        System.out.println("isAtTop - " + ingestorLimitInput.get());
+        System.out.println("isAtTop - limit switch is " + ingestorLimitInput.get());
         ingestorLiftMotor.set(0.0);
         return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 3.0;
         // during Jackson comp, limit switch broke so we aded this OR for added
@@ -196,6 +197,10 @@ public class IngestorLift extends SubsystemBase {
 
     public double getEncoderCount() {
         return Math.abs(liftEncoder.getPosition());
+    }
+
+    public double getLiftEncoderCountReal() {
+        return liftEncoder.getPosition();
     }
 
     public CommandBase raiseIngestorLift() {

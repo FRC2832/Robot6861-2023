@@ -95,7 +95,7 @@ public class Drivetrain extends SubsystemBase {
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
 
-        mecanumDriveObj.setMaxOutput(0.9);
+        mecanumDriveObj.setMaxOutput(0.95);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
              not being able to drive. */ 
              

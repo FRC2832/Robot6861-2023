@@ -9,7 +9,6 @@ import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
 
-import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -71,7 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 	public void armRetractPos() {
 		double position = armEncoder.getPosition();
-        // System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
+        System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
 
 		if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
 			armMotor.set(-Constants.ARM_RETRACT_MOTOR_SPEED);

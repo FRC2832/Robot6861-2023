@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCubeCmd;
@@ -55,7 +56,6 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.eyes.EyeColor;
 import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
@@ -116,7 +116,6 @@ public class RobotContainer {
 	private final SendableChooser<Command> autonChooser = new SendableChooser<>();
 	// private final SendableChooser<Integer> leftCenterRight = new
 	// SendableChooser<>();
-	// TODO: may need differnt terms than left, center, right for auton chooser
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -125,76 +124,78 @@ public class RobotContainer {
 
 		// Configure the trigger bindings
 		configureBindings();
-		SequentialCommandGroup defaultIngestorLiftSequence = new SequentialCommandGroup(
-				new RaiseIngestorLiftCmd(ingestorLiftObj), new ScoreIngestorLiftCmd(ingestorLiftObj));
+		//SequentialCommandGroup defaultIngestorLiftSequence = new SequentialCommandGroup(
+				// new RaiseIngestorLiftCmd(ingestorLiftObj), new ScoreIngestorLiftCmd(ingestorLiftObj));
 
 		drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
-		ingestorLiftObj.setDefaultCommand(defaultIngestorLiftSequence); // TODO: Add Ingestor Intake
+		ingestorLiftObj.setDefaultCommand(new RaiseIngestorLiftCmd(ingestorLiftObj)); // TODO: Add Ingestor Intake
 		// ingestorIntakeObj.setDefaultCommand(new
 		// StopIngestorIntake(ingestorIntakeObj));
 		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
 		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
 		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
-        armObj.setDefaultCommand(new ArmStowCmd(armObj));
-        clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
-	
+		armObj.setDefaultCommand(new ArmStowCmd(armObj));
+		clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
+
 		eyeballObj.setDefaultCommand(eyeballObj.setEyesToDefault());
 		// 2nd eyemovement above is robot right
 		// coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
-		EyeMovement movementLeft = new EyeMovement(1.0, 0.0);
-		EyeMovement movementRight = new EyeMovement(1.0, 1.0);
-		EyeColor color = new EyeColor(0, 0, 0);
-		ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
-				eyeballObj.setEyes(movementLeft, movementRight, color),
-				redDefaultSubstationAutoCmd);
+		// EyeMovement movementLeft = new EyeMovement(1.0, 0.0);
+		// EyeMovement movementRight = new EyeMovement(1.0, 1.0);
+		// EyeColor color = new EyeColor(0, 0, 0);
+		// ParallelCommandGroup defaultSubstationAuton = new ParallelCommandGroup(
+		// eyeballObj.setEyes(movementLeft, movementRight, color),
+		// redDefaultSubstationAutoCmd);
 
-		
-        if (!Constants.INGESTOR_FAIL_STATUS) {
-                autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
-                if (DriverStation.getAlliance().equals(Alliance.Red)) {
-                        System.out.println("Found red alliance");
-                        //autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-                        autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
-                        //autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-                        autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
-						autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
-                } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
-                        System.out.println("Found blue alliance");
-                        //autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-                        autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
-                        //autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-                        autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
-						autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
-                } else {
-                        System.out.println("No alliance");
-                        autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-                        autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
-                        autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-                        autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
-						autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
-                        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-                        autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
-                        autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-                        autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
-						autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
-                }
-        } else {
-                if (DriverStation.getAlliance().equals(Alliance.Red)) {
-                        autonChooser.setDefaultOption("Red Default Auton", defaultSubstationAuton);
-                        autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-                } else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
-                        autonChooser.setDefaultOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-                        autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-                } else {
-                        autonChooser.addOption("RED Default Substation Auton", defaultSubstationAuton);
-                        autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
-                        autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
-                        autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
-                }
-        }
-        SmartDashboard.putData("Auton Chooser", autonChooser);
+		if (!Constants.INGESTOR_FAIL_STATUS) {
+			autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
+			if (DriverStation.getAlliance().equals(Alliance.Red)) {
+				System.out.println("Found red alliance");
+				// autonChooser.addOption("RED Default Substation Auton",
+				// defaultSubstationAuton);
+				autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+				// autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+				autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+				autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
+			} else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
+				System.out.println("Found blue alliance");
+				// autonChooser.addOption("BLUE Default Substation Auton",
+				// blueDefaultSubstationAutoCmd);
+				autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+				// autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+				autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+				autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
+			} else {
+				System.out.println("No alliance");
+				// autonChooser.addOption("RED Default Substation Auton",
+				// defaultSubstationAuton);
+				autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
+				autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+				autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
+				autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
+				autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+				autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
+				autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+				autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
+				autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
+			}
+		} else {
+			if (DriverStation.getAlliance().equals(Alliance.Red)) {
+				// autonChooser.setDefaultOption("Red Default Auton", defaultSubstationAuton);
+				autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+			} else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
+				autonChooser.setDefaultOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+				autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+			} else {
+				// autonChooser.addOption("RED Default Substation Auton",
+				// defaultSubstationAuton);
+				autonChooser.addOption("RED Default Cable Auton", redDefaultCableAutoCmd);
+				autonChooser.addOption("BLUE Default Substation Auton", blueDefaultSubstationAutoCmd);
+				autonChooser.addOption("BLUE Default Cable Auton", blueDefaultCableAutoCmd);
+			}
+		}
+		SmartDashboard.putData("Auton Chooser", autonChooser);
 		// autonChooser.addOption("Example Auton Command",
-		
 
 	}
 
@@ -232,21 +233,26 @@ public class RobotContainer {
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
 						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
-				gamePieceScoopObj.servoOffCmd());
+				gamePieceScoopObj.servoOffCmd(),
+				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
-				gamePieceScoopObj.servoOffCmd());
+				gamePieceScoopObj.servoOffCmd(),
+				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
-				gamePieceScoopObj.servoOffCmd());
+				gamePieceScoopObj.servoOffCmd(),
+				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
 				new LowerIngestorLiftCmd(ingestorLiftObj),
-				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));  //,
+				//eyeballObj.setColor(Constants.PURPLE));
 
 		SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
+				// Constants.WHITE;
 				new ExpelIngestorLiftCmd(ingestorLiftObj),
 				shootCubeLower);
 
@@ -264,66 +270,61 @@ public class RobotContainer {
 		Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
 		Trigger driverA = joystickSubsystemObj.getDriverABtn();
 		Trigger driverB = joystickSubsystemObj.getDriverBBtn();
-        Trigger driverX = joystickSubsystemObj.getDriverXBtn();
+		Trigger driverX = joystickSubsystemObj.getDriverXBtn();
 		Trigger operatorX = joystickSubsystemObj.getOperatorXBtn();
 		Trigger operatorY = joystickSubsystemObj.getOperatorYBtn();
-        Trigger operatorB = joystickSubsystemObj.getOperatorBBtn();
-        Trigger operatorLeftTrigger = joystickSubsystemObj.getOperatorLeftTrigger();
+		Trigger operatorB = joystickSubsystemObj.getOperatorBBtn();
+		Trigger operatorLeftTrigger = joystickSubsystemObj.getOperatorLeftTrigger();
 		Trigger operatorRightTrigger = joystickSubsystemObj.getOperatorRightTrigger();
 		Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
 
 		// Temporary mapping of eye controls to controller
-		// Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
-		// Trigger driverRightBumper = joystickSubsystemObj.getDriverRightBumper();
-		// Trigger driverLeftTrigger = joystickSubsystemObj.getDriverLeftTrigger();
-		// Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();
+		Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
+		Trigger driverRightBumper = joystickSubsystemObj.getDriverRightBumper();
+		Trigger driverLeftTrigger = joystickSubsystemObj.getDriverLeftTrigger();
+		Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();
 
 		// Sets the individual pupils and eyelids
-		CommandBase setLeftEyePupil0 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 0.0),
-				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 255, 255));
+		/*CommandBase setLeftEyePupil0 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 0.0),
+				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), Constants.WHITE);
 		CommandBase setLeftEyePupil1 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 1.0),
-				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), Constants.WHITE);
 		CommandBase setLeftEyeLid0 = eyeballObj.setEyes(new EyeMovement(0.0, eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), Constants.WHITE);
 		CommandBase setLeftEyeLid1 = eyeballObj.setEyes(new EyeMovement(1.0, eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), eyeballObj.getRightEyePupil()), Constants.WHITE);
 
 		CommandBase setRightEyePupil0 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), 0.0), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), 0.0), Constants.WHITE);
 		CommandBase setRightEyePupil1 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(eyeballObj.getRightEyeLid(), 1.0), new EyeColor(255, 0, 0));
+				new EyeMovement(eyeballObj.getRightEyeLid(), 1.0), Constants.WHITE);
 
 		CommandBase setRightEyeLid0 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(0.0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(0.0, eyeballObj.getRightEyePupil()), Constants.WHITE);
 		CommandBase setRightEyeLid1 = eyeballObj.setEyes(
 				new EyeMovement(eyeballObj.getLeftEyeLid(), eyeballObj.getLeftEyePupil()),
-				new EyeMovement(1.0, eyeballObj.getRightEyePupil()), new EyeColor(255, 0, 0));
+				new EyeMovement(1.0, eyeballObj.getRightEyePupil()), Constants.WHITE);
 
 		// Command groups that are mapped to the triggers and bumpers
-		/*
-		 SequentialCommandGroup setLeftPupil = new
-		 SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
-		 setLeftEyePupil1);
-		 driverLeftTrigger.whileTrue(setLeftPupil);
-		 
-		 SequentialCommandGroup setLeftEyeLid = new
-		 SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
-		 setLeftEyeLid1);
-		 driverLeftBumper.onTrue(setLeftEyeLid);
-		 
-		 SequentialCommandGroup setRightPupil = new
-		 SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
-		 setRightEyePupil1);
-		 driverRightTrigger.onTrue(setRightPupil);
-		 
-		 SequentialCommandGroup setRightEyeLid = new
-		 SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
-		 setRightEyeLid1);
-		 driverRightBumper.onTrue(setRightEyeLid);
-		*/
+
+		SequentialCommandGroup setLeftPupil = new SequentialCommandGroup(setLeftEyePupil0, new WaitCommand(1.5),
+				setLeftEyePupil1);
+		driverLeftTrigger.whileTrue(setLeftPupil);
+
+		SequentialCommandGroup setLeftEyeLid = new SequentialCommandGroup(setLeftEyeLid0, new WaitCommand(1.5),
+				setLeftEyeLid1);
+		driverLeftBumper.whileTrue(setLeftEyeLid);
+
+		SequentialCommandGroup setRightPupil = new SequentialCommandGroup(setRightEyePupil0, new WaitCommand(1.5),
+				setRightEyePupil1);
+		driverRightTrigger.whileTrue(setRightPupil);
+
+		SequentialCommandGroup setRightEyeLid = new SequentialCommandGroup(setRightEyeLid0, new WaitCommand(1.5),
+				setRightEyeLid1);
+		driverRightBumper.whileTrue(setRightEyeLid);*/
 
 		/*
 		 * setEyePupil pupilMovementLeft = new setEyePupil (1);
@@ -343,17 +344,17 @@ public class RobotContainer {
 		// TODO: The above might allow us to interrupt the command with the X button.
 		// operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
 
-		//operatorRightTrigger.whileTrue(shootCubeMid);
-		//operatorRightBumper.whileTrue(shootCubeUpper);
-		
+		operatorRightTrigger.whileTrue(shootCubeMid);
+		operatorRightBumper.whileTrue(shootCubeUpper);
+
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-        driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj));
-		//opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+		driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj));
+		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
-        operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw
-        operatorX.whileTrue(new ArmScoreCmd (armObj)); // need sequential command group to close claw
-        operatorLeftTrigger.whileTrue(new OpenClawCmd(clawObj)); // need sequential command group to close claw
+		operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw
+		operatorX.whileTrue(new ArmScoreCmd(armObj)); // need sequential command group to close claw
+		operatorLeftTrigger.whileTrue(new OpenClawCmd(clawObj)); // need sequential command group to close claw
 		driverX.whileTrue(new ArmRetractCmd(armObj));
 	}
 

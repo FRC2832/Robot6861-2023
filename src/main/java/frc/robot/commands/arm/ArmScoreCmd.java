@@ -35,6 +35,7 @@ public class ArmScoreCmd extends CommandBase {
         } else { 
             armSubsystemObj.armScorePos();
         }
+        System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
 
     // Called once the command ends or is interrupted.

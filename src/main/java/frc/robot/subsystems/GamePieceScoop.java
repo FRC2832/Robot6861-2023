@@ -44,14 +44,19 @@ public class GamePieceScoop extends SubsystemBase {
 
     public void servoOnTeleop() {
         //setServoBoundsTeleop();
+        System.out.println("Servo on");
         gamePieceScoopServoLR.setVoltage(2);
+        //gamePieceScoopServoLR.controlmod
+        // gamePieceScoopServoLR.set(-0.33);
 
         //gamePieceScoopServoL.setSpeed(1.0);
         //gamePieceScoopServoR.setSpeed(1.0);
     }
 
     public void servoOff() {
+        System.out.println("Servo off");
         gamePieceScoopServoLR.setVoltage(-2);
+        // gamePieceScoopServoLR.set(0.33);
 
         //gamePieceScoopServoL.setSpeed(-1.0);
         //gamePieceScoopServoR.setSpeed(-1.0);

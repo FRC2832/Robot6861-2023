@@ -5,6 +5,7 @@
 package frc.robot.commands.ingestor.lift;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
 
 public class RaiseIngestorLiftCmd extends CommandBase {
@@ -28,10 +29,19 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.raiseLift();
-        ingestorLiftObj.getEncoderCount();
-        System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getEncoderCount());
-        
+        if (ingestorLiftObj.getLiftEncoderCountReal() > (Constants.INGESTOR_TOP_POSITION)) {
+            // System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getLiftEncoderCountReal());
+             ingestorLiftObj.stopLift();
+         } else { 
+             ingestorLiftObj.raiseLift();
+             ingestorLiftObj.getLiftEncoderCountReal();
+             //System.out.println("***********************  Ingestor Encoder: " + ingestorObj.getLiftEncoderCountReal());
+         }
+     
+        //ingestorLiftObj.raiseLift();
+        //ingestorLiftObj.getEncoderCount();
+        System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getLiftEncoderCountReal());
+    }    
         //System.out.println("We are moving to the home position!");
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
 /*         if (ingestorLiftObj.getIsHomed()) {
@@ -39,7 +49,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
                 //System.out.println("We are at the scoring position!"); // TODO: The robot thinks we're here when we
                                                                        // release the button
                 ingestorLiftObj.stopLift();
-                System.out.println("Current encoder count: " + ingestorLiftObj.getEncoderCount());
+                System.out.prnintln("Current encoder count: " + ingestorLiftObj.getEncoderCount());
                 // Move the lift to the home position
             } else {
                 ingestorLiftObj.lowerLiftToScore();
@@ -57,7 +67,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
             // Move the lift to the home position
         } */
 
-    }
+    
 
     // Called once the command ends or is interrupted.
     @Override
@@ -69,6 +79,6 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return ingestorLiftObj.isAtTop(); 
+        return false; //ingestorLiftObj.isAtTop();
     }
 }

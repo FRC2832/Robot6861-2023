@@ -80,7 +80,7 @@ public class IngestorIntake extends SubsystemBase {
     }
 
     public boolean getIngestorBeamBreakValue() {
-        System.out.println(ingestorBeamBreak.get());
+        System.out.println("*** Beam sensor " + ingestorBeamBreak.get());
         // True is NO gamepieces, False is gamepieces
         return ingestorBeamBreak.get();
     }

@@ -31,6 +31,7 @@ public class DriveBackCmd extends CommandBase {
     public void initialize() {
         drivetrainObj.resetEncoders();
         startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
+        System.out.println(" ************************ Starting encoder position " + startEncoderPos);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
