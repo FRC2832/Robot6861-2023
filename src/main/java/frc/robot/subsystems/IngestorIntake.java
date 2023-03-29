@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,6 +19,7 @@ public class IngestorIntake extends SubsystemBase {
     private TalonSRX ingestorIntakeTopTalon;
     private TalonSRX ingestorIntakeBottomTalon;
     private DigitalInput ingestorBeamBreak;
+    private static Timer timer = new Timer();
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
@@ -38,6 +40,7 @@ public class IngestorIntake extends SubsystemBase {
     public void revIn() {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
+        System.out.println("++++++++    revIn() called    ++++++++");
     }
 /*
     public void revOut(double speed) {
@@ -48,6 +51,7 @@ public class IngestorIntake extends SubsystemBase {
     public void revOut(double speedTop, double speedBottom) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
+        System.out.println("ooooooo    revOUt(2 speeds) called    ooooooo");
     }
     
     public CommandBase revOutIngestorIntake(double speed) {
@@ -55,9 +59,21 @@ public class IngestorIntake extends SubsystemBase {
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    revOut(speed, speed);
-                });
-    }
+                    if (isCubeInIngestor()) {
+                        timer.start();
+                        revOut(speed, speed);
+                        System.out.println("*** Revoutingestorintake ***");
+                        
+                    } else if (timer.get() > 5 && !isCubeInIngestor()) { 
+                        revOut(0.0, 0.0);
+                        timer.stop();
+                        timer.reset();
+                        System.out.println("*** Stopping Revoutingestorintake ***");
+                    } 
+                }          
+                    //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
+            );
+        }
 
     public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
     // Inline construction of command goes here.
@@ -65,7 +81,7 @@ public class IngestorIntake extends SubsystemBase {
     return run(
             () -> {
                 revOut(speedTop, speedBottom);
-                System.out.println("***********************  revOut: " + speedTop + " " + speedBottom + "  ***********************");
+                System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
 
             });
     }
@@ -75,7 +91,7 @@ public class IngestorIntake extends SubsystemBase {
         return run(
                 () -> {
                     revIn();
-                    System.out.println("***********************  revIn: ");
+                    System.out.println("***********************  revInIngestorintake: ");
                 });
     }
 
@@ -86,6 +102,7 @@ public class IngestorIntake extends SubsystemBase {
     }
 
     public boolean isCubeInIngestor() {
+        System.out.println("*** Cube in ingestor " + !ingestorBeamBreak.get());
         return !ingestorBeamBreak.get();
     }
 

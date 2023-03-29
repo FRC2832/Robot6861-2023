@@ -20,15 +20,24 @@ public class BrakeSubsystem extends SubsystemBase {
   
 
     public BrakeSubsystem() {
-        // up and down green wheel under robot
+        // up and down blue wheel under robot
         brakeWheelMotor = new CANSparkMax(Constants.LOWER_BRAKE_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
         brakeWheelMotorEncoder = brakeWheelMotor.getEncoder();
-        brakeWheelMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
-
-        // driven wheel in brake wheel - helps steady us on charge station in endgame
-        brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
         brakeWheelMotor.setSmartCurrentLimit(Constants.BRAKE_WHEEL_MOTOR_CURRENT_LIMIT_AMPS);
 
+         // driven wheel in brake wheel - helps steady us on charge station in endgame
+         brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
+         System.out.println(" >>>>>    BrakeSubsystem constructor called    <<<<<<<<");
+
+
+        brakeWheelBrakeMode();
+        //brakeWheelMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
+    }
+
+
+    public void brakeWheelBrakeMode() {
+        brakeWheelMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
     }
 
     public void driveBrakeMotor() {

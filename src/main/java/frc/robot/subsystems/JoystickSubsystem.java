@@ -22,8 +22,9 @@ public class JoystickSubsystem extends SubsystemBase {
     /** Creates a new JoystickSubsystem. */
     public JoystickSubsystem() {
         driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER);
-        operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER);
         setDeadband(1.0);
+        operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER);
+        
     }
 
     private void setDeadband(double d) {

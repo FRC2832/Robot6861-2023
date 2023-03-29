@@ -32,7 +32,6 @@ public class StopIngestorIntake extends CommandBase {
     @Override
     public void execute() {
         ingestorIntakeObj.stop();
-        // TODO: Set ingestorLiftObj motors to 0
     }
 
     // Called once the command ends or is interrupted.

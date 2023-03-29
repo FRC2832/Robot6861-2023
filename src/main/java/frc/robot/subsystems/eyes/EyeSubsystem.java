@@ -17,6 +17,10 @@ public class EyeSubsystem extends SubsystemBase {
     private Servo eyeLidServoRight;
     private Servo eyeLidServoLeft;
     private CANifier clights;
+
+
+    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1;
+    private static EyeMovement currentDefaultMovementRight = Constants.EYE_MOVEMENT_1;
     private static EyeColor currentDefaultColor = Constants.LED_OFF;
 
     public EyeSubsystem() {
@@ -73,6 +77,14 @@ public class EyeSubsystem extends SubsystemBase {
         currentDefaultColor = defaultColor;
     }
 
+    public static void setDefaultMovementLeft(EyeMovement defaultMovementLeft) {
+        currentDefaultMovementLeft = defaultMovementLeft;
+    }
+
+    public static void setDefaultMovementRight(EyeMovement defaultMovementRight) {
+        currentDefaultMovementRight = defaultMovementRight;
+    }
+
     /**
      * Example command factory method.
      *
@@ -93,6 +105,7 @@ public class EyeSubsystem extends SubsystemBase {
         return run(
             () -> {
                 setLEDColor(currentDefaultColor);
+                setEyePositions(currentDefaultMovementLeft, currentDefaultMovementRight);
                 // TODO: Add default eye movement behavior
             });
     }

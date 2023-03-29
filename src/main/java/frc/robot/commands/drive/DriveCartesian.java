@@ -32,7 +32,9 @@ public class DriveCartesian extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // System.out.println("angle: " + drivetrainObj.getPitch());
+        System.out.println("angle: " + drivetrainObj.getPitch());
+        System.out.println("yaw : " + drivetrainObj.getYaw());
+
         // double moveSpeed =
         // -RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
         // TODO: Do this without referencing the controllers from here.

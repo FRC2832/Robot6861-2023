@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.Servo;
@@ -15,8 +16,8 @@ import frc.robot.Constants;
 public class GamePieceScoop extends SubsystemBase {
     /** Creates a new GamePieceScoop. */
 
-    private Servo gamePieceScoopServoL;
-    private Servo gamePieceScoopServoR;
+    //private Servo gamePieceScoopServoL;
+    //private Servo gamePieceScoopServoR;
     private static Timer timer = new Timer();
     private CANSparkMax gamePieceScoopServoLR;
     // TODO: Figure out whether to change the number naming as is or to change to
@@ -45,17 +46,21 @@ public class GamePieceScoop extends SubsystemBase {
     public void servoOnTeleop() {
         //setServoBoundsTeleop();
         System.out.println("Servo on");
-        gamePieceScoopServoLR.setVoltage(2);
-        //gamePieceScoopServoLR.controlmod
-        // gamePieceScoopServoLR.set(-0.33);
-
+       // gamePieceScoopServoLR.set(ControlMode.PercentOutput)
+        gamePieceScoopServoLR.setVoltage(12);
+       
         //gamePieceScoopServoL.setSpeed(1.0);
         //gamePieceScoopServoR.setSpeed(1.0);
     }
 
+    public void servoOnAuton() {
+        gamePieceScoopServoLR.setVoltage(8);
+        System.out.println("Servo on Auton voltage commanded");
+    }
+
     public void servoOff() {
         System.out.println("Servo off");
-        gamePieceScoopServoLR.setVoltage(-2);
+        gamePieceScoopServoLR.setVoltage(-12);
         // gamePieceScoopServoLR.set(0.33);
 
         //gamePieceScoopServoL.setSpeed(-1.0);
@@ -82,22 +87,34 @@ public class GamePieceScoop extends SubsystemBase {
                 });
     }
 
+    public CommandBase servoOnAutonCmd() {
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    servoOnAuton();
+                });
+    }
+
+
     public CommandBase servoOnCmd() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    timer.start();
+                    servoOnTeleop();
+
+                    }
+
+                    /* timer.start();
                     if (timer.get() < 6.0) {
                         servoOnTeleop();
                     }
                     else {
                         timer.stop();
                         timer.reset();
-                        gamePieceScoopServoLR.setVoltage(0);
+                        gamePieceScoopServoLR.setVoltage(0);*/
 
-                    }
-
-                });
+              );
     }
 }

@@ -38,6 +38,7 @@ public class DriveBackCmd extends CommandBase {
     @Override
     public void execute() {
         drivetrainObj.mecanumDriveCartesian(0.0, driveSpeed, 0.0);
+        System.out.println(" ************************ Current encoder position " + drivetrainObj.getEncoderDistance());
         // drive back drives forward in Auton only. So inverting driveSpeed 
         // to positive as temporary fix.  
     }

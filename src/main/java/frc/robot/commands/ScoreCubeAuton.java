@@ -38,11 +38,17 @@ public class ScoreCubeAuton extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+        
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
-        if (timer.get() >= 1.5) {   // allow time for rollers to get up to speed
-            gamePieceScoopObj.servoOff();
+        if (timer.get() >= 1.0) {   // allow time for rollers to get up to speed
+           System.out.println(" ------   Commanding Servos on   -------");
+            gamePieceScoopObj.servoOnAutonCmd();
         }
     }
   
@@ -52,17 +58,16 @@ public class ScoreCubeAuton extends CommandBase {
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
         timer.stop();
-        if (ingestorIntakeObj.isCubeInIngestor()) {
-            EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        } else {
+        if (!ingestorIntakeObj.isCubeInIngestor()) {
             EyeSubsystem.setDefaultColor(Constants.WHITE);
-        }
+        } 
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
         return !ingestorIntakeObj.isCubeInIngestor() || timer.get() >= 3.5;
+        
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
         // True means cube in ingestor

@@ -38,11 +38,14 @@ public class ScoreCubeTeleop extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
         if (timer.get() >= 1.5) { 
-            gamePieceScoopObj.servoOff();
+            gamePieceScoopObj.servoOnTeleop();
         }
     }
     // TODO: Create a new command for ingestorLift
@@ -55,9 +58,8 @@ public class ScoreCubeTeleop extends CommandBase {
         timer.stop();
         if (!ingestorIntakeObj.isCubeInIngestor()) {
             EyeSubsystem.setDefaultColor(Constants.WHITE);
-        } else {
-            EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        }
+        } 
+        
     }
 
     // Returns true when the command should end.

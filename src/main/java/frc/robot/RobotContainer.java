@@ -15,14 +15,12 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.IntakeCubeCmd;
-import frc.robot.commands.LowerBrakeCmd;
+import frc.robot.commands.StopIngestorIntake;
 import frc.robot.commands.arm.ArmPickupCmd;
 import frc.robot.commands.arm.ArmRetractCmd;
 import frc.robot.commands.arm.ArmScoreCmd;
@@ -38,6 +36,7 @@ import frc.robot.commands.autons.red.RedCableEngageAuton;
 import frc.robot.commands.autons.red.RedDefaultCableAuton;
 import frc.robot.commands.autons.red.RedDefaultSubstationAuton;
 import frc.robot.commands.autons.red.RedSubstationCrossAuton;
+import frc.robot.commands.brake.LowerBrakeCmd;
 import frc.robot.commands.brake.RaiseBrakeCmd;
 import frc.robot.commands.claw.CloseClawCmd;
 import frc.robot.commands.claw.OpenClawCmd;
@@ -46,7 +45,6 @@ import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.commands.ingestor.lift.ExpelIngestorLiftCmd;
 import frc.robot.commands.ingestor.lift.LowerIngestorLiftCmd;
 import frc.robot.commands.ingestor.lift.RaiseIngestorLiftCmd;
-import frc.robot.commands.ingestor.lift.ScoreIngestorLiftCmd;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BrakeSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -56,7 +54,6 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.subsystems.Vision;
-import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 /**
@@ -129,10 +126,9 @@ public class RobotContainer {
 
 		drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
 		ingestorLiftObj.setDefaultCommand(new RaiseIngestorLiftCmd(ingestorLiftObj)); // TODO: Add Ingestor Intake
-		// ingestorIntakeObj.setDefaultCommand(new
-		// StopIngestorIntake(ingestorIntakeObj));
-		ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.ingestorBeamBreakCmd());
-		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOnCmd());
+		ingestorIntakeObj.setDefaultCommand(new StopIngestorIntake(ingestorIntakeObj));
+		// ingestorIntakeObj.setDefaultCommand(ingestorIntakeObj.revOutIngestorIntake(0.0));
+		gamePieceScoopObj.setDefaultCommand(gamePieceScoopObj.servoOffCmd());
 		brakeObj.setDefaultCommand(new RaiseBrakeCmd(brakeObj));
 		armObj.setDefaultCommand(new ArmStowCmd(armObj));
 		clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
@@ -233,28 +229,32 @@ public class RobotContainer {
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
 						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
-				gamePieceScoopObj.servoOffCmd(),
+				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
-				gamePieceScoopObj.servoOffCmd(),
+				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
-				gamePieceScoopObj.servoOffCmd(),
-				eyeballObj.setColor(Constants.WHITE));
+				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.INGESTOR_EXPEL_SPEED_LOW, Constants.INGESTOR_EXPEL_SPEED_LOW),
+				gamePieceScoopObj.servoOnCmd());
+				// eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
 				new LowerIngestorLiftCmd(ingestorLiftObj),
-				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));  //,
+				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj, eyeballObj));  //,
 				//eyeballObj.setColor(Constants.PURPLE));
 
 		SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
 				// Constants.WHITE;
-				new ExpelIngestorLiftCmd(ingestorLiftObj),
-				shootCubeLower);
+				new ExpelIngestorLiftCmd(ingestorLiftObj), 
+                shootCubeLower);
+
+        //ParallelCommandGroup dropBrakeWheel = new ParallelCommandGroup(
+                //new LowerBrakeCmd(brakeObj, true, drivetrainObj), 
+                //new DriveBrakeCmd(brakeObj, true));
 
 		/*
 		 * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
@@ -349,7 +349,7 @@ public class RobotContainer {
 
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-		driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj));
+		driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, eyeballObj, drivetrainObj));
 		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
 		operatorY.whileTrue(lowerAndIngest);
 		operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw

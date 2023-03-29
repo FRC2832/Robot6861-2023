@@ -7,6 +7,7 @@ package frc.robot;
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
 
 import frc.robot.subsystems.eyes.EyeColor;
+import frc.robot.subsystems.eyes.EyeMovement;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide
@@ -37,7 +38,7 @@ public final class Constants {
     public static final int DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
     // SparkMax ramp rate to full acceleration
-    public static final double DRIVETRAIN_MOTOR_RAMP_RATE = 0.5;
+    public static final double DRIVETRAIN_MOTOR_RAMP_RATE = 0.25;
 
     // Ingestor Current limit
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
@@ -75,12 +76,12 @@ public final class Constants {
     // Claw and Brake Motor Speeds
     public static final double CLAW_OPEN_SPEED = 0.50; // TODO: Test and adjust these values
     public static final double CLAW_CLOSE_SPEED = -0.95;
-    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.075;
-    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.06;
-    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.35;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
+    public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.55;
 
     // Brake up and down positions 
-    public static final double BRAKE_ON_FLOOR = -48.0;
+    public static final double BRAKE_ON_FLOOR = -40.0;
     public static final double BRAKE_UP_POSITION = -1.0;
 
     // Arm Motor Current Limit
@@ -171,5 +172,10 @@ public final class Constants {
     public static final EyeColor BLUE = new EyeColor(0, 35, 255);
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
+
+    public static final EyeMovement EYE_MOVEMENT_1 = new EyeMovement(0.0, 0.0);
+    public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0);
+    public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0);
+    public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0);
     
 }

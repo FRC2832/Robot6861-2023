@@ -70,6 +70,8 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledInit() {
         EyeSubsystem.setDefaultColor(Constants.LED_OFF);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_3);
     }
 
     @Override
@@ -83,6 +85,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         //EyeSubsystem.setLeftEyelid(1);
         selectedAutonCommand = robotContainerObj.getAutonomousCommand();
         // schedule the autonomous command (example)
@@ -107,6 +111,8 @@ public class Robot extends TimedRobot {
             selectedAutonCommand.cancel();
         }
         EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
        // EyeSubsystem.setLeftEyelid(1);
         //robotContainerObj.setTeleopConfigs();
         //CommandScheduler.getInstance().schedule(new DriveArcade(robotContainerObj.getDrivetrain()));
