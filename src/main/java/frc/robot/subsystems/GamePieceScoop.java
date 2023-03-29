@@ -26,6 +26,7 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMax.MotorType.kBrushed);
         gamePieceScoopServoLR.setSmartCurrentLimit(Constants.GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS);
+       
         /*gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
         gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
         gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
@@ -54,8 +55,9 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public void servoOnAuton() {
-        gamePieceScoopServoLR.setVoltage(8);
         System.out.println("Servo on Auton voltage commanded");
+        gamePieceScoopServoLR.setVoltage(12);
+        
     }
 
     public void servoOff() {

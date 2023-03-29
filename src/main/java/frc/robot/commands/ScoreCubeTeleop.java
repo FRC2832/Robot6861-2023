@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 
@@ -38,10 +39,14 @@ public class ScoreCubeTeleop extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+       
+        EyeSubsystem.setDefaultColor(Constants.PURPLE); // doesn't look purple
+        //EyeSubsystem.getDefaultColor()
+        EyeSubsystem.setDefaultMovementLeft(new EyeMovement(0.5, 0.5)); // Both eyes were EyeMovement 2
+        EyeSubsystem.setDefaultMovementRight(new EyeMovement(0.5, 0.5));
+        
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
         if (timer.get() >= 1.5) { 
@@ -68,8 +73,7 @@ public class ScoreCubeTeleop extends CommandBase {
         // TODO: Use beam break sensors to determine if we shot or not
         // use timer for now
         // keep timer in as OR so if servos fail to eject cube, 
-        // robot still backs up and crosses community line for 3 pts
-        // TODO: Test if beam break is normally on or off.
-        return timer.get() >= 5.0;
+
+        return timer.get() >= 3.5;
     }
 }

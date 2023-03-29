@@ -19,7 +19,7 @@ public class EyeSubsystem extends SubsystemBase {
     private CANifier clights;
 
 
-    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1;
+    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1; //might need to be _3
     private static EyeMovement currentDefaultMovementRight = Constants.EYE_MOVEMENT_1;
     private static EyeColor currentDefaultColor = Constants.LED_OFF;
 
@@ -92,7 +92,7 @@ public class EyeSubsystem extends SubsystemBase {
      */
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
-        return run(  // change to run?, runOnce is just a 20 ms loop
+        return run(  // keep at run, runOnce is just a 20 ms loop
                 () -> {
                     /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
@@ -105,8 +105,11 @@ public class EyeSubsystem extends SubsystemBase {
         return run(
             () -> {
                 setLEDColor(currentDefaultColor);
+                //System.out.println("Current Default color: " + currentDefaultColor.toString() + "");
                 setEyePositions(currentDefaultMovementLeft, currentDefaultMovementRight);
-                // TODO: Add default eye movement behavior
+                //System.out.println("Current Default movement:  Left =  " + currentDefaultMovementLeft.toString() +
+                       // " Right =  " + currentDefaultMovementRight.toString() + "");
+            
             });
     }
 

@@ -28,12 +28,15 @@ public class ArmScoreCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystemObj.getArmEncoder() > (-5)) {  
+        if (armSubsystemObj.getArmEncoder() < Constants.ARM_MOTOR_POSITION_SCORE) {  
             //stow position = -10.  Stops motor if motor keeps going beyond stow position.  
             //Keeps winch motor from continuing to pull
-            armSubsystemObj.stopArm();
-        } else { 
             armSubsystemObj.armScorePos();
+
+        } else { 
+            
+            armSubsystemObj.stopArm();
+
         }
         System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }

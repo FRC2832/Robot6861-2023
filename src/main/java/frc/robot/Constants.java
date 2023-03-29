@@ -97,15 +97,15 @@ public final class Constants {
 
     // Arm Motor Speeds
     // TODO: Find actual motor speed
-    public static final double ARM_MOTOR_SPEED = -0.4;
+    public static final double ARM_MOTOR_SPEED = 0.4;
     public static final double ARM_STOW_MOTOR_SPEED = -0.6;
     public static final double ARM_RETRACT_MOTOR_SPEED = -0.1;
 
     // Arm Motor Positions
     // TODO: Find actual motor positions for each of these
     public static final double ARM_MOTOR_POSITION_PICKUP = 95;
-    public static final double ARM_MOTOR_POSITION_STOW = 10;
-    public static final double ARM_MOTOR_POSITION_SCORE = 170;
+    public static final double ARM_MOTOR_POSITION_STOW = -5;
+    public static final double ARM_MOTOR_POSITION_SCORE = 200;
     public static final double ARM_MOTOR_POSITION_RETRACT = -1000;
 
     // For running LED lights
@@ -147,25 +147,26 @@ public final class Constants {
     // Ingestor Encoder positions
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 75.0;
+    public static final double INGESTOR_SCORE_POSITION = 15.0;
     public static final double INGESTOR_TOP_POSITION = -5.0;
     public static final boolean INGESTOR_FAIL_STATUS = false;
 
     // Auton speed and drive distances (in inches)
-    public static final double AUTON_SPEED = 0.3;
-    public static final double SUBSTATION_AUTON_DRIVE_BACK = 96.0;
-    public static final double SUBSTATION_AUTON_STRAFE = 48.0;
-    public static final double CABLE_AUTON_DRIVE_BACK = 156.0;
+    public static final double AUTON_SPEED = 0.4;
+    public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
+    public static final double SUBSTATION_AUTON_STRAFE = 30.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 150.0;
     public static final double COOP_AUTON_DRIVE_BACK = 72.0;
-    public static final double AUTON_BALANCING_STRAFE = 58.0;
+    public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
    
     
     // RGB VALUES FOR LED
-    public static final EyeColor PURPLE = new EyeColor(85, 26, 136);
+    public static final EyeColor PURPLE = new EyeColor(130, 26, 116); //130. 26, 116 //0 is temporary for testing
     
-    public static final EyeColor YELLOW = new EyeColor(255, 155, 0);
+    public static final EyeColor YELLOW = new EyeColor(255, 95, 10);
 
-    public static final EyeColor WHITE = new EyeColor(255, 255, 245);
+    public static final EyeColor WHITE = new EyeColor(255, 255, 205);
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
@@ -173,9 +174,11 @@ public final class Constants {
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
 
-    public static final EyeMovement EYE_MOVEMENT_1 = new EyeMovement(0.0, 0.0);
-    public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0);
-    public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0);
-    public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0);
+    // TODO: Verify that our comments are correct for both left and right eyes.
+    public static final EyeMovement EYE_MOVEMENT_1 = new EyeMovement(0.0, 0.0); // opens the eyelids and moves the pupils from the front of robot to the back
+    public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
+    public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
+    public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
+
     
 }

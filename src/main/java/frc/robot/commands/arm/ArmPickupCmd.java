@@ -28,15 +28,18 @@ public class ArmPickupCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystemObj.getArmEncoder() < (-10)) {  
-            //stow position = -10.  Stops motor if motor keeps going beyond stow position.  
-            //Keeps winch motor from continuing to pull
-            armSubsystemObj.stopArm();
-        } else { 
+        if (armSubsystemObj.getArmEncoder() < Constants.ARM_MOTOR_POSITION_PICKUP) {
+            // stow position = -10. Stops motor if motor keeps going beyond stow position.
+            // Keeps winch motor from continuing to pull
             armSubsystemObj.armPickUpPos();
+            EyeSubsystem.setDefaultColor(Constants.YELLOW);
+        } else {
+            armSubsystemObj.stopArm();
+            EyeSubsystem.setDefaultColor(Constants.YELLOW);
+            
+        }
+        System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
-    System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
-}
 
     // Called once the command ends or is interrupted.
     @Override

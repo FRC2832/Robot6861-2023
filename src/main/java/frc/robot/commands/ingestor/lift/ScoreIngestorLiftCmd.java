@@ -12,6 +12,7 @@ public class ScoreIngestorLiftCmd extends CommandBase {
 
     private IngestorLift ingestorLiftObj;
 
+
     public ScoreIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);

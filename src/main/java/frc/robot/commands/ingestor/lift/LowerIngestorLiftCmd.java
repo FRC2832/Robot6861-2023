@@ -4,13 +4,18 @@
 
 package frc.robot.commands.ingestor.lift;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
+import frc.robot.subsystems.eyes.EyeSubsystem;
+import frc.robot.Constants;
 
 public class LowerIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
+    private static Timer timer = new Timer();
+    private boolean done;
 
     public LowerIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -20,12 +25,17 @@ public class LowerIngestorLiftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+        timer.reset();
+        timer.start();
         // Zero the encoders
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         ingestorLiftObj.lowerLiftToIngest();
 
     }
@@ -42,6 +52,6 @@ public class LowerIngestorLiftCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         // Determine when the arm has fully moved
-        return false;
+        return done || timer.get() >= 3;
     }
 }

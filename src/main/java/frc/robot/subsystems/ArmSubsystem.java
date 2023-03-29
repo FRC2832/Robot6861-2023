@@ -55,13 +55,13 @@ public class ArmSubsystem extends SubsystemBase {
 	}
 
 	public void armStowPos() {
-		double position = (Math.abs(armEncoder.getPosition()));
-        double positionRealS = armEncoder.getPosition();
-        System.out.println("***********************  Arm Encoder in STOW : " + positionRealS);
+		double position = armEncoder.getPosition();
+        //double positionRealS = armEncoder.getPosition();
+        System.out.println("***********************  Arm Encoder in STOW : " + position);
 
 		// TODO: find out actual positions and change signs as necessary
 		if (position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
-			armMotor.set(-Constants.ARM_STOW_MOTOR_SPEED);
+			armMotor.set(Constants.ARM_STOW_MOTOR_SPEED);
 		} else { // TODO: Change to comparing difference between position and stowPosition.
 			armMotor.set(0.00);
 		}
@@ -73,7 +73,7 @@ public class ArmSubsystem extends SubsystemBase {
         System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
 
 		if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
-			armMotor.set(-Constants.ARM_RETRACT_MOTOR_SPEED);
+			armMotor.set(Constants.ARM_RETRACT_MOTOR_SPEED);
 		} else { // TODO: Change to comparing difference between position and retractPosition.
 			armMotor.set(0.00);
 		}
@@ -83,16 +83,16 @@ public class ArmSubsystem extends SubsystemBase {
 
     // TODO: Needs PID!
 	public void armPickUpPos() {
-		double position = (Math.abs(armEncoder.getPosition()));
-        double positionRealP = armEncoder.getPosition();
-        System.out.println("***********************  Arm Encoder in PICKUP Pos : " + positionRealP);
+		double position = armEncoder.getPosition();
+        //double positionRealP = armEncoder.getPosition();
+        System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
 
 		// TODO: find out actual positions and change signs as necessary
         
-        if (position > pickUpPosition + (pickUpPosition * 0.02)) {
-			armMotor.set(-Constants.ARM_MOTOR_SPEED);
-		} else if (position < pickUpPosition - (pickUpPosition * 0.02)) {
-            armMotor.set(Constants.ARM_MOTOR_SPEED);
+        if (position < pickUpPosition - (pickUpPosition * 0.02)) {
+			armMotor.set(Constants.ARM_MOTOR_SPEED);
+		} else if (position > pickUpPosition + (pickUpPosition * 0.02)) {
+            armMotor.set(-Constants.ARM_MOTOR_SPEED);
 		} else {
 			armMotor.set(0.00);
 		}
@@ -102,15 +102,15 @@ public class ArmSubsystem extends SubsystemBase {
 
      // TODO: Needs PID!
 	public void armScorePos() {
-		double position = (Math.abs(armEncoder.getPosition()));
-        double positionRealS = armEncoder.getPosition();
-        System.out.println("***********************  Arm Encoder in SCORE  : " + positionRealS);
+		double position = armEncoder.getPosition();
+        //double positionRealS = armEncoder.getPosition();
+        System.out.println("***********************  Arm Encoder in SCORE  : " + position);
 
 		// TODO: find out actual positions and change signs as necessary
-		if (position > scorePosition + (scorePosition * 0.04)) {
-			armMotor.set(-Constants.ARM_MOTOR_SPEED);
-		} else if (position < scorePosition + (scorePosition * 0.04) ) {
+		if (position < scorePosition + (scorePosition * 0.04)) {
 			armMotor.set(Constants.ARM_MOTOR_SPEED);
+		} else if (position > scorePosition + (scorePosition * 0.04) ) {
+			armMotor.set(-Constants.ARM_MOTOR_SPEED);
 		} else {
 			armMotor.set(0.00);
 		}

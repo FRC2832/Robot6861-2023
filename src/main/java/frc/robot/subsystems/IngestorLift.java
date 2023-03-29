@@ -20,7 +20,7 @@ public class IngestorLift extends SubsystemBase {
 
     private CANSparkMax ingestorLiftMotor;
     private SparkMaxPIDController liftPIDController;
-    private RelativeEncoder liftEncoder;
+    public RelativeEncoder liftEncoder;
     private double goalPosition;
     private static final double topPosition = 0.0;
     private static final double shootingPosition = -5.0;
@@ -133,7 +133,7 @@ public class IngestorLift extends SubsystemBase {
         // then zero the encoder and
         // set the goal position to the shooting position
         double positionReal = liftEncoder.getPosition();
-        goalPosition = shootingPosition;
+        goalPosition = Constants.INGESTOR_SCORE_POSITION;
 
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
@@ -143,14 +143,14 @@ public class IngestorLift extends SubsystemBase {
         // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
         if (positionReal > goalPosition) {
             ingestorLiftMotor.set(-0.1);
-            // System.out.println(position);
+            System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
             isAtScoring = false;
         } else if (positionReal < -20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
             ingestorLiftMotor.set(0.3); //change back 0.7,  increase speed to raise lift for faster operation
             System.out.println("We are moving to the scoring position. Position: " + positionReal);
         } else {
             ingestorLiftMotor.set(0.0);
-            // System.out.println("" + position);
+            System.out.println(" Lift is at scoring" + positionReal);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
             isAtScoring = true;
         }

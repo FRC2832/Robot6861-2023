@@ -46,12 +46,9 @@ public class IntakeCubeCmd extends CommandBase {
         System.out.println("--------   IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
-        if (ingestorIntakeObj.isCubeInIngestor()) {
-            eyeballobj.setEyesToDefault();
-        } else {
-            EyeSubsystem.setDefaultColor(Constants.WHITE);
-            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
-            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        eyeballobj.setEyesToDefault();
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
         }
 
         /*if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
@@ -71,19 +68,15 @@ public class IntakeCubeCmd extends CommandBase {
         } else {
             ingestorIntakeObj.stop();
         }*/
-    }
    
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
-        if (!ingestorIntakeObj.isCubeInIngestor()) {
-            EyeSubsystem.setDefaultColor(Constants.WHITE);
-            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
-            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
-            
-        }
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         //intakeTimer.stop();
     }
 

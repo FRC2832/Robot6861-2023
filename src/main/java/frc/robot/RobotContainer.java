@@ -45,6 +45,7 @@ import frc.robot.commands.drive.DriveCartesian;
 import frc.robot.commands.ingestor.lift.ExpelIngestorLiftCmd;
 import frc.robot.commands.ingestor.lift.LowerIngestorLiftCmd;
 import frc.robot.commands.ingestor.lift.RaiseIngestorLiftCmd;
+import frc.robot.commands.ingestor.lift.ScoreIngestorLiftCmd;
 import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.BrakeSubsystem;
 import frc.robot.subsystems.ClawSubsystem;
@@ -227,28 +228,28 @@ public class RobotContainer {
 		 * gamePieceScoopObj.servoOffCmd());
 		 */
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
+				new ScoreIngestorLiftCmd(ingestorLiftObj),
+                ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
 						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
 				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
+                new ScoreIngestorLiftCmd(ingestorLiftObj),
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
 				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
-				ingestorIntakeObj.revOutIngestorIntakeNew(Constants.INGESTOR_EXPEL_SPEED_LOW, Constants.INGESTOR_EXPEL_SPEED_LOW),
+				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
 				gamePieceScoopObj.servoOnCmd());
-				// eyeballObj.setColor(Constants.WHITE));
 
 		ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
 				new LowerIngestorLiftCmd(ingestorLiftObj),
-				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj, eyeballObj));  //,
-				//eyeballObj.setColor(Constants.PURPLE));
+				new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj, eyeballObj));
 
 		SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
-				// Constants.WHITE;
+				// eyeballObj.setColor(Constants.WHITE), 
 				new ExpelIngestorLiftCmd(ingestorLiftObj), 
                 shootCubeLower);
 

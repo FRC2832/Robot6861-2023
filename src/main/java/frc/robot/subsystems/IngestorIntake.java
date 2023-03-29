@@ -59,21 +59,27 @@ public class IngestorIntake extends SubsystemBase {
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    if (isCubeInIngestor()) {
-                        timer.start();
+                   
                         revOut(speed, speed);
-                        System.out.println("*** Revoutingestorintake ***");
-                        
-                    } else if (timer.get() > 5 && !isCubeInIngestor()) { 
-                        revOut(0.0, 0.0);
-                        timer.stop();
-                        timer.reset();
-                        System.out.println("*** Stopping Revoutingestorintake ***");
-                    } 
-                }          
+                    });
+                         
                     //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
-            );
+        
         }
+
+
+        //old revoutingestorintake
+        /*if (isCubeInIngestor()) {
+            timer.start();
+            revOut(speed, speed);
+            System.out.println("*** Revoutingestorintake ***");
+            
+        } else if (timer.get() > 5 && !isCubeInIngestor()) { 
+            revOut(0.0, 0.0);
+            timer.stop();
+            timer.reset();
+            System.out.println("*** Stopping Revoutingestorintake ***");
+        } */
 
     public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
     // Inline construction of command goes here.

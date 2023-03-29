@@ -47,13 +47,13 @@ public class LowerBrakeCmd extends CommandBase {
         if (brakeSubsystemObj.getBrakeEncoder() < (Constants.BRAKE_ON_FLOOR)) {
             brakeSubsystemObj.stopBrakes();
             eyeballobj.setEyesToDefault();
-            System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
+            //System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
 
         } else { // Moves the brake drops down
             brakeSubsystemObj.lowerBrakes();
             brakeSubsystemObj.getBrakeEncoder();
             eyeballobj.setEyesToDefault();
-            System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
+            //System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
             // System.out.println("*********************** Brake Encoder: " +
             // brakeSubsystemObj.getBrakeEncoder());
         } 

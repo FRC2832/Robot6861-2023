@@ -6,7 +6,11 @@ package frc.robot.commands.ingestor.lift;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
+import frc.robot.subsystems.eyes.EyeMovement;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class ExpelIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
@@ -33,7 +37,12 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        
         done = ingestorLiftObj.lowerLiftToExpel();
+
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         // Move the lift to the shooting position
         
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());

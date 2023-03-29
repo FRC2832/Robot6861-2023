@@ -63,6 +63,14 @@ public class BalancePIDCmd extends CommandBase {
             drivePower = 0.0;
         }
 
+        if (drivePower < 0.0) {
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        } else if (drivePower > 0.0) {
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        }
+
 
         // drive forward at drivePower (the negative is becuase of inversions)
         drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
