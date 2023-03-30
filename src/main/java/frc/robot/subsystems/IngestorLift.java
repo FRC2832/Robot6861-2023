@@ -60,14 +60,14 @@ public class IngestorLift extends SubsystemBase {
         // liftPIDController.setReference(goalPosition, ControlType.kPosition);
         if (positionReal > 15 || positionReal < -170) {
             ingestorLiftMotor.set(0.0);
-            System.out.println("********** ingestor position is " + positionReal);
-            System.out.println("**********  WARNING!!!  Ingestor needs resetting. Power off and reset ingestor lift to top");
+            //System.out.println("********** ingestor position is " + positionReal);
+            //System.out.println("**********  WARNING!!!  Ingestor needs resetting. Power off and reset ingestor lift to top");
         } else if (positionReal > -10) {
             ingestorLiftMotor.set(slowerIngestorMotorSpeed);
-            System.out.println("*** Ingestor is raising slower ***");
+            //System.out.println("*** Ingestor is raising slower ***");
         } else {
             ingestorLiftMotor.set(ingestorMotorSpeed);
-            System.out.println("********** ingestor position is raising " + positionReal);
+            //System.out.println("********** ingestor position is raising " + positionReal);
         }
         
 
@@ -84,7 +84,7 @@ public class IngestorLift extends SubsystemBase {
         // number than the top position and the bottom position is not zero
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
-            System.out.println("********** ingestor is lowering to " + position);
+            //System.out.println("********** ingestor is lowering to " + position);
             ingestorLiftMotor.set(-0.9); //change back to 0.9
             // isHomed = false;
         } else {
@@ -112,7 +112,7 @@ public class IngestorLift extends SubsystemBase {
         // TODO: check that the if statement is accurate for this encoder
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
             ingestorLiftMotor.set(-0.9); //change back to -.9
-            System.out.println("********** ingestor is lowering to expel" + position);
+            //System.out.println("********** ingestor is lowering to expel" + position);
             flag = false;
             // isHomed = false;
         } else {
@@ -143,14 +143,14 @@ public class IngestorLift extends SubsystemBase {
         // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
         if (positionReal < goalPosition) {
             ingestorLiftMotor.set(-0.1);
-            System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
+            //System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
             isAtScoring = false;
         } else if (positionReal < -20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
             ingestorLiftMotor.set(0.1); //change back 0.7,  increase speed to raise lift for faster operation
-            System.out.println("We are moving to the scoring position. Position: " + positionReal);
+            //System.out.println("We are moving to the scoring position. Position: " + positionReal);
         } else {
             ingestorLiftMotor.set(0.0);
-            System.out.println(" Lift is at scoring" + positionReal);
+            //System.out.println(" Lift is at scoring" + positionReal);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
             isAtScoring = true;
         }
@@ -182,7 +182,7 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public boolean isAtTop() {
-        System.out.println("isAtTop - limit switch is " + ingestorLimitInput.get());
+        //System.out.println("isAtTop - limit switch is " + ingestorLimitInput.get());
         ingestorLiftMotor.set(0.0);
         return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 3.0;
         // during Jackson comp, limit switch broke so we aded this OR for added

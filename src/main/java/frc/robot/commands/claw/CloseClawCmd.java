@@ -28,7 +28,7 @@ public class CloseClawCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        System.out.println("***********************  Claw timer: " + TIMER.get());
+        //System.out.println("***********************  Claw timer: " + TIMER.get());
         if (TIMER.get() >= 1.0) { // TODO: Figure out seconds to wait when closng
             clawSubsystemObj.stopClaw();
         } else {

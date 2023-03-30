@@ -38,7 +38,7 @@ public class ArmStowCmd extends CommandBase {
             armSubsystemObj.armStowPos();
 
             //armSubsystemObj.getArmEncoder();
-            System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+            //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
 
 
     }

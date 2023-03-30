@@ -151,7 +151,7 @@ public class RobotContainer {
 			autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
             autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
 			if (DriverStation.getAlliance().equals(Alliance.Red)) {
-				System.out.println("Found red alliance");
+				//System.out.println("Found red alliance");
 				// autonChooser.addOption("RED Default Substation Auton",
 				// defaultSubstationAuton);
 				autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);
@@ -159,7 +159,7 @@ public class RobotContainer {
 				autonChooser.addOption("RED Cable Cross Auton", redCableCrossAutoCmd);
 				autonChooser.addOption("RED Cable Engage Auton", redCableEngageAutoCmd);
 			} else if (DriverStation.getAlliance().equals(Alliance.Blue)) {
-				System.out.println("Found blue alliance");
+				//System.out.println("Found blue alliance");
 				// autonChooser.addOption("BLUE Default Substation Auton",
 				// blueDefaultSubstationAutoCmd);
 				autonChooser.addOption("BLUE Substation Cross Auton", blueSubstationCrossAutoCmd);
@@ -167,7 +167,7 @@ public class RobotContainer {
 				autonChooser.addOption("BLUE Cable Cross Auton", blueCableCrossAutoCmd);
 				autonChooser.addOption("BLUE Cable Engage Auton", blueCableEngageAutoCmd);
 			} else {
-				System.out.println("No alliance");
+				//System.out.println("No alliance");
 				// autonChooser.addOption("RED Default Substation Auton",
 				// defaultSubstationAuton);
 				autonChooser.addOption("RED Substation Cross Auton", redSubstationCrossAutoCmd);

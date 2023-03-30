@@ -34,7 +34,7 @@ public class DriveBackCmd extends CommandBase {
         
         drivetrainObj.resetEncoders();
         startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
-        System.out.println(" ******* Starting encoder position " + startEncoderPos);
+        //System.out.println(" ******* Starting encoder position " + startEncoderPos);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -44,7 +44,7 @@ public class DriveBackCmd extends CommandBase {
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
 
         drivetrainObj.mecanumDriveCartesian(0.0, driveSpeed, 0.0);
-        System.out.println(" ********** Current drivetrain encoder position " + drivetrainObj.getEncoderDistance());
+        //System.out.println(" ********** Current drivetrain encoder position " + drivetrainObj.getEncoderDistance());
         // drive back drives forward in Auton only. So inverting driveSpeed 
         // to positive as temporary fix.  
     }
@@ -58,7 +58,7 @@ public class DriveBackCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        System.out.println(" ********** Current drivetrain calculated position " + (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
+        //System.out.println(" ********** Current drivetrain calculated position " + (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
         return ((Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches);
     }
 }

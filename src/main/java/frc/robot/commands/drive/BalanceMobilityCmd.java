@@ -52,7 +52,7 @@ public class BalanceMobilityCmd extends CommandBase {
 
 
         angle = drivetrainObj.getPitch();
-        System.out.println("angle: " + angle);
+        //System.out.println("angle: " + angle);
        
 
 
@@ -60,7 +60,7 @@ public class BalanceMobilityCmd extends CommandBase {
             kp = 0.006;        // competition charge station value = 0.0055, frost was 0.07
         } else {
             kp = 0.012;
-            System.out.println("   going back up !!!!!!!  ");
+            //System.out.println("   going back up !!!!!!!  ");
         }
         
         

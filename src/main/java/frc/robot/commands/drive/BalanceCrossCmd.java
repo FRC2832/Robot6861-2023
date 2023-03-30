@@ -37,35 +37,35 @@ public class BalanceCrossCmd extends CommandBase {
         angle = drivetrainObj.getPitch();
         isClimbingUp = true;
         isOnGround = false;
-        System.out.println("angle: " + angle);
+        //System.out.println("angle: " + angle);
         
 
         if (isClimbingUp = true) {
             if (Math.abs(angle) > 5.0) {
                 kp = 0.012;  //climbing up backwards
-                System.out.println("                                                climbing up :) ");
+                //System.out.println("                                                climbing up :) ");
             }
             } else {
                 kp = 0.008; // on flat part of charge station
                 isClimbingUp = false;
-                System.out.println("                                                On top of the World :0 ");
+                //System.out.println("                                                On top of the World :0 ");
             }
 
             if (isClimbingUp = false) {
                 if (Math.abs(angle) < 14 && Math.abs(angle) > 3.0) {
                     kp = 0.004;  //going down backwards
-                    System.out.println("                                                wheeeeeee - going downnnnnnnnn  ");
+                    //System.out.println("                                                wheeeeeee - going downnnnnnnnn  ");
                 }
                 } else {
                     kp = 0.001; // on ground.  may not need any power, momentum may be enough
                     isOnGround = true;
-                    System.out.println("                                                all done, ready to go back up!");
+                    //System.out.println("                                                all done, ready to go back up!");
                 }
         
         
 
         drivePower = kp * angle;
-        System.out.println("                                               drivepower = " + drivePower);
+        //System.out.println("                                               drivepower = " + drivePower);
         if (Math.abs(drivePower) > 0.4) {
             drivePower = Math.copySign(0.4, drivePower);
         }

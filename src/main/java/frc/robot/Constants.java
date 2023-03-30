@@ -153,7 +153,7 @@ public final class Constants {
     public static final double AUTON_SPEED = 0.4;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
     public static final double SUBSTATION_AUTON_STRAFE = 30.0;
-    public static final double CABLE_AUTON_DRIVE_BACK = 89.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 95.0;
     public static final double COOP_AUTON_DRIVE_BACK = 72.0;
     public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;

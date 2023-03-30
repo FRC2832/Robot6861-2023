@@ -43,7 +43,7 @@ public class IntakeCubeCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        System.out.println("--------   IntakeCubeCmd: execute --------------");
+        //System.out.println("--------   IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
         eyeballobj.setEyesToDefault();

@@ -6,7 +6,7 @@ package frc.robot.commands.autons.red;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.ScoreCubeAuton;
+import frc.robot.commands.ScoreCubeTeleop;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.drive.DriveFwdCmd;
@@ -19,7 +19,7 @@ public class RedCableEngageAuton extends SequentialCommandGroup {
 
     public RedCableEngageAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         addCommands(
-            new ScoreCubeAuton(ingestorIntake, gamePieceScoop), 
+            new ScoreCubeTeleop(ingestorIntake, gamePieceScoop), 
             new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
             new StrafeLeftCmd(drivetrainObj, Constants.AUTON_BALANCING_STRAFE, Constants.AUTON_SPEED),
             new DriveFwdCmd(drivetrainObj, Constants.AUTON_BALANCING_DRIVE_FORWARD, Constants.AUTON_SPEED + 0.1),

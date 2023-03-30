@@ -41,17 +41,18 @@ public class BalancePIDCmd extends CommandBase {
         // pids work by multiplying the error from the desired position
         // by the proportional factor, in this case kp.
         angle = drivetrainObj.getPitch();
-        System.out.println("angle: " + angle);
+        //System.out.println("angle: " + angle);
         if (Math.abs(angle) < 7.0) {
             isDriverControlled = false;
         }
 
         if (isDriverControlled) {
-            kp = 0.026; // competition charge station value = 0.022, frost was 0.028
+            kp = 0.022; // competition charge station value = 0.022, frost was 0.026
         } else if (Math.abs(angle) < 5.0) {
-            kp = 0.006; // competition charge station value = 0.0055, frost was 0.07
+            kp = 0.0055; // competition charge station value = 0.0055, frost was 0.0055
         } else {
-            kp = 0.012; // competition charge station value = 0.011 (may need to lower this on churchill practice field), frost was 0.14
+            kp = 0.011; // competition charge station value = 0.011 
+            //(may need to lower this on churchill practice field), frost was 0.12
         }
 
         drivePower = kp * angle;

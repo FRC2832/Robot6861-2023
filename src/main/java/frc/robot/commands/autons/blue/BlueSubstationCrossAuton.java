@@ -27,8 +27,7 @@ public class BlueSubstationCrossAuton extends SequentialCommandGroup {
             //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
         
             new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-            new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED),
-            new TurnToCubeCmd(drivetrainObj, 50, .2)
+            new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
         );
     }
 }

@@ -47,8 +47,8 @@ public class ScoreCubeAuton extends CommandBase {
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
         if (timer.get() >= 1.0) {   // allow time for rollers to get up to speed
-           System.out.println(" ------   Commanding Servos on   -------");
-            gamePieceScoopObj.servoOnAutonCmd();
+           //System.out.println(" ------   Commanding Servos on   -------");
+            gamePieceScoopObj.servoOnAuton();
         }
     }
   

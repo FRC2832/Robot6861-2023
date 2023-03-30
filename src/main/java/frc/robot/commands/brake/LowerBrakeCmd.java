@@ -60,16 +60,16 @@ public class LowerBrakeCmd extends CommandBase {
         
         if (DrivetrainObj.getPitch() < -4) {       // if robot tipping forward, drive brake wheel back
             brakeSubsystemObj.driveBrakeMotorBack();
-            System.out.println("*******  drive brake motor backwards");
+            //System.out.println("*******  drive brake motor backwards");
     
         } else if (DrivetrainObj.getPitch() > 4) {  // if robot tipping backward, drive brake wheel forward
             brakeSubsystemObj.driveBrakeMotor();
-            System.out.println("*******  drive brake motor forward");
+            //System.out.println("*******  drive brake motor forward");
             
         } else {    //|| DrivetrainObj.getPitch() < 1.5)  Need a       Level on charging station, no rolling of wheel needed
             // Stops moving the brake wheels but doesn't raise it up
             brakeSubsystemObj.stopDriveBrakeMotor();  
-            System.out.println("*******  drive brake motor stopped");
+            //System.out.println("*******  drive brake motor stopped");
             
          }
       }
