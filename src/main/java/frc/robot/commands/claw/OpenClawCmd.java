@@ -29,15 +29,13 @@ public class OpenClawCmd extends CommandBase {
     @Override
     public void execute() {
         System.out.println("***********************  Claw timer: " + TIMER.get());
-        clawSubsystemObj.openClaw();
+        // clawSubsystemObj.openClaw();
 
-        /*if (TIMER.get() >= .75) { // TODO: Figure out time it takes to open
+        if (TIMER.get() >= .75) { 
             clawSubsystemObj.stopClaw();
         } else {
             clawSubsystemObj.openClaw();
-        }*/
-
-        //TODO: add a timer reset somewhere
+        }
     }
 
     // Called once the command ends or is interrupted.

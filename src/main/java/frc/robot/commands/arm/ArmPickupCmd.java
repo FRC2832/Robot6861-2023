@@ -38,7 +38,7 @@ public class ArmPickupCmd extends CommandBase {
             EyeSubsystem.setDefaultColor(Constants.YELLOW);
             
         }
-        System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+        //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
 
     // Called once the command ends or is interrupted.

@@ -39,7 +39,7 @@ public class ScoreCubeAuton extends CommandBase {
     @Override
     public void execute() {
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
 
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);

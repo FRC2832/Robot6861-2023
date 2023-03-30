@@ -85,8 +85,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         EyeSubsystem.setDefaultColor(Constants.WHITE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         //EyeSubsystem.setLeftEyelid(1);
         selectedAutonCommand = robotContainerObj.getAutonomousCommand();
         // schedule the autonomous command (example)

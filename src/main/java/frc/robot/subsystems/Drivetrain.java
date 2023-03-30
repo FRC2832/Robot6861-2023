@@ -157,10 +157,10 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getEncoderDistance() {
+        System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
         return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
         //added 0.634 offset because robot is consistently off when commanding a distance
     }
-
     public void resetEncoders() {
         leftFrontEncoderObj.setPosition(0);
         rightFrontEncoderObj.setPosition(0);

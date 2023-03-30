@@ -27,7 +27,7 @@ public class BalancePIDCmd extends CommandBase {
 
     // Called when the command is initially scheduled.
     @Override
-    public void initialize() { 
+    public void initialize() {
         if (DriverStation.getAlliance() == Alliance.Blue) {
             EyeSubsystem.setDefaultColor(Constants.BLUE);
         } else {
@@ -38,20 +38,20 @@ public class BalancePIDCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // pids work by multiplying the error from the desired position 
+        // pids work by multiplying the error from the desired position
         // by the proportional factor, in this case kp.
         angle = drivetrainObj.getPitch();
         System.out.println("angle: " + angle);
         if (Math.abs(angle) < 7.0) {
             isDriverControlled = false;
         }
-        
+
         if (isDriverControlled) {
-            kp = 0.028; // competition charge station value = 0.022
+            kp = 0.026; // competition charge station value = 0.022, frost was 0.028
         } else if (Math.abs(angle) < 5.0) {
-            kp = 0.007; // competition charge station value = 0.0055
+            kp = 0.006; // competition charge station value = 0.0055, frost was 0.07
         } else {
-            kp = 0.014; // competition charge station value = 0.011
+            kp = 0.012; // competition charge station value = 0.011 (may need to lower this on churchill practice field), frost was 0.14
         }
 
         drivePower = kp * angle;
@@ -64,13 +64,12 @@ public class BalancePIDCmd extends CommandBase {
         }
 
         if (drivePower < 0.0) {
-            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         } else if (drivePower > 0.0) {
-            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         }
-
 
         // drive forward at drivePower (the negative is becuase of inversions)
         drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
@@ -81,6 +80,8 @@ public class BalancePIDCmd extends CommandBase {
     public void end(boolean interrupted) {
         drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
         EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
     }
 
     // Returns true when the command should end.

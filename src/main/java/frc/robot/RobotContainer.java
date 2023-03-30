@@ -26,6 +26,7 @@ import frc.robot.commands.arm.ArmRetractCmd;
 import frc.robot.commands.arm.ArmScoreCmd;
 import frc.robot.commands.arm.ArmStowCmd;
 import frc.robot.commands.autons.CoopBalanceAuton;
+import frc.robot.commands.autons.CoopMobilityAuton;
 import frc.robot.commands.autons.blue.BlueCableCrossAuton;
 import frc.robot.commands.autons.blue.BlueCableEngageAuton;
 import frc.robot.commands.autons.blue.BlueDefaultCableAuton;
@@ -109,6 +110,8 @@ public class RobotContainer {
 	private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
 	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
+			drivetrainObj, clawObj);
+    private final Command coopMobilityAutoCmd = new CoopMobilityAuton(ingestorIntakeObj, gamePieceScoopObj,
 			drivetrainObj);
 
 	private final SendableChooser<Command> autonChooser = new SendableChooser<>();
@@ -146,6 +149,7 @@ public class RobotContainer {
 
 		if (!Constants.INGESTOR_FAIL_STATUS) {
 			autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
+            autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
 			if (DriverStation.getAlliance().equals(Alliance.Red)) {
 				System.out.println("Found red alliance");
 				// autonChooser.addOption("RED Default Substation Auton",

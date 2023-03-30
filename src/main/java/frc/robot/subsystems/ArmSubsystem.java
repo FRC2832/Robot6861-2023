@@ -52,21 +52,25 @@ public class ArmSubsystem extends SubsystemBase {
          // and sends it to a motor
 
         //armMotor.set(pid.calculate(armEncoder.getDistance(), setpoint));
-	}
+
+    }
+
 
 	public void armStowPos() {
 		double position = armEncoder.getPosition();
         //double positionRealS = armEncoder.getPosition();
         System.out.println("***********************  Arm Encoder in STOW : " + position);
 
-		// TODO: find out actual positions and change signs as necessary
-		if (position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
-			armMotor.set(Constants.ARM_STOW_MOTOR_SPEED);
-		} else { // TODO: Change to comparing difference between position and stowPosition.
-			armMotor.set(0.00);
-		}
-		armMotor.setIdleMode(IdleMode.kBrake);
-	}
+		if (position < 10 && position > -10) {
+            armMotor.set(0.00);
+            armMotor.setIdleMode(IdleMode.kBrake);
+            
+        } else //position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
+			armMotor.set(Constants.ARM_STOW_MOTOR_SPEED);   // moving arm in
+
+	    //} //else if (position < -10) {
+			//armMotor.set(-Constants.ARM_STOW_MOTOR_SPEED);  // move arm out
+    }
 
 	public void armRetractPos() {
 		double position = armEncoder.getPosition();
@@ -89,9 +93,9 @@ public class ArmSubsystem extends SubsystemBase {
 
 		// TODO: find out actual positions and change signs as necessary
         
-        if (position < pickUpPosition - (pickUpPosition * 0.02)) {
+        if (position < pickUpPosition - (pickUpPosition * 0.02)) {  // arm moving out to cone
 			armMotor.set(Constants.ARM_MOTOR_SPEED);
-		} else if (position > pickUpPosition + (pickUpPosition * 0.02)) {
+		} else if (position > pickUpPosition + (pickUpPosition * 0.02)) {  //arm went past cone
             armMotor.set(-Constants.ARM_MOTOR_SPEED);
 		} else {
 			armMotor.set(0.00);

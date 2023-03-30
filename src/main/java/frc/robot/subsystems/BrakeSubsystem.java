@@ -27,7 +27,7 @@ public class BrakeSubsystem extends SubsystemBase {
 
          // driven wheel in brake wheel - helps steady us on charge station in endgame
          brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
-         System.out.println(" >>>>>    BrakeSubsystem constructor called    <<<<<<<<");
+         //System.out.println(" >>>>>    BrakeSubsystem constructor called    <<<<<<<<");
 
 
         brakeWheelBrakeMode();

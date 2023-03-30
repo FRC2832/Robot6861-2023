@@ -141,12 +141,12 @@ public class IngestorLift extends SubsystemBase {
         // TODO: check that the if statement is accurate for this encoder
         // if (position > goalPosition + (Math.abs(goalPosition) * 0.02)
         // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
-        if (positionReal > goalPosition) {
+        if (positionReal < goalPosition) {
             ingestorLiftMotor.set(-0.1);
             System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
             isAtScoring = false;
         } else if (positionReal < -20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
-            ingestorLiftMotor.set(0.3); //change back 0.7,  increase speed to raise lift for faster operation
+            ingestorLiftMotor.set(0.1); //change back 0.7,  increase speed to raise lift for faster operation
             System.out.println("We are moving to the scoring position. Position: " + positionReal);
         } else {
             ingestorLiftMotor.set(0.0);

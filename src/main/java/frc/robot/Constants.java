@@ -74,7 +74,7 @@ public final class Constants {
     public static final int DRIVE_BRAKE_MOTOR_ID = 15;  
 
     // Claw and Brake Motor Speeds
-    public static final double CLAW_OPEN_SPEED = 0.50; // TODO: Test and adjust these values
+    public static final double CLAW_OPEN_SPEED = 0.50; 
     public static final double CLAW_CLOSE_SPEED = -0.95;
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
@@ -102,10 +102,9 @@ public final class Constants {
     public static final double ARM_RETRACT_MOTOR_SPEED = -0.1;
 
     // Arm Motor Positions
-    // TODO: Find actual motor positions for each of these
-    public static final double ARM_MOTOR_POSITION_PICKUP = 95;
-    public static final double ARM_MOTOR_POSITION_STOW = -5;
-    public static final double ARM_MOTOR_POSITION_SCORE = 200;
+    public static final double ARM_MOTOR_POSITION_PICKUP = 140;
+    public static final double ARM_MOTOR_POSITION_STOW = 0;
+    public static final double ARM_MOTOR_POSITION_SCORE = 250;
     public static final double ARM_MOTOR_POSITION_RETRACT = -1000;
 
     // For running LED lights
@@ -118,13 +117,12 @@ public final class Constants {
     //public static final int GAME_PIECE_SCOOP_SERVO_L = 6;
 
     // Pupil/Eyelid Servo IDs
-    // TODO: confirm port with actual number on robot
     public static final int LEFT_EYELID_SERVO = 5; // Was 04
     public static final int LEFT_PUPIL_SERVO = 4; // Was 3
     public static final int RIGHT_EYELID_SERVO = 3; 
     public static final int RIGHT_PUPIL_SERVO = 2; 
 
-    // TODO: set this to the actual camera name
+    //Cameras
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
     public static final String ARM_CAM_NAME = "Microsoft_LifeCam_HD-3000";
 
@@ -147,7 +145,7 @@ public final class Constants {
     // Ingestor Encoder positions
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 75.0;
-    public static final double INGESTOR_SCORE_POSITION = 15.0;
+    public static final double INGESTOR_SCORE_POSITION = 5.0;
     public static final double INGESTOR_TOP_POSITION = -5.0;
     public static final boolean INGESTOR_FAIL_STATUS = false;
 
@@ -155,30 +153,35 @@ public final class Constants {
     public static final double AUTON_SPEED = 0.4;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
     public static final double SUBSTATION_AUTON_STRAFE = 30.0;
-    public static final double CABLE_AUTON_DRIVE_BACK = 150.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 89.0;
     public static final double COOP_AUTON_DRIVE_BACK = 72.0;
     public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
+    public static final double COOP_MOBILITY_DRIVE_FWD = 40;
+    public static final double COOP_MOBILITY_DRIVE_BACK = 120;
+    public static final double MOBILITY_SPEED = 0.5;
    
     
     // RGB VALUES FOR LED
-    public static final EyeColor PURPLE = new EyeColor(130, 26, 116); //130. 26, 116 //0 is temporary for testing
+    public static final EyeColor PURPLE = new EyeColor(130, 26, 90); //130. 26, 116 //0 is temporary for testing
     
     public static final EyeColor YELLOW = new EyeColor(255, 95, 10);
 
-    public static final EyeColor WHITE = new EyeColor(255, 255, 205);
+    public static final EyeColor WHITE = new EyeColor(255, 255, 195);
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
-    public static final EyeColor BLUE = new EyeColor(0, 35, 255);
+    public static final EyeColor BLUE = new EyeColor(30,105,255);
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
 
     // TODO: Verify that our comments are correct for both left and right eyes.
-    public static final EyeMovement EYE_MOVEMENT_1 = new EyeMovement(0.0, 0.0); // opens the eyelids and moves the pupils from the front of robot to the back
+    public static final EyeMovement EYE_MOVEMENT_1 = new EyeMovement(0.0, 0.0); // opens the right eyelid, closes the left eyelid, and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
+    
+   
 
     
 }

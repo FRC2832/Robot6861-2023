@@ -34,7 +34,7 @@ public class LowerIngestorLiftCmd extends CommandBase {
     @Override
     public void execute() {
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); // TODO: Change this. Eye closes.
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         ingestorLiftObj.lowerLiftToIngest();
 

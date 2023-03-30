@@ -40,7 +40,7 @@ public class IngestorIntake extends SubsystemBase {
     public void revIn() {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
-        System.out.println("++++++++    revIn() called    ++++++++");
+        //System.out.println("++++++++    revIn() called    ++++++++");
     }
 /*
     public void revOut(double speed) {
@@ -51,7 +51,7 @@ public class IngestorIntake extends SubsystemBase {
     public void revOut(double speedTop, double speedBottom) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
-        System.out.println("ooooooo    revOUt(2 speeds) called    ooooooo");
+        //System.out.println("ooooooo    revOUt(2 speeds) called    ooooooo");
     }
     
     public CommandBase revOutIngestorIntake(double speed) {
@@ -87,7 +87,7 @@ public class IngestorIntake extends SubsystemBase {
     return run(
             () -> {
                 revOut(speedTop, speedBottom);
-                System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
+                //System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
 
             });
     }
@@ -97,22 +97,23 @@ public class IngestorIntake extends SubsystemBase {
         return run(
                 () -> {
                     revIn();
-                    System.out.println("***********************  revInIngestorintake: ");
+                    //System.out.println("***********************  revInIngestorintake: ");
                 });
     }
 
     public boolean getIngestorBeamBreakValue() {
-        System.out.println("*** Beam sensor " + ingestorBeamBreak.get());
+        //System.out.println("*** Beam sensor " + ingestorBeamBreak.get());
         // True is NO gamepieces, False is gamepieces
         return ingestorBeamBreak.get();
     }
 
     public boolean isCubeInIngestor() {
-        System.out.println("*** Cube in ingestor " + !ingestorBeamBreak.get());
+        //System.out.println("*** Cube in ingestor " + !ingestorBeamBreak.get());
         return !ingestorBeamBreak.get();
     }
 
-    public CommandBase ingestorBeamBreakCmd() {
+    public CommandBase ingestorBeamBreakCmd() {  // not using beam sensor - it's values read 
+        //by Rio are inconsistent, even though the red LED is stabe
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(

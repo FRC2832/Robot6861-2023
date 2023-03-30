@@ -26,7 +26,7 @@ public class ArmRetractCmd extends CommandBase {
     public void execute() {
         armSubsystemObj.armRetractPos();
         //armSubsystemObj.getArmEncoder();
-        System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+        //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
 
     // Called once the command ends or is interrupted.

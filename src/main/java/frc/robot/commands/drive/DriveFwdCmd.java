@@ -14,15 +14,12 @@ public class DriveFwdCmd extends CommandBase {
     private double driveSpeed;
     private double driveDistanceInches;
     private double startEncoderPos;
-    private boolean isRedAlliance;
-
-
+    
 
     public DriveFwdCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
         this.driveDistanceInches = driveDistanceInches; 
         this.driveSpeed = Math.abs(driveSpeed);
-        // this.isRedAlliance = isRedAlliance;
         addRequirements(drivetrainObj);
     }
 

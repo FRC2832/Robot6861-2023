@@ -74,6 +74,6 @@ public class ScoreCubeTeleop extends CommandBase {
         // use timer for now
         // keep timer in as OR so if servos fail to eject cube, 
 
-        return timer.get() >= 3.5;
+        return timer.get() >= 2.5;
     }
 }
