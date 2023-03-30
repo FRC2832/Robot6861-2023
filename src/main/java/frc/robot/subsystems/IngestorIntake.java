@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,46 +19,106 @@ public class IngestorIntake extends SubsystemBase {
     private TalonSRX ingestorIntakeTopTalon;
     private TalonSRX ingestorIntakeBottomTalon;
     private DigitalInput ingestorBeamBreak;
-
-    // TODO: Confirm the motor controller type
-
-    public boolean getIngestorBeamBreakValue() {
-        return ingestorBeamBreak.get();
-    }
+    private static Timer timer = new Timer();
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
-        // Create a motorcontroller group?
+
+        /* Code for Talon SRX for intake current limiting
+        ingestorIntakeTopTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
+        ingestorIntakeBottomTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
+        ingestorIntakeTopTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+        ingestorIntakeBottomTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
+        ingestorIntakeTopTalon.enableCurrentLimit(true);
+        ingestorIntakeBottomTalon.enableCurrentLimit(true);
+        */
     }
 
     public void revIn() {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
+        //System.out.println("++++++++    revIn() called    ++++++++");
     }
-
+/*
     public void revOut(double speed) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speed);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speed);
     }
-
+*/
+    public void revOut(double speedTop, double speedBottom) {
+        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
+        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
+        //System.out.println("ooooooo    revOUt(2 speeds) called    ooooooo");
+    }
+    
     public CommandBase revOutIngestorIntake(double speed) {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
-                    revOut(speed);
-                });
-    }
+                   
+                        revOut(speed, speed);
+                    });
+                         
+                    //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
+        
+        }
 
+
+        //old revoutingestorintake
+        /*if (isCubeInIngestor()) {
+            timer.start();
+            revOut(speed, speed);
+            System.out.println("*** Revoutingestorintake ***");
+            
+        } else if (timer.get() > 5 && !isCubeInIngestor()) { 
+            revOut(0.0, 0.0);
+            timer.stop();
+            timer.reset();
+            System.out.println("*** Stopping Revoutingestorintake ***");
+        } */
+
+    public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
+    // Inline construction of command goes here.
+    // Subsystem::RunOnce implicitly requires `this` subsystem.
+    return run(
+            () -> {
+                revOut(speedTop, speedBottom);
+                //System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
+
+            });
+    }
     public CommandBase revInIngestorIntake() {
         // Inline construction of command goes here.
         // Subsystem::RunOnce implicitly requires `this` subsystem.
         return run(
                 () -> {
                     revIn();
+                    //System.out.println("***********************  revInIngestorintake: ");
+                });
+    }
+
+    public boolean getIngestorBeamBreakValue() {
+        //System.out.println("*** Beam sensor " + ingestorBeamBreak.get());
+        // True is NO gamepieces, False is gamepieces
+        return ingestorBeamBreak.get();
+    }
+
+    public boolean isCubeInIngestor() {
+        //System.out.println("*** Cube in ingestor " + !ingestorBeamBreak.get());
+        return !ingestorBeamBreak.get();
+    }
+
+    public CommandBase ingestorBeamBreakCmd() {  // not using beam sensor - it's values read 
+        //by Rio are inconsistent, even though the red LED is stabe
+        // Inline construction of command goes here.
+        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        return run(
+                () -> {
+                    getIngestorBeamBreakValue();
                 });
     }
 

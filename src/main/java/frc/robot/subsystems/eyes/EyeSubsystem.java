@@ -18,6 +18,11 @@ public class EyeSubsystem extends SubsystemBase {
     private Servo eyeLidServoLeft;
     private CANifier clights;
 
+
+    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1; //might need to be _3
+    private static EyeMovement currentDefaultMovementRight = Constants.EYE_MOVEMENT_1;
+    private static EyeColor currentDefaultColor = Constants.LED_OFF;
+
     public EyeSubsystem() {
         eyePupilServoRight = new Servo(Constants.RIGHT_PUPIL_SERVO); // eyePupilServo1 connected to roboRIO PWM 4
         eyePupilServoLeft = new Servo(Constants.LEFT_PUPIL_SERVO); // eyePupilServo2 connected to roboRIO PWM 5
@@ -43,6 +48,43 @@ public class EyeSubsystem extends SubsystemBase {
         eyeLidServoLeft.set(movementLeft.getEyeLid());
     }
 
+    public EyeMovement getLeftEyeMovement() {
+        return new EyeMovement(eyeLidServoLeft.get(), eyePupilServoLeft.get());
+    }
+
+    public EyeMovement getRightEyeMovement() {
+        return new EyeMovement(eyeLidServoRight.get(), eyePupilServoRight.get());
+    }
+
+    public double getLeftEyeLid() {
+        return eyeLidServoLeft.get();
+    }
+    public double getLeftEyePupil() {
+        return eyePupilServoLeft.get();
+    }
+    public double getRightEyeLid() {
+        return eyeLidServoRight.get();
+    }
+    public double getRightEyePupil() {
+        return eyePupilServoRight.get();
+    }
+
+    public static EyeColor getDefaultColor() {
+        return currentDefaultColor;
+    }
+    
+    public static void setDefaultColor(EyeColor defaultColor) {
+        currentDefaultColor = defaultColor;
+    }
+
+    public static void setDefaultMovementLeft(EyeMovement defaultMovementLeft) {
+        currentDefaultMovementLeft = defaultMovementLeft;
+    }
+
+    public static void setDefaultMovementRight(EyeMovement defaultMovementRight) {
+        currentDefaultMovementRight = defaultMovementRight;
+    }
+
     /**
      * Example command factory method.
      *
@@ -50,13 +92,61 @@ public class EyeSubsystem extends SubsystemBase {
      */
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
-        return runOnce(  // change to run?, runOnce is just a 20 ms loop
+        return run(  // keep at run, runOnce is just a 20 ms loop
                 () -> {
                     /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
                     setLEDColor(color);
+                    //setDefaultColor(color);
                 });
     }
+
+    public CommandBase setEyesToDefault() {
+        return run(
+            () -> {
+                setLEDColor(currentDefaultColor);
+                //System.out.println("Current Default color: " + currentDefaultColor.toString() + "");
+                setEyePositions(currentDefaultMovementLeft, currentDefaultMovementRight);
+                //System.out.println("Current Default movement:  Left =  " + currentDefaultMovementLeft.toString() +
+                       // " Right =  " + currentDefaultMovementRight.toString() + "");
+            
+            });
+    }
+
+        /**
+     * Example command factory method.
+     *
+     * @return a command
+     */
+
+    public CommandBase setColor(EyeColor color) {
+        return run(  // change to run?, runOnce is just a 20 ms loop
+                () -> {
+                    /* one-time action goes here */
+                    setLEDColor(color);
+                });
+    }
+
+    public CommandBase setMovement(EyeMovement movementLeft, EyeMovement movementRight) {
+        return run(  // change to run?, runOnce is just a 20 ms loop
+                () -> {
+                    /* one-time action goes here */
+                    setEyePositions(movementLeft, movementRight);
+                });
+    }
+
+   // public CommandBase setLeftEyeLidMovement(EyeMovement movementLeft) {
+     //   return run(  // change to run?, runOnce is just a 20 ms loop
+                //() -> {
+                    /* one-time action goes here */
+                    //setEyePositions(movementLeft, movementRight);
+                 // });
+    //}
+    
+
+   // public static void setLeftEyelid(double position) {
+      //  eyeLidServoLeft.set(position);
+    //}
 
     /**
      * An example method querying a boolean state of the subsystem (for example, a
@@ -64,6 +154,7 @@ public class EyeSubsystem extends SubsystemBase {
      *
      * @return value of some boolean subsystem state, such as a digital sensor.
      */
+    // TODO: this method is from ingestorlift subsystem, it probably should be deleted...
     public boolean isAtTop() {
         // Query some boolean state, such as a digital sensor.
         return false;
@@ -77,7 +168,6 @@ public class EyeSubsystem extends SubsystemBase {
         // For teleop: White if nothing in ingestor, purple if cube in ingestor, yellow
         // if cone in ingestor, red or blue depending on alliance for last few seconds
         // Also, white during auton
-
         // Pupil
         // __assuming robot is moving forward
         // Move Pupil Forward

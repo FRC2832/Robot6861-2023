@@ -2,17 +2,24 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.ingestor.lift;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
+import frc.robot.subsystems.eyes.EyeMovement;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
-public class RaiseIngestorLiftCmd extends CommandBase {
+public class ExpelIngestorLiftCmd extends CommandBase {
     /** Creates a new MoveIngestorLiftCmd. */
 
     private IngestorLift ingestorLiftObj;
+    private static Timer timer = new Timer();
+    private boolean done;
 
-    public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
+    public ExpelIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
         addRequirements(ingestorLift);
     }
@@ -20,7 +27,9 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //System.out.println("RaiseIngestorLiftCmd started.");
+        timer.reset();
+        timer.start();
+        //System.out.println("ScoreIngestorLiftCmd started.");
         //isHomed = ingestorLiftObj.isAtTop();
         // Zero the encoders
     }
@@ -28,9 +37,18 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        ingestorLiftObj.raiseLift();
+        
+        done = ingestorLiftObj.lowerLiftToExpel();
+
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        // Move the lift to the shooting position
+        
         //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
-/*         if (ingestorLiftObj.getIsHomed()) {
+
+        //RaiseIngestorLiftCmd execute code
+        /*if (ingestorLiftObj.getIsHomed()) {
             if (ingestorLiftObj.getIsAtScoring()) {
                 //System.out.println("We are at the scoring position!"); // TODO: The robot thinks we're here when we
                                                                        // release the button
@@ -51,7 +69,7 @@ public class RaiseIngestorLiftCmd extends CommandBase {
                 ingestorLiftObj.setIsHomed(true);
             }
             // Move the lift to the home position
-        } */
+        }*/
 
     }
 
@@ -65,6 +83,6 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return ingestorLiftObj.isAtTop(); 
+        return done || timer.get() >= 3;
     }
 }

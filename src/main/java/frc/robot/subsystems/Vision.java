@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
+import org.photonvision.targeting.TargetCorner;
 
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,21 +19,21 @@ public class Vision extends SubsystemBase {
     // TODO: find out if there's more functionality to add to the subsystem
     // TODO: maybe name these better?
     // TODO: MUST calibrate cameras per PhotonVision docs
-    private PhotonCamera camera;
-    private PhotonCamera camera2;
+    private PhotonCamera driverCamera;
+    private PhotonCamera armCamera;
     private double yaw;
     private double pitch;
-    private double area; 
+    private double area;
     private double skew;
-    private double[] corners = {0,0,0,0};
+    private double[] corners = { 0.0, 0.0, 0.0, 0.0 };
     private Transform2d pose;
 
     /** Creates a new Vision. */
     public Vision() {
-        camera = new PhotonCamera(Constants.CAMERANAME);
-        // camera2 = new PhotonCamera(Constants.CAMERA2NAME);
+        driverCamera = new PhotonCamera(Constants.DRIVER_CAM_NAME);
+        armCamera = new PhotonCamera(Constants.ARM_CAM_NAME);
         pose = new Transform2d();
-        camera.setDriverMode(true);
+        driverCamera.setDriverMode(true);
     }
 
     public PhotonPipelineResult getLatestResult(PhotonCamera cam) {
@@ -55,38 +56,51 @@ public class Vision extends SubsystemBase {
         return new ArrayList<PhotonTrackedTarget>();
     }
 
-    public void setCamera(PhotonCamera cam) {
-        camera = cam;
+    public void setDriverCamera(PhotonCamera cam) {
+        driverCamera = cam;
     }
 
-    public void setCamera2(PhotonCamera cam) {
-        camera2 = cam;
+    public void setArmCamera(PhotonCamera cam) {
+        armCamera = cam;
     }
 
-    public PhotonCamera getCamera() {
-        return camera;
+    public PhotonCamera getDriverCamera() {
+        return driverCamera;
     }
 
-    // public PhotonCamera getCamera2() {
-    //     return camera2;
+    // public PhotonCamera getArmCamera() {
+    // return armCamera;
     // }
 
-    public PhotonTrackedTarget bestTarget(PhotonCamera targets) {
-        return targets.getLatestResult().getBestTarget();
+    public PhotonTrackedTarget bestTarget(PhotonCamera cam) {
+        return cam.getLatestResult().getBestTarget();
+    }
+
+    public int[] getBestConeCenter() {
+        int[] center = new int[2];
+        PhotonTrackedTarget target = bestTarget(armCamera);
+        for (TargetCorner corner : target.getMinAreaRectCorners()) {
+            center[0] += corner.x;
+            center[1] += corner.y;
+        }
+        center[0] /= 4;
+        center[1] /= 4;
+        return center;
     }
 
     public void targetData(PhotonCamera camera) {
         // Get information from target.
         var result = camera.getLatestResult();
-        PhotonTrackedTarget target = result.getBestTarget();
-        yaw = target.getYaw();
-        pitch = target.getPitch();
-        area = target.getArea();
-        skew = target.getSkew();
-        //pose = target.getCameraToTarget();
-        //corners = target.getCorners();
+        if (result.hasTargets()){
+            PhotonTrackedTarget target = result.getBestTarget();
+            yaw = target.getYaw();
+            pitch = target.getPitch();
+            area = target.getArea();
+            skew = target.getSkew();
+        }
+        // pose = target.getCameraToTarget();
+        // corners = target.getCorners();
     }
-
 
     @Override
     public void periodic() {

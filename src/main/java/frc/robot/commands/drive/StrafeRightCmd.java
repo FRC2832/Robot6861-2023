@@ -5,8 +5,8 @@
 package frc.robot.commands.drive; 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
 import frc.robot.Constants;
+import frc.robot.subsystems.Drivetrain;
 
 public class StrafeRightCmd extends CommandBase {
     /** Creates a new StrafeLeftCmd. */
@@ -35,14 +35,14 @@ public class StrafeRightCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        drivetrainObj.mecanumDriveCartesian(-driveSpeed, 0, 0);
+        drivetrainObj.mecanumDriveCartesian(-driveSpeed, 0.0, 0.0);
         // Negative drivespeed is due to motor inversion.  Do NOT change.
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        drivetrainObj.mecanumDriveCartesian(0, 0, 0);
+        drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
     }
 
     // Returns true when the command should end.

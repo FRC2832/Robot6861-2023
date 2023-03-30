@@ -7,6 +7,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 
 /**
@@ -34,7 +35,7 @@ public class Robot extends TimedRobot {
         // Instantiate our RobotContainer. This will perform all our button bindings,
         // and put our
         // autonomous chooser on the dashboard.
-        robotContainerObj = new RobotContainer();
+        robotContainerObj = new RobotContainer(); //  1 means that there is an issue
         //clights = new LEDsCANifier();
 
         //Set the eye color as white (but red for now)
@@ -68,6 +69,9 @@ public class Robot extends TimedRobot {
     /** This function is called once each time the robot enters Disabled mode. */
     @Override
     public void disabledInit() {
+        EyeSubsystem.setDefaultColor(Constants.LED_OFF);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_3);
     }
 
     @Override
@@ -80,12 +84,16 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        //EyeSubsystem.setLeftEyelid(1);
         selectedAutonCommand = robotContainerObj.getAutonomousCommand();
-
         // schedule the autonomous command (example)
         if (selectedAutonCommand != null) {
             selectedAutonCommand.schedule();
         }
+        //robotContainerObj.setAutonConfigs();
     }
 
     /** This function is called periodically during autonomous. */
@@ -102,6 +110,11 @@ public class Robot extends TimedRobot {
         if (selectedAutonCommand != null) {
             selectedAutonCommand.cancel();
         }
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+       // EyeSubsystem.setLeftEyelid(1);
+        //robotContainerObj.setTeleopConfigs();
         //CommandScheduler.getInstance().schedule(new DriveArcade(robotContainerObj.getDrivetrain()));
     }
 

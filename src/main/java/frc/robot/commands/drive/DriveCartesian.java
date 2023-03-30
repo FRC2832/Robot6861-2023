@@ -7,12 +7,16 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.JoystickSubsystem;
-
+/*import frc.robot.subsystems.eyes.EyeColor;
+import frc.robot.subsystems.eyes.EyeMovement;
+import frc.robot.subsystems.eyes.EyeSubsystem;
+*/
 // TODO:  Maybe add DrivePolar as well.
 public class DriveCartesian extends CommandBase {
     /** Creates a new DriveArcade. */
     private Drivetrain drivetrainObj;
     private JoystickSubsystem joystickSubsystemObj;
+   // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
     public DriveCartesian(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
         this.drivetrainObj = drivetrainObj;
@@ -28,24 +32,37 @@ public class DriveCartesian extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        //System.out.println("angle: " + drivetrainObj.getPitch());
+        //System.out.println("yaw : " + drivetrainObj.getYaw());
+
         // double moveSpeed =
         // -RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
         // TODO: Do this without referencing the controllers from here.
         // double rotateSpeed =
         // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
-        zRotationTrue();
         
+        zRotationTrue();
+
+        //System.out.printf("******************************* YYYYY value:  %d",joystickSubsystemObj.getDriverLeftY());
+        /*if(joystickSubsystemObj.getDriverLeftY()>0){
+            eyeballObj.setDefaultCommand(
+                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 1), new EyeColor(0, 120, 120)));
+        }else{
+            eyeballObj.setDefaultCommand(
+                eyeballObj.setEyes(new EyeMovement(1, 0), new EyeMovement(1, 0), new EyeColor(120, 120, 0)));
+        }
+        */
+
         // added snail mode along with existing turtle mode
-        if (joystickSubsystemObj.getDriverRightTrigger() >= 0.5) {
+        if (joystickSubsystemObj.getDriverRightTriggerValue() >= 0.5) {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.5,
                     joystickSubsystemObj.getDriverLeftY() * 0.5, joystickSubsystemObj.getDriverRightX() * 0.5);
-        } else if (joystickSubsystemObj.getDriverLeftTrigger() >= 0.5) {
+        } else if (joystickSubsystemObj.getDriverLeftTriggerValue() >= 0.5) {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.25,
                     joystickSubsystemObj.getDriverLeftY() * 0.25, joystickSubsystemObj.getDriverRightX() * 0.25);
         } else {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX(),
                     joystickSubsystemObj.getDriverLeftY(), joystickSubsystemObj.getDriverRightX());
-
         }
     }
 

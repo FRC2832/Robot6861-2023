@@ -76,6 +76,13 @@ public class Drivetrain extends SubsystemBase {
         rightFrontSpark.setIdleMode(IdleMode.kBrake);
         leftBackSpark.setIdleMode(IdleMode.kBrake);
         rightBackSpark.setIdleMode(IdleMode.kBrake);
+
+        // ramp rate for 0-full acceleration
+        leftFrontSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        rightFrontSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        leftBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+        rightBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
+
         
         // Pose/Orientation
         // poseEstimator = null;
@@ -87,7 +94,8 @@ public class Drivetrain extends SubsystemBase {
         leftBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
-        mecanumDriveObj.setMaxOutput(0.75);
+
+        mecanumDriveObj.setMaxOutput(0.95);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
              not being able to drive. */ 
              
@@ -103,13 +111,24 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void mecanumDriveCartesian(double xSpeed, double ySpeed, double zRotation) {
+        // Creates a SlewRateLimiter that limits the rate of change of the signal 
+        //SlewRateLimiter filterFwdBack = new SlewRateLimiter(Constants.FORWARD_BACK_SLEW_RATE);
+        //SlewRateLimiter filterLeftRight = new SlewRateLimiter(Constants.LEFT_RIGHT_SLEW_RATE);
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
+        //mecanumDriveObj.driveCartesian(filterLeftRight.calculate(xSpeed), filterFwdBack.calculate(ySpeed), zRotation);
     }
 
     public double getPitch() {
         double ypr[] = new double[3];
         pigeon.getYawPitchRoll(ypr);
         return ypr[1];
+    }
+
+
+    public double getYaw() {
+        double ypr[] = new double[3];
+        pigeon.getYawPitchRoll(ypr);
+        return ypr[0];
     }
 
 
@@ -132,15 +151,16 @@ public class Drivetrain extends SubsystemBase {
 
     // returns distance in inches
     public double getAvgEncoderDistance() {
-        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
         //added 0.634 offset because robot is consistently off when commanding a distance
+        //was 1.575 on 3/27, changed to 0.634 on 3/28
     }
 
     public double getEncoderDistance() {
-        return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1.575;
+        System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
+        return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
         //added 0.634 offset because robot is consistently off when commanding a distance
     }
-
     public void resetEncoders() {
         leftFrontEncoderObj.setPosition(0);
         rightFrontEncoderObj.setPosition(0);

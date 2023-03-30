@@ -4,20 +4,25 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
     /** Creates a new ScoreCubeCmd. */
     private IngestorIntake ingestorIntakeObj;
     private GamePieceScoop gamePieceScoopObj;
-    //private static final Timer intakeTimer = new Timer();
+    private EyeSubsystem eyeballobj;
+    private static final Timer intakeTimer = new Timer();
 
-    public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
+    public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, EyeSubsystem eyeballobj) {
         this.ingestorIntakeObj = ingestorIntake;
         this.gamePieceScoopObj = gamePieceScoop;
-        addRequirements(ingestorIntake, gamePieceScoop);
+        this.eyeballobj = eyeballobj;
+        addRequirements(ingestorIntake, gamePieceScoop, eyeballobj);
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -26,14 +31,26 @@ public class IntakeCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-        System.out.println("IntakeCubeCmd: initialize");
-        gamePieceScoopObj.servoOn();
+    
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
+        gamePieceScoopObj.servoOff();
+        
+
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        //System.out.println("--------   IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
+        gamePieceScoopObj.servoOff();
+        eyeballobj.setEyesToDefault();
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
+        }
+
         /*if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
             if (intakeTimer.get() > 0.0) {
                 // Do nothing
@@ -51,21 +68,25 @@ public class IntakeCubeCmd extends CommandBase {
         } else {
             ingestorIntakeObj.stop();
         }*/
-    }
    
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         //intakeTimer.stop();
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // TODO: Use beam break sensors to determine if we ingested or not
-        //return ingestorIntakeObj.getIngestorBeamBreakValue() && intakeTimer.get() > 2.0;
-        return false;
+        return intakeTimer.get() > 1.5;
+
+        // ingestorIntakeObj.isCubeInIngestor(); beam break sensor causing us inconsistent results
+        // TRUE when cube in scoop
+        
     }
 }
