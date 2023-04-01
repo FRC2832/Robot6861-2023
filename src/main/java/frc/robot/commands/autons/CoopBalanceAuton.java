@@ -12,6 +12,7 @@ import frc.robot.commands.claw.CloseClawCmd;
 import frc.robot.commands.claw.OpenClawCmd;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveBackCmd;
+import frc.robot.commands.ingestor.lift.ScoreIngestorLiftCmd;
 import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.GamePieceScoop;
@@ -20,13 +21,16 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 */
+import frc.robot.subsystems.IngestorLift;
 
 // Same for red and blue
 public class CoopBalanceAuton extends SequentialCommandGroup {
     // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
-    public CoopBalanceAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj, ClawSubsystem clawObj) {
+    public CoopBalanceAuton(IngestorIntake ingestorIntake, IngestorLift ingestorLiftObj, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj, ClawSubsystem clawObj) {
         addCommands(
+                //new OpenClawCmd(clawObj),
+                new ScoreIngestorLiftCmd(ingestorLiftObj),
                 new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
                 new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED + 0.1),
                 new BalancePIDCmd(drivetrainObj, false),

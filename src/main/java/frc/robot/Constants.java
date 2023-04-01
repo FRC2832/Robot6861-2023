@@ -75,20 +75,20 @@ public final class Constants {
 
     // Claw and Brake Motor Speeds
     public static final double CLAW_OPEN_SPEED = 0.50; 
-    public static final double CLAW_CLOSE_SPEED = -0.95;
+    public static final double CLAW_CLOSE_SPEED = -1;  //was 0.95
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
-    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.55;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.50;
 
     // Brake up and down positions 
     public static final double BRAKE_ON_FLOOR = -40.0;
     public static final double BRAKE_UP_POSITION = -1.0;
 
     // Arm Motor Current Limit
-    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 9;
+    public static final int ARM_MOTOR_CURRENT_LIMIT_AMPS = 20;
 
     //Claw motor current limit
-    public static final int CLAW_MOTOR_CURRENT_LIMIT_AMPS = 6;
+    public static final int CLAW_MOTOR_CURRENT_LIMIT_AMPS = 20;
 
     // Drop Wheel motor current limit
     public static final int BRAKE_WHEEL_MOTOR_CURRENT_LIMIT_AMPS = 50;
@@ -105,7 +105,7 @@ public final class Constants {
     public static final double ARM_MOTOR_POSITION_PICKUP = 140;
     public static final double ARM_MOTOR_POSITION_STOW = 0;
     public static final double ARM_MOTOR_POSITION_SCORE = 250;
-    public static final double ARM_MOTOR_POSITION_RETRACT = -1000;
+    public static final double ARM_MOTOR_POSITION_RETRACT = -100;
 
     // For running LED lights
     public static final int EYE_CANIFIER_ID = 4;
@@ -136,9 +136,9 @@ public final class Constants {
 
     // IngestorIntake Subsystem Roller Motor Speeds
     public static final double TOP_ROLLER_EXPEL_SPEED_HIGH = -0.95;
-    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.85;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.5;
     public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
-    public static final double INGESTOR_EXPEL_SPEED_MID = -0.75;
+    public static final double INGESTOR_EXPEL_SPEED_MID = -0.5;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.8;
 
@@ -152,9 +152,9 @@ public final class Constants {
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.4;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
-    public static final double SUBSTATION_AUTON_STRAFE = 30.0;
+    public static final double SUBSTATION_AUTON_STRAFE = 40.0;
     public static final double CABLE_AUTON_DRIVE_BACK = 95.0;
-    public static final double COOP_AUTON_DRIVE_BACK = 72.0;
+    public static final double COOP_AUTON_DRIVE_BACK = 75.0;
     public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
     public static final double COOP_MOBILITY_DRIVE_FWD = 40;
@@ -163,15 +163,15 @@ public final class Constants {
    
     
     // RGB VALUES FOR LED
-    public static final EyeColor PURPLE = new EyeColor(130, 26, 90); //130. 26, 116 //0 is temporary for testing
+    public static final EyeColor PURPLE = new EyeColor(150, 35, 153); //130. 26, 116 //0 is temporary for testing
     
-    public static final EyeColor YELLOW = new EyeColor(255, 95, 10);
+    public static final EyeColor YELLOW = new EyeColor(255, 130, 10); //255, 95, 10//
 
     public static final EyeColor WHITE = new EyeColor(255, 255, 195);
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
-    public static final EyeColor BLUE = new EyeColor(30,105,255);
+    public static final EyeColor BLUE = new EyeColor(25,75,200);  //30, 105, 255//
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
 
@@ -180,6 +180,8 @@ public final class Constants {
     public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
+    public static final double TOP_ROLLER_EXPEL_SPEED_AUTON = 0;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_AUTON = 0;
     
    
 

@@ -20,8 +20,7 @@ public class GamePieceScoop extends SubsystemBase {
     //private Servo gamePieceScoopServoR;
     private static Timer timer = new Timer();
     private CANSparkMax gamePieceScoopServoLR;
-    // TODO: Figure out whether to change the number naming as is or to change to
-    // something else
+
 
     public GamePieceScoop() {
         gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMax.MotorType.kBrushed);
@@ -47,7 +46,7 @@ public class GamePieceScoop extends SubsystemBase {
     public void servoOnTeleop() {
         //setServoBoundsTeleop();
         //System.out.println("Servo on");
-       // gamePieceScoopServoLR.set(ControlMode.PercentOutput)
+
         gamePieceScoopServoLR.setVoltage(12);
        
         //gamePieceScoopServoL.setSpeed(1.0);

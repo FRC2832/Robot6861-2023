@@ -74,7 +74,7 @@ public class ArmSubsystem extends SubsystemBase {
 
 	public void armRetractPos() {
 		double position = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
+        System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
 
 		if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
 			armMotor.set(Constants.ARM_RETRACT_MOTOR_SPEED);
@@ -89,7 +89,7 @@ public class ArmSubsystem extends SubsystemBase {
 	public void armPickUpPos() {
 		double position = armEncoder.getPosition();
         //double positionRealP = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
+        System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
 
 		// TODO: find out actual positions and change signs as necessary
         
@@ -108,7 +108,7 @@ public class ArmSubsystem extends SubsystemBase {
 	public void armScorePos() {
 		double position = armEncoder.getPosition();
         //double positionRealS = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in SCORE  : " + position);
+        System.out.println("***********************  Arm Encoder in SCORE  : " + position);
 
 		// TODO: find out actual positions and change signs as necessary
 		if (position < scorePosition + (scorePosition * 0.04)) {

@@ -37,7 +37,7 @@ public class DriveCartesian extends CommandBase {
 
         // double moveSpeed =
         // -RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
-        // TODO: Do this without referencing the controllers from here.
+       
         // double rotateSpeed =
         // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
         

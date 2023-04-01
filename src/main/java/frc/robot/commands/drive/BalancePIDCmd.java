@@ -18,6 +18,7 @@ public class BalancePIDCmd extends CommandBase {
     private double drivePower;
     private Drivetrain drivetrainObj;
     private boolean isDriverControlled;
+    private int victoryCounter;
 
     public BalancePIDCmd(Drivetrain drivetrainObj, boolean isDriverControlled) {
         this.drivetrainObj = drivetrainObj;
@@ -41,18 +42,18 @@ public class BalancePIDCmd extends CommandBase {
         // pids work by multiplying the error from the desired position
         // by the proportional factor, in this case kp.
         angle = drivetrainObj.getPitch();
-        //System.out.println("angle: " + angle);
+        System.out.println("angle: " + angle);
         if (Math.abs(angle) < 7.0) {
             isDriverControlled = false;
         }
 
         if (isDriverControlled) {
-            kp = 0.022; // competition charge station value = 0.022, frost was 0.026
-        } else if (Math.abs(angle) < 5.0) {
-            kp = 0.0055; // competition charge station value = 0.0055, frost was 0.0055
+            kp = 0.017;   // competition charge station value = 0.022, frost was 0.026
+        } else if (Math.abs(angle) < 5.5) {
+            kp = 0.0030;   // competition charge station value = 0.0055, frost was 0.0055
         } else {
-            kp = 0.011; // competition charge station value = 0.011 
-            //(may need to lower this on churchill practice field), frost was 0.12
+            kp = 0.0097; // competition charge station value = 0.011
+            // (may need to lower this on churchill practice field), frost was 0.12
         }
 
         drivePower = kp * angle;
@@ -64,13 +65,23 @@ public class BalancePIDCmd extends CommandBase {
             drivePower = 0.0;
         }
 
-        if (drivePower < 0.0) {
+        /*if (drivePower < 0.0) {
             EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         } else if (drivePower > 0.0) {
             EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
-        }
+        }else {
+            if (victoryCounter % 20 < 10) {
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+            } else {
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+            }
+            victoryCounter++;
+            victoryCounter %= 20;
+        }*/
 
         // drive forward at drivePower (the negative is becuase of inversions)
         drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);

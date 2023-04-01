@@ -45,7 +45,13 @@ public class ScoreCubeTeleop extends CommandBase {
         EyeSubsystem.setDefaultMovementLeft(new EyeMovement(0.5, 0.5)); // Both eyes were EyeMovement 2
         EyeSubsystem.setDefaultMovementRight(new EyeMovement(0.5, 0.5));
         
-        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+        //ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+        ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_HIGH, Constants.INGESTOR_EXPEL_SPEED_MID);
+       //95/50 great for mid level score
+        //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
+						//Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH);
+        //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_AUTON,
+						//Constants.LOWER_ROLLER_EXPEL_SPEED_AUTON);
 
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
@@ -61,9 +67,9 @@ public class ScoreCubeTeleop extends CommandBase {
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
         timer.stop();
-        if (!ingestorIntakeObj.isCubeInIngestor()) {
-            EyeSubsystem.setDefaultColor(Constants.WHITE);
-        } 
+       // if (!ingestorIntakeObj.isCubeInIngestor()) {
+           // EyeSubsystem.setDefaultColor(Constants.WHITE);
+    
         
     }
 

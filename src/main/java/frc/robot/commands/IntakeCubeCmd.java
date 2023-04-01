@@ -31,44 +31,47 @@ public class IntakeCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-    
+
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
         gamePieceScoopObj.servoOff();
-        
 
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //System.out.println("--------   IntakeCubeCmd: execute --------------");
+        // System.out.println("-------- IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
         eyeballobj.setEyesToDefault();
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
-        }
+    }
 
-        /*if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
-            if (intakeTimer.get() > 0.0) {
-                // Do nothing
-            } else {
-                intakeTimer.reset();
-                intakeTimer.start();
-            }
-        } else {
-            intakeTimer.stop();
-            intakeTimer.reset();
-        }*/
-        //Beam break not currently working, only way to determine current ingestion is through a non button press
-       /* if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
-            ingestorIntakeObj.revIn();
-        } else {
-            ingestorIntakeObj.stop();
-        }*/
-   
+    /*
+     * if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
+     * if (intakeTimer.get() > 0.0) {
+     * // Do nothing
+     * } else {
+     * intakeTimer.reset();
+     * intakeTimer.start();
+     * }
+     * } else {
+     * intakeTimer.stop();
+     * intakeTimer.reset();
+     * }
+     */
+    // Beam break not currently working, only way to determine current ingestion is
+    // through a non button press
+    /*
+     * if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
+     * ingestorIntakeObj.revIn();
+     * } else {
+     * ingestorIntakeObj.stop();
+     * }
+     */
 
     // Called once the command ends or is interrupted.
     @Override
@@ -77,7 +80,7 @@ public class IntakeCubeCmd extends CommandBase {
         EyeSubsystem.setDefaultColor(Constants.WHITE);
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
-        //intakeTimer.stop();
+        // intakeTimer.stop();
     }
 
     // Returns true when the command should end.
@@ -85,8 +88,9 @@ public class IntakeCubeCmd extends CommandBase {
     public boolean isFinished() {
         return intakeTimer.get() > 1.5;
 
-        // ingestorIntakeObj.isCubeInIngestor(); beam break sensor causing us inconsistent results
+        // ingestorIntakeObj.isCubeInIngestor(); beam break sensor causing us
+        // inconsistent results
         // TRUE when cube in scoop
-        
+
     }
 }

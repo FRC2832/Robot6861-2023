@@ -29,7 +29,7 @@ public class CloseClawCmd extends CommandBase {
     @Override
     public void execute() {
         //System.out.println("***********************  Claw timer: " + TIMER.get());
-        if (TIMER.get() >= 1.0) { // TODO: Figure out seconds to wait when closng
+        if (TIMER.get() >= 10) { // TODO: Figure out seconds to wait when closng
             clawSubsystemObj.stopClaw();
         } else {
             clawSubsystemObj.closeClaw();

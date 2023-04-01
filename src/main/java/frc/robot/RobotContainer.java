@@ -109,7 +109,7 @@ public class RobotContainer {
 			gamePieceScoopObj);
 	private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
-	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
+	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, ingestorLiftObj, gamePieceScoopObj,
 			drivetrainObj, clawObj);
     private final Command coopMobilityAutoCmd = new CoopMobilityAuton(ingestorIntakeObj, gamePieceScoopObj,
 			drivetrainObj);
@@ -149,7 +149,7 @@ public class RobotContainer {
 
 		if (!Constants.INGESTOR_FAIL_STATUS) {
 			autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
-            autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
+            //autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
 			if (DriverStation.getAlliance().equals(Alliance.Red)) {
 				//System.out.println("Found red alliance");
 				// autonChooser.addOption("RED Default Substation Auton",
@@ -232,13 +232,17 @@ public class RobotContainer {
 		 * gamePieceScoopObj.servoOffCmd());
 		 */
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+                new OpenClawCmd(clawObj),
 				new ScoreIngestorLiftCmd(ingestorLiftObj),
                 ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
 						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
 				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
+                
+
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
+                new OpenClawCmd(clawObj),
                 new ScoreIngestorLiftCmd(ingestorLiftObj),
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
 				gamePieceScoopObj.servoOnCmd(),
