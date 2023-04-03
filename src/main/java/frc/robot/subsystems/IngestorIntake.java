@@ -27,14 +27,6 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
 
-        /* Code for Talon SRX for intake current limiting
-        ingestorIntakeTopTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
-        ingestorIntakeBottomTalon.configPeakCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS, 0);
-        ingestorIntakeTopTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
-        ingestorIntakeBottomTalon.configContinuousCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
-        ingestorIntakeTopTalon.enableCurrentLimit(true);
-        ingestorIntakeBottomTalon.enableCurrentLimit(true);
-        */
     }
 
     public void revIn() {
@@ -42,12 +34,6 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         //System.out.println("++++++++    revIn() called    ++++++++");
     }
-/*
-    public void revOut(double speed) {
-        ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speed);
-        ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speed);
-    }
-*/
     public void revOut(double speedTop, double speedBottom) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
@@ -55,8 +41,7 @@ public class IngestorIntake extends SubsystemBase {
     }
     
     public CommandBase revOutIngestorIntake(double speed) {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+   
         return run(
                 () -> {
                    
@@ -64,26 +49,12 @@ public class IngestorIntake extends SubsystemBase {
                     });
                          
                     //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
+                }
         
-        }
-
-
-        //old revoutingestorintake
-        /*if (isCubeInIngestor()) {
-            timer.start();
-            revOut(speed, speed);
-            System.out.println("*** Revoutingestorintake ***");
-            
-        } else if (timer.get() > 5 && !isCubeInIngestor()) { 
-            revOut(0.0, 0.0);
-            timer.stop();
-            timer.reset();
-            System.out.println("*** Stopping Revoutingestorintake ***");
-        } */
+        
 
     public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
-    // Inline construction of command goes here.
-    // Subsystem::RunOnce implicitly requires `this` subsystem.
+   
     return run(
             () -> {
                 revOut(speedTop, speedBottom);
@@ -91,9 +62,8 @@ public class IngestorIntake extends SubsystemBase {
 
             });
     }
-    public CommandBase revInIngestorIntake() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+
+    public CommandBase revInIngestorIntake() {   
         return run(
                 () -> {
                     revIn();
@@ -114,8 +84,7 @@ public class IngestorIntake extends SubsystemBase {
 
     public CommandBase ingestorBeamBreakCmd() {  // not using beam sensor - it's values read 
         //by Rio are inconsistent, even though the red LED is stabe
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+       
         return run(
                 () -> {
                     getIngestorBeamBreakValue();
@@ -129,7 +98,7 @@ public class IngestorIntake extends SubsystemBase {
 
     public boolean isInScoop() {
         return false;
-        // TODO: Confirm sensor location and type
+       
     }
 
     @Override
@@ -137,3 +106,4 @@ public class IngestorIntake extends SubsystemBase {
         // This method will be called once per scheduler run
     }
 }
+

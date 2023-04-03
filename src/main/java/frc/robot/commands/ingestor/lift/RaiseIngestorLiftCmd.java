@@ -37,35 +37,8 @@ public class RaiseIngestorLiftCmd extends CommandBase {
              ingestorLiftObj.getLiftEncoderCountReal();
              //System.out.println("***********************  Ingestor Encoder: " + ingestorObj.getLiftEncoderCountReal());
          }
+        }
      
-        //ingestorLiftObj.raiseLift();
-        //ingestorLiftObj.getEncoderCount();
-        //System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getLiftEncoderCountReal());
-    }    
-        //System.out.println("We are moving to the home position!");
-        //System.out.println("Are we homed? " + ingestorLiftObj.getIsHomed());
-/*         if (ingestorLiftObj.getIsHomed()) {
-            if (ingestorLiftObj.getIsAtScoring()) {
-                //System.out.println("We are at the scoring position!"); // TODO: The robot thinks we're here when we
-                                                                       // release the button
-                ingestorLiftObj.stopLift();
-                System.out.prnintln("Current encoder count: " + ingestorLiftObj.getEncoderCount());
-                // Move the lift to the home position
-            } else {
-                ingestorLiftObj.lowerLiftToScore();
-                System.out.println("We are moving to the scoring position!");
-                // Move the lift to the shooting position
-            }
-            // Move the lift to the shooting position
-        } else {
-            System.out.println("We moving to the home position!");
-            ingestorLiftObj.raiseLift();
-            if (ingestorLiftObj.isAtTop()) {
-                System.out.println("We are homed!");
-                ingestorLiftObj.setIsHomed(true);
-            }
-            // Move the lift to the home position
-        } */
 
     
 

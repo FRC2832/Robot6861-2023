@@ -85,16 +85,10 @@ public class EyeSubsystem extends SubsystemBase {
         currentDefaultMovementRight = defaultMovementRight;
     }
 
-    /**
-     * Example command factory method.
-     *
-     * @return a command
-     */
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
         return run(  // keep at run, runOnce is just a 20 ms loop
                 () -> {
-                    /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
                     setLEDColor(color);
                     //setDefaultColor(color);
@@ -113,32 +107,23 @@ public class EyeSubsystem extends SubsystemBase {
             });
     }
 
-        /**
-     * Example command factory method.
-     *
-     * @return a command
-     */
-
     public CommandBase setColor(EyeColor color) {
-        return run(  // change to run?, runOnce is just a 20 ms loop
+        return run( 
                 () -> {
-                    /* one-time action goes here */
                     setLEDColor(color);
                 });
     }
 
     public CommandBase setMovement(EyeMovement movementLeft, EyeMovement movementRight) {
-        return run(  // change to run?, runOnce is just a 20 ms loop
+        return run(  
                 () -> {
-                    /* one-time action goes here */
                     setEyePositions(movementLeft, movementRight);
                 });
     }
 
    // public CommandBase setLeftEyeLidMovement(EyeMovement movementLeft) {
-     //   return run(  // change to run?, runOnce is just a 20 ms loop
+     //   return run( 
                 //() -> {
-                    /* one-time action goes here */
                     //setEyePositions(movementLeft, movementRight);
                  // });
     //}
@@ -148,17 +133,6 @@ public class EyeSubsystem extends SubsystemBase {
       //  eyeLidServoLeft.set(position);
     //}
 
-    /**
-     * An example method querying a boolean state of the subsystem (for example, a
-     * digital sensor).
-     *
-     * @return value of some boolean subsystem state, such as a digital sensor.
-     */
-    // TODO: this method is from ingestorlift subsystem, it probably should be deleted...
-    public boolean isAtTop() {
-        // Query some boolean state, such as a digital sensor.
-        return false;
-    }
 
     @Override
     public void periodic() {

@@ -50,28 +50,6 @@ public class IntakeCubeCmd extends CommandBase {
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
     }
 
-    /*
-     * if (ingestorIntakeObj.getIngestorBeamBreakValue()) {
-     * if (intakeTimer.get() > 0.0) {
-     * // Do nothing
-     * } else {
-     * intakeTimer.reset();
-     * intakeTimer.start();
-     * }
-     * } else {
-     * intakeTimer.stop();
-     * intakeTimer.reset();
-     * }
-     */
-    // Beam break not currently working, only way to determine current ingestion is
-    // through a non button press
-    /*
-     * if (!ingestorIntakeObj.getIngestorBeamBreak().get()) {
-     * ingestorIntakeObj.revIn();
-     * } else {
-     * ingestorIntakeObj.stop();
-     * }
-     */
 
     // Called once the command ends or is interrupted.
     @Override
@@ -88,9 +66,7 @@ public class IntakeCubeCmd extends CommandBase {
     public boolean isFinished() {
         return intakeTimer.get() > 1.5;
 
-        // ingestorIntakeObj.isCubeInIngestor(); beam break sensor causing us
-        // inconsistent results
-        // TRUE when cube in scoop
+    
 
     }
 }

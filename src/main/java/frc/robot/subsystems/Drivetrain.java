@@ -153,13 +153,13 @@ public class Drivetrain extends SubsystemBase {
     public double getAvgEncoderDistance() {
         return getAvgEncoderRotations() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
         //added 0.634 offset because robot is consistently off when commanding a distance
-        //was 1.575 on 3/27, changed to 0.634 on 3/28
+        //was 1.575 on 3/27, changed to 0.634 on 3/28, then changed to 1 on 3/28
     }
 
     public double getEncoderDistance() {
         System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
         return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
-        //added 0.634 offset because robot is consistently off when commanding a distance
+        
     }
     public void resetEncoders() {
         leftFrontEncoderObj.setPosition(0);
@@ -168,16 +168,6 @@ public class Drivetrain extends SubsystemBase {
         rightBackEncoderObj.setPosition(0);
     }
 
-    /**
-     * Returns the pose of the robot (e.g., x and y position of the robot on the
-     * field and the robot's
-     * rotation). The origin of the field to the lower left corner (i.e., the corner
-     * of the field to
-     * the driver's right). Zero degrees is away from the driver and increases in
-     * the CCW direction.
-     *
-     * @return the pose of the robot
-     */
     public Pose2d getPose() {
         return poseEstimator.getEstimatedPosition();
 

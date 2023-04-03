@@ -24,11 +24,11 @@ public class RaiseBrakeCmd extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        // Stops the drop brakes
+        // Stops the drop brake
         if (brakeSubsystemObj.getBrakeEncoder() > (Constants.BRAKE_UP_POSITION)) {
            //  System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());
             brakeSubsystemObj.stopBrakes();
-        } else { // Brings the drop brakes up
+        } else { // Brings the drop brake up
             brakeSubsystemObj.raiseBrakes();
             brakeSubsystemObj.getBrakeEncoder();  
             //System.out.println("***********************  Brake Encoder: " + brakeSubsystemObj.getBrakeEncoder());

@@ -27,11 +27,10 @@ public class BrakeSubsystem extends SubsystemBase {
 
          // driven wheel in brake wheel - helps steady us on charge station in endgame
          brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
-         //System.out.println(" >>>>>    BrakeSubsystem constructor called    <<<<<<<<");
+
 
 
         brakeWheelBrakeMode();
-        //brakeWheelMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
 
     }
 
@@ -66,7 +65,7 @@ public class BrakeSubsystem extends SubsystemBase {
 
     public double getBrakeEncoder() {
         return brakeWheelMotorEncoder.getPosition();
-        // need a check at enable to check if encoder >7, then lower to 7.  Maybe use a PID on raisebrakecmd?
+       
     }
 
     @Override

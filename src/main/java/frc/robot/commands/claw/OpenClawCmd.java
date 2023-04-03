@@ -31,7 +31,7 @@ public class OpenClawCmd extends CommandBase {
         //System.out.println("***********************  Claw timer: " + TIMER.get());
         // clawSubsystemObj.openClaw();
 
-        if (TIMER.get() >= .75) { 
+        if (TIMER.get() >= 0.75) { 
             clawSubsystemObj.stopClaw();
         } else {
             clawSubsystemObj.openClaw();

@@ -46,9 +46,6 @@ public class JoystickSubsystem extends SubsystemBase {
 
     }
 
-    // TODO: add slew rate limiter for the driver joystick controls here?
-    // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/filters/slew-rate-limiter.html
-
     public double getDriverLeftX() {
         return driverLeftX;
     }

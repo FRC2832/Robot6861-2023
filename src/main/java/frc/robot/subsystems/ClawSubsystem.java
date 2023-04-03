@@ -28,9 +28,10 @@ public class ClawSubsystem extends SubsystemBase {
         // if (TIMER.get() >= 3.0) {
         // stopClaw();
         // } else {
+            
         clawMotor.set(Constants.CLAW_CLOSE_SPEED);
         clawMotor.setIdleMode(IdleMode.kBrake);
-        // }
+
     }
 
     public void openClaw() {
@@ -38,8 +39,9 @@ public class ClawSubsystem extends SubsystemBase {
         // if (TIMER.get() >= 3.0) {
         // stopClaw();
         // } else {
+
         clawMotor.set(Constants.CLAW_OPEN_SPEED);
-        // }
+    
     }
 
     public void stopClaw() {

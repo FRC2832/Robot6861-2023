@@ -53,7 +53,6 @@ public class LowerIngestorLiftCmd extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // Determine when the arm has fully moved
         return done || timer.get() >= 3;
     }
 }

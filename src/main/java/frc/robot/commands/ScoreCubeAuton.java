@@ -58,21 +58,16 @@ public class ScoreCubeAuton extends CommandBase {
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
         timer.stop();
-        //if (!ingestorIntakeObj.isCubeInIngestor()) { beam break causing servos to not move.  
-            //I don't know why.  Moving on wihtout it.
-           // EyeSubsystem.setDefaultColor(Constants.RED);
+       
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return //!ingestorIntakeObj.isCubeInIngestor() || 
-        //this beam break call was causing command to end early - before shooting
-         timer.get() >= 3.5;
+        return timer.get() >= 3.5;
         
         // keep timer in as OR so if servos fail to eject cube, 
         // robot still backs up and crosses community line for 3 pts
-        // True means cube in ingestor
         
     }
 }

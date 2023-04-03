@@ -3,7 +3,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.CANifier;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-// TODO: We could merge LED Subsystem and the Eyeball subsystem
+
 
 public class LEDsCANifier extends SubsystemBase {
 

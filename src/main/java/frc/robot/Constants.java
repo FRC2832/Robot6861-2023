@@ -43,9 +43,6 @@ public final class Constants {
     // Ingestor Current limit
     public static final int INGESTOR_MOTOR_CURRENT_LIMIT_AMPS = 50;
 
-    // Drivetrain controls slew rates - didn't work.  Joysticks didn't move the robot at all
-    // public static final double FORWARD_BACK_SLEW_RATE = .2;
-    // public static final double LEFT_RIGHT_SLEW_RATE = .2;
 
     // Drive distance factors
     public static final int DRIVETRAIN_WHEEL_DIAMETER = 6; // units = 6 inches
@@ -141,19 +138,21 @@ public final class Constants {
     public static final double INGESTOR_EXPEL_SPEED_MID = -0.5;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.8;
+    public static final double TOP_ROLLER_EXPEL_SPEED_AUTON = 0;  // code doesn't use this, but if we ever do, need value other than 0.
+    public static final double LOWER_ROLLER_EXPEL_SPEED_AUTON = 0;
 
     // Ingestor Encoder positions
     public static final double INGESTOR_BOTTOM_POSITION = 75.0;
     public static final double INGESTOR_EXPEL_POSITION = 75.0;
-    public static final double INGESTOR_SCORE_POSITION = 5.0;
+    public static final double INGESTOR_SCORE_POSITION = -10.0;
     public static final double INGESTOR_TOP_POSITION = -5.0;
     public static final boolean INGESTOR_FAIL_STATUS = false;
 
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.4;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
-    public static final double SUBSTATION_AUTON_STRAFE = 40.0;
-    public static final double CABLE_AUTON_DRIVE_BACK = 95.0;
+    public static final double SUBSTATION_AUTON_STRAFE = 36.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 96.0;
     public static final double COOP_AUTON_DRIVE_BACK = 75.0;
     public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
@@ -180,8 +179,7 @@ public final class Constants {
     public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
-    public static final double TOP_ROLLER_EXPEL_SPEED_AUTON = 0;
-    public static final double LOWER_ROLLER_EXPEL_SPEED_AUTON = 0;
+   
     
    
 

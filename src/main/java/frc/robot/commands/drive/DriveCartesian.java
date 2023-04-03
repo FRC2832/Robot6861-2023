@@ -11,7 +11,7 @@ import frc.robot.subsystems.JoystickSubsystem;
 import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 */
-// TODO:  Maybe add DrivePolar as well.
+
 public class DriveCartesian extends CommandBase {
     /** Creates a new DriveArcade. */
     private Drivetrain drivetrainObj;
@@ -32,26 +32,9 @@ public class DriveCartesian extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //System.out.println("angle: " + drivetrainObj.getPitch());
-        //System.out.println("yaw : " + drivetrainObj.getYaw());
-
-        // double moveSpeed =
-        // -RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_MOVE_AXIS);
-       
-        // double rotateSpeed =
-        // RobotContainer.driverControllerObj.getRawAxis(Constants.DRIVER_CONTROLLER_ROTATE_AXIS);
         
         zRotationTrue();
 
-        //System.out.printf("******************************* YYYYY value:  %d",joystickSubsystemObj.getDriverLeftY());
-        /*if(joystickSubsystemObj.getDriverLeftY()>0){
-            eyeballObj.setDefaultCommand(
-                eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 1), new EyeColor(0, 120, 120)));
-        }else{
-            eyeballObj.setDefaultCommand(
-                eyeballObj.setEyes(new EyeMovement(1, 0), new EyeMovement(1, 0), new EyeColor(120, 120, 0)));
-        }
-        */
 
         // added snail mode along with existing turtle mode
         if (joystickSubsystemObj.getDriverRightTriggerValue() >= 0.5) {

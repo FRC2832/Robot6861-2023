@@ -25,36 +25,19 @@ public class GamePieceScoop extends SubsystemBase {
     public GamePieceScoop() {
         gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMax.MotorType.kBrushed);
         gamePieceScoopServoLR.setSmartCurrentLimit(Constants.GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS);
+    }
        
-        /*gamePieceScoopServoL = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_L);
-        gamePieceScoopServoR = new Servo(Constants.GAME_PIECE_SCOOP_SERVO_R);
-        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
-        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);*/
-    }
-
-    /*public void setServoBoundsAuton() {
-        gamePieceScoopServoL.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
-        gamePieceScoopServoR.setBounds(1.4, 1.3, 1.2, 1.1, 1.0);
-    }
-
-    public void setServoBoundsTeleop() {
-        gamePieceScoopServoL.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
-        gamePieceScoopServoR.setBounds(1.8, 1.6, 1.4, 1.2, 1.0);
-    }*/
-
 
     public void servoOnTeleop() {
-        //setServoBoundsTeleop();
-        //System.out.println("Servo on");
+        
 
         gamePieceScoopServoLR.setVoltage(12);
        
-        //gamePieceScoopServoL.setSpeed(1.0);
-        //gamePieceScoopServoR.setSpeed(1.0);
+
     }
 
     public void servoOnAuton() {
-        //System.out.println("Servo on Auton voltage commanded");
+       
         gamePieceScoopServoLR.setVoltage(12);
         
     }
@@ -62,17 +45,9 @@ public class GamePieceScoop extends SubsystemBase {
     public void servoOff() {
         //System.out.println("Servo off");
         gamePieceScoopServoLR.setVoltage(-12);
-        // gamePieceScoopServoLR.set(0.33);
 
-        //gamePieceScoopServoL.setSpeed(-1.0);
-        //gamePieceScoopServoR.setSpeed(-1.0);
     }
-    /*public void servoOnAuton() {
-        setServoBoundsAuton();
-        gamePieceScoopServoL.setSpeed(1.0);
-        gamePieceScoopServoR.setSpeed(1.0);
-    }
-    */
+        
 
     @Override
     public void periodic() {
@@ -80,8 +55,7 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOffCmd() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+        
         return run(
                 () -> {
                     servoOff();
@@ -89,8 +63,7 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOnAutonCmd() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+       
         return run(
                 () -> {
                     servoOnAuton();
@@ -99,22 +72,14 @@ public class GamePieceScoop extends SubsystemBase {
 
 
     public CommandBase servoOnCmd() {
-        // Inline construction of command goes here.
-        // Subsystem::RunOnce implicitly requires `this` subsystem.
+      
         return run(
                 () -> {
                     servoOnTeleop();
 
                     }
 
-                    /* timer.start();
-                    if (timer.get() < 6.0) {
-                        servoOnTeleop();
-                    }
-                    else {
-                        timer.stop();
-                        timer.reset();
-                        gamePieceScoopServoLR.setVoltage(0);*/
+    
 
               );
     }
