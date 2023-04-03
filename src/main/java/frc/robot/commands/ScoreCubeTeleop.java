@@ -45,32 +45,35 @@ public class ScoreCubeTeleop extends CommandBase {
         EyeSubsystem.setDefaultMovementLeft(new EyeMovement(0.5, 0.5)); // Both eyes were EyeMovement 2
         EyeSubsystem.setDefaultMovementRight(new EyeMovement(0.5, 0.5));
         
+        //ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+       
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
+       //95/50 great for mid level score
+
+        //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
+						//Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH);
+        //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_AUTON,
+						//Constants.LOWER_ROLLER_EXPEL_SPEED_AUTON);
 
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
+
         if (timer.get() >= 1.5) { 
             gamePieceScoopObj.servoOnTeleop();
         }
     }
-    // TODO: Create a new command for ingestorLift
-    // TODO: If ingestorLift is at upper limit switch then zero the encoders
+
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
-        timer.stop();
-        if (!ingestorIntakeObj.isCubeInIngestor()) {
-            EyeSubsystem.setDefaultColor(Constants.WHITE);
-        } 
-        
+        timer.stop();  
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        // TODO: Use beam break sensors to determine if we shot or not
         // use timer for now
         // keep timer in as OR so if servos fail to eject cube, 
 

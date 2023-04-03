@@ -36,7 +36,7 @@ public class DriveBrakeCmd extends CommandBase {
         brakeSubsystemObj.driveBrakeMotor();
         //System.out.println("*******  drive brake motor forward");
         
-    } else {    //|| DrivetrainObj.getPitch() < 1.5)  Need a       Level on charging station, no rolling of wheel needed
+    } else {    //|| DrivetrainObj.getPitch() < 1.5)       Level on charging station, no rolling of wheel needed
         // Stops moving the brake wheels but doesn't raise it up
         brakeSubsystemObj.stopDriveBrakeMotor();  
         //System.out.println("*******  drive brake motor stopped");

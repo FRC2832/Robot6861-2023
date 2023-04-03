@@ -37,22 +37,6 @@ public class ArmSubsystem extends SubsystemBase {
         scorePosition = Constants.ARM_MOTOR_POSITION_SCORE;
 
 		armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT_AMPS);
-
-		// TODO: Set PID Coefficients for the arm
-        // liftPIDController.setP(1.0); // TODO: test value in Teleop
-        // liftPIDController.setI(0.00001);
-        // liftPIDController.setD(0.00001);
-        // liftPIDController.setIZone(0.0);
-        // liftPIDController.setFF(0.0);
-        // liftPIDController.setOutputRange(-1.0, 1.0);
-
-        
-        // PIDController pid = new PIDController(kP, kI, kD);
-        // Calculates the output of the PID algorithm based on the sensor reading
-         // and sends it to a motor
-
-        //armMotor.set(pid.calculate(armEncoder.getDistance(), setpoint));
-
     }
 
 
@@ -65,7 +49,7 @@ public class ArmSubsystem extends SubsystemBase {
             armMotor.set(0.00);
             armMotor.setIdleMode(IdleMode.kBrake);
             
-        } else //position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
+        } else       //position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
 			armMotor.set(Constants.ARM_STOW_MOTOR_SPEED);   // moving arm in
 
 	    //} //else if (position < -10) {
@@ -74,24 +58,23 @@ public class ArmSubsystem extends SubsystemBase {
 
 	public void armRetractPos() {
 		double position = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
+        System.out.println("***********************  Arm Encoder in armRetractPos : " + retractPosition);
 
 		if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
 			armMotor.set(Constants.ARM_RETRACT_MOTOR_SPEED);
-		} else { // TODO: Change to comparing difference between position and retractPosition.
+		} else {         //if (position < (retractPosition - (retractPosition * 0.05))) {
 			armMotor.set(0.00);
 		}
 		armMotor.setIdleMode(IdleMode.kBrake);
 	}
 
 
-    // TODO: Needs PID!
+
 	public void armPickUpPos() {
 		double position = armEncoder.getPosition();
         //double positionRealP = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
+        System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
 
-		// TODO: find out actual positions and change signs as necessary
         
         if (position < pickUpPosition - (pickUpPosition * 0.02)) {  // arm moving out to cone
 			armMotor.set(Constants.ARM_MOTOR_SPEED);
@@ -104,13 +87,11 @@ public class ArmSubsystem extends SubsystemBase {
 
 	}
 
-     // TODO: Needs PID!
 	public void armScorePos() {
 		double position = armEncoder.getPosition();
         //double positionRealS = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in SCORE  : " + position);
+        System.out.println("***********************  Arm Encoder in SCORE  : " + position);
 
-		// TODO: find out actual positions and change signs as necessary
 		if (position < scorePosition + (scorePosition * 0.04)) {
 			armMotor.set(Constants.ARM_MOTOR_SPEED);
 		} else if (position > scorePosition + (scorePosition * 0.04) ) {
@@ -124,30 +105,7 @@ public class ArmSubsystem extends SubsystemBase {
 	public double getArmEncoder() {
 		return armEncoder.getPosition();
 	}
-/* 
-	public void setIsAtStow(boolean isAtStow) {
-		this.isAtStow = isAtStow;
-	}
 
-	public boolean getIsAtStow() {
-		return isAtStow;
-	}
-
-	public void setIsAtPickup(boolean isAtPickup) {
-		this.isAtPickup = isAtPickup;
-	}
-
-	public boolean getIsAtPickup() {
-		return isAtPickup;
-	}
-
-	public void setIsAtScore(boolean isAtScore) {
-		this.isAtScore = isAtScore;
-	}
-	
-	public boolean getIsAtScore() {
-		return isAtScore;
-	} */
 
 	public void stopArm() {
 		armMotor.set(0.0);

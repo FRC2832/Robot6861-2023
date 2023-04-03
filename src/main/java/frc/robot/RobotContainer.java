@@ -102,21 +102,19 @@ public class RobotContainer {
 			gamePieceScoopObj);
 	private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
 	private final Command blueSubstationCrossAutoCmd = new BlueSubstationCrossAuton(drivetrainObj,
-			ingestorIntakeObj,
-			gamePieceScoopObj);
+			ingestorIntakeObj, gamePieceScoopObj, clawObj);
 	private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
 	private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
 	private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
 			gamePieceScoopObj);
-	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, gamePieceScoopObj,
+	private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, ingestorLiftObj, gamePieceScoopObj,
 			drivetrainObj, clawObj);
     private final Command coopMobilityAutoCmd = new CoopMobilityAuton(ingestorIntakeObj, gamePieceScoopObj,
 			drivetrainObj);
 
 	private final SendableChooser<Command> autonChooser = new SendableChooser<>();
-	// private final SendableChooser<Integer> leftCenterRight = new
-	// SendableChooser<>();
+	
 
 	/**
 	 * The container for the robot. Contains subsystems, OI devices, and commands.
@@ -125,8 +123,8 @@ public class RobotContainer {
 
 		// Configure the trigger bindings
 		configureBindings();
-		//SequentialCommandGroup defaultIngestorLiftSequence = new SequentialCommandGroup(
-				// new RaiseIngestorLiftCmd(ingestorLiftObj), new ScoreIngestorLiftCmd(ingestorLiftObj));
+
+		
 
 		drivetrainObj.setDefaultCommand(new DriveCartesian(drivetrainObj, joystickSubsystemObj));
 		ingestorLiftObj.setDefaultCommand(new RaiseIngestorLiftCmd(ingestorLiftObj)); // TODO: Add Ingestor Intake
@@ -138,6 +136,7 @@ public class RobotContainer {
 		clawObj.setDefaultCommand(new CloseClawCmd(clawObj));
 
 		eyeballObj.setDefaultCommand(eyeballObj.setEyesToDefault());
+
 		// 2nd eyemovement above is robot right
 		// coneFlipperObj.setDefaultCommand(new RaiseConeFlipper(coneFlipperObj));
 		// EyeMovement movementLeft = new EyeMovement(1.0, 0.0);
@@ -149,7 +148,7 @@ public class RobotContainer {
 
 		if (!Constants.INGESTOR_FAIL_STATUS) {
 			autonChooser.setDefaultOption("Coop Grid Balance Auton (both alliances)", coopBalanceAutoCmd);
-            autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
+            //autonChooser.addOption("Coop Mobility Auton (both alliances)", coopMobilityAutoCmd);
 			if (DriverStation.getAlliance().equals(Alliance.Red)) {
 				//System.out.println("Found red alliance");
 				// autonChooser.addOption("RED Default Substation Auton",
@@ -199,46 +198,20 @@ public class RobotContainer {
 		// autonChooser.addOption("Example Auton Command",
 
 	}
-
-	/**
-	 * Use this method to define your trigger->command mappings. Triggers can be
-	 * created via the
-	 * {@link Trigger#Trigger(java.util.function.BooleanSupplier)} constructor with
-	 * an arbitrary
-	 * predicate, or via the named factories in {@link
-	 * edu.wpi.first.wpilibj2.command.button.CommandGenericHID}'s subclasses for
-	 * {@link
-	 * CommandXboxController
-	 * Xbox}/{@link edu.wpi.first.wpilibj2.command.button.CommandPS4Controller
-	 * PS4} controllers or
-	 * {@link edu.wpi.first.wpilibj2.command.button.CommandJoystick Flight
-	 * joysticks}.
-	 */
 	private void configureBindings() {
-		// Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-		// new Trigger(ingestorLiftObj::isAtTop).onTrue(new
-		// StopIngestorLift(ingestorLiftObj));
-		// new Trigger(ingestorLiftObj::isAtBottom).onTrue(new
-		// StopIngestorLift(ingestorLiftObj));
-		// Schedule `exampleMethodCommand` when the Xbox controller's B button is
-		// pressed,
-		// cancelling on release.
+		
 
-		// triggers and commands for shooting cube to high spot and middle spot
-		/*
-		 * OLD SHOOTING CODE
-		 * ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-		 * ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_HIGH),
-		 * gamePieceScoopObj.servoOffCmd());
-		 */
 		ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
+                new OpenClawCmd(clawObj),
 				new ScoreIngestorLiftCmd(ingestorLiftObj),
                 ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
 						Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
 				gamePieceScoopObj.servoOnCmd(),
 				eyeballObj.setColor(Constants.WHITE));
+                
 
 		ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
+                new OpenClawCmd(clawObj),
                 new ScoreIngestorLiftCmd(ingestorLiftObj),
 				ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
 				gamePieceScoopObj.servoOnCmd(),
@@ -261,17 +234,7 @@ public class RobotContainer {
                 //new LowerBrakeCmd(brakeObj, true, drivetrainObj), 
                 //new DriveBrakeCmd(brakeObj, true));
 
-		/*
-		 * ParallelCommandGroup stopAndRaise = new ParallelCommandGroup(
-		 * new StopIngestorIntake(ingestorIntakeObj), new
-		 * RaiseIngestorLiftCmd(ingestorLiftObj)
-		 * );
-		 */
-
-		/*
-		 * SequentialCommandGroup ingestionSequence = new SequentialCommandGroup(
-		 * lowerAndIngest, stopAndRaise); //, new RaiseIngestorLiftCmd(ingestorLiftObj)
-		 */
+                
 		Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
 		Trigger driverA = joystickSubsystemObj.getDriverABtn();
 		Trigger driverB = joystickSubsystemObj.getDriverBBtn();
@@ -346,8 +309,7 @@ public class RobotContainer {
 		 * driverLeftBumper.onTrue(setEyeLidLeft);
 		 */
 
-		// TODO: The above might allow us to interrupt the command with the X button.
-		// operatorControllerObj.y().whileFalse(ingestorLiftObj.raiseIngestorLift());
+	
 
 		operatorRightTrigger.whileTrue(shootCubeMid);
 		operatorRightBumper.whileTrue(shootCubeUpper);
@@ -355,7 +317,7 @@ public class RobotContainer {
 		operatorA.whileTrue(lowerAndExpel);
 		driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
 		driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, eyeballObj, drivetrainObj));
-		// opXTrigger.whileTrue(new LowerConeFlipper(coneFlipperObj));
+	
 		operatorY.whileTrue(lowerAndIngest);
 		operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw
 		operatorX.whileTrue(new ArmScoreCmd(armObj)); // need sequential command group to close claw
@@ -363,48 +325,6 @@ public class RobotContainer {
 		driverX.whileTrue(new ArmRetractCmd(armObj));
 	}
 
-	/*
-	 * Example turtle mode
-	 * Drive at half speed when the right bumper is held
-	 * new JoystickButton(m_driverController, Button.kRightBumper.value)
-	 * .onTrue(new InstantCommand(() -> m_robotDrive.setMaxOutput(0.5)))
-	 * .onFalse(new InstantCommand(() -> m_robotDrive.setMaxOutput(1)));
-	 * 
-	 */
-
-	/*
-	 * private void configureAutoCommands() {
-	 * autoEventMap.put("event1", Commands.print("Passed marker 1"));
-	 * autoEventMap.put("event2", Commands.print("passed marker 2"));
-	 * 
-	 * 
-	 * List<PathPlannerTrajectory> auto1Paths =
-	 * PathPlanner.loadPathGroup(
-	 * "Default Auton", 4, 3);
-	 * 
-	 * Command autoTest =
-	 * Commands.sequence(
-	 * new FollowPathWithEvents(
-	 * new FollowPathCmd(auto1Paths.get(0), drivetrainObj, true)
-	 * auto1Paths.get(0).getMarkers(0),
-	 * autoEventMap),
-	 * // Commands.runOnce(drivetrainObj, drivetrainObj),
-	 * // Commands.waitSeconds(5.0),
-	 * // Commands.runOnce(drivetrainObj::disableXstance, drivetrainObj),
-	 * new FollowPathWithEvents(
-	 * new FollowPathCmd(auto1Paths.get(1), drivetrainObj, false)
-	 * auto1Paths.get(0).getMarkers(0),
-	 * autoEventMap)
-	 * );
-	 * 
-	 * }
-	 */
-
-	/**
-	 * Use this to pass the autonomous command to the main {@link Robot} class.
-	 *
-	 * @return the command to run in autonomous
-	 */
 
 	public Command getAutonomousCommand() {
 		// An example command will be run in autonomous
