@@ -12,11 +12,13 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class BalancePIDCmd extends CommandBase {
-    /** Creates a new BalancePIDCmd. */
+    private final Drivetrain drivetrainObj;
+    /**
+     * Creates a new BalancePIDCmd.
+     */
     private double kp;
     private double angle;
     private double drivePower;
-    private Drivetrain drivetrainObj;
     private boolean isDriverControlled;
     private int victoryCounter;
 
@@ -83,7 +85,7 @@ public class BalancePIDCmd extends CommandBase {
             victoryCounter %= 20;
         }*/
 
-        // drive forward at drivePower (the negative is becuase of inversions)
+        // drive forward at drivePower (the negative is because of inversions)
         drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
     }
 

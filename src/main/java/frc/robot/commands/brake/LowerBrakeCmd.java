@@ -13,17 +13,17 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class LowerBrakeCmd extends CommandBase {
-    private EyeSubsystem eyeballobj;
-    private BrakeSubsystem brakeSubsystemObj;
-    private Drivetrain DrivetrainObj;
+    private final EyeSubsystem eyeballObj;
+    private final BrakeSubsystem brakeSubsystemObj;
+    private final Drivetrain drivetrainObj;
 
 
-    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, 
-    EyeSubsystem eyeballobj, Drivetrain DrivetrainObj) {
+    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled,
+                         EyeSubsystem eyeballObj, Drivetrain drivetrainObj) {
         this.brakeSubsystemObj = brakeSubsystemObj;
-        this.eyeballobj = eyeballobj;
-        this.DrivetrainObj = DrivetrainObj;
-        addRequirements(brakeSubsystemObj, eyeballobj);
+        this.eyeballObj = eyeballObj;
+        this.drivetrainObj = drivetrainObj;
+        addRequirements(brakeSubsystemObj, eyeballObj);
     }
 
     // Called when the command is initially scheduled.
@@ -33,7 +33,6 @@ public class LowerBrakeCmd extends CommandBase {
             EyeSubsystem.setDefaultColor(Constants.BLUE);
             EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
-
         } else {
             EyeSubsystem.setDefaultColor(Constants.RED);
             EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
@@ -46,19 +45,19 @@ public class LowerBrakeCmd extends CommandBase {
     public void execute() {
         if (brakeSubsystemObj.getBrakeEncoder() < (Constants.BRAKE_ON_FLOOR)) {
             brakeSubsystemObj.stopBrakes();
-            eyeballobj.setEyesToDefault();
+            eyeballObj.setEyesToDefault();
             //System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
 
         } else { // Moves the brake drops down
             brakeSubsystemObj.lowerBrakes();
             brakeSubsystemObj.getBrakeEncoder();
-            eyeballobj.setEyesToDefault();
+            eyeballObj.setEyesToDefault();
             //System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
             // System.out.println("*********************** Brake Encoder: " +
             // brakeSubsystemObj.getBrakeEncoder());
-        } 
-        
-      }
+        }
+
+    }
 
     // Called once the command ends or is interrupted.
     @Override

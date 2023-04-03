@@ -9,14 +9,14 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
 public class CenterToConeCmd extends CommandBase {
-    private Drivetrain drivetrainObj;
+    private final Drivetrain drivetrainObj;
 
     public CenterToConeCmd(Drivetrain drivetrainObj, Vision vision) {
         this.drivetrainObj = drivetrainObj;
         // WPILib has a PIDController class that is helpful: 
         // https://docs.wpilib.org/en/stable/docs/software/advanced-controls/controllers/pidcontroller.html#pid-control-in-wpilib
         // the setpoint would be half the camera x resolution and the tolerance about 5-10
-        // it would take in the x value (first value) from the array reutrned from vision.getBestConeCenter()
+        // it would take in the x value (first value) from the array returned from vision.getBestConeCenter()
         // a good starting kP value is probably 0.005 but that might even be too high and cause oscillation
         // we want kP to be as high as possible without oscillating
         // there's an example of the PIDController here: https://github.com/FRC2832/Robot2022-2832/blob/main/src/main/java/frc/robot/commands/CenterToCargo.java

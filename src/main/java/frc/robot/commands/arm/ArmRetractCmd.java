@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
 
 public class ArmRetractCmd extends CommandBase {
-    private ArmSubsystem armSubsystemObj;
+    private final ArmSubsystem armSubsystemObj;
 
     public ArmRetractCmd(ArmSubsystem armSubsystemObj) {
         this.armSubsystemObj = armSubsystemObj;

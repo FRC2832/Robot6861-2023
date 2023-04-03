@@ -4,17 +4,19 @@
 
 package frc.robot.subsystems;
 
-import java.util.ArrayList;
+import edu.wpi.first.math.geometry.Transform2d;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import org.photonvision.PhotonCamera;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
 
-import edu.wpi.first.math.geometry.Transform2d;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import java.util.ArrayList;
 
 public class Vision extends SubsystemBase {
+    private final double[] corners = {0.0, 0.0, 0.0, 0.0};
+    private final Transform2d pose;
     // TODO: set cameraName (cameraName can be found in the PhotonVision UI)
     // TODO: find out if there's more functionality to add to the subsystem
     // TODO: maybe name these better?
@@ -25,10 +27,10 @@ public class Vision extends SubsystemBase {
     private double pitch;
     private double area;
     private double skew;
-    private double[] corners = { 0.0, 0.0, 0.0, 0.0 };
-    private Transform2d pose;
 
-    /** Creates a new Vision. */
+    /**
+     * Creates a new Vision.
+     */
     public Vision() {
         driverCamera = new PhotonCamera(Constants.DRIVER_CAM_NAME);
         armCamera = new PhotonCamera(Constants.ARM_CAM_NAME);
@@ -53,11 +55,7 @@ public class Vision extends SubsystemBase {
         if (res.hasTargets()) {
             return (ArrayList<PhotonTrackedTarget>) res.getTargets();
         }
-        return new ArrayList<PhotonTrackedTarget>();
-    }
-
-    public void setDriverCamera(PhotonCamera cam) {
-        driverCamera = cam;
+        return new ArrayList<>(0);
     }
 
     public void setArmCamera(PhotonCamera cam) {
@@ -66,6 +64,10 @@ public class Vision extends SubsystemBase {
 
     public PhotonCamera getDriverCamera() {
         return driverCamera;
+    }
+
+    public void setDriverCamera(PhotonCamera cam) {
+        driverCamera = cam;
     }
 
     // public PhotonCamera getArmCamera() {
@@ -80,8 +82,8 @@ public class Vision extends SubsystemBase {
         int[] center = new int[2];
         PhotonTrackedTarget target = bestTarget(armCamera);
         for (TargetCorner corner : target.getMinAreaRectCorners()) {
-            center[0] += corner.x;
-            center[1] += corner.y;
+            center[0] = (int) (center[0] + corner.x);
+            center[1] = (int) (center[1] + corner.y);
         }
         center[0] /= 4;
         center[1] /= 4;
@@ -91,7 +93,7 @@ public class Vision extends SubsystemBase {
     public void targetData(PhotonCamera camera) {
         // Get information from target.
         var result = camera.getLatestResult();
-        if (result.hasTargets()){
+        if (result.hasTargets()) {
             PhotonTrackedTarget target = result.getBestTarget();
             yaw = target.getYaw();
             pitch = target.getPitch();

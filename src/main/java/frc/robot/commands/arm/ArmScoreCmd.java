@@ -10,8 +10,10 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class ArmScoreCmd extends CommandBase {
-    /** Creates a new ArmScoreCmd. */
-    private ArmSubsystem armSubsystemObj;
+    /**
+     * Creates a new ArmScoreCmd.
+     */
+    private final ArmSubsystem armSubsystemObj;
 
     public ArmScoreCmd(ArmSubsystem armSubsystemObj) {
         this.armSubsystemObj = armSubsystemObj;
@@ -28,15 +30,12 @@ public class ArmScoreCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        if (armSubsystemObj.getArmEncoder() < Constants.ARM_MOTOR_POSITION_SCORE) {  
+        if (armSubsystemObj.getArmEncoder() < Constants.ARM_MOTOR_POSITION_SCORE) {
             //stow position = -10.  Stops motor if motor keeps going beyond stow position.  
             //Keeps winch motor from continuing to pull
             armSubsystemObj.armScorePos();
-
-        } else { 
-            
+        } else {
             armSubsystemObj.stopArm();
-
         }
         //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
@@ -45,7 +44,6 @@ public class ArmScoreCmd extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         armSubsystemObj.stopArm();
-
     }
 
     // Returns true when the command should end.

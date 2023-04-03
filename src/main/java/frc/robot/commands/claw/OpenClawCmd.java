@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClawSubsystem;
 
 public class OpenClawCmd extends CommandBase {
-    private ClawSubsystem clawSubsystemObj;
     private static final Timer TIMER = new Timer();
+    private final ClawSubsystem clawSubsystemObj;
 
     public OpenClawCmd(ClawSubsystem clawSubsystemObj) {
         this.clawSubsystemObj = clawSubsystemObj;
@@ -30,8 +30,7 @@ public class OpenClawCmd extends CommandBase {
     public void execute() {
         //System.out.println("***********************  Claw timer: " + TIMER.get());
         // clawSubsystemObj.openClaw();
-
-        if (TIMER.get() >= 0.75) { 
+        if (TIMER.get() >= 0.75) {
             clawSubsystemObj.stopClaw();
         } else {
             clawSubsystemObj.openClaw();

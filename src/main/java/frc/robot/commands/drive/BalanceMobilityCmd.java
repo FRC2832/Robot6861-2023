@@ -8,19 +8,21 @@
 
 package frc.robot.commands.drive;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
+import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class BalanceMobilityCmd extends CommandBase {
-    /** Creates a new BalancePIDCmd. */
+    private final Drivetrain drivetrainObj;
+    /**
+     * Creates a new BalancePIDCmd.
+     */
     private double kp;
     private double angle;
     private double drivePower;
-    private Drivetrain drivetrainObj;
 
     //private int numLevel;
     //private boolean finalBalance;
@@ -41,7 +43,6 @@ public class BalanceMobilityCmd extends CommandBase {
             EyeSubsystem.setDefaultColor(Constants.RED);
         }
         //numLevel = 0;
-
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -49,12 +50,8 @@ public class BalanceMobilityCmd extends CommandBase {
     public void execute() {
         // pids work by multiplying the error from the desired position
         // by the proportional factor, in this case kp.
-
-
         angle = drivetrainObj.getPitch();
         //System.out.println("angle: " + angle);
-       
-
 
         if (Math.abs(angle) < 5.0) {
             kp = 0.006;        // competition charge station value = 0.0055, frost was 0.07
@@ -62,8 +59,6 @@ public class BalanceMobilityCmd extends CommandBase {
             kp = 0.012;
             //System.out.println("   going back up !!!!!!!  ");
         }
-        
-        
 
         drivePower = kp * angle;
         if (Math.abs(drivePower) > 0.4) {
@@ -82,10 +77,9 @@ public class BalanceMobilityCmd extends CommandBase {
             EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
         }
 
-         // drive forward at drivePower 
-         drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
-
-  }
+        // drive forward at drivePower
+        drivetrainObj.mecanumDriveCartesian(0.0, -drivePower, 0.0);
+    }
 
 
     // Called once the command ends or is interrupted.

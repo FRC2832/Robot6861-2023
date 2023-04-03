@@ -6,8 +6,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 
 public class JoystickSubsystem extends SubsystemBase {
-    private CommandXboxController driverController;
-    private CommandXboxController operatorController;
+    private final CommandXboxController driverController;
+    private final CommandXboxController operatorController;
     private double driverLeftX;
     private double driverLeftY;
     private double driverRightX;
@@ -19,12 +19,13 @@ public class JoystickSubsystem extends SubsystemBase {
     private double operatorRightX;
     private double operatorRightY;
 
-    /** Creates a new JoystickSubsystem. */
+    /**
+     * Creates a new JoystickSubsystem.
+     */
     public JoystickSubsystem() {
         driverController = new CommandXboxController(Constants.DRIVER_CONTROLLER);
         setDeadband(1.0);
         operatorController = new CommandXboxController(Constants.OPERATOR_CONTROLLER);
-        
     }
 
     private void setDeadband(double d) {
@@ -43,7 +44,6 @@ public class JoystickSubsystem extends SubsystemBase {
         operatorLeftY = operatorController.getLeftY();
         operatorRightX = operatorController.getRightX();
         operatorRightY = operatorController.getRightY();
-
     }
 
     public double getDriverLeftX() {
@@ -70,7 +70,7 @@ public class JoystickSubsystem extends SubsystemBase {
         return driverRightTrigger;
     }
 
-    public Trigger 
+    public Trigger
     getDriverRightTrigger() {
         return driverController.rightTrigger();
     }
@@ -126,6 +126,7 @@ public class JoystickSubsystem extends SubsystemBase {
     public Trigger getDriverRightBumper() {
         return driverController.rightBumper();
     }
+
     public Trigger getDriverLeftBumper() {
         return driverController.leftBumper();
     }
@@ -139,7 +140,6 @@ public class JoystickSubsystem extends SubsystemBase {
     }
 
     public Trigger getDriverXBtn() {
-            return driverController.x();
-
+        return driverController.x();
     }
 }

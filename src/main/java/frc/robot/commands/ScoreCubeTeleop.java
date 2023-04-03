@@ -4,8 +4,8 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
@@ -14,10 +14,12 @@ import frc.robot.subsystems.eyes.EyeSubsystem;
 
 
 public class ScoreCubeTeleop extends CommandBase {
-    /** Creates a new ScoreCubeCmd. */
-    private IngestorIntake ingestorIntakeObj;
-    private GamePieceScoop gamePieceScoopObj;
-    private static Timer timer = new Timer(); // Static because we only need one timer. It's shared btwn all instances.
+    private static final Timer timer = new Timer(); // Static because we only need one timer. It's shared btwn all instances.
+    /**
+     * Creates a new ScoreCubeCmd.
+     */
+    private final IngestorIntake ingestorIntakeObj;
+    private final GamePieceScoop gamePieceScoopObj;
 
     public ScoreCubeTeleop(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         this.ingestorIntakeObj = ingestorIntake;
@@ -39,26 +41,25 @@ public class ScoreCubeTeleop extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-       
         EyeSubsystem.setDefaultColor(Constants.PURPLE); // doesn't look purple
         //EyeSubsystem.getDefaultColor()
         EyeSubsystem.setDefaultMovementLeft(new EyeMovement(0.5, 0.5)); // Both eyes were EyeMovement 2
         EyeSubsystem.setDefaultMovementRight(new EyeMovement(0.5, 0.5));
-        
+
         //ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
-       
+
         ingestorIntakeObj.revOut(Constants.INGESTOR_EXPEL_SPEED_MID, Constants.INGESTOR_EXPEL_SPEED_MID);
-       //95/50 great for mid level score
+        //95/50 great for mid level score
 
         //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
-						//Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH);
+        //Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH);
         //ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_AUTON,
-						//Constants.LOWER_ROLLER_EXPEL_SPEED_AUTON);
+        //Constants.LOWER_ROLLER_EXPEL_SPEED_AUTON);
 
         // changed to mid speed to help score cube in Auton 
         // cube was going too high and bouncing off the wall
 
-        if (timer.get() >= 1.5) { 
+        if (timer.get() >= 1.5) {
             gamePieceScoopObj.servoOnTeleop();
         }
     }
@@ -68,7 +69,7 @@ public class ScoreCubeTeleop extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
-        timer.stop();  
+        timer.stop();
     }
 
     // Returns true when the command should end.
@@ -76,7 +77,6 @@ public class ScoreCubeTeleop extends CommandBase {
     public boolean isFinished() {
         // use timer for now
         // keep timer in as OR so if servos fail to eject cube, 
-
         return timer.get() >= 2.5;
     }
 }

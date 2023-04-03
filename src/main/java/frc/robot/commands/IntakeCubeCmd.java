@@ -12,11 +12,13 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
-    /** Creates a new ScoreCubeCmd. */
-    private IngestorIntake ingestorIntakeObj;
-    private GamePieceScoop gamePieceScoopObj;
-    private EyeSubsystem eyeballobj;
     private static final Timer intakeTimer = new Timer();
+    /**
+     * Creates a new ScoreCubeCmd.
+     */
+    private final IngestorIntake ingestorIntakeObj;
+    private final GamePieceScoop gamePieceScoopObj;
+    private final EyeSubsystem eyeballobj;
 
     public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, EyeSubsystem eyeballobj) {
         this.ingestorIntakeObj = ingestorIntake;
@@ -31,12 +33,10 @@ public class IntakeCubeCmd extends CommandBase {
     public void initialize() {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
-
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
         gamePieceScoopObj.servoOff();
-
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -65,8 +65,5 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         return intakeTimer.get() > 1.5;
-
-    
-
     }
 }

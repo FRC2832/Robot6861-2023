@@ -13,11 +13,10 @@ import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
 public class RedCableCrossAuton extends SequentialCommandGroup {
-
     public RedCableCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         addCommands(
-            new ScoreCubeTeleop(ingestorIntake, gamePieceScoop), 
-            new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
+                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
         );
     }
 }

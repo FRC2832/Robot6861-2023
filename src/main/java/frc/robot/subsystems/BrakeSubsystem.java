@@ -7,31 +7,25 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
-
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
 public class BrakeSubsystem extends SubsystemBase {
-    private CANSparkMax brakeWheelMotor;
-    private RelativeEncoder brakeWheelMotorEncoder;
-    private TalonSRX brakeDriveMotor;
-  
+    private final CANSparkMax brakeWheelMotor;
+    private final RelativeEncoder brakeWheelMotorEncoder;
+    private final TalonSRX brakeDriveMotor;
+
 
     public BrakeSubsystem() {
         // up and down blue wheel under robot
-        brakeWheelMotor = new CANSparkMax(Constants.LOWER_BRAKE_MOTOR_ID, CANSparkMax.MotorType.kBrushless);
+        brakeWheelMotor = new CANSparkMax(Constants.LOWER_BRAKE_MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
         brakeWheelMotorEncoder = brakeWheelMotor.getEncoder();
         brakeWheelMotor.setSmartCurrentLimit(Constants.BRAKE_WHEEL_MOTOR_CURRENT_LIMIT_AMPS);
-
-         // driven wheel in brake wheel - helps steady us on charge station in endgame
-         brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
-
-
-
+        // driven wheel in brake wheel - helps steady us on charge station in endgame
+        brakeDriveMotor = new TalonSRX(Constants.DRIVE_BRAKE_MOTOR_ID);
         brakeWheelBrakeMode();
-
     }
 
 
@@ -65,7 +59,6 @@ public class BrakeSubsystem extends SubsystemBase {
 
     public double getBrakeEncoder() {
         return brakeWheelMotorEncoder.getPosition();
-       
     }
 
     @Override

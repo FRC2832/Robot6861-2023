@@ -16,14 +16,13 @@ import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
 
 public class RedCableEngageAuton extends SequentialCommandGroup {
-
     public RedCableEngageAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
         addCommands(
-            new ScoreCubeTeleop(ingestorIntake, gamePieceScoop), 
-            new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
-            new StrafeLeftCmd(drivetrainObj, Constants.AUTON_BALANCING_STRAFE, Constants.AUTON_SPEED),
-            new DriveFwdCmd(drivetrainObj, Constants.AUTON_BALANCING_DRIVE_FORWARD, Constants.AUTON_SPEED + 0.1),
-            new BalancePIDCmd(drivetrainObj, false)
+                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
+                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
+                new StrafeLeftCmd(drivetrainObj, Constants.AUTON_BALANCING_STRAFE, Constants.AUTON_SPEED),
+                new DriveFwdCmd(drivetrainObj, Constants.AUTON_BALANCING_DRIVE_FORWARD, Constants.AUTON_SPEED + 0.1),
+                new BalancePIDCmd(drivetrainObj, false)
         );
     }
 }

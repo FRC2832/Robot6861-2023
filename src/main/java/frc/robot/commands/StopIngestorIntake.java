@@ -4,14 +4,13 @@
 
 package frc.robot.commands;
 
-import frc.robot.subsystems.IngestorIntake;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.IngestorIntake;
 
 
 public class StopIngestorIntake extends CommandBase {
- 
-    private final IngestorIntake ingestorIntakeObj;
 
+    private final IngestorIntake ingestorIntakeObj;
 
     public StopIngestorIntake(IngestorIntake ingestorIntakeObj) {
         this.ingestorIntakeObj = ingestorIntakeObj;

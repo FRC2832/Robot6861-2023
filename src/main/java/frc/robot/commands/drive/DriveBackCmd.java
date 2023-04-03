@@ -10,19 +10,20 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class DriveBackCmd extends CommandBase {
-    /** Creates a new DriveBackCmd. */
+    /**
+     * Creates a new DriveBackCmd.
+     */
 
-    private Drivetrain drivetrainObj;
-    private double driveSpeed;
-    private double driveDistanceInches;
+    private final Drivetrain drivetrainObj;
+    private final double driveSpeed;
+    private final double driveDistanceInches;
     private double startEncoderPos;
     private boolean isRedAlliance;
 
 
-
     public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceInches = driveDistanceInches; 
+        this.driveDistanceInches = driveDistanceInches;
         this.driveSpeed = Math.abs(driveSpeed);
         // this.isRedAlliance = isRedAlliance;
         addRequirements(drivetrainObj);
@@ -31,7 +32,6 @@ public class DriveBackCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        
         drivetrainObj.resetEncoders();
         startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
         //System.out.println(" ******* Starting encoder position " + startEncoderPos);
@@ -42,7 +42,6 @@ public class DriveBackCmd extends CommandBase {
     public void execute() {
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); //pupils go to front of robot
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
-
         drivetrainObj.mecanumDriveCartesian(0.0, driveSpeed, 0.0);
         //System.out.println(" ********** Current drivetrain encoder position " + drivetrainObj.getEncoderDistance());
         // drive back drives forward in Auton only. So inverting driveSpeed 

@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.revrobotics.SparkMaxRelativeEncoder.Type;
-
 import frc.robot.subsystems.eyes.EyeColor;
 import frc.robot.subsystems.eyes.EyeMovement;
 
@@ -68,10 +67,10 @@ public final class Constants {
     public static final int ARM_MOTOR_ID = 17;
     public static final int CLAW_MOTOR_ID = 16;
     public static final int LOWER_BRAKE_MOTOR_ID = 18;
-    public static final int DRIVE_BRAKE_MOTOR_ID = 15;  
+    public static final int DRIVE_BRAKE_MOTOR_ID = 15;
 
     // Claw and Brake Motor Speeds
-    public static final double CLAW_OPEN_SPEED = 0.50; 
+    public static final double CLAW_OPEN_SPEED = 0.50;
     public static final double CLAW_CLOSE_SPEED = -1;  //was 0.95
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
@@ -116,8 +115,8 @@ public final class Constants {
     // Pupil/Eyelid Servo IDs
     public static final int LEFT_EYELID_SERVO = 5; // Was 04
     public static final int LEFT_PUPIL_SERVO = 4; // Was 3
-    public static final int RIGHT_EYELID_SERVO = 3; 
-    public static final int RIGHT_PUPIL_SERVO = 2; 
+    public static final int RIGHT_EYELID_SERVO = 3;
+    public static final int RIGHT_PUPIL_SERVO = 2;
 
     //Cameras
     public static final String DRIVER_CAM_NAME = "JeVois-A33_Video_Camera";
@@ -159,18 +158,18 @@ public final class Constants {
     public static final double COOP_MOBILITY_DRIVE_FWD = 40;
     public static final double COOP_MOBILITY_DRIVE_BACK = 120;
     public static final double MOBILITY_SPEED = 0.5;
-   
-    
+
+
     // RGB VALUES FOR LED
     public static final EyeColor PURPLE = new EyeColor(150, 35, 153); //130. 26, 116 //0 is temporary for testing
-    
+
     public static final EyeColor YELLOW = new EyeColor(255, 130, 10); //255, 95, 10//
 
     public static final EyeColor WHITE = new EyeColor(255, 255, 195);
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
-    public static final EyeColor BLUE = new EyeColor(25,75,200);  //30, 105, 255//
+    public static final EyeColor BLUE = new EyeColor(25, 75, 200);  //30, 105, 255//
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
 
@@ -179,9 +178,6 @@ public final class Constants {
     public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
-   
-    
-   
 
-    
+
 }
