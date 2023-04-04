@@ -6,15 +6,14 @@ package frc.robot.commands.arm;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ArmSubsystem;
-
+import edu.wpi.first.wpilibj.DriverStation;
 public class ArmStowCmd extends CommandBase {
-    /**
-     * Creates a new ArmStowCmd.
-     */
-    private final ArmSubsystem armSubsystemObj;
-
+    /** Creates a new ArmStowCmd. */
+    private ArmSubsystem armSubsystemObj;
+    
 
     public ArmStowCmd(ArmSubsystem armSubsystemObj) {
+       
         this.armSubsystemObj = armSubsystemObj;
         addRequirements(armSubsystemObj);
     }
@@ -27,9 +26,13 @@ public class ArmStowCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        armSubsystemObj.armStowPos();
-        //armSubsystemObj.getArmEncoder();
-        //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+        
+            armSubsystemObj.armStowPos();
+
+            //armSubsystemObj.getArmEncoder();
+            //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+
+
     }
 
 

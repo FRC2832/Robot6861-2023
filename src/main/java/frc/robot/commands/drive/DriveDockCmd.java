@@ -7,9 +7,7 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class DriveDockCmd extends CommandBase {
-    /**
-     * Creates a new DriveDockCmd.
-     */
+    /** Creates a new DriveDockCmd. */
     public DriveDockCmd() {
         // Use addRequirements() here to declare subsystem dependencies.
     }

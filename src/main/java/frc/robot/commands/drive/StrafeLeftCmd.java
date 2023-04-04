@@ -2,20 +2,18 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.drive;
+package frc.robot.commands.drive; 
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Drivetrain;
 
 public class StrafeLeftCmd extends CommandBase {
-    /**
-     * Creates a new StrafeLeftCmd.
-     */
+    /** Creates a new StrafeLeftCmd. */
 
-    private final Drivetrain drivetrainObj;
-    private final double driveSpeed;
-    private final double driveDistanceInches;
+    private Drivetrain drivetrainObj;
+    private double driveSpeed;
+    private double driveDistanceInches;
     private double startEncoderPos;
     private double start;
 

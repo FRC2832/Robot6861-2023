@@ -6,9 +6,11 @@ package frc.robot.commands.autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
+import frc.robot.commands.ScoreCubeAuton;
 import frc.robot.commands.ScoreCubeTeleop;
 import frc.robot.commands.drive.BalanceCrossCmd;
 import frc.robot.commands.drive.BalanceMobilityCmd;
+import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.drive.DriveFwdCmd;
 import frc.robot.subsystems.Drivetrain;
@@ -17,17 +19,16 @@ import frc.robot.subsystems.IngestorIntake;
 
 
 public class CoopMobilityAuton extends SequentialCommandGroup {
-    /**
-     * Creates a new CoopMobilityAuton.
-     */
+  /** Creates a new CoopMobilityAuton. */
 
-    public CoopMobilityAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj) {
+  public CoopMobilityAuton(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj) {
         addCommands(
                 new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
                 new DriveBackCmd(drivetrainObj, Constants.COOP_MOBILITY_DRIVE_BACK, Constants.AUTON_SPEED + 0.1),
                 new BalanceCrossCmd(drivetrainObj, true, false),
                 new DriveFwdCmd(drivetrainObj, Constants.COOP_MOBILITY_DRIVE_FWD, Constants.MOBILITY_SPEED),
                 new BalanceMobilityCmd(drivetrainObj)
+
         );
-    }
+  }
 }

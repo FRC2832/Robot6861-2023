@@ -11,10 +11,12 @@ import frc.robot.commands.drive.StrafeLeftCmd;
 import frc.robot.subsystems.Drivetrain;
 
 public class RedDefaultSubstationAuton extends SequentialCommandGroup {
+
     public RedDefaultSubstationAuton(Drivetrain drivetrainObj) {
         addCommands(
-                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
-                new StrafeLeftCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
+            new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
+            new StrafeLeftCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
         );
     }
+
 }

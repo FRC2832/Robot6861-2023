@@ -8,11 +8,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
 
 public class ScoreIngestorLiftCmd extends CommandBase {
-    /**
-     * Creates a new MoveIngestorLiftCmd.
-     */
+    /** Creates a new MoveIngestorLiftCmd. */
 
-    private final IngestorLift ingestorLiftObj;
+    private IngestorLift ingestorLiftObj;
 
 
     public ScoreIngestorLiftCmd(IngestorLift ingestorLift) {
@@ -33,6 +31,9 @@ public class ScoreIngestorLiftCmd extends CommandBase {
     public void execute() {
         ingestorLiftObj.lowerLiftToScore();
         // Move the lift to the shooting position
+        
+       
+
     }
 
     // Called once the command ends or is interrupted.

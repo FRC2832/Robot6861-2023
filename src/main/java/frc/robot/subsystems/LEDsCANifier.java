@@ -1,12 +1,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.CANifier;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class LEDsCANifier extends SubsystemBase {
 
-    private final CANifier clights;
+    private CANifier clights;
 
     public LEDsCANifier() {
         clights = new CANifier(4);
@@ -26,4 +27,5 @@ public class LEDsCANifier extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
     }
+
 }

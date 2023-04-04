@@ -10,9 +10,10 @@ import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.subsystems.Drivetrain;
 
 public class RedDefaultCableAuton extends SequentialCommandGroup {
+
     public RedDefaultCableAuton(Drivetrain drivetrainObj) {
         addCommands(
-                new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
+            new DriveBackCmd(drivetrainObj, Constants.CABLE_AUTON_DRIVE_BACK, Constants.AUTON_SPEED)
         );
     }
 }

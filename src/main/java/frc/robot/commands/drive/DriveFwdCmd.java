@@ -8,19 +8,17 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveFwdCmd extends CommandBase {
-    /**
-     * Creates a new DriveBackCmd.
-     */
+    /** Creates a new DriveBackCmd. */
 
-    private final Drivetrain drivetrainObj;
-    private final double driveSpeed;
-    private final double driveDistanceInches;
+    private Drivetrain drivetrainObj;
+    private double driveSpeed;
+    private double driveDistanceInches;
     private double startEncoderPos;
-
+    
 
     public DriveFwdCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
-        this.driveDistanceInches = driveDistanceInches;
+        this.driveDistanceInches = driveDistanceInches; 
         this.driveSpeed = Math.abs(driveSpeed);
         addRequirements(drivetrainObj);
     }

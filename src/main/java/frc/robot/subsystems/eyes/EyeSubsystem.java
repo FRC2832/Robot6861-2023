@@ -5,20 +5,23 @@
 package frc.robot.subsystems.eyes;
 
 import com.ctre.phoenix.CANifier;
+
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class EyeSubsystem extends SubsystemBase {
+    private Servo eyePupilServoRight;
+    private Servo eyePupilServoLeft;
+    private Servo eyeLidServoRight;
+    private Servo eyeLidServoLeft;
+    private CANifier clights;
+
+
     private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1; //might need to be _3
     private static EyeMovement currentDefaultMovementRight = Constants.EYE_MOVEMENT_1;
     private static EyeColor currentDefaultColor = Constants.LED_OFF;
-    private final Servo eyePupilServoRight;
-    private final Servo eyePupilServoLeft;
-    private final Servo eyeLidServoRight;
-    private final Servo eyeLidServoLeft;
-    private final CANifier clights;
 
     public EyeSubsystem() {
         eyePupilServoRight = new Servo(Constants.RIGHT_PUPIL_SERVO); // eyePupilServo1 connected to roboRIO PWM 4
@@ -26,22 +29,6 @@ public class EyeSubsystem extends SubsystemBase {
         eyeLidServoRight = new Servo(Constants.RIGHT_EYELID_SERVO); // eyeLidServo1 connected to roboRIO PWM 1
         eyeLidServoLeft = new Servo(Constants.LEFT_EYELID_SERVO); // eyeLidServo2 connected to roboRIO PWM 2
         clights = new CANifier(Constants.EYE_CANIFIER_ID);
-    }
-
-    public static EyeColor getDefaultColor() {
-        return currentDefaultColor;
-    }
-
-    public static void setDefaultColor(EyeColor defaultColor) {
-        currentDefaultColor = defaultColor;
-    }
-
-    public static void setDefaultMovementLeft(EyeMovement defaultMovementLeft) {
-        currentDefaultMovementLeft = defaultMovementLeft;
-    }
-
-    public static void setDefaultMovementRight(EyeMovement defaultMovementRight) {
-        currentDefaultMovementRight = defaultMovementRight;
     }
 
     private synchronized void setLEDColor(EyeColor color) {
@@ -72,18 +59,32 @@ public class EyeSubsystem extends SubsystemBase {
     public double getLeftEyeLid() {
         return eyeLidServoLeft.get();
     }
-
     public double getLeftEyePupil() {
         return eyePupilServoLeft.get();
     }
-
     public double getRightEyeLid() {
         return eyeLidServoRight.get();
     }
-
     public double getRightEyePupil() {
         return eyePupilServoRight.get();
     }
+
+    public static EyeColor getDefaultColor() {
+        return currentDefaultColor;
+    }
+    
+    public static void setDefaultColor(EyeColor defaultColor) {
+        currentDefaultColor = defaultColor;
+    }
+
+    public static void setDefaultMovementLeft(EyeMovement defaultMovementLeft) {
+        currentDefaultMovementLeft = defaultMovementLeft;
+    }
+
+    public static void setDefaultMovementRight(EyeMovement defaultMovementRight) {
+        currentDefaultMovementRight = defaultMovementRight;
+    }
+
 
     public CommandBase setEyes(EyeMovement movementLeft, EyeMovement movementRight, EyeColor color) {
         return run(  // keep at run, runOnce is just a 20 ms loop
@@ -96,40 +97,40 @@ public class EyeSubsystem extends SubsystemBase {
 
     public CommandBase setEyesToDefault() {
         return run(
-                () -> {
-                    setLEDColor(currentDefaultColor);
-                    //System.out.println("Current Default color: " + currentDefaultColor.toString() + "");
-                    setEyePositions(currentDefaultMovementLeft, currentDefaultMovementRight);
-                    //System.out.println("Current Default movement:  Left =  " + currentDefaultMovementLeft.toString() +
-                    // " Right =  " + currentDefaultMovementRight.toString() + "");
-
-                });
+            () -> {
+                setLEDColor(currentDefaultColor);
+                //System.out.println("Current Default color: " + currentDefaultColor.toString() + "");
+                setEyePositions(currentDefaultMovementLeft, currentDefaultMovementRight);
+                //System.out.println("Current Default movement:  Left =  " + currentDefaultMovementLeft.toString() +
+                       // " Right =  " + currentDefaultMovementRight.toString() + "");
+            
+            });
     }
 
     public CommandBase setColor(EyeColor color) {
-        return run(
+        return run( 
                 () -> {
                     setLEDColor(color);
                 });
     }
 
     public CommandBase setMovement(EyeMovement movementLeft, EyeMovement movementRight) {
-        return run(
+        return run(  
                 () -> {
                     setEyePositions(movementLeft, movementRight);
                 });
     }
 
-    // public CommandBase setLeftEyeLidMovement(EyeMovement movementLeft) {
-    //   return run(
-    //() -> {
-    //setEyePositions(movementLeft, movementRight);
-    // });
+   // public CommandBase setLeftEyeLidMovement(EyeMovement movementLeft) {
+     //   return run( 
+                //() -> {
+                    //setEyePositions(movementLeft, movementRight);
+                 // });
     //}
+    
 
-
-    // public static void setLeftEyelid(double position) {
-    //  eyeLidServoLeft.set(position);
+   // public static void setLeftEyelid(double position) {
+      //  eyeLidServoLeft.set(position);
     //}
 
 

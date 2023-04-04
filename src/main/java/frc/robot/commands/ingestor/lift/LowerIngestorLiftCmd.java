@@ -6,17 +6,15 @@ package frc.robot.commands.ingestor.lift;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.eyes.EyeSubsystem;
+import frc.robot.Constants;
 
 public class LowerIngestorLiftCmd extends CommandBase {
-    private static final Timer timer = new Timer();
-    /**
-     * Creates a new MoveIngestorLiftCmd.
-     */
+    /** Creates a new MoveIngestorLiftCmd. */
 
-    private final IngestorLift ingestorLiftObj;
+    private IngestorLift ingestorLiftObj;
+    private static Timer timer = new Timer();
     private boolean done;
 
     public LowerIngestorLiftCmd(IngestorLift ingestorLift) {

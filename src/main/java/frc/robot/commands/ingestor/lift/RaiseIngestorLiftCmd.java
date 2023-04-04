@@ -9,11 +9,9 @@ import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
 
 public class RaiseIngestorLiftCmd extends CommandBase {
-    /**
-     * Creates a new MoveIngestorLiftCmd.
-     */
+    /** Creates a new MoveIngestorLiftCmd. */
 
-    private final IngestorLift ingestorLiftObj;
+    private IngestorLift ingestorLiftObj;
 
     public RaiseIngestorLiftCmd(IngestorLift ingestorLift) {
         this.ingestorLiftObj = ingestorLift;
@@ -33,14 +31,16 @@ public class RaiseIngestorLiftCmd extends CommandBase {
     public void execute() {
         if (ingestorLiftObj.getLiftEncoderCountReal() > (Constants.INGESTOR_TOP_POSITION)) {
             // System.out.println("***********************  Ingestor Encoder: " + ingestorLiftObj.getLiftEncoderCountReal());
-            ingestorLiftObj.stopLift();
-        } else {
-            ingestorLiftObj.raiseLift();
-            ingestorLiftObj.getLiftEncoderCountReal();
-            //System.out.println("***********************  Ingestor Encoder: " + ingestorObj.getLiftEncoderCountReal());
+             ingestorLiftObj.stopLift();
+         } else { 
+             ingestorLiftObj.raiseLift();
+             ingestorLiftObj.getLiftEncoderCountReal();
+             //System.out.println("***********************  Ingestor Encoder: " + ingestorObj.getLiftEncoderCountReal());
+         }
         }
-    }
+     
 
+    
 
     // Called once the command ends or is interrupted.
     @Override

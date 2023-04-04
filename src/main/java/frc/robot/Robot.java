@@ -24,7 +24,7 @@ public class Robot extends TimedRobot {
 
     private RobotContainer robotContainerObj;
     //private LEDsCANifier clights;
-
+    
     /**
      * This function is run when the robot is first started up and should be used
      * for any
@@ -51,13 +51,11 @@ public class Robot extends TimedRobot {
         // and running subsystem periodic() methods. This must be called from the
         // robot's periodic
         // block in order for anything in the Command-based framework to work.
-
+       
         CommandScheduler.getInstance().run();
     }
 
-    /**
-     * This function is called once each time the robot enters Disabled mode.
-     */
+    /** This function is called once each time the robot enters Disabled mode. */
     @Override
     public void disabledInit() {
         EyeSubsystem.setDefaultColor(Constants.LED_OFF);
@@ -86,9 +84,7 @@ public class Robot extends TimedRobot {
         }
     }
 
-    /**
-     * This function is called periodically during autonomous.
-     */
+    /** This function is called periodically during autonomous. */
     @Override
     public void autonomousPeriodic() {
     }
@@ -105,14 +101,12 @@ public class Robot extends TimedRobot {
         EyeSubsystem.setDefaultColor(Constants.WHITE);
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
-        // EyeSubsystem.setLeftEyelid(1);
+       // EyeSubsystem.setLeftEyelid(1);
         //robotContainerObj.setTeleopConfigs();
         //CommandScheduler.getInstance().schedule(new DriveArcade(robotContainerObj.getDrivetrain()));
     }
 
-    /**
-     * This function is called periodically during operator control.
-     */
+    /** This function is called periodically during operator control. */
     @Override
     public void teleopPeriodic() {
     }
@@ -123,23 +117,17 @@ public class Robot extends TimedRobot {
         CommandScheduler.getInstance().cancelAll();
     }
 
-    /**
-     * This function is called periodically during test mode.
-     */
+    /** This function is called periodically during test mode. */
     @Override
     public void testPeriodic() {
     }
 
-    /**
-     * This function is called once when the robot is first started up.
-     */
+    /** This function is called once when the robot is first started up. */
     @Override
     public void simulationInit() {
     }
 
-    /**
-     * This function is called periodically whilst in simulation.
-     */
+    /** This function is called periodically whilst in simulation. */
     @Override
     public void simulationPeriodic() {
     }

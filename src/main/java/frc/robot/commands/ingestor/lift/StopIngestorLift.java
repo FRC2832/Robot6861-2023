@@ -4,14 +4,12 @@
 
 package frc.robot.commands.ingestor.lift;
 
-import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.IngestorLift;
+import edu.wpi.first.wpilibj2.command.CommandBase;
 
-/**
- * An example command that uses an example subsystem.
- */
+/** An example command that uses an example subsystem. */
 public class StopIngestorLift extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+    @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
     private final IngestorLift ingestorLiftObj;
 
     /**

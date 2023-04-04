@@ -7,14 +7,16 @@ package frc.robot.commands.drive;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.JoystickSubsystem;
+/*import frc.robot.subsystems.eyes.EyeColor;
+import frc.robot.subsystems.eyes.EyeMovement;
+import frc.robot.subsystems.eyes.EyeSubsystem;
+*/
 
 public class DriveCartesian extends CommandBase {
-    /**
-     * Creates a new DriveArcade.
-     */
-    private final Drivetrain drivetrainObj;
-    private final JoystickSubsystem joystickSubsystemObj;
-    // private EyeSubsystem eyeballObj = new EyeSubsystem();
+    /** Creates a new DriveArcade. */
+    private Drivetrain drivetrainObj;
+    private JoystickSubsystem joystickSubsystemObj;
+   // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
     public DriveCartesian(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
         this.drivetrainObj = drivetrainObj;
@@ -30,7 +32,10 @@ public class DriveCartesian extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
+        
         zRotationTrue();
+
+
         // added snail mode along with existing turtle mode
         if (joystickSubsystemObj.getDriverRightTriggerValue() >= 0.5) {
             drivetrainObj.mecanumDriveCartesian(-joystickSubsystemObj.getDriverLeftX() * 0.5,

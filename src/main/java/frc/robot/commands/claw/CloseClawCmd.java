@@ -9,11 +9,9 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.ClawSubsystem;
 
 public class CloseClawCmd extends CommandBase {
+    /** Creates a new CloseClawCmd. */
+    private ClawSubsystem clawSubsystemObj;
     private static final Timer TIMER = new Timer();
-    /**
-     * Creates a new CloseClawCmd.
-     */
-    private final ClawSubsystem clawSubsystemObj;
 
     public CloseClawCmd(ClawSubsystem clawSubsystemObj) {
         this.clawSubsystemObj = clawSubsystemObj;
@@ -41,7 +39,7 @@ public class CloseClawCmd extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        // clawSubsystemObj.stopClaw();  not sure if we want it to set speed to 0?
+        // clawSubsystemObj.stopClaw();  not sure we want it to set speed to 0?
         TIMER.stop();
         TIMER.reset();
     }

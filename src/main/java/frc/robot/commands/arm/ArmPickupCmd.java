@@ -10,10 +10,8 @@ import frc.robot.subsystems.ArmSubsystem;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class ArmPickupCmd extends CommandBase {
-    /**
-     * Creates a new ArmPickupCmd.
-     */
-    private final ArmSubsystem armSubsystemObj;
+    /** Creates a new ArmPickupCmd. */
+    private ArmSubsystem armSubsystemObj;
 
     public ArmPickupCmd(ArmSubsystem armSubsystemObj) {
         // Use addRequirements() here to declare subsystem dependencies.
@@ -38,7 +36,7 @@ public class ArmPickupCmd extends CommandBase {
         } else {
             armSubsystemObj.stopArm();
             EyeSubsystem.setDefaultColor(Constants.YELLOW);
-
+            
         }
         //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
     }
