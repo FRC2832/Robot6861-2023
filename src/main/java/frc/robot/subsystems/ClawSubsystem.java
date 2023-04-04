@@ -6,18 +6,18 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
-
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ClawSubsystem extends SubsystemBase {
 
-    private CANSparkMax clawMotor;
+    private final CANSparkMax clawMotor;
     // private RelativeEncoder clawEncoder;
     // private static final Timer TIMER = new Timer();
 
     public ClawSubsystem() {
-        clawMotor = new CANSparkMax(Constants.CLAW_MOTOR_ID, CANSparkMax.MotorType.kBrushed);
+        clawMotor = new CANSparkMax(Constants.CLAW_MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushed);
         clawMotor.setSmartCurrentLimit(Constants.CLAW_MOTOR_CURRENT_LIMIT_AMPS);
         // clawEncoder = clawMotor.getEncoder();
         // TIMER.reset();
@@ -28,7 +28,7 @@ public class ClawSubsystem extends SubsystemBase {
         // if (TIMER.get() >= 3.0) {
         // stopClaw();
         // } else {
-            
+
         clawMotor.set(Constants.CLAW_CLOSE_SPEED);
         clawMotor.setIdleMode(IdleMode.kBrake);
 
@@ -41,7 +41,7 @@ public class ClawSubsystem extends SubsystemBase {
         // } else {
 
         clawMotor.set(Constants.CLAW_OPEN_SPEED);
-    
+
     }
 
     public void stopClaw() {

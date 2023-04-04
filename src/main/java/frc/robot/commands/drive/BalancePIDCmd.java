@@ -12,11 +12,13 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class BalancePIDCmd extends CommandBase {
-    /** Creates a new BalancePIDCmd. */
+    private final Drivetrain drivetrainObj;
+    /**
+     * Creates a new BalancePIDCmd.
+     */
     private double kp;
     private double angle;
     private double drivePower;
-    private Drivetrain drivetrainObj;
     private boolean isDriverControlled;
     private int victoryCounter;
 

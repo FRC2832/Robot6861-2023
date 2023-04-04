@@ -6,22 +6,12 @@ package frc.robot.commands.autons;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
-import frc.robot.commands.ScoreCubeAuton;
 import frc.robot.commands.ScoreCubeTeleop;
 import frc.robot.commands.claw.CloseClawCmd;
 import frc.robot.commands.claw.OpenClawCmd;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveBackCmd;
-import frc.robot.commands.ingestor.lift.ScoreIngestorLiftCmd;
-import frc.robot.subsystems.ClawSubsystem;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.GamePieceScoop;
-import frc.robot.subsystems.IngestorIntake;
-/*import frc.robot.subsystems.eyes.EyeColor;
-import frc.robot.subsystems.eyes.EyeMovement;
-import frc.robot.subsystems.eyes.EyeSubsystem;
-*/
-import frc.robot.subsystems.IngestorLift;
+import frc.robot.subsystems.*;
 
 // Same for red and blue
 public class CoopBalanceAuton extends SequentialCommandGroup {
@@ -39,9 +29,9 @@ public class CoopBalanceAuton extends SequentialCommandGroup {
                 new OpenClawCmd(clawObj),
                 new CloseClawCmd(clawObj)
 
-        // eyeballObj.setDefaultCommand(
-        // eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new
-        // EyeColor(120, 120, 120)));
+                // eyeballObj.setDefaultCommand(
+                // eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new
+                // EyeColor(120, 120, 120)));
 
         );
 

@@ -9,7 +9,7 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Vision;
 
 public class CenterToConeCmd extends CommandBase {
-    private Drivetrain drivetrainObj;
+    private final Drivetrain drivetrainObj;
 
     public CenterToConeCmd(Drivetrain drivetrainObj, Vision vision) {
         this.drivetrainObj = drivetrainObj;

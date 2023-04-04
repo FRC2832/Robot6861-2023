@@ -4,42 +4,42 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.revrobotics.CANSparkMax;
-
-import edu.wpi.first.wpilibj.Servo;
+import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class GamePieceScoop extends SubsystemBase {
-    /** Creates a new GamePieceScoop. */
+    /**
+     * Creates a new GamePieceScoop.
+     */
 
     //private Servo gamePieceScoopServoL;
     //private Servo gamePieceScoopServoR;
-    private static Timer timer = new Timer();
-    private CANSparkMax gamePieceScoopServoLR;
+    private static final Timer timer = new Timer();
+    private final CANSparkMax gamePieceScoopServoLR;
 
 
     public GamePieceScoop() {
-        gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMax.MotorType.kBrushed);
+        gamePieceScoopServoLR = new CANSparkMax(Constants.GAME_PIECE_SCOOP_SERVO_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushed);
         gamePieceScoopServoLR.setSmartCurrentLimit(Constants.GAME_PIECE_SCOOP_MOTOR_CURRENT_LIMIT_AMPS);
     }
-       
+
 
     public void servoOnTeleop() {
-        
+
 
         gamePieceScoopServoLR.setVoltage(12);
-       
+
 
     }
 
     public void servoOnAuton() {
-       
+
         gamePieceScoopServoLR.setVoltage(12);
-        
+
     }
 
     public void servoOff() {
@@ -47,7 +47,7 @@ public class GamePieceScoop extends SubsystemBase {
         gamePieceScoopServoLR.setVoltage(-12);
 
     }
-        
+
 
     @Override
     public void periodic() {
@@ -55,7 +55,7 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOffCmd() {
-        
+
         return run(
                 () -> {
                     servoOff();
@@ -63,7 +63,7 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOnAutonCmd() {
-       
+
         return run(
                 () -> {
                     servoOnAuton();
@@ -72,15 +72,14 @@ public class GamePieceScoop extends SubsystemBase {
 
 
     public CommandBase servoOnCmd() {
-      
+
         return run(
                 () -> {
                     servoOnTeleop();
 
-                    }
+                }
 
-    
 
-              );
+        );
     }
 }

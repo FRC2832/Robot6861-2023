@@ -13,16 +13,16 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class LowerBrakeCmd extends CommandBase {
-    private EyeSubsystem eyeballobj;
-    private BrakeSubsystem brakeSubsystemObj;
-    private Drivetrain DrivetrainObj;
+    private final EyeSubsystem eyeballobj;
+    private final BrakeSubsystem brakeSubsystemObj;
+    private final Drivetrain drivetrainObj;
 
 
-    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, 
-    EyeSubsystem eyeballobj, Drivetrain DrivetrainObj) {
+    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled,
+                         EyeSubsystem eyeballobj, Drivetrain drivetrainObj) {
         this.brakeSubsystemObj = brakeSubsystemObj;
         this.eyeballobj = eyeballobj;
-        this.DrivetrainObj = DrivetrainObj;
+        this.drivetrainObj = drivetrainObj;
         addRequirements(brakeSubsystemObj, eyeballobj);
     }
 
@@ -56,9 +56,9 @@ public class LowerBrakeCmd extends CommandBase {
             //System.out.println(" Eye setDefaultColor = " + EyeSubsystem.getDefaultColor());
             // System.out.println("*********************** Brake Encoder: " +
             // brakeSubsystemObj.getBrakeEncoder());
-        } 
-        
-      }
+        }
+
+    }
 
     // Called once the command ends or is interrupted.
     @Override

@@ -13,10 +13,12 @@ import frc.robot.subsystems.eyes.EyeSubsystem;
 */
 
 public class DriveCartesian extends CommandBase {
-    /** Creates a new DriveArcade. */
-    private Drivetrain drivetrainObj;
-    private JoystickSubsystem joystickSubsystemObj;
-   // private EyeSubsystem eyeballObj = new EyeSubsystem();
+    /**
+     * Creates a new DriveArcade.
+     */
+    private final Drivetrain drivetrainObj;
+    private final JoystickSubsystem joystickSubsystemObj;
+    // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
     public DriveCartesian(Drivetrain drivetrainObj, JoystickSubsystem joystickSubsystemObj) {
         this.drivetrainObj = drivetrainObj;
@@ -32,7 +34,7 @@ public class DriveCartesian extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        
+
         zRotationTrue();
 
 

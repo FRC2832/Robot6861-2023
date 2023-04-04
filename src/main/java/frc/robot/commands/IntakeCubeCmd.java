@@ -12,11 +12,13 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
-    /** Creates a new ScoreCubeCmd. */
-    private IngestorIntake ingestorIntakeObj;
-    private GamePieceScoop gamePieceScoopObj;
-    private EyeSubsystem eyeballobj;
     private static final Timer intakeTimer = new Timer();
+    /**
+     * Creates a new ScoreCubeCmd.
+     */
+    private final IngestorIntake ingestorIntakeObj;
+    private final GamePieceScoop gamePieceScoopObj;
+    private final EyeSubsystem eyeballobj;
 
     public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, EyeSubsystem eyeballobj) {
         this.ingestorIntakeObj = ingestorIntake;
@@ -66,7 +68,6 @@ public class IntakeCubeCmd extends CommandBase {
     public boolean isFinished() {
         return intakeTimer.get() > 1.5;
 
-    
 
     }
 }
