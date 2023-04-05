@@ -70,11 +70,11 @@ public final class Constants {
     public static final int DRIVE_BRAKE_MOTOR_ID = 15;
 
     // Claw and Brake Motor Speeds
-    public static final double CLAW_OPEN_SPEED = 0.50;
+    public static final double CLAW_OPEN_SPEED = 0.95;
     public static final double CLAW_CLOSE_SPEED = -1;  //was 0.95
     public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
-    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.50;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.4;
 
     // Brake up and down positions 
     public static final double BRAKE_ON_FLOOR = -40.0;
@@ -92,15 +92,14 @@ public final class Constants {
 
 
     // Arm Motor Speeds
-    // TODO: Find actual motor speed
-    public static final double ARM_MOTOR_SPEED = 0.4;
-    public static final double ARM_STOW_MOTOR_SPEED = -0.6;
+    public static final double ARM_MOTOR_SPEED = 0.75;
+    public static final double ARM_STOW_MOTOR_SPEED = -0.8;
     public static final double ARM_RETRACT_MOTOR_SPEED = -0.1;
 
     // Arm Motor Positions
-    public static final double ARM_MOTOR_POSITION_PICKUP = 140;
+    public static final double ARM_MOTOR_POSITION_PICKUP = 160;
     public static final double ARM_MOTOR_POSITION_STOW = 0;
-    public static final double ARM_MOTOR_POSITION_SCORE = 250;
+    public static final double ARM_MOTOR_POSITION_SCORE = 270;
     public static final double ARM_MOTOR_POSITION_RETRACT = -100;
 
     // For running LED lights
@@ -132,9 +131,11 @@ public final class Constants {
 
     // IngestorIntake Subsystem Roller Motor Speeds
     public static final double TOP_ROLLER_EXPEL_SPEED_HIGH = -0.95;
-    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.5;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_HIGH = -0.9;
     public static final double INGESTOR_EXPEL_SPEED_HIGH = -0.95;
-    public static final double INGESTOR_EXPEL_SPEED_MID = -0.5;
+    public static final double INGESTOR_EXPEL_SPEED_MID = -0.85;  //need higher speed so it hits arm and scores
+    public static final double TOP_ROLLER_EXPEL_SPEED_MID = -.75;
+    public static final double LOWER_ROLLER_EXPEL_SPEED_MID = -.65;
     public static final double INGESTOR_EXPEL_SPEED_LOW = -0.42;
     public static final double INGESTOR_INTAKE_SPEED = 0.8;
     public static final double TOP_ROLLER_EXPEL_SPEED_AUTON = 0;  // code doesn't use this, but if we ever do, need value other than 0.
@@ -150,8 +151,8 @@ public final class Constants {
     // Auton speed and drive distances (in inches)
     public static final double AUTON_SPEED = 0.4;
     public static final double SUBSTATION_AUTON_DRIVE_BACK = 89.0;
-    public static final double SUBSTATION_AUTON_STRAFE = 36.0;
-    public static final double CABLE_AUTON_DRIVE_BACK = 96.0;
+    public static final double SUBSTATION_AUTON_STRAFE = 30.0;
+    public static final double CABLE_AUTON_DRIVE_BACK = 100.0;
     public static final double COOP_AUTON_DRIVE_BACK = 75.0;
     public static final double AUTON_BALANCING_STRAFE = 50.0;
     public static final double AUTON_BALANCING_DRIVE_FORWARD = 40.0;
@@ -178,6 +179,6 @@ public final class Constants {
     public static final EyeMovement EYE_MOVEMENT_2 = new EyeMovement(0.0, 1.0); // opens the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
-
-
+    public static final EyeMovement EYE_MOVEMENT_5 = new EyeMovement(0.5, 0.5); // opens the eyelids and moves the pupils from the front of robot to the back
+    
 }

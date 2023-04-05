@@ -31,11 +31,11 @@ public class DriveBrakeCmd extends CommandBase {
     @Override
     public void execute() {
 
-        if (DrivetrainObj.getPitch() < -4) {       // if robot tipping forward, drive brake wheel back
+        if (DrivetrainObj.getPitch() < -6) {       // if robot tipping forward, drive brake wheel back
             brakeSubsystemObj.driveBrakeMotorBack();
             //System.out.println("*******  drive brake motor backwards");
 
-        } else if (DrivetrainObj.getPitch() > 4) {  // if robot tipping backward, drive brake wheel forward
+        } else if (DrivetrainObj.getPitch() > 6) {  // if robot tipping backward, drive brake wheel forward
             brakeSubsystemObj.driveBrakeMotor();
             //System.out.println("*******  drive brake motor forward");
 

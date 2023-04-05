@@ -13,27 +13,26 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class ArmSubsystem extends SubsystemBase {
-    private static final double kP = 0.5;
-    private static final double kI = 0;
-    private static final double kD = 0;
+    // private static final double kP = 0.5;
+    // private static final double kI = 0.0;
+    // private static final double kD = 0.0;
     /**
      * Creates a new ArmSubsystem.
      */
     private final CANSparkMax armMotor;
     private final SparkMaxPIDController armPIDController;
     private final RelativeEncoder armEncoder;
-    private final double stowPosition;
+    // private final double stowPosition;
     private final double retractPosition;
     private final double pickUpPosition;
     private final double scorePosition;
-
 
     public ArmSubsystem() {
         armMotor = new CANSparkMax(Constants.ARM_MOTOR_ID, CANSparkMaxLowLevel.MotorType.kBrushless);
         armEncoder = armMotor.getEncoder();
         armPIDController = armMotor.getPIDController();
         armPIDController.setFeedbackDevice(armEncoder);
-        stowPosition = Constants.ARM_MOTOR_POSITION_STOW;
+        //stowPosition = Constants.ARM_MOTOR_POSITION_STOW;
         retractPosition = Constants.ARM_MOTOR_POSITION_RETRACT;
         pickUpPosition = Constants.ARM_MOTOR_POSITION_PICKUP;
         scorePosition = Constants.ARM_MOTOR_POSITION_SCORE;
@@ -41,21 +40,22 @@ public class ArmSubsystem extends SubsystemBase {
         armMotor.setSmartCurrentLimit(Constants.ARM_MOTOR_CURRENT_LIMIT_AMPS);
     }
 
-
     public void armStowPos() {
         double position = armEncoder.getPosition();
-        //double positionRealS = armEncoder.getPosition();
-        //System.out.println("***********************  Arm Encoder in STOW : " + position);
+        // double positionRealS = armEncoder.getPosition();
+        // System.out.println("*********************** Arm Encoder in STOW : " +
+        // position);
 
         if (position < 10 && position > -10) {
             armMotor.set(0.00);
             armMotor.setIdleMode(IdleMode.kBrake);
 
-        } else       //position > (stowPosition + (stowPosition * 0.05))) { // might need to be larger than 2%
-            armMotor.set(Constants.ARM_STOW_MOTOR_SPEED);   // moving arm in
+        } else // position > (stowPosition + (stowPosition * 0.05))) { // might need to be
+               // larger than 2%
+            armMotor.set(Constants.ARM_STOW_MOTOR_SPEED); // moving arm in
 
-        //} //else if (position < -10) {
-        //armMotor.set(-Constants.ARM_STOW_MOTOR_SPEED);  // move arm out
+        // } //else if (position < -10) {
+        // armMotor.set(-Constants.ARM_STOW_MOTOR_SPEED); // move arm out
     }
 
     public void armRetractPos() {
@@ -64,22 +64,20 @@ public class ArmSubsystem extends SubsystemBase {
 
         if (position > (retractPosition + (retractPosition * 0.05))) { // might need to be larger than 2%
             armMotor.set(Constants.ARM_RETRACT_MOTOR_SPEED);
-        } else {         //if (position < (retractPosition - (retractPosition * 0.05))) {
+        } else { // if (position < (retractPosition - (retractPosition * 0.05))) {
             armMotor.set(0.00);
         }
         armMotor.setIdleMode(IdleMode.kBrake);
     }
 
-
     public void armPickUpPos() {
         double position = armEncoder.getPosition();
-        //double positionRealP = armEncoder.getPosition();
+        // double positionRealP = armEncoder.getPosition();
         System.out.println("***********************  Arm Encoder in PICKUP Pos : " + position);
 
-
-        if (position < pickUpPosition - (pickUpPosition * 0.02)) {  // arm moving out to cone
+        if (position < pickUpPosition - (pickUpPosition * 0.02)) { // arm moving out to cone
             armMotor.set(Constants.ARM_MOTOR_SPEED);
-        } else if (position > pickUpPosition + (pickUpPosition * 0.02)) {  //arm went past cone
+        } else if (position > pickUpPosition + (pickUpPosition * 0.02)) { // arm went past cone
             armMotor.set(-Constants.ARM_MOTOR_SPEED);
         } else {
             armMotor.set(0.00);
@@ -90,7 +88,7 @@ public class ArmSubsystem extends SubsystemBase {
 
     public void armScorePos() {
         double position = armEncoder.getPosition();
-        //double positionRealS = armEncoder.getPosition();
+        // double positionRealS = armEncoder.getPosition();
         System.out.println("***********************  Arm Encoder in SCORE  : " + position);
 
         if (position < scorePosition + (scorePosition * 0.04)) {
@@ -106,7 +104,6 @@ public class ArmSubsystem extends SubsystemBase {
     public double getArmEncoder() {
         return armEncoder.getPosition();
     }
-
 
     public void stopArm() {
         armMotor.set(0.0);

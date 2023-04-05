@@ -25,6 +25,8 @@ public class ArmPickupCmd extends CommandBase {
     @Override
     public void initialize() {
         EyeSubsystem.setDefaultColor(Constants.YELLOW);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -34,19 +36,26 @@ public class ArmPickupCmd extends CommandBase {
             // stow position = -10. Stops motor if motor keeps going beyond stow position.
             // Keeps winch motor from continuing to pull
             armSubsystemObj.armPickUpPos();
-            EyeSubsystem.setDefaultColor(Constants.YELLOW);
+            // EyeSubsystem.setDefaultColor(Constants.YELLOW);
+            // EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+            // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         } else {
             armSubsystemObj.stopArm();
-            EyeSubsystem.setDefaultColor(Constants.YELLOW);
-
+            EyeSubsystem.setDefaultColor(Constants.WHITE);
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         }
-        //System.out.println("***********************  Arm Encoder: " + armSubsystemObj.getArmEncoder());
+        // System.out.println("*********************** Arm Encoder: " +
+        // armSubsystemObj.getArmEncoder());
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         armSubsystemObj.stopArm();
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
     }
 
     // Returns true when the command should end.

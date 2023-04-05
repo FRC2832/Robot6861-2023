@@ -29,15 +29,18 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         // Zero the encoders
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); // TODO: Change this. Eye closes.
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        //EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         ingestorLiftObj.lowerLiftToIngest();
 
     }
@@ -47,6 +50,8 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void end(boolean interrupted) {
         // Bring the ingestorLift back to its default position
         ingestorLiftObj.stopLift();
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         // System.out.println("LowerIngestorLiftCmd stopped.");

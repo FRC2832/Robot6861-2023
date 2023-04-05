@@ -6,7 +6,6 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -18,7 +17,7 @@ public class GamePieceScoop extends SubsystemBase {
 
     //private Servo gamePieceScoopServoL;
     //private Servo gamePieceScoopServoR;
-    private static final Timer timer = new Timer();
+    //private static final Timer timer = new Timer();
     private final CANSparkMax gamePieceScoopServoLR;
 
 
@@ -29,23 +28,16 @@ public class GamePieceScoop extends SubsystemBase {
 
 
     public void servoOnTeleop() {
-
-
         gamePieceScoopServoLR.setVoltage(12);
-
-
     }
 
     public void servoOnAuton() {
-
         gamePieceScoopServoLR.setVoltage(12);
-
     }
 
     public void servoOff() {
         //System.out.println("Servo off");
         gamePieceScoopServoLR.setVoltage(-12);
-
     }
 
 
@@ -55,7 +47,6 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOffCmd() {
-
         return run(
                 () -> {
                     servoOff();
@@ -63,7 +54,6 @@ public class GamePieceScoop extends SubsystemBase {
     }
 
     public CommandBase servoOnAutonCmd() {
-
         return run(
                 () -> {
                     servoOnAuton();
@@ -72,14 +62,11 @@ public class GamePieceScoop extends SubsystemBase {
 
 
     public CommandBase servoOnCmd() {
-
         return run(
                 () -> {
                     servoOnTeleop();
 
                 }
-
-
         );
     }
 }

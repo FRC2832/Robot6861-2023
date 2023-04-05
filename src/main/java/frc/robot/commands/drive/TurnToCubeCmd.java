@@ -13,15 +13,14 @@ public class TurnToCubeCmd extends CommandBase {
      */
 
     private final Drivetrain drivetrainObj;
-    private double driveSpeed = 0.2;
-    private double TurnDistanceTarget = 50;
+    private double driveSpeed = 0.3;
+    private double TurnDistanceTarget = 50.0;
     private double startGyroPos;
-    private double start;
+    //private double start;
     private double initialGyroPos;
 
     public TurnToCubeCmd(Drivetrain drivetrainObj, double turnDistanceTarget, double driveSpeed) {
         // Use addRequirements() here to declare subsystem dependencies.
-
         this.drivetrainObj = drivetrainObj;
         this.TurnDistanceTarget = turnDistanceTarget;
         this.driveSpeed = Math.abs(driveSpeed);
@@ -31,7 +30,6 @@ public class TurnToCubeCmd extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-
         initialGyroPos = drivetrainObj.getYaw();
         // start = startEncoderPos;
     }
@@ -41,19 +39,17 @@ public class TurnToCubeCmd extends CommandBase {
     public void execute() {
 
         startGyroPos = drivetrainObj.getYaw();
+        System.out.println("Start Gyro Pos: " + startGyroPos);
         if (startGyroPos > startGyroPos - TurnDistanceTarget) {
-            drivetrainObj.mecanumDriveCartesian(0, 0.0, driveSpeed);
+            drivetrainObj.mecanumDriveCartesian(0.0, 0.0, driveSpeed);
         } else {
-            drivetrainObj.mecanumDriveCartesian(0, 0.0, -driveSpeed);
+            drivetrainObj.mecanumDriveCartesian(0.0, 0.0, -driveSpeed);
         }
-
-
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-
         drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
     }
 

@@ -159,10 +159,10 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public void resetEncoders() {
-        leftFrontEncoderObj.setPosition(0);
-        rightFrontEncoderObj.setPosition(0);
-        leftBackEncoderObj.setPosition(0);
-        rightBackEncoderObj.setPosition(0);
+        leftFrontEncoderObj.setPosition(0.0);
+        rightFrontEncoderObj.setPosition(0.0);
+        leftBackEncoderObj.setPosition(0.0);
+        rightBackEncoderObj.setPosition(0.0);
     }
 
     public Pose2d getPose() {

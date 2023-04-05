@@ -20,7 +20,7 @@ public class BalancePIDCmd extends CommandBase {
     private double angle;
     private double drivePower;
     private boolean isDriverControlled;
-    private int victoryCounter;
+    //private int victoryCounter;
 
     public BalancePIDCmd(Drivetrain drivetrainObj, boolean isDriverControlled) {
         this.drivetrainObj = drivetrainObj;
@@ -51,10 +51,10 @@ public class BalancePIDCmd extends CommandBase {
 
         if (isDriverControlled) {
             kp = 0.017;   // competition charge station value = 0.022, frost was 0.026
-        } else if (Math.abs(angle) < 5.5) {
+        } else if (Math.abs(angle) < 6) {
             kp = 0.0030;   // competition charge station value = 0.0055, frost was 0.0055
         } else {
-            kp = 0.0097; // competition charge station value = 0.011
+            kp = 0.0099; // competition charge station value = 0.011
             // (may need to lower this on churchill practice field), frost was 0.12
         }
 

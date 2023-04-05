@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class EyeSubsystem extends SubsystemBase {
-    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_1; //might need to be _3
+    private static EyeMovement currentDefaultMovementLeft = Constants.EYE_MOVEMENT_4; //might need to be _3
     private static EyeMovement currentDefaultMovementRight = Constants.EYE_MOVEMENT_1;
     private static EyeColor currentDefaultColor = Constants.LED_OFF;
     private final Servo eyePupilServoRight;

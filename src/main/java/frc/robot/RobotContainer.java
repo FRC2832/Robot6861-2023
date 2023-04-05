@@ -180,31 +180,30 @@ public class RobotContainer {
     }
 
     private void configureBindings() {
-
-
         ParallelCommandGroup shootCubeUpper = new ParallelCommandGroup(
-                new OpenClawCmd(clawObj),
+                //new OpenClawCmd(clawObj),
                 new ScoreIngestorLiftCmd(ingestorLiftObj),
                 ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_HIGH,
                         Constants.LOWER_ROLLER_EXPEL_SPEED_HIGH),
-                gamePieceScoopObj.servoOnCmd(),
-                eyeballObj.setColor(Constants.WHITE));
+                gamePieceScoopObj.servoOnCmd());
 
 
         ParallelCommandGroup shootCubeMid = new ParallelCommandGroup(
-                new OpenClawCmd(clawObj),
+                //new OpenClawCmd(clawObj),
                 new ScoreIngestorLiftCmd(ingestorLiftObj),
-                ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
-                gamePieceScoopObj.servoOnCmd(),
-                eyeballObj.setColor(Constants.WHITE));
+                ingestorIntakeObj.revOutIngestorIntakeNew(Constants.TOP_ROLLER_EXPEL_SPEED_MID,
+                        Constants.LOWER_ROLLER_EXPEL_SPEED_MID),
+                //ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_MID),
+                gamePieceScoopObj.servoOnCmd());
 
         ParallelCommandGroup shootCubeLower = new ParallelCommandGroup(
                 ingestorIntakeObj.revOutIngestorIntake(Constants.INGESTOR_EXPEL_SPEED_LOW),
                 gamePieceScoopObj.servoOnCmd());
 
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
+                new OpenClawCmd(clawObj),
                 new LowerIngestorLiftCmd(ingestorLiftObj),
-                new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj, eyeballObj));
+                new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
 
         SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
                 // eyeballObj.setColor(Constants.WHITE),
@@ -296,7 +295,7 @@ public class RobotContainer {
 
         operatorA.whileTrue(lowerAndExpel);
         driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-        driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, eyeballObj, drivetrainObj));
+        driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj));
 
         operatorY.whileTrue(lowerAndIngest);
         operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw

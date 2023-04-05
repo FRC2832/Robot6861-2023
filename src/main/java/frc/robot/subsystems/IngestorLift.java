@@ -17,7 +17,7 @@ import frc.robot.Constants;
 
 public class IngestorLift extends SubsystemBase {
     private static final double topPosition = 0.0;
-    private static final double shootingPosition = -5.0;
+    //private static final double shootingPosition = -5.0;
     private static final double ingestorMotorSpeed = 0.9;
     private static final double slowerIngestorMotorSpeed = 0.3;
     /**
@@ -71,8 +71,6 @@ public class IngestorLift extends SubsystemBase {
             ingestorLiftMotor.set(ingestorMotorSpeed);
             //System.out.println("********** ingestor position is raising " + positionReal);
         }
-
-
     }
 
     public void lowerLiftToIngest() {
@@ -100,11 +98,9 @@ public class IngestorLift extends SubsystemBase {
         isAtScoring = false;
         // System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
         // System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
-
     }
 
     public boolean lowerLiftToExpel() {
-
         goalPosition = Constants.INGESTOR_EXPEL_POSITION;
         double position = Math.abs(liftEncoder.getPosition());
         boolean flag;
@@ -113,7 +109,6 @@ public class IngestorLift extends SubsystemBase {
             ingestorLiftMotor.set(-0.9); //change back to -.9
             //System.out.println("********** ingestor is lowering to expel" + position);
             flag = false;
-
         } else {
             ingestorLiftMotor.set(0.0);
             flag = true;
@@ -128,7 +123,6 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public void lowerLiftToScore() {
-
         double positionReal = liftEncoder.getPosition();
         //  ingestorStartPos is not always 0, sometimes -20.  Need to zero the encoders each time running this code
 
@@ -212,13 +206,11 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public CommandBase raiseIngestorLift() {
-
         return run(
                 () -> {
                     if (isAtTop()) {
                         ingestorLiftMotor.set(0.0);
                         liftEncoder.setPosition(0.0);
-
                     } else {
                         raiseLift();
                     }
@@ -226,7 +218,6 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public CommandBase lowerIngestorLift() {
-
         return run(
                 () -> {
                     if (isAtBottom()) {

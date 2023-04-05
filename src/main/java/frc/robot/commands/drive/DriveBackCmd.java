@@ -18,8 +18,7 @@ public class DriveBackCmd extends CommandBase {
     private final double driveSpeed;
     private final double driveDistanceInches;
     private double startEncoderPos;
-    private boolean isRedAlliance;
-
+    //private boolean isRedAlliance;
 
     public DriveBackCmd(Drivetrain drivetrainObj, double driveDistanceInches, double driveSpeed) {
         this.drivetrainObj = drivetrainObj;
@@ -35,31 +34,39 @@ public class DriveBackCmd extends CommandBase {
 
         drivetrainObj.resetEncoders();
         startEncoderPos = Math.abs(drivetrainObj.getEncoderDistance());
-        //System.out.println(" ******* Starting encoder position " + startEncoderPos);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); // pupils go to front of robot
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+
+        // System.out.println(" ******* Starting encoder position " + startEncoderPos);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); //pupils go to front of robot
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        // EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); // pupils go
+        // to front of robot
+        // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
 
         drivetrainObj.mecanumDriveCartesian(0.0, driveSpeed, 0.0);
-        //System.out.println(" ********** Current drivetrain encoder position " + drivetrainObj.getEncoderDistance());
-        // drive back drives forward in Auton only. So inverting driveSpeed 
-        // to positive as temporary fix.  
+        // System.out.println(" ********** Current drivetrain encoder position " +
+        // drivetrainObj.getEncoderDistance());
+        // drive back drives forward in Auton only. So inverting driveSpeed
+        // to positive as temporary fix.
     }
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         drivetrainObj.mecanumDriveCartesian(0.0, 0.0, 0.0);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
     }
 
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        //System.out.println(" ********** Current drivetrain calculated position " + (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
+        // System.out.println(" ********** Current drivetrain calculated position " +
+        // (Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12);
         return ((Math.abs(drivetrainObj.getEncoderDistance() - startEncoderPos)) / 12 >= driveDistanceInches);
     }
 }

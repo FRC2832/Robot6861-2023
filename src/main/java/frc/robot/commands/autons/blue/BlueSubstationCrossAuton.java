@@ -4,9 +4,11 @@
 
 package frc.robot.commands.autons.blue;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.ScoreCubeTeleop;
+import frc.robot.commands.claw.OpenClawCmd;
 import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.commands.drive.StrafeRightCmd;
 import frc.robot.subsystems.ClawSubsystem;
@@ -18,17 +20,17 @@ public class BlueSubstationCrossAuton extends SequentialCommandGroup {
 
     public BlueSubstationCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, ClawSubsystem clawSubsystemObj) {
         //IngestorLift ingestorLiftObj;
-        addCommands(
+        /*addCommands(
 
                 new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
                 //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
                 new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
                 new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
         );
-    }
+    }*/
 
 
-    /*addCommands(
+        addCommands(
         new ParallelCommandGroup(
             new OpenClawCmd(clawSubsystemObj), 
             new SequentialCommandGroup(
@@ -36,7 +38,8 @@ public class BlueSubstationCrossAuton extends SequentialCommandGroup {
                 //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
                 new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
                 new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
+                )
             )
-        )
-    )*/;
+        );  //*/;
+    }
 }
