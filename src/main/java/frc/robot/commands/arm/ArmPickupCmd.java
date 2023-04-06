@@ -36,9 +36,9 @@ public class ArmPickupCmd extends CommandBase {
             // stow position = -10. Stops motor if motor keeps going beyond stow position.
             // Keeps winch motor from continuing to pull
             armSubsystemObj.armPickUpPos();
-            // EyeSubsystem.setDefaultColor(Constants.YELLOW);
-            // EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
-            // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+            EyeSubsystem.setDefaultColor(Constants.YELLOW);
+            EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+            EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         } else {
             armSubsystemObj.stopArm();
             EyeSubsystem.setDefaultColor(Constants.WHITE);

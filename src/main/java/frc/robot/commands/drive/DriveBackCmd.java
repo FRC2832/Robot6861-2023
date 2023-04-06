@@ -48,6 +48,7 @@ public class DriveBackCmd extends CommandBase {
         // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
 
         drivetrainObj.mecanumDriveCartesian(0.0, driveSpeed, 0.0);
+        //System.out.println("xspeed = " + xspeed);
         // System.out.println(" ********** Current drivetrain encoder position " +
         // drivetrainObj.getEncoderDistance());
         // drive back drives forward in Auton only. So inverting driveSpeed

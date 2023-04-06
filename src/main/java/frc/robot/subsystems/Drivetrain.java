@@ -111,6 +111,7 @@ public class Drivetrain extends SubsystemBase {
         //SlewRateLimiter filterFwdBack = new SlewRateLimiter(Constants.FORWARD_BACK_SLEW_RATE);
         //SlewRateLimiter filterLeftRight = new SlewRateLimiter(Constants.LEFT_RIGHT_SLEW_RATE);
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
+        //System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " zRotation: " + zRotation);
         //mecanumDriveObj.driveCartesian(filterLeftRight.calculate(xSpeed), filterFwdBack.calculate(ySpeed), zRotation);
     }
 

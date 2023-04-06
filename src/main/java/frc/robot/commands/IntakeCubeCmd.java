@@ -45,8 +45,9 @@ public class IntakeCubeCmd extends CommandBase {
         // System.out.println("-------- IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
+        
         //EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        // eyeballobj.setEyesToDefault();
+        //eyeballobj.setEyesToDefault();
         //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
         //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
     }

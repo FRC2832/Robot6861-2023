@@ -51,10 +51,10 @@ public class BalancePIDCmd extends CommandBase {
 
         if (isDriverControlled) {
             kp = 0.017;   // competition charge station value = 0.022, frost was 0.026
-        } else if (Math.abs(angle) < 6) {
-            kp = 0.0030;   // competition charge station value = 0.0055, frost was 0.0055
+        } else if (Math.abs(angle) < 5.5) {
+            kp = 0.0033;   // was 0.0030 for Livonia.  competition charge station value = 0.0055, frost was 0.0055
         } else {
-            kp = 0.0099; // competition charge station value = 0.011
+            kp = 0.012; // competition charge station value = 0.011 was 0.0099 for Livonia
             // (may need to lower this on churchill practice field), frost was 0.12
         }
 

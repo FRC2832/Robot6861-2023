@@ -66,10 +66,10 @@ public class RobotContainer {
 
     private final Command redDefaultSubstationAutoCmd = new RedDefaultSubstationAuton(drivetrainObj);
     private final Command redSubstationCrossAutoCmd = new RedSubstationCrossAuton(drivetrainObj, ingestorIntakeObj,
-            gamePieceScoopObj);
+            gamePieceScoopObj, clawObj);
     private final Command redDefaultCableAutoCmd = new RedDefaultCableAuton(drivetrainObj);
     private final Command redCableCrossAutoCmd = new RedCableCrossAuton(drivetrainObj, ingestorIntakeObj,
-            gamePieceScoopObj);
+            gamePieceScoopObj, clawObj);
     private final Command redCableEngageAutoCmd = new RedCableEngageAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command blueDefaultSubstationAutoCmd = new BlueDefaultSubstationAuton(drivetrainObj);
@@ -80,7 +80,7 @@ public class RobotContainer {
     // private final EyeballSubsystem eyeballObj = new EyeballSubsystem();
     private final Command blueDefaultCableAutoCmd = new BlueDefaultCableAuton(drivetrainObj);
     private final Command blueCableCrossAutoCmd = new BlueCableCrossAuton(drivetrainObj, ingestorIntakeObj,
-            gamePieceScoopObj);
+            gamePieceScoopObj, clawObj);
     private final Command blueCableEngageAutoCmd = new BlueCableEngageAuton(drivetrainObj, ingestorIntakeObj,
             gamePieceScoopObj);
     private final Command coopBalanceAutoCmd = new CoopBalanceAuton(ingestorIntakeObj, ingestorLiftObj, gamePieceScoopObj,

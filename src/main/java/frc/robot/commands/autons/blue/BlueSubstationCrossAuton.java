@@ -18,28 +18,31 @@ import frc.robot.subsystems.IngestorIntake;
 
 public class BlueSubstationCrossAuton extends SequentialCommandGroup {
 
-    public BlueSubstationCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, ClawSubsystem clawSubsystemObj) {
-        //IngestorLift ingestorLiftObj;
-        /*addCommands(
-
-                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
-                //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
-                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED),
-                new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
-        );
-    }*/
-
+    public BlueSubstationCrossAuton(Drivetrain drivetrainObj, IngestorIntake ingestorIntake,
+            GamePieceScoop gamePieceScoop, ClawSubsystem clawSubsystemObj) {
+        // IngestorLift ingestorLiftObj;
+        /*
+         * addCommands(
+         * 
+         * new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
+         * //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
+         * new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK,
+         * Constants.AUTON_SPEED),
+         * new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE,
+         * Constants.AUTON_SPEED)
+         * );
+         * }
+         */
 
         addCommands(
-        new ParallelCommandGroup(
-            new OpenClawCmd(clawSubsystemObj), 
-            new SequentialCommandGroup(
-                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
-                //new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
-                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK, Constants.AUTON_SPEED), 
-                new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE, Constants.AUTON_SPEED)
-                )
-            )
-        );  //*/;
+                new ParallelCommandGroup(
+                        new OpenClawCmd(clawSubsystemObj),
+                        new SequentialCommandGroup(
+                                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
+                                // new ScoreCubeAuton(ingestorIntake, gamePieceScoop),
+                                new DriveBackCmd(drivetrainObj, Constants.SUBSTATION_AUTON_DRIVE_BACK,
+                                        Constants.AUTON_SPEED),
+                                new StrafeRightCmd(drivetrainObj, Constants.SUBSTATION_AUTON_STRAFE,
+                                        Constants.AUTON_SPEED)))); // */;
     }
 }

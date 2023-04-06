@@ -4,11 +4,13 @@
 
 package frc.robot.commands.autons;
 
+import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Constants;
 import frc.robot.commands.ScoreCubeTeleop;
 import frc.robot.commands.claw.CloseClawCmd;
 import frc.robot.commands.claw.OpenClawCmd;
+import frc.robot.subsystems.ClawSubsystem;
 import frc.robot.commands.drive.BalancePIDCmd;
 import frc.robot.commands.drive.DriveBackCmd;
 import frc.robot.subsystems.*;
@@ -17,21 +19,26 @@ import frc.robot.subsystems.*;
 public class CoopBalanceAuton extends SequentialCommandGroup {
     // private EyeSubsystem eyeballObj = new EyeSubsystem();
 
-    public CoopBalanceAuton(IngestorIntake ingestorIntake, IngestorLift ingestorLiftObj, GamePieceScoop gamePieceScoop, Drivetrain drivetrainObj, ClawSubsystem clawObj) {
+    public CoopBalanceAuton(IngestorIntake ingestorIntake, IngestorLift ingestorLiftObj, GamePieceScoop gamePieceScoop,
+            Drivetrain drivetrainObj, ClawSubsystem clawSubsystemObj) {
         addCommands(
-                //new OpenClawCmd(clawObj),
-                //new ScoreIngestorLiftCmd(ingestorLiftObj),
-                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
-                new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK, Constants.AUTON_SPEED + 0.1),
-                new BalancePIDCmd(drivetrainObj, false),
-                new OpenClawCmd(clawObj),
-                new CloseClawCmd(clawObj),
-                new OpenClawCmd(clawObj),
-                new CloseClawCmd(clawObj)
+                new ParallelCommandGroup(
+                        new OpenClawCmd(clawSubsystemObj),
+                        new SequentialCommandGroup(
+                                new ScoreCubeTeleop(ingestorIntake, gamePieceScoop),
+                                new DriveBackCmd(drivetrainObj, Constants.COOP_AUTON_DRIVE_BACK,
+                                        Constants.AUTON_SPEED + 0.1),
+                                new BalancePIDCmd(drivetrainObj, false)
+                                //new OpenClawCmd(clawSubsystemObj),
+                                //new CloseClawCmd(clawSubsystemObj),
+                               // new OpenClawCmd(clawSubsystemObj),
+                               // new CloseClawCmd(clawSubsystemObj)
 
-                // eyeballObj.setDefaultCommand(
-                // eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new
-                // EyeColor(120, 120, 120)));
+                        // eyeballObj.setDefaultCommand(
+                        // eyeballObj.setEyes(new EyeMovement(1, 1), new EyeMovement(1, 0), new
+                        // EyeColor(120, 120, 120)));
+                        //)
+                        ))
 
         );
 

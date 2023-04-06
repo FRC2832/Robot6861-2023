@@ -38,9 +38,10 @@ public class LowerIngestorLiftCmd extends CommandBase {
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        //EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
-        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        
         ingestorLiftObj.lowerLiftToIngest();
 
     }
