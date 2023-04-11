@@ -60,7 +60,8 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void disabledInit() {
-        EyeSubsystem.setDefaultColor(Constants.LED_OFF);
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        //EyeSubsystem.setDefaultColor(Constants.LED_OFF);
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_3);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_3);
     }

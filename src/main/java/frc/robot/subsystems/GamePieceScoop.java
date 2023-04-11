@@ -28,7 +28,7 @@ public class GamePieceScoop extends SubsystemBase {
 
 
     public void servoOnTeleop() {
-        gamePieceScoopServoLR.setVoltage(12);
+        gamePieceScoopServoLR.setVoltage(14);
     }
 
     public void servoOnAuton() {

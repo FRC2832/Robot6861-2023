@@ -91,7 +91,7 @@ public class Drivetrain extends SubsystemBase {
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
 
-        mecanumDriveObj.setMaxOutput(0.95);
+        mecanumDriveObj.setMaxOutput(0.99);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
              not being able to drive. */
 
@@ -154,7 +154,7 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getEncoderDistance() {
-        System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
+        //System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
         return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
 
     }

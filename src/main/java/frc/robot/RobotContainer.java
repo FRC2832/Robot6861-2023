@@ -24,6 +24,7 @@ import frc.robot.commands.autons.CoopBalanceAuton;
 import frc.robot.commands.autons.CoopMobilityAuton;
 import frc.robot.commands.autons.blue.*;
 import frc.robot.commands.autons.red.*;
+import frc.robot.commands.brake.DriveBrakeCmd;
 import frc.robot.commands.brake.LowerBrakeCmd;
 import frc.robot.commands.brake.RaiseBrakeCmd;
 import frc.robot.commands.claw.CloseClawCmd;
@@ -203,16 +204,15 @@ public class RobotContainer {
         ParallelCommandGroup lowerAndIngest = new ParallelCommandGroup(
                 new OpenClawCmd(clawObj),
                 new LowerIngestorLiftCmd(ingestorLiftObj),
-                new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj));
+                new IntakeCubeCmd(ingestorIntakeObj, gamePieceScoopObj, eyeballObj));
 
         SequentialCommandGroup lowerAndExpel = new SequentialCommandGroup(
-                // eyeballObj.setColor(Constants.WHITE),
                 new ExpelIngestorLiftCmd(ingestorLiftObj),
                 shootCubeLower);
 
         //ParallelCommandGroup dropBrakeWheel = new ParallelCommandGroup(
-        //new LowerBrakeCmd(brakeObj, true, drivetrainObj),
-        //new DriveBrakeCmd(brakeObj, true));
+                //new LowerBrakeCmd(brakeObj, true),
+                //new DriveBrakeCmd(brakeObj, true, drivetrainObj));
 
 
         Trigger operatorA = joystickSubsystemObj.getOperatorABtn();
@@ -227,10 +227,10 @@ public class RobotContainer {
         Trigger operatorRightBumper = joystickSubsystemObj.getOperatorRightBumper();
 
         // Temporary mapping of eye controls to controller
-        Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
-        Trigger driverRightBumper = joystickSubsystemObj.getDriverRightBumper();
-        Trigger driverLeftTrigger = joystickSubsystemObj.getDriverLeftTrigger();
-        Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();
+       // Trigger driverRightTrigger = joystickSubsystemObj.getDriverRightTrigger();
+        //Trigger driverRightBumper = joystickSubsystemObj.getDriverRightBumper();
+       // Trigger driverLeftTrigger = joystickSubsystemObj.getDriverLeftTrigger();
+       // Trigger driverLeftBumper = joystickSubsystemObj.getDriverLeftBumper();
 
         // Sets the individual pupils and eyelids
         /*CommandBase setLeftEyePupil0 = eyeballObj.setEyes(new EyeMovement(eyeballObj.getLeftEyeLid(), 0.0),
@@ -289,19 +289,19 @@ public class RobotContainer {
          * driverLeftBumper.onTrue(setEyeLidLeft);
          */
 
-
         operatorRightTrigger.whileTrue(shootCubeMid);
         operatorRightBumper.whileTrue(shootCubeUpper);
 
         operatorA.whileTrue(lowerAndExpel);
         driverB.whileTrue(new BalancePIDCmd(drivetrainObj, true));
-        driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj));
+        driverA.whileTrue(new LowerBrakeCmd(brakeObj, true, drivetrainObj, eyeballObj));
 
         operatorY.whileTrue(lowerAndIngest);
         operatorB.whileTrue(new ArmPickupCmd(armObj)); // need sequential command group to close claw
         operatorX.whileTrue(new ArmScoreCmd(armObj)); // need sequential command group to close claw
         operatorLeftTrigger.whileTrue(new OpenClawCmd(clawObj)); // need sequential command group to close claw
         driverX.whileTrue(new ArmRetractCmd(armObj));
+        
     }
 
 

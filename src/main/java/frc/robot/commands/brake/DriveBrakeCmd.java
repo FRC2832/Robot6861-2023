@@ -14,9 +14,9 @@ public class DriveBrakeCmd extends CommandBase {
      */
 
     private final BrakeSubsystem brakeSubsystemObj;
-    private Drivetrain DrivetrainObj;
+    private Drivetrain drivetrainObj;
 
-    public DriveBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled) {
+    public DriveBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, Drivetrain drivetrainObj) {
         // Use addRequirements() here to declare subsystem dependencies.
         this.brakeSubsystemObj = brakeSubsystemObj;
         addRequirements(brakeSubsystemObj);
@@ -31,11 +31,11 @@ public class DriveBrakeCmd extends CommandBase {
     @Override
     public void execute() {
 
-        if (DrivetrainObj.getPitch() < -6) {       // if robot tipping forward, drive brake wheel back
+        if (drivetrainObj.getPitch() < -5) {       // if robot tipping forward, drive brake wheel back
             brakeSubsystemObj.driveBrakeMotorBack();
             //System.out.println("*******  drive brake motor backwards");
 
-        } else if (DrivetrainObj.getPitch() > 6) {  // if robot tipping backward, drive brake wheel forward
+        } else if (drivetrainObj.getPitch() > 5) {  // if robot tipping backward, drive brake wheel forward
             brakeSubsystemObj.driveBrakeMotor();
             //System.out.println("*******  drive brake motor forward");
 

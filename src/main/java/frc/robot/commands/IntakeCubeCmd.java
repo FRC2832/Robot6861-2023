@@ -6,8 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.GamePieceScoop;
 import frc.robot.subsystems.IngestorIntake;
+import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
     private static final Timer intakeTimer = new Timer();
@@ -16,12 +18,12 @@ public class IntakeCubeCmd extends CommandBase {
      */
     private final IngestorIntake ingestorIntakeObj;
     private final GamePieceScoop gamePieceScoopObj;
-    // private final EyeSubsystem eyeballobj;
+    private final EyeSubsystem eyeballobj;
 
-    public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop) {
+    public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, EyeSubsystem eyeballobj) {
         this.ingestorIntakeObj = ingestorIntake;
         this.gamePieceScoopObj = gamePieceScoop;
-        // this.eyeballobj = eyeballobj;
+        this.eyeballobj = eyeballobj;
         addRequirements(ingestorIntake, gamePieceScoop);
         // Use addRequirements() here to declare subsystem dependencies.
     }
@@ -32,9 +34,9 @@ public class IntakeCubeCmd extends CommandBase {
         // check that servo is out. If servo is in, then move it out.
         // elseIf servo is out, start wheels turning backwards
 
-        // EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        // EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
-        // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         gamePieceScoopObj.servoOff();
 
     }
@@ -46,8 +48,8 @@ public class IntakeCubeCmd extends CommandBase {
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
         
-        //EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        //eyeballobj.setEyesToDefault();
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        eyeballobj.setEyesToDefault();
         //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
         //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
     }

@@ -72,12 +72,13 @@ public final class Constants {
     // Claw and Brake Motor Speeds
     public static final double CLAW_OPEN_SPEED = 0.95;
     public static final double CLAW_CLOSE_SPEED = -1;  //was 0.95
-    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.093;
+    public static final double LOWER_BRAKE_WHEEL_SPEED = -0.095;
     public static final double RAISE_BRAKE_WHEEL_SPEED = 0.088;
-    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.4;
+    public static final double DRIVE_BRAKE_MOTOR_SPEED = 0.3;
+    public static final double DRIVE_BRAKE_MOTOR_SLOW_SPEED = 0.25;
 
     // Brake up and down positions 
-    public static final double BRAKE_ON_FLOOR = -40.0;
+    public static final double BRAKE_ON_FLOOR = -35.0;
     public static final double BRAKE_UP_POSITION = -1.0;
 
     // Arm Motor Current Limit
@@ -163,7 +164,9 @@ public final class Constants {
 
 
     // RGB VALUES FOR LED
-    public static final EyeColor PURPLE = new EyeColor(150, 5, 225); //130. 26, 116 //0 is temporary for testing
+    public static final EyeColor PURPLE = new EyeColor(160, 0, 75); //130. 26, 116 //0 is temporary for testing
+
+    //nice green r: 220, g: 150, b:0
 
     public static final EyeColor YELLOW = new EyeColor(255, 180, 21); //255, 95, 10//
 
@@ -171,7 +174,7 @@ public final class Constants {
 
     public static final EyeColor RED = new EyeColor(255, 0, 0);
 
-    public static final EyeColor BLUE = new EyeColor(25, 75, 255);  //30, 105, 255//
+    public static final EyeColor BLUE = new EyeColor(95, 95, 255);  //30, 105, 255//
 
     public static final EyeColor LED_OFF = new EyeColor(0, 0, 0);
 
@@ -181,6 +184,7 @@ public final class Constants {
     public static final EyeMovement EYE_MOVEMENT_3 = new EyeMovement(1.0, 0.0); // closes the eyelids and moves the pupils from the front of robot to the back
     public static final EyeMovement EYE_MOVEMENT_4 = new EyeMovement(1.0, 1.0); // closes the eyelids and moves the pupils from the back of robot to the front
     public static final EyeMovement EYE_MOVEMENT_5 = new EyeMovement(0.5, 0.5); // opens the eyelids and moves the pupils from the front of robot to the back
+    
    
     
 }

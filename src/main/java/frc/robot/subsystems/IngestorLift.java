@@ -19,7 +19,7 @@ public class IngestorLift extends SubsystemBase {
     private static final double topPosition = 0.0;
     //private static final double shootingPosition = -5.0;
     private static final double ingestorMotorSpeed = 0.9;
-    private static final double slowerIngestorMotorSpeed = 0.3;
+    private static final double slowerIngestorMotorSpeed = 0.25;
     /**
      * Creates a new IngestorLift.
      */
@@ -70,6 +70,7 @@ public class IngestorLift extends SubsystemBase {
         } else {
             ingestorLiftMotor.set(ingestorMotorSpeed);
             //System.out.println("********** ingestor position is raising " + positionReal);
+            //System.out.println(" ingestor speed == " + ingestorMotorSpeed);
         }
     }
 
@@ -127,7 +128,7 @@ public class IngestorLift extends SubsystemBase {
         //  ingestorStartPos is not always 0, sometimes -20.  Need to zero the encoders each time running this code
 
         goalPosition = Constants.INGESTOR_SCORE_POSITION;
-        System.out.println("ingestor encoder " + positionReal);
+        //System.out.println("ingestor encoder " + positionReal);
 
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
@@ -136,16 +137,16 @@ public class IngestorLift extends SubsystemBase {
         // if (position > goalPosition + (Math.abs(goalPosition) * 0.02)
         // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
         if (positionReal < goalPosition) {
-            ingestorLiftMotor.set(-0.1);
-            System.out.println("                            ingestor speed == " + ingestorLiftMotor.get());
-            //System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
+            ingestorLiftMotor.set(-0.13);  //TODO: test this on practice field before going on comp field!
+            //System.out.println("                            ingestor speed == " + ingestorLiftMotor.get());
+           // System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
             isAtScoring = false;
         } else if (positionReal < -20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
             ingestorLiftMotor.set(0.5); //change back 0.7,  increase speed to raise lift for faster operation
-            System.out.println("                            We are moving to the scoring position. Position: " + positionReal);
+            //System.out.println("                            We are moving to the scoring position. Position: " + positionReal);
         } else {
             ingestorLiftMotor.set(0.0);
-            System.out.println("                           Lift is at scoring" + positionReal);
+           // System.out.println("                           Lift is at scoring" + positionReal);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
             isAtScoring = true;
         }

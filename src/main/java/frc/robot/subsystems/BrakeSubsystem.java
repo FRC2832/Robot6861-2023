@@ -45,6 +45,11 @@ public class BrakeSubsystem extends SubsystemBase {
         brakeDriveMotor.set(ControlMode.PercentOutput, -Constants.DRIVE_BRAKE_MOTOR_SPEED);
     }
 
+
+    public void driveBrakeMotorSlow() {
+        brakeDriveMotor.set(ControlMode.PercentOutput, Constants.DRIVE_BRAKE_MOTOR_SLOW_SPEED);
+    }
+
     public void stopDriveBrakeMotor() {
         brakeDriveMotor.set(ControlMode.PercentOutput, 0.0);
     }
@@ -70,4 +75,5 @@ public class BrakeSubsystem extends SubsystemBase {
     public void periodic() {
         // This method will be called once per scheduler run
     }
+
 }

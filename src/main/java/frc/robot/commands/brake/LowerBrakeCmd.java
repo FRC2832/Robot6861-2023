@@ -13,14 +13,17 @@ import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class LowerBrakeCmd extends CommandBase {
-    // private final EyeSubsystem eyeballobj;
+    private final EyeSubsystem eyeballobj;
     private final BrakeSubsystem brakeSubsystemObj;
     private final Drivetrain drivetrainObj;
 
-    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, Drivetrain drivetrainObj) {
+    public LowerBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, Drivetrain drivetrainObj, EyeSubsystem eyeballobj) {
         this.brakeSubsystemObj = brakeSubsystemObj;
-        // this.eyeballobj = eyeballobj;
         this.drivetrainObj = drivetrainObj;
+        this.eyeballobj = eyeballobj;
+        //this.drivetrainObj = drivetrainObj;
+            // took this out of the parameters list above - Drivetrain drivetrainObj.  
+            //Just in case I remember why it was in there.  Don't think it's needed or wanted here.
         addRequirements(brakeSubsystemObj);
     }
 
@@ -43,6 +46,8 @@ public class LowerBrakeCmd extends CommandBase {
     public void execute() {
         if (brakeSubsystemObj.getBrakeEncoder() < (Constants.BRAKE_ON_FLOOR)) {
             brakeSubsystemObj.stopBrakes();
+            
+
             // eyeballobj.setEyesToDefault();
             // System.out.println(" Eye setDefaultColor = " +
             // EyeSubsystem.getDefaultColor());
@@ -50,14 +55,32 @@ public class LowerBrakeCmd extends CommandBase {
         } else { // Moves the brake drops down
             brakeSubsystemObj.lowerBrakes();
             brakeSubsystemObj.getBrakeEncoder();
-            // eyeballobj.setEyesToDefault();
+            brakeSubsystemObj.driveBrakeMotorSlow();
+
+
+           //EyeSubsystem.setDefaultColor(Constants.PURPLE);
+            //eyeballobj.setEyesToDefault();
             // System.out.println(" Eye setDefaultColor = " +
             // EyeSubsystem.getDefaultColor());
             // System.out.println("*********************** Brake Encoder: " +
             // brakeSubsystemObj.getBrakeEncoder());
         }
 
+        if (drivetrainObj.getPitch() < -5) {       // if robot tipping forward, drive brake wheel back
+            brakeSubsystemObj.driveBrakeMotorBack();
+            //System.out.println("*******  drive brake motor backwards");
+
+        } else if (drivetrainObj.getPitch() > 5) {  // if robot tipping backward, drive brake wheel forward
+            brakeSubsystemObj.driveBrakeMotor();
+            //System.out.println("*******  drive brake motor forward");
+
+        } else {    //|| DrivetrainObj.getPitch() < 1.5)       Level on charging station, no rolling of wheel needed
+            // Stops moving the brake wheels but doesn't raise it up
+            brakeSubsystemObj.stopDriveBrakeMotor();
+            //System.out.println("*******  drive brake motor stopped");
+
     }
+}
 
     // Called once the command ends or is interrupted.
     @Override

@@ -35,8 +35,9 @@ public class ScoreCubeTeleop extends CommandBase {
         gamePieceScoopObj.servoOnTeleop();
         timer.reset();
         timer.start();
-        EyeSubsystem.setDefaultColor(Constants.WHITE); 
-        // EyeSubsystem.getDefaultColor()
+
+        EyeSubsystem.setDefaultColor(Constants.PURPLE); 
+        //EyeSubsystem.getDefaultColor()
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // Both eyes were previously EyeMovement 2
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
     }
@@ -45,8 +46,8 @@ public class ScoreCubeTeleop extends CommandBase {
     @Override
     public void execute() {
 
-        // EyeSubsystem.setDefaultColor(Constants.WHITE); // doesn't look purple
-        // EyeSubsystem.getDefaultColor()
+        EyeSubsystem.setDefaultColor(Constants.PURPLE); 
+        //EyeSubsystem.getDefaultColor();
         // EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // Both eyes
         // were previously EyeMovement 2
         // EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
