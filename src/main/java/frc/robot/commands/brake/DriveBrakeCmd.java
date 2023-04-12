@@ -9,50 +9,53 @@ import frc.robot.subsystems.BrakeSubsystem;
 import frc.robot.subsystems.Drivetrain;
 
 public class DriveBrakeCmd extends CommandBase {
-  /** Creates a new DriveBrakeCmd. */
+    /**
+     * Creates a new DriveBrakeCmd.
+     */
 
-    private BrakeSubsystem brakeSubsystemObj;
-    private Drivetrain DrivetrainObj;
+    private final BrakeSubsystem brakeSubsystemObj;
+    private Drivetrain drivetrainObj;
 
-  public DriveBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled) {
-    // Use addRequirements() here to declare subsystem dependencies.
+    public DriveBrakeCmd(BrakeSubsystem brakeSubsystemObj, boolean isDriverControlled, Drivetrain drivetrainObj) {
+        // Use addRequirements() here to declare subsystem dependencies.
         this.brakeSubsystemObj = brakeSubsystemObj;
         addRequirements(brakeSubsystemObj);
-  }
+    }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {}
+    // Called when the command is initially scheduled.
+    @Override
+    public void initialize() {
+    }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
+    // Called every time the scheduler runs while the command is scheduled.
+    @Override
+    public void execute() {
 
-    if (DrivetrainObj.getPitch() < -4) {       // if robot tipping forward, drive brake wheel back
-        brakeSubsystemObj.driveBrakeMotorBack();
-        //System.out.println("*******  drive brake motor backwards");
+        if (drivetrainObj.getPitch() < -5) {       // if robot tipping forward, drive brake wheel back
+            brakeSubsystemObj.driveBrakeMotorBack();
+            //System.out.println("*******  drive brake motor backwards");
 
-    } else if (DrivetrainObj.getPitch() > 4) {  // if robot tipping backward, drive brake wheel forward
-        brakeSubsystemObj.driveBrakeMotor();
-        //System.out.println("*******  drive brake motor forward");
-        
-    } else {    //|| DrivetrainObj.getPitch() < 1.5)       Level on charging station, no rolling of wheel needed
-        // Stops moving the brake wheels but doesn't raise it up
-        brakeSubsystemObj.stopDriveBrakeMotor();  
-        //System.out.println("*******  drive brake motor stopped");
-        
-     }
-  }
+        } else if (drivetrainObj.getPitch() > 5) {  // if robot tipping backward, drive brake wheel forward
+            brakeSubsystemObj.driveBrakeMotor();
+            //System.out.println("*******  drive brake motor forward");
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    brakeSubsystemObj.stopDriveBrakeMotor();
-  }
+        } else {    //|| DrivetrainObj.getPitch() < 1.5)       Level on charging station, no rolling of wheel needed
+            // Stops moving the brake wheels but doesn't raise it up
+            brakeSubsystemObj.stopDriveBrakeMotor();
+            //System.out.println("*******  drive brake motor stopped");
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+        }
+    }
+
+    // Called once the command ends or is interrupted.
+    @Override
+    public void end(boolean interrupted) {
+        brakeSubsystemObj.stopDriveBrakeMotor();
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        return false;
+    }
 }

@@ -12,17 +12,19 @@ import frc.robot.subsystems.IngestorIntake;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class IntakeCubeCmd extends CommandBase {
-    /** Creates a new ScoreCubeCmd. */
-    private IngestorIntake ingestorIntakeObj;
-    private GamePieceScoop gamePieceScoopObj;
-    private EyeSubsystem eyeballobj;
     private static final Timer intakeTimer = new Timer();
+    /**
+     * Creates a new ScoreCubeCmd.
+     */
+    private final IngestorIntake ingestorIntakeObj;
+    private final GamePieceScoop gamePieceScoopObj;
+    private final EyeSubsystem eyeballobj;
 
     public IntakeCubeCmd(IngestorIntake ingestorIntake, GamePieceScoop gamePieceScoop, EyeSubsystem eyeballobj) {
         this.ingestorIntakeObj = ingestorIntake;
         this.gamePieceScoopObj = gamePieceScoop;
         this.eyeballobj = eyeballobj;
-        addRequirements(ingestorIntake, gamePieceScoop, eyeballobj);
+        addRequirements(ingestorIntake, gamePieceScoop);
         // Use addRequirements() here to declare subsystem dependencies.
     }
 
@@ -33,8 +35,8 @@ public class IntakeCubeCmd extends CommandBase {
         // elseIf servo is out, start wheels turning backwards
 
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         gamePieceScoopObj.servoOff();
 
     }
@@ -45,19 +47,20 @@ public class IntakeCubeCmd extends CommandBase {
         // System.out.println("-------- IntakeCubeCmd: execute --------------");
         ingestorIntakeObj.revIn();
         gamePieceScoopObj.servoOff();
+        
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
         eyeballobj.setEyesToDefault();
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_4);
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
     }
-
 
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
         ingestorIntakeObj.stop();
-        EyeSubsystem.setDefaultColor(Constants.WHITE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        //EyeSubsystem.setDefaultColor(Constants.WHITE);
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         // intakeTimer.stop();
     }
 
@@ -65,8 +68,5 @@ public class IntakeCubeCmd extends CommandBase {
     @Override
     public boolean isFinished() {
         return intakeTimer.get() > 1.5;
-
-    
-
     }
 }

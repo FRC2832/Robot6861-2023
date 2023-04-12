@@ -6,15 +6,17 @@ package frc.robot.commands.ingestor.lift;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
 import frc.robot.subsystems.eyes.EyeSubsystem;
-import frc.robot.Constants;
 
 public class LowerIngestorLiftCmd extends CommandBase {
-    /** Creates a new MoveIngestorLiftCmd. */
+    private static final Timer timer = new Timer();
+    /**
+     * Creates a new MoveIngestorLiftCmd.
+     */
 
-    private IngestorLift ingestorLiftObj;
-    private static Timer timer = new Timer();
+    private final IngestorLift ingestorLiftObj;
     private boolean done;
 
     public LowerIngestorLiftCmd(IngestorLift ingestorLift) {
@@ -27,6 +29,9 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
+        EyeSubsystem.setDefaultColor(Constants.PURPLE);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
         // Zero the encoders
     }
 
@@ -34,8 +39,9 @@ public class LowerIngestorLiftCmd extends CommandBase {
     @Override
     public void execute() {
         EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_2); // TODO: Change this. Eye closes.
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_2);
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5); // TODO: Change this. Eye closes.
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        
         ingestorLiftObj.lowerLiftToIngest();
 
     }
@@ -45,6 +51,8 @@ public class LowerIngestorLiftCmd extends CommandBase {
     public void end(boolean interrupted) {
         // Bring the ingestorLift back to its default position
         ingestorLiftObj.stopLift();
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+
         EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
         EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
         // System.out.println("LowerIngestorLiftCmd stopped.");

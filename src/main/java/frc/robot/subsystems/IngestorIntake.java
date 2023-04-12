@@ -8,25 +8,25 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorIntake extends SubsystemBase {
-    /** Creates a new IngestorIntake. */
+    //private static final Timer timer = new Timer();
+    /**
+     * Creates a new IngestorIntake.
+     */
 
-    private TalonSRX ingestorIntakeTopTalon;
-    private TalonSRX ingestorIntakeBottomTalon;
-    private DigitalInput ingestorBeamBreak;
-    private static Timer timer = new Timer();
+    private final TalonSRX ingestorIntakeTopTalon;
+    private final TalonSRX ingestorIntakeBottomTalon;
+    private final DigitalInput ingestorBeamBreak;
 
     public IngestorIntake(TalonSRX ingestorIntakeTopTalon) {
         this.ingestorIntakeTopTalon = ingestorIntakeTopTalon;
         ingestorIntakeTopTalon = new TalonSRX(Constants.INGESTOR_INTAKE_UPPER_TALON);
         ingestorIntakeBottomTalon = new TalonSRX(Constants.INGESTOR_INTAKE_LOWER_TALON);
         ingestorBeamBreak = new DigitalInput(Constants.DIGITAL_INPUT_BEAM);
-
     }
 
     public void revIn() {
@@ -34,36 +34,33 @@ public class IngestorIntake extends SubsystemBase {
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, Constants.INGESTOR_INTAKE_SPEED);
         //System.out.println("++++++++    revIn() called    ++++++++");
     }
+
     public void revOut(double speedTop, double speedBottom) {
         ingestorIntakeTopTalon.set(ControlMode.PercentOutput, speedTop);
         ingestorIntakeBottomTalon.set(ControlMode.PercentOutput, speedBottom);
         //System.out.println("ooooooo    revOUt(2 speeds) called    ooooooo");
     }
-    
+
     public CommandBase revOutIngestorIntake(double speed) {
-   
         return run(
                 () -> {
-                   
-                        revOut(speed, speed);
-                    });
-                         
-                    //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
-                }
-        
-        
 
-    public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
-   
-    return run(
-            () -> {
-                revOut(speedTop, speedBottom);
-                //System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
-
-            });
+                    revOut(speed, speed);
+                });
+        //System.out.println("***********************  revOut: " + speed + " " + speed + "  ***********************");
     }
 
-    public CommandBase revInIngestorIntake() {   
+
+    public CommandBase revOutIngestorIntakeNew(double speedTop, double speedBottom) {
+        return run(
+                () -> {
+                    revOut(speedTop, speedBottom);
+                    //System.out.println("***********************  revOutingestorintake: " + speedTop + " " + speedBottom + "  ***********************");
+
+                });
+    }
+
+    public CommandBase revInIngestorIntake() {
         return run(
                 () -> {
                     revIn();
@@ -84,7 +81,6 @@ public class IngestorIntake extends SubsystemBase {
 
     public CommandBase ingestorBeamBreakCmd() {  // not using beam sensor - it's values read 
         //by Rio are inconsistent, even though the red LED is stabe
-       
         return run(
                 () -> {
                     getIngestorBeamBreakValue();
@@ -98,7 +94,6 @@ public class IngestorIntake extends SubsystemBase {
 
     public boolean isInScoop() {
         return false;
-       
     }
 
     @Override

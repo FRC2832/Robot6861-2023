@@ -7,37 +7,39 @@ package frc.robot.subsystems;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.ControlType;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxPIDController;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class IngestorLift extends SubsystemBase {
-    /** Creates a new IngestorLift. */
-
-    private CANSparkMax ingestorLiftMotor;
-    private SparkMaxPIDController liftPIDController;
-    public RelativeEncoder liftEncoder;
-    private double goalPosition;
     private static final double topPosition = 0.0;
-    private static final double shootingPosition = -5.0;
-    private DigitalInput ingestorLimitInput;
-    private static double ingestorMotorSpeed = 0.9;
-    private static double slowerIngestorMotorSpeed = 0.3;
+    //private static final double shootingPosition = -5.0;
+    private static final double ingestorMotorSpeed = 0.9;
+    private static final double slowerIngestorMotorSpeed = 0.25;
+    /**
+     * Creates a new IngestorLift.
+     */
+
+    private final CANSparkMax ingestorLiftMotor;
+    private final SparkMaxPIDController liftPIDController;
+    private final RelativeEncoder liftEncoder;
+    private final DigitalInput ingestorLimitInput;
+    double positionReal;
+    private double goalPosition;
     private boolean isAtScoring;
     private boolean isHomed;
-    double positionReal;
 
     public IngestorLift() {
-        ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMax.MotorType.kBrushless);
+        ingestorLiftMotor = new CANSparkMax(Constants.INGESTOR_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);
         liftEncoder = ingestorLiftMotor.getEncoder();
         liftPIDController = ingestorLiftMotor.getPIDController();
         liftPIDController.setFeedbackDevice(liftEncoder);
         ingestorLimitInput = new DigitalInput(1);
-        
+
 
         ingestorLiftMotor.setSmartCurrentLimit(Constants.INGESTOR_MOTOR_CURRENT_LIMIT_AMPS);
 
@@ -55,7 +57,7 @@ public class IngestorLift extends SubsystemBase {
     public void raiseLift() {
         // TODO: Change to shooting position
         isAtScoring = false;
-        goalPosition = topPosition; 
+        goalPosition = topPosition;
         double positionReal = liftEncoder.getPosition();
         // liftPIDController.setReference(goalPosition, ControlType.kPosition);
         if (positionReal > 15 || positionReal < -170) {
@@ -68,9 +70,8 @@ public class IngestorLift extends SubsystemBase {
         } else {
             ingestorLiftMotor.set(ingestorMotorSpeed);
             //System.out.println("********** ingestor position is raising " + positionReal);
+            //System.out.println(" ingestor speed == " + ingestorMotorSpeed);
         }
-        
-
     }
 
     public void lowerLiftToIngest() {
@@ -84,11 +85,11 @@ public class IngestorLift extends SubsystemBase {
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
         // number than the top position and the bottom position is not zero
-    
+
         if (position < goalPosition + (Math.abs(goalPosition) * 0.02)) {
             //System.out.println("********** ingestor is lowering to " + position);
-            ingestorLiftMotor.set(-0.9); 
-           
+            ingestorLiftMotor.set(-0.9);
+
         } else {
             ingestorLiftMotor.set(0.0);
             // System.out.println("Lowering to ingest. Current position is " + position);
@@ -98,11 +99,9 @@ public class IngestorLift extends SubsystemBase {
         isAtScoring = false;
         // System.out.println("isAtBottom after lowerLiftToIngest - " + isAtBottom);
         // System.out.println("isHomed after lowerLiftToIngest - " + isHomed);
-
     }
 
     public boolean lowerLiftToExpel() {
-       
         goalPosition = Constants.INGESTOR_EXPEL_POSITION;
         double position = Math.abs(liftEncoder.getPosition());
         boolean flag;
@@ -111,7 +110,6 @@ public class IngestorLift extends SubsystemBase {
             ingestorLiftMotor.set(-0.9); //change back to -.9
             //System.out.println("********** ingestor is lowering to expel" + position);
             flag = false;
-    
         } else {
             ingestorLiftMotor.set(0.0);
             flag = true;
@@ -126,29 +124,29 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public void lowerLiftToScore() {
-        
         double positionReal = liftEncoder.getPosition();
-       //  ingestorStartPos is not always 0, sometimes -20.  Need to zero the encoders each time running this code
-        
-       goalPosition = Constants.INGESTOR_SCORE_POSITION;
-        System.out.println("ingestor encoder " + positionReal);
+        //  ingestorStartPos is not always 0, sometimes -20.  Need to zero the encoders each time running this code
+
+        goalPosition = Constants.INGESTOR_SCORE_POSITION;
+        //System.out.println("ingestor encoder " + positionReal);
 
         // follow the pid until the ingestor is 98% of the way there then let it drop
         // this if statement is set up for the case where the bottom position is a lower
         // number than the top position and the bottom position is not zero
-        
+
         // if (position > goalPosition + (Math.abs(goalPosition) * 0.02)
         // || position < goalPosition - (Math.abs(goalPosition) * 0.02)) {
         if (positionReal < goalPosition) {
-            ingestorLiftMotor.set(-0.1);
-            //System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
+            ingestorLiftMotor.set(-0.13);  //TODO: test this on practice field before going on comp field!
+            //System.out.println("                            ingestor speed == " + ingestorLiftMotor.get());
+           // System.out.println("Poisiton Real is = " + positionReal + "And Ingestor lift motor speed = " + ingestorLiftMotor.get());
             isAtScoring = false;
         } else if (positionReal < -20.0) { // position changed to 20 from 30 to keep ingestor lift tucked in our frame a bit more
             ingestorLiftMotor.set(0.5); //change back 0.7,  increase speed to raise lift for faster operation
-            //System.out.println("We are moving to the scoring position. Position: " + positionReal);
+            //System.out.println("                            We are moving to the scoring position. Position: " + positionReal);
         } else {
             ingestorLiftMotor.set(0.0);
-            //System.out.println(" Lift is at scoring" + positionReal);
+           // System.out.println("                           Lift is at scoring" + positionReal);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
             isAtScoring = true;
         }
@@ -165,7 +163,7 @@ public class IngestorLift extends SubsystemBase {
         } else {
             goalPosition = percent * (topPosition - Constants.INGESTOR_BOTTOM_POSITION)
                     + Constants.INGESTOR_BOTTOM_POSITION;
-            
+
             liftPIDController.setReference(goalPosition, ControlType.kPosition);
             ingestorLiftMotor.setIdleMode(IdleMode.kBrake);
         }
@@ -185,7 +183,7 @@ public class IngestorLift extends SubsystemBase {
         ingestorLiftMotor.set(0.0);
         return ingestorLimitInput.get() || Math.abs(liftEncoder.getPosition()) < 3.0;
 
-        // during Jackson comp, limit switch broke so we aded this OR for added
+        // during Jackson comp, limit switch broke, so we added this OR for added
         // robustness
     }
 
@@ -210,13 +208,11 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public CommandBase raiseIngestorLift() {
-        
         return run(
                 () -> {
                     if (isAtTop()) {
                         ingestorLiftMotor.set(0.0);
                         liftEncoder.setPosition(0.0);
-
                     } else {
                         raiseLift();
                     }
@@ -224,7 +220,6 @@ public class IngestorLift extends SubsystemBase {
     }
 
     public CommandBase lowerIngestorLift() {
-       
         return run(
                 () -> {
                     if (isAtBottom()) {
@@ -241,9 +236,9 @@ public class IngestorLift extends SubsystemBase {
         return run(
                 () -> {
                     if (isAtBottom()) {
-                        
+
                     } else {
-                    
+
                     }
                 });
     }

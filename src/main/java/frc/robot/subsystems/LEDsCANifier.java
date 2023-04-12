@@ -1,13 +1,12 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.CANifier;
-
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class LEDsCANifier extends SubsystemBase {
 
-    private CANifier clights;
+    private final CANifier clights;
 
     public LEDsCANifier() {
         clights = new CANifier(4);

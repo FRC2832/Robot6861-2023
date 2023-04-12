@@ -1,15 +1,15 @@
-
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 // test change
 
 package frc.robot.subsystems;
+
 import com.ctre.phoenix.sensors.WPI_PigeonIMU;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel;
 import com.revrobotics.RelativeEncoder;
-
 import edu.wpi.first.math.estimator.MecanumDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
@@ -24,27 +24,24 @@ public class Drivetrain extends SubsystemBase {
     // Make sure to ask electrical for this necessary information
 
     //Motor controllers:
-    private CANSparkMax leftFrontSpark;
-    private CANSparkMax leftBackSpark;
-    private CANSparkMax rightFrontSpark;
-    private CANSparkMax rightBackSpark;
+    private final CANSparkMax leftFrontSpark;
+    private final CANSparkMax leftBackSpark;
+    private final CANSparkMax rightFrontSpark;
+    private final CANSparkMax rightBackSpark;
 
 
-    private MecanumDrive mecanumDriveObj;
-    private MecanumDrivePoseEstimator poseEstimator;
-
-
+    private final MecanumDrive mecanumDriveObj;
     // Drive Motor Encoders:
-    private RelativeEncoder leftFrontEncoderObj;
-    private RelativeEncoder leftBackEncoderObj;
-    private RelativeEncoder rightFrontEncoderObj;
-    private RelativeEncoder rightBackEncoderObj;
+    private final RelativeEncoder leftFrontEncoderObj;
+    private final RelativeEncoder leftBackEncoderObj;
+    private final RelativeEncoder rightFrontEncoderObj;
+    private final RelativeEncoder rightBackEncoderObj;
+    // Pigeon IMU also used for gyro:
+    private final WPI_PigeonIMU pigeon;
 
     //private JoystickSubsystem joystickSubsystemObj;
+    private MecanumDrivePoseEstimator poseEstimator;
 
-    // Pigeon IMU also used for gyro:
-    private WPI_PigeonIMU pigeon;
-    
 
     //TODO: Add odomtery class for tracking robot pose
 
@@ -53,11 +50,11 @@ public class Drivetrain extends SubsystemBase {
         // initialize stuff here
 
         // Spark max
-        leftFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless);
-        rightFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_FRONT_SPARK, CANSparkMax.MotorType.kBrushless);
-        leftBackSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
-        rightBackSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_BACK_SPARK, CANSparkMax.MotorType.kBrushless);
-        
+        leftFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_FRONT_SPARK, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightFrontSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_FRONT_SPARK, CANSparkMaxLowLevel.MotorType.kBrushless);
+        leftBackSpark = new CANSparkMax(Constants.DRIVETRAIN_LEFT_BACK_SPARK, CANSparkMaxLowLevel.MotorType.kBrushless);
+        rightBackSpark = new CANSparkMax(Constants.DRIVETRAIN_RIGHT_BACK_SPARK, CANSparkMaxLowLevel.MotorType.kBrushless);
+
         mecanumDriveObj = new MecanumDrive(leftFrontSpark, leftBackSpark, rightFrontSpark, rightBackSpark);
 
         // Encoder for the spark max
@@ -83,11 +80,10 @@ public class Drivetrain extends SubsystemBase {
         leftBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
         rightBackSpark.setOpenLoopRampRate(Constants.DRIVETRAIN_MOTOR_RAMP_RATE);
 
-        
+
         // Pose/Orientation
         // poseEstimator = null;
 
-    
 
         // need to limit current for mecanum to keep battery from dropping so low we can't drive
         leftFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
@@ -95,10 +91,10 @@ public class Drivetrain extends SubsystemBase {
         rightFrontSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
         rightBackSpark.setSmartCurrentLimit(Constants.DRIVETRAIN_MOTOR_CURRENT_LIMIT_AMPS);
 
-        mecanumDriveObj.setMaxOutput(0.95);
+        mecanumDriveObj.setMaxOutput(0.99);
         /*  maxOutput must be less than 1 to avoid overloading the battery and 
-             not being able to drive. */ 
-             
+             not being able to drive. */
+
         // mecanumDriveObj.setSafetyEnabled(false);
     }
 
@@ -115,18 +111,19 @@ public class Drivetrain extends SubsystemBase {
         //SlewRateLimiter filterFwdBack = new SlewRateLimiter(Constants.FORWARD_BACK_SLEW_RATE);
         //SlewRateLimiter filterLeftRight = new SlewRateLimiter(Constants.LEFT_RIGHT_SLEW_RATE);
         mecanumDriveObj.driveCartesian(xSpeed, ySpeed, zRotation);
+        //System.out.println("xSpeed: " + xSpeed + " ySpeed: " + ySpeed + " zRotation: " + zRotation);
         //mecanumDriveObj.driveCartesian(filterLeftRight.calculate(xSpeed), filterFwdBack.calculate(ySpeed), zRotation);
     }
 
     public double getPitch() {
-        double ypr[] = new double[3];
+        double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         return ypr[1];
     }
 
 
     public double getYaw() {
-        double ypr[] = new double[3];
+        double[] ypr = new double[3];
         pigeon.getYawPitchRoll(ypr);
         return ypr[0];
     }
@@ -157,15 +154,16 @@ public class Drivetrain extends SubsystemBase {
     }
 
     public double getEncoderDistance() {
-        System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
+        //System.out.println("rightFrontEncoder = " + rightFrontEncoderObj.getPosition());
         return rightFrontEncoderObj.getPosition() * Constants.DRIVETRAIN_WHEEL_DIAMETER * Math.PI * 1;
-        
+
     }
+
     public void resetEncoders() {
-        leftFrontEncoderObj.setPosition(0);
-        rightFrontEncoderObj.setPosition(0);
-        leftBackEncoderObj.setPosition(0);
-        rightBackEncoderObj.setPosition(0);
+        leftFrontEncoderObj.setPosition(0.0);
+        rightFrontEncoderObj.setPosition(0.0);
+        leftBackEncoderObj.setPosition(0.0);
+        rightBackEncoderObj.setPosition(0.0);
     }
 
     public Pose2d getPose() {

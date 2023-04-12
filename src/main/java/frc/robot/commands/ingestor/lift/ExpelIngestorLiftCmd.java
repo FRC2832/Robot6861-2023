@@ -7,16 +7,16 @@ package frc.robot.commands.ingestor.lift;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Constants;
 import frc.robot.subsystems.IngestorLift;
-import frc.robot.subsystems.eyes.EyeMovement;
 import frc.robot.subsystems.eyes.EyeSubsystem;
 
 public class ExpelIngestorLiftCmd extends CommandBase {
-    /** Creates a new MoveIngestorLiftCmd. */
+    private static final Timer timer = new Timer();
+    /**
+     * Creates a new MoveIngestorLiftCmd.
+     */
 
-    private IngestorLift ingestorLiftObj;
-    private static Timer timer = new Timer();
+    private final IngestorLift ingestorLiftObj;
     private boolean done;
 
     public ExpelIngestorLiftCmd(IngestorLift ingestorLift) {
@@ -29,22 +29,23 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     public void initialize() {
         timer.reset();
         timer.start();
-        //System.out.println("ScoreIngestorLiftCmd started.");
-        //isHomed = ingestorLiftObj.isAtTop();
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+        // System.out.println("ScoreIngestorLiftCmd started.");
+        // isHomed = ingestorLiftObj.isAtTop();
         // Zero the encoders
     }
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
     public void execute() {
-        
-        done = ingestorLiftObj.lowerLiftToExpel();
 
-        EyeSubsystem.setDefaultColor(Constants.PURPLE);
-        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_1);
-        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        done = ingestorLiftObj.lowerLiftToExpel();
+        //EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_5);
+        //EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_5);
+        //EyeSubsystem.setDefaultColor(Constants.WHITE);
         // Move the lift to the shooting position
-      
 
     }
 
@@ -53,6 +54,10 @@ public class ExpelIngestorLiftCmd extends CommandBase {
     public void end(boolean interrupted) {
         // Bring the ingestorLift back to its default position
         ingestorLiftObj.stopLift();
+        EyeSubsystem.setDefaultMovementLeft(Constants.EYE_MOVEMENT_4);
+        EyeSubsystem.setDefaultMovementRight(Constants.EYE_MOVEMENT_1);
+        EyeSubsystem.setDefaultColor(Constants.WHITE);
+
     }
 
     // Returns true when the command should end.
